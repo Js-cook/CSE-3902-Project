@@ -72,7 +72,7 @@ NPCs and neutral projectiles
 - Flame in old man room
 - Link's bombs
 
-## Bugs and Known Issues
+## Bugs and Known Issues (yet)
 - ...
 
 ## Metrics
