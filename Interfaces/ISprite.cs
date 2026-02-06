@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interfaces
+internal interface ISprite
 {
-    public interface IController
-    {
-        void Update();
-    }
-
+    public void SpriteDraw();
+    public void Update();
 }
+

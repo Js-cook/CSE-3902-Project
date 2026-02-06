@@ -2,10 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using Controllers;
+
 namespace _3902_Project
 {
     public class Game1 : Game
     {
+        private Controllers.IKeyboard keyboardController = new Controllers.IKeyboard();
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -31,12 +35,9 @@ namespace _3902_Project
         }
 
         protected override void Update(GameTime gameTime)
-        {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
+        { 
             // TODO: Add your update logic here
-
+            keyboardController.Update();
             base.Update(gameTime);
         }
 
