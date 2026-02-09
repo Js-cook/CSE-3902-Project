@@ -12,8 +12,10 @@ using System.Threading.Tasks;
 public class Link
 {
     private Vector2 position;
-    private ISprite sprite;
-    private IPlayerState playerState;
+    public ISprite Sprite { get; set; }
+    // idk if this should be public
+    public IPlayerState playerState { get; set; }
+    
 
     public Link()
     {

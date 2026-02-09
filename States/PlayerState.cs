@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
+using Sprites;
+
 
 public class LeftMovingPlayerState : Interfaces.IPlayerState
 {
@@ -14,9 +16,21 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
         this.player = player;
     }
 
-    public void ChangeDirection()
+    public void ChangeDirection(String Direction)
     {
-
+        switch (Direction)
+        {
+            case "up":
+                player.playerState = new UpMovingPlayerState(player);
+                //player.Sprite = UpMovingPlayerSprite()
+                break;
+            case "down":
+                player.playerState = new DownMovingPlayerState(player);
+                break;
+            case "right":
+                player.playerState = new RightMovingPlayerState(player);
+                break;
+        }
     }
 
     public void BeDead()

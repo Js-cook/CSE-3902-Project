@@ -8,6 +8,53 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Sprites
 {
+    // Need a big class to manage textures and creations
+    public class PlayerSpriteFactory
+    {
+        private Texture2D playerTexture;
+        private SpriteBatch spriteBatch;
+        public PlayerSpriteFactory(Texture2D playerTexture, SpriteBatch spriteBatch)
+        {
+            this.playerTexture = playerTexture;
+            this.spriteBatch = spriteBatch;
+        }
+
+        public ISprite CreateRightMovingPlayerSprite(Vector2 position)
+        {
+            return new RightMovingPlayerSprite(playerTexture, position, spriteBatch);
+        }
+        public ISprite CreateLeftMovingPlayerSprite(Vector2 position)
+        {
+            return new LeftMovingPlayerSprite(playerTexture, position, spriteBatch);
+        }
+        public ISprite CreateUpMovingPlayerSprite(Vector2 position)
+        {
+            return new UpMovingPlayerSprite(playerTexture, position, spriteBatch);
+        }
+        public ISprite CreateDownMovingPlayerSprite(Vector2 position)
+        {
+            return new DownMovingPlayerSprite(playerTexture, position, spriteBatch);
+        }
+        public ISprite CreateRightIdlePlayerSprite(Vector2 position)
+        {
+            return new RightIdlePlayerSprite(playerTexture, position, spriteBatch);
+        }
+        public ISprite CreateLeftIdlePlayerSprite(Vector2 position)
+        {
+            return new LeftIdlePlayerSprite(playerTexture, position, spriteBatch);
+        }
+        public ISprite CreateUpIdlePlayerSprite(Vector2 position)
+        {
+            return new UpIdlePlayerSprite(playerTexture, position, spriteBatch);
+        }
+        public ISprite CreateDownIdlePlayerSprite(Vector2 position)
+        {
+            return new DownIdlePlayerSprite(playerTexture, position, spriteBatch);
+        }
+
+    }
+
+
     public class RightMovingPlayerSprite : ISprite
     {
         private Texture2D texture;

@@ -11,6 +11,9 @@ namespace Controllers
 {
     public class IKeyboard : Interfaces.IController
     {
+
+        private Link player;
+
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
@@ -19,21 +22,22 @@ namespace Controllers
             if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
             {
                 // link go up
+                player.playerState.ChangeDirection();
             }
 
             if (keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S))
             {
-                // link go up
+                // link go down
             }
 
             if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
             {
-                // link go up
+                // link go left
             }
 
             if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
             {
-                // link go up
+                // link go right
             }
         }
     }
