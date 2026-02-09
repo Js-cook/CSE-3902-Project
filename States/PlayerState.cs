@@ -10,10 +10,12 @@ using Sprites;
 public class LeftMovingPlayerState : Interfaces.IPlayerState
 {
     private Link player;
+    private PlayerSpriteFactory spriteFactory; // create at start of game and will need a reference to player
 
-    public LeftMovingPlayerState(Link player)
+    public LeftMovingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
         this.player = player;
+        this.spriteFactory = spriteFactory;
     }
 
     public void ChangeDirection(String Direction)
@@ -22,6 +24,7 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
         {
             case "up":
                 player.playerState = new UpMovingPlayerState(player);
+                player.Sprite = spriteFactory.CreateUpMovingPlayerSprite(player.position);
                 //player.Sprite = UpMovingPlayerSprite()
                 break;
             case "down":
@@ -67,7 +70,7 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
     {
         this.player = player;
     }
-    public void ChangeDirection()
+    public void ChangeDirection(String Direction)
     {
 
     }
@@ -106,7 +109,7 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
     {
         this.player = player;
     }
-    public void ChangeDirection()
+    public void ChangeDirection(String Direction)
     {
 
     }
@@ -146,7 +149,7 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
         this.player = player;
     }
 
-    public void ChangeDirection()
+    public void ChangeDirection(String Direction)
     {
 
     }
@@ -186,7 +189,7 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
         this.player = player;
     }
 
-    public void ChangeDirection()
+    public void ChangeDirection(String Direction)
     {
 
     }
@@ -226,7 +229,7 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
         this.player = player;
     }
 
-    public void ChangeDirection()
+    public void ChangeDirection(String Direction)
     {
 
     }
@@ -266,7 +269,7 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
         this.player = player;
     }
 
-    public void ChangeDirection()
+    public void ChangeDirection(String Direction)
     {
 
     }
@@ -306,7 +309,7 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
         this.player = player;
     }
 
-    public void ChangeDirection()
+    public void ChangeDirection(String Direction)
     {
 
     }
