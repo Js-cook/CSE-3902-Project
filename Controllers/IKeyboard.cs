@@ -22,22 +22,29 @@ namespace Controllers
             if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
             {
                 // link go up
-                player.playerState.ChangeDirection();
+                player.playerState.ChangeDirection("up");
+                player.MoveUp();
             }
 
             if (keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S))
             {
                 // link go down
+                player.playerState.ChangeDirection("down");
+                player.MoveDown();
             }
 
             if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
             {
                 // link go left
+                player.playerState.ChangeDirection("left");
+                player.MoveLeft();
             }
 
             if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
             {
                 // link go right
+                player.playerState.ChangeDirection("right");
+                player.MoveRight();
             }
         }
     }
