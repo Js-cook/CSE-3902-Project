@@ -78,7 +78,7 @@ namespace Sprites
         public void Update()
         {
             frameCounter++;
-            if(frameCounter >= 10)
+            if(frameCounter >= 5)
             {
                 currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
                 frameCounter = 0;
@@ -114,7 +114,7 @@ namespace Sprites
         public void Update()
         {
             frameCounter++;
-            if (frameCounter >= 10)
+            if (frameCounter >= 5)
             {
                 currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
                 frameCounter = 0;
@@ -149,7 +149,7 @@ namespace Sprites
         public void Update()
         {
             frameCounter++;
-            if (frameCounter >= 10)
+            if (frameCounter >= 5)
             {
                 currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
                 frameCounter = 0;
@@ -184,7 +184,7 @@ namespace Sprites
         public void Update()
         {
             frameCounter++;
-            if (frameCounter >= 10)
+            if (frameCounter >= 5)
             {
                 currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
                 frameCounter = 0;
@@ -301,9 +301,7 @@ namespace Sprites
 
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Begin();
             spriteBatch.Draw(texture, position, currentFrame, Color.White);
-            spriteBatch.End();
         }
     }
 }

@@ -21,11 +21,13 @@ namespace Controllers
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
+            Boolean movementKeyActive = false;
 
             // TODO: restructure to avoid all the ifs
             if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
             {
                 // link go up
+                movementKeyActive = true;
                 player.playerState.ChangeDirection("up");
                 player.MoveUp();
             }
@@ -33,6 +35,7 @@ namespace Controllers
             if (keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S))
             {
                 // link go down
+                movementKeyActive = true;
                 player.playerState.ChangeDirection("down");
                 player.MoveDown();
             }
@@ -40,6 +43,7 @@ namespace Controllers
             if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
             {
                 // link go left
+                movementKeyActive = true;
                 player.playerState.ChangeDirection("left");
                 player.MoveLeft();
             }
@@ -47,8 +51,14 @@ namespace Controllers
             if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
             {
                 // link go right
+                movementKeyActive = true;
                 player.playerState.ChangeDirection("right");
                 player.MoveRight();
+            }
+
+            if (!movementKeyActive)
+            {
+                player.playerState.BeIdle();
             }
         }
     }
