@@ -60,7 +60,7 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
 
     public void Update()
     {
-        player.Sprite = spriteFactory.CreateLeftMovingPlayerSprite(player.position);
+        
     }
 }
 
@@ -115,7 +115,7 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
 
     public void Update()
     {
-        player.Sprite = spriteFactory.CreateRightMovingPlayerSprite(player.position);
+        //player.Sprite = spriteFactory.CreateRightMovingPlayerSprite(player.position);
     }
 }
 
@@ -170,7 +170,7 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
 
     public void Update()
     {
-        player.Sprite = spriteFactory.CreateUpMovingPlayerSprite(player.position);
+        //player.Sprite = spriteFactory.CreateUpMovingPlayerSprite(player.position);
     }
 }
 
@@ -226,7 +226,7 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
 
     public void Update()
     {
-        player.Sprite = spriteFactory.CreateDownMovingPlayerSprite(player.position);
+        //player.Sprite = spriteFactory.CreateDownMovingPlayerSprite(player.position);
     }
 }
 

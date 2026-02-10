@@ -53,7 +53,7 @@ public class Link
 
     public void Draw()
     {
-        Sprite.SpriteDraw();
+        Sprite.SpriteDraw(position);
     }
 }
 

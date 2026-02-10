@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
@@ -58,131 +59,148 @@ namespace Sprites
     public class RightMovingPlayerSprite : ISprite
     {
         private Texture2D texture;
-        private Vector2 position;
+        //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
         private Rectangle sourceRectangle1 = new Rectangle(34, 10, 16, 17);
-        private Rectangle sourceRectangle2 = new Rectangle(34, 10, 16, 17);
+        private Rectangle sourceRectangle2 = new Rectangle(51, 10, 16, 17);
+        private int frameCounter = 0;
 
         public RightMovingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
             this.texture = texture;
-            this.position = position;
+            //this.position = position;
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
         }
 
         public void Update()
         {
-            currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
+            frameCounter++;
+            if(frameCounter >= 10)
+            {
+                currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
+                frameCounter = 0;
+            }
+
         }
 
-        public void SpriteDraw()
+        public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Begin();
             spriteBatch.Draw(texture, position, currentFrame, Color.White);
-            spriteBatch.End();
         }
     }
 
     public class LeftMovingPlayerSprite : ISprite
     {
         private Texture2D texture;
-        private Vector2 position;
+        //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
         private Rectangle sourceRectangle1 = new Rectangle(34, 10, 16, 17);
-        private Rectangle sourceRectangle2 = new Rectangle(34, 10, 16, 17);
+        private Rectangle sourceRectangle2 = new Rectangle(51, 10, 16, 17);
+        private int frameCounter = 0;
 
         public LeftMovingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
             this.texture = texture;
-            this.position = position;
+            //this.position = position;
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
         }
 
         public void Update()
         {
-            currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
+            frameCounter++;
+            if (frameCounter >= 10)
+            {
+                currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
+                frameCounter = 0;
+            }
         }
 
-        public void SpriteDraw()
+        public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Begin();
-            spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0,0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
-            spriteBatch.End();
+            spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
         }
     }
 
     public class UpMovingPlayerSprite : ISprite
     {
         private Texture2D texture;
-        private Vector2 position;
+        //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
         private Rectangle sourceRectangle1 = new Rectangle(68, 10, 16, 17);
         private Rectangle sourceRectangle2 = new Rectangle(85, 10, 16, 17);
+        private int frameCounter = 0;
 
         public UpMovingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
             this.texture = texture;
-            this.position = position;
+            //this.position = position;
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
         }
 
         public void Update()
         {
-            currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
+            frameCounter++;
+            if (frameCounter >= 10)
+            {
+                currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
+                frameCounter = 0;
+            }
         }
 
-        public void SpriteDraw()
+        public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Begin();
             spriteBatch.Draw(texture, position, currentFrame, Color.White);
-            spriteBatch.End();
         }
     }
 
     public class DownMovingPlayerSprite : ISprite
     {
         private Texture2D texture;
-        private Vector2 position;
+        //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
         private Rectangle sourceRectangle1 = new Rectangle(0, 10, 16, 17);
         private Rectangle sourceRectangle2 = new Rectangle(17, 10, 16, 17);
+        private int frameCounter = 0;
 
         public DownMovingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
             this.texture = texture;
-            this.position = position;
+            //this.position = position;
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
         }
 
         public void Update()
         {
-            currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
+            frameCounter++;
+            if (frameCounter >= 10)
+            {
+                currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
+                frameCounter = 0;
+            }
         }
 
-        public void SpriteDraw()
+        public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Begin();
             spriteBatch.Draw(texture, position, currentFrame, Color.White);
-            spriteBatch.End();
         }
     }
 
     public class RightIdlePlayerSprite : ISprite
     {
         private Texture2D texture;
-        private Vector2 position;
+        //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
@@ -191,7 +209,7 @@ namespace Sprites
         public RightIdlePlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
             this.texture = texture;
-            this.position = position;
+            //this.position = position;
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
         }
@@ -200,18 +218,16 @@ namespace Sprites
 
         }
 
-        public void SpriteDraw()
-        {
-            spriteBatch.Begin();
+        public void SpriteDraw(Vector2 position)
+        { 
             spriteBatch.Draw(texture, position, currentFrame, Color.White);
-            spriteBatch.End();
         }
     }
 
     public class LeftIdlePlayerSprite : ISprite
     {
         private Texture2D texture;
-        private Vector2 position;
+        //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
@@ -220,7 +236,7 @@ namespace Sprites
         public LeftIdlePlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
             this.texture = texture;
-            this.position = position;
+            //this.position = position;
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
         }
@@ -229,18 +245,16 @@ namespace Sprites
 
         }
 
-        public void SpriteDraw()
+        public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Begin();
             spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
-            spriteBatch.End();
         }
     }
 
     public class UpIdlePlayerSprite : ISprite
     {
         private Texture2D texture;
-        private Vector2 position;
+        //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
@@ -249,7 +263,7 @@ namespace Sprites
         public UpIdlePlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
             this.texture = texture;
-            this.position = position;
+            //this.position = position;
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
         }
@@ -258,18 +272,16 @@ namespace Sprites
         {
         }
 
-        public void SpriteDraw()
+        public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Begin();
             spriteBatch.Draw(texture, position, currentFrame, Color.White);
-            spriteBatch.End();
         }
     }
 
     public class DownIdlePlayerSprite : ISprite
     {
         private Texture2D texture;
-        private Vector2 position;
+        //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
@@ -278,7 +290,7 @@ namespace Sprites
         public DownIdlePlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
             this.texture = texture;
-            this.position = position;
+            //this.position = position;
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
         }
@@ -287,7 +299,7 @@ namespace Sprites
         {
         }
 
-        public void SpriteDraw()
+        public void SpriteDraw(Vector2 position)
         {
             spriteBatch.Begin();
             spriteBatch.Draw(texture, position, currentFrame, Color.White);
