@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
+using Microsoft.Xna.Framework;
 using Sprites;
 
 
@@ -59,7 +61,7 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
         player.Sprite = spriteFactory.CreateLeftIdlePlayerSprite(player.position);
     }
 
-    public void Update()
+    public void Update(GameTime gametime)
     {
         
     }
@@ -115,7 +117,7 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
         player.Sprite = spriteFactory.CreateRightIdlePlayerSprite(player.position);
     }
 
-    public void Update()
+    public void Update(GameTime gametime)
     {
         //player.Sprite = spriteFactory.CreateRightMovingPlayerSprite(player.position);
     }
@@ -171,7 +173,7 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
         player.Sprite = spriteFactory.CreateUpIdlePlayerSprite(player.position);
     }
 
-    public void Update()
+    public void Update(GameTime gametime)
     {
         //player.Sprite = spriteFactory.CreateUpMovingPlayerSprite(player.position);
     }
@@ -228,7 +230,7 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
         player.Sprite = spriteFactory.CreateDownIdlePlayerSprite(player.position);
     }
 
-    public void Update()
+    public void Update(GameTime gametime)
     {
         //player.Sprite = spriteFactory.CreateDownMovingPlayerSprite(player.position);
     }
@@ -281,8 +283,8 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
 
     public void BeAttacking()
     {
-        player.Sprite = spriteFactory.CreateLeftAttackingPlayerSprite(player.position);
         player.playerState = new LeftAttackingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateLeftAttackingPlayerSprite(player.position);
     }
 
     public void BeIdle()
@@ -290,7 +292,7 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
 
     }
 
-    public void Update()
+    public void Update(GameTime gametime)
     {
 
     }
@@ -342,7 +344,7 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
 
     public void BeAttacking()
     {
-
+        Debug.WriteLine("RIGHT IDLE NOT IMPLEMENTED");
     }
 
     public void BeIdle()
@@ -350,7 +352,7 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
 
     }
 
-    public void Update()
+    public void Update(GameTime gametime)
     {
 
     }
@@ -402,7 +404,7 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
 
     public void BeAttacking()
     {
-
+        Debug.WriteLine("UP IDLE NOT IMPLEMENTED");
     }
 
     public void BeIdle()
@@ -410,7 +412,7 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
 
     }
 
-    public void Update()
+    public void Update(GameTime gametime)
     {
 
     }
@@ -462,7 +464,7 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
 
     public void BeAttacking()
     {
-
+        Debug.WriteLine("DOWN IDLE NOT IMPLEMENTED");
     }
 
     public void BeIdle()
@@ -470,7 +472,7 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
 
     }
 
-    public void Update()
+    public void Update(GameTime gametime)
     {
 
     }
@@ -480,6 +482,10 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory;
+
+    private double startClock = 0.0;
+    private double animationDuration = 0.4;
+
     public LeftAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
         this.player = player;
@@ -503,9 +509,13 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
         player.playerState = new LeftIdlePlayerState(player, spriteFactory);
         player.Sprite = spriteFactory.CreateLeftIdlePlayerSprite(player.position);
     }
-    public void Update()
+    public void Update(GameTime gametime)
     {
-        // after attacking, go back to idle state
-        BeIdle();
+        startClock += gametime.ElapsedGameTime.TotalSeconds;
+        Debug.WriteLine("ATTACK STATE UPDATE");
+        if (startClock >= animationDuration)
+        {
+            BeIdle();
+        }
     }
 }

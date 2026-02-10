@@ -45,10 +45,10 @@ public class Link
         position = new Vector2(position.X + 1, position.Y);
     }
 
-    public void Update()
+    public void Update(GameTime gametime)
     {
-        playerState.Update();
-        Sprite.Update();
+        playerState.Update(gametime);
+        Sprite.Update(gametime);
     }
 
     public void Draw()

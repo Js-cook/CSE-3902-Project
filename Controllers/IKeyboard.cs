@@ -60,10 +60,9 @@ namespace Controllers
             if(keyState.IsKeyDown(Keys.N) || keyState.IsKeyDown(Keys.Z))
             {
                 player.playerState.BeAttacking();
-                Debug.WriteLine("attack");
             }
 
-            if (!movementKeyActive)
+            if (!movementKeyActive && !(player.playerState is LeftAttackingPlayerState))
             {
                 player.playerState.BeIdle();
             }

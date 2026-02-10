@@ -50,7 +50,7 @@ namespace _3902_Project
         { 
             // TODO: Add your update logic here
             keyboardController.Update();
-            player.Update();
+            player.Update(gameTime);
             base.Update(gameTime);
         }
 

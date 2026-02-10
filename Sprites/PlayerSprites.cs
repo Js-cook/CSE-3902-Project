@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 using System.IO;
 //using System;
 //using System.Collections.Generic;
@@ -80,7 +81,7 @@ namespace Sprites
             currentFrame = sourceRectangle1;
         }
 
-        public void Update()
+        public void Update(GameTime gametime)
         {
             frameCounter++;
             if(frameCounter >= 5)
@@ -116,7 +117,7 @@ namespace Sprites
             currentFrame = sourceRectangle1;
         }
 
-        public void Update()
+        public void Update(GameTime gametime)
         {
             frameCounter++;
             if (frameCounter >= 5)
@@ -151,7 +152,7 @@ namespace Sprites
             currentFrame = sourceRectangle1;
         }
 
-        public void Update()
+        public void Update(GameTime gametime)
         {
             frameCounter++;
             if (frameCounter >= 5)
@@ -186,7 +187,7 @@ namespace Sprites
             currentFrame = sourceRectangle1;
         }
 
-        public void Update()
+        public void Update(GameTime gametime)
         {
             frameCounter++;
             if (frameCounter >= 5)
@@ -218,7 +219,7 @@ namespace Sprites
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
         }
-        public void Update()
+        public void Update(GameTime gametime)
         {
 
         }
@@ -245,7 +246,7 @@ namespace Sprites
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
         }
-        public void Update()
+        public void Update(GameTime gametime)
         {
 
         }
@@ -273,7 +274,7 @@ namespace Sprites
             currentFrame = sourceRectangle1;
         }
 
-        public void Update()
+        public void Update(GameTime gametime)
         {
         }
 
@@ -300,7 +301,7 @@ namespace Sprites
             currentFrame = sourceRectangle1;
         }
 
-        public void Update()
+        public void Update(GameTime gametime)
         {
         }
 
@@ -315,6 +316,9 @@ namespace Sprites
         private Texture2D texture;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
+
+        private double attackTimer = 0.0;
+        private double attackDuration = 0.4;
 
         private Rectangle[] frameContainer =
         {
@@ -333,29 +337,29 @@ namespace Sprites
             currentFrame = frameContainer[0];
         }
 
-        public void Update()
+        public void Update(GameTime gametime)
         {
-            frameCounter++;
-            if (frameCounter < 5)
+            attackTimer += gametime.ElapsedGameTime.TotalSeconds;
+            if (attackTimer < 0.1)
             {
                 currentFrame = frameContainer[0];
             }
-            else if (frameCounter >= 5 && frameCounter < 10)
+            else if (attackTimer >= 0.1 && attackTimer < 0.2)
             {
                 currentFrame = frameContainer[1];
             }
-            else if (frameCounter >= 10 && frameCounter < 15)
+            else if (attackTimer >= 0.2 && attackTimer < 0.3)
             {
                 currentFrame = frameContainer[2];
             }
-            else if (frameCounter >= 15 && frameCounter < 20)
+            else if (attackTimer >= 0.3 && attackTimer < 0.4)
             {
                 currentFrame = frameContainer[3];
             }
-            else if(frameCounter >= 20)
+            else if(attackTimer >= 0.4)
             {
                 currentFrame = frameContainer[0];
-                frameCounter = 0;
+                attackTimer = 0.0;
             }
         }
         public void SpriteDraw(Vector2 position)
