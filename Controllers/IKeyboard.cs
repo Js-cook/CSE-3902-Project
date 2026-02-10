@@ -24,36 +24,36 @@ namespace Controllers
             Boolean movementKeyActive = false;
 
             // TODO: restructure to avoid all the ifs
-            if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
+            if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && !movementKeyActive)
             {
                 // link go up
-                movementKeyActive = true;
                 player.playerState.ChangeDirection("up");
                 player.MoveUp();
+                movementKeyActive = true;
             }
 
-            if (keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S))
+            if ((keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S)) && !movementKeyActive)
             {
                 // link go down
-                movementKeyActive = true;
                 player.playerState.ChangeDirection("down");
                 player.MoveDown();
+                movementKeyActive = true;
             }
 
-            if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
+            if ((keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A)) && !movementKeyActive)
             {
                 // link go left
-                movementKeyActive = true;
                 player.playerState.ChangeDirection("left");
                 player.MoveLeft();
+                movementKeyActive = true;
             }
 
-            if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
+            if ((keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D)) && !movementKeyActive)
             {
                 // link go right
-                movementKeyActive = true;
                 player.playerState.ChangeDirection("right");
                 player.MoveRight();
+                movementKeyActive = true;
             }
 
             if (!movementKeyActive)
