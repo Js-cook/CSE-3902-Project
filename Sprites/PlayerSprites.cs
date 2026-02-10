@@ -52,6 +52,11 @@ namespace Sprites
         {
             return new DownIdlePlayerSprite(playerTexture, position, spriteBatch);
         }
+        public ISprite CreateLeftAttackingPlayerSprite(Vector2 position)
+        {
+            return new LeftAttackingPlayerSprite(playerTexture, position, spriteBatch);
+        }
+
 
     }
 
@@ -304,6 +309,59 @@ namespace Sprites
             spriteBatch.Draw(texture, position, currentFrame, Color.White);
         }
     }
+
+    public class LeftAttackingPlayerSprite : ISprite
+    {
+        private Texture2D texture;
+        private SpriteBatch spriteBatch;
+        private Rectangle currentFrame;
+
+        private Rectangle[] frameContainer =
+        {
+            new Rectangle(0, 76, 16, 17),
+            new Rectangle(69, 76, 19, 17),
+            new Rectangle(45, 76, 23, 17),
+            new Rectangle(17, 76, 27, 17)
+        };
+
+        private int frameCounter = 0;
+
+        public LeftAttackingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
+        {
+            this.texture = texture;
+            this.spriteBatch = spriteBatch;
+            currentFrame = frameContainer[0];
+        }
+
+        public void Update()
+        {
+            frameCounter++;
+            if (frameCounter < 5)
+            {
+                currentFrame = frameContainer[0];
+            }
+            else if (frameCounter >= 5 && frameCounter < 10)
+            {
+                currentFrame = frameContainer[1];
+            }
+            else if (frameCounter >= 10 && frameCounter < 15)
+            {
+                currentFrame = frameContainer[2];
+            }
+            else if (frameCounter >= 15 && frameCounter < 20)
+            {
+                currentFrame = frameContainer[3];
+            }
+            else if(frameCounter >= 20)
+            {
+                currentFrame = frameContainer[0];
+                frameCounter = 0;
+            }
+        }
+        public void SpriteDraw(Vector2 position)
+        {
+            spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+        }
+
+    }
 }
-
-

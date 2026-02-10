@@ -22,7 +22,7 @@ public class Link
     public Link(PlayerSpriteFactory spriteFactory)
     {
         position = new Vector2(10, 10); // arbitrary starting position - change later
-        playerState = new RightMovingPlayerState(this, spriteFactory);
+        playerState = new RightIdlePlayerState(this, spriteFactory);
         Sprite = spriteFactory.CreateRightMovingPlayerSprite(position);
     }
 

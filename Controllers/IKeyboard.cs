@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +55,12 @@ namespace Controllers
                 player.playerState.ChangeDirection("right");
                 player.MoveRight();
                 movementKeyActive = true;
+            }
+
+            if(keyState.IsKeyDown(Keys.N) || keyState.IsKeyDown(Keys.Z))
+            {
+                player.playerState.BeAttacking();
+                Debug.WriteLine("attack");
             }
 
             if (!movementKeyActive)

@@ -262,6 +262,10 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
                 player.playerState = new RightMovingPlayerState(player, spriteFactory);
                 player.Sprite = spriteFactory.CreateRightMovingPlayerSprite(player.position);
                 break;
+            case "left":
+                player.playerState = new LeftMovingPlayerState(player, spriteFactory);
+                player.Sprite = spriteFactory.CreateLeftMovingPlayerSprite(player.position);
+                break;
         }
     }
 
@@ -277,7 +281,8 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
 
     public void BeAttacking()
     {
-
+        player.Sprite = spriteFactory.CreateLeftAttackingPlayerSprite(player.position);
+        player.playerState = new LeftAttackingPlayerState(player, spriteFactory);
     }
 
     public void BeIdle()
@@ -317,6 +322,10 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
             case "left":
                 player.playerState = new LeftMovingPlayerState(player, spriteFactory);
                 player.Sprite = spriteFactory.CreateLeftMovingPlayerSprite(player.position);
+                break;
+            case "right":
+                player.playerState = new RightMovingPlayerState(player, spriteFactory);
+                player.Sprite = spriteFactory.CreateRightMovingPlayerSprite(player.position);
                 break;
         }
     }
@@ -374,6 +383,10 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
                 player.playerState = new RightMovingPlayerState(player, spriteFactory);
                 player.Sprite = spriteFactory.CreateRightMovingPlayerSprite(player.position);
                 break;
+            case "up":
+                player.playerState = new UpMovingPlayerState(player, spriteFactory);
+                player.Sprite = spriteFactory.CreateUpMovingPlayerSprite(player.position);
+                break;
         }
     }
 
@@ -430,6 +443,10 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
                 player.playerState = new RightMovingPlayerState(player, spriteFactory);
                 player.Sprite = spriteFactory.CreateRightMovingPlayerSprite(player.position);
                 break;
+            case "down":
+                player.playerState = new DownMovingPlayerState(player, spriteFactory);
+                player.Sprite = spriteFactory.CreateDownMovingPlayerSprite(player.position);
+                break;
         }
     }
 
@@ -456,5 +473,39 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
     public void Update()
     {
 
+    }
+}
+
+public class LeftAttackingPlayerState : Interfaces.IPlayerState
+{
+    private Link player;
+    private PlayerSpriteFactory spriteFactory;
+    public LeftAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    {
+        this.player = player;
+        this.spriteFactory = spriteFactory;
+    }
+    public void ChangeDirection(String Direction)
+    {
+        // do nothing - can't change direction while attacking
+    }
+    public void BeDead()
+    {
+    }
+    public void BeDamaged()
+    {
+    }
+    public void BeAttacking()
+    {
+    }
+    public void BeIdle()
+    {
+        player.playerState = new LeftIdlePlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateLeftIdlePlayerSprite(player.position);
+    }
+    public void Update()
+    {
+        // after attacking, go back to idle state
+        BeIdle();
     }
 }
