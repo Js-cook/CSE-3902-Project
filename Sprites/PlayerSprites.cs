@@ -75,7 +75,7 @@ namespace Sprites
 
         public void Update()
         {
-            currentFrame = currentFrame == sourceRectangle1 ? sourceRectangle2 : sourceRectangle1;
+            currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
         }
 
         public void SpriteDraw()
@@ -106,7 +106,7 @@ namespace Sprites
 
         public void Update()
         {
-            currentFrame = currentFrame == sourceRectangle1 ? sourceRectangle2 : sourceRectangle1;
+            currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
         }
 
         public void SpriteDraw()
@@ -137,7 +137,7 @@ namespace Sprites
 
         public void Update()
         {
-            currentFrame = currentFrame == sourceRectangle1 ? sourceRectangle2 : sourceRectangle1;
+            currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
         }
 
         public void SpriteDraw()
@@ -168,7 +168,7 @@ namespace Sprites
 
         public void Update()
         {
-            currentFrame = currentFrame == sourceRectangle1 ? sourceRectangle2 : sourceRectangle1;
+            currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
         }
 
         public void SpriteDraw()

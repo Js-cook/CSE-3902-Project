@@ -13,6 +13,10 @@ namespace Controllers
     {
 
         private Link player;
+        public IKeyboard(Link player)
+        {
+            this.player = player;
+        }
 
         public void Update()
         {

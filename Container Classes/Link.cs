@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,14 @@ public class Link
     public ISprite Sprite { get; set; }
     // idk if this should be public
     public IPlayerState playerState { get; set; }
-    
+    private PlayerSpriteFactory spriteFactory;
 
-    public Link()
+
+    public Link(PlayerSpriteFactory spriteFactory)
     {
-        playerState = new RightIdlePlayerState(this);
+        position = new Vector2(10, 10); // arbitrary starting position - change later
+        playerState = new RightMovingPlayerState(this, spriteFactory);
+        Sprite = spriteFactory.CreateRightMovingPlayerSprite(position);
     }
 
     public void MoveUp() 
@@ -39,6 +43,17 @@ public class Link
     public void MoveRight()
     {
         position = new Vector2(position.X + 1, position.Y);
+    }
+
+    public void Update()
+    {
+        playerState.Update();
+        Sprite.Update();
+    }
+
+    public void Draw()
+    {
+        Sprite.SpriteDraw();
     }
 }
 
