@@ -61,6 +61,10 @@ namespace Sprites
         {
             return new RightAttackingPlayerSprite(playerTexture, position, spriteBatch);
         }
+        public ISprite CreateUpAttackingPlayerSprite(Vector2 position)
+        {
+            return new UpAttackingPlayerSprite(playerTexture, position, spriteBatch);
+        }
     }
 
 
@@ -433,10 +437,10 @@ namespace Sprites
 
         private Rectangle[] frameContainer =
         {
-            new Rectangle(0, 76, 16, 17), // WRONG VALUES PLEASE CHANGE ME
-            new Rectangle(69, 76, 19, 17),
-            new Rectangle(45, 76, 23, 17),
-            new Rectangle(17, 76, 27, 17)
+            new Rectangle(0, 108, 16, 17), // WRONG VALUES PLEASE CHANGE ME
+            new Rectangle(51, 106, 16, 19),
+            new Rectangle(34, 96, 16, 29),
+            new Rectangle(17, 96, 16, 29)
         };
 
         public UpAttackingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)

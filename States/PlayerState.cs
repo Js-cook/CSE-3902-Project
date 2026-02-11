@@ -407,6 +407,8 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
     public void BeAttacking()
     {
         Debug.WriteLine("UP IDLE NOT IMPLEMENTED");
+        player.playerState = new UpAttackingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateUpAttackingPlayerSprite(player.position);
     }
 
     public void BeIdle()
@@ -557,6 +559,45 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
     {
         startClock += gametime.ElapsedGameTime.TotalSeconds;
         if(startClock >= animationDuration)
+        {
+            BeIdle();
+        }
+    }
+}
+
+public class UpAttackingPlayerState : Interfaces.IPlayerState
+{
+    private Link player;
+    private PlayerSpriteFactory spriteFactory;
+    private double startClock = 0.0;
+    private double animationDuration = 0.4;
+    public UpAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    {
+        this.player = player;
+        this.spriteFactory = spriteFactory;
+    }
+    public void ChangeDirection(String Direction)
+    {
+        // do nothing - can't change direction while attacking
+    }
+    public void BeDead()
+    {
+    }
+    public void BeDamaged()
+    {
+    }
+    public void BeAttacking()
+    {
+    }
+    public void BeIdle()
+    {
+        player.playerState = new UpIdlePlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateUpIdlePlayerSprite(player.position);
+    }
+    public void Update(GameTime gametime)
+    {
+        startClock += gametime.ElapsedGameTime.TotalSeconds;
+        if (startClock >= animationDuration)
         {
             BeIdle();
         }
