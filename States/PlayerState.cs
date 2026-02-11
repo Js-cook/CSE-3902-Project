@@ -8,7 +8,7 @@ using Interfaces;
 using Microsoft.Xna.Framework;
 using Sprites;
 
-
+// TODO: consolidate moving states into one class and idle states into another class
 public class LeftMovingPlayerState : Interfaces.IPlayerState
 {
     private Link player;
