@@ -62,7 +62,7 @@ namespace Controllers
                 player.playerState.BeAttacking();
             }
 
-            if (!movementKeyActive && !(player.playerState is LeftAttackingPlayerState || player.playerState is RightAttackingPlayerState || player.playerState is UpAttackingPlayerState))
+            if (!movementKeyActive && !(player.playerState is LeftAttackingPlayerState || player.playerState is RightAttackingPlayerState || player.playerState is UpAttackingPlayerState || player.playerState is DownAttackingPlayerState))
             {
                 player.playerState.BeIdle();
             }
