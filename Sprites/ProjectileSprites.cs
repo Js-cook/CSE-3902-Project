@@ -37,6 +37,11 @@ public class ProjectileSpriteFactory
     {
         return new FireballSprite(projectileTexture, position, spriteBatch);
     }
+    public ISprite CreateArrowParticleSprite(Vector2 position)
+    {
+        return new ArrowParticleSprite(projectileTexture, position, spriteBatch);
+    }
+
 }
 
 public class BoomerangSprite : ISprite
@@ -113,6 +118,29 @@ public class ArrowSprite : ISprite
     public void Update(GameTime gametime)
     {
         // arrow doesn't need to animate
+    }
+}
+
+public class ArrowParticleSprite : ISprite
+{
+    private Texture2D texture;
+    private SpriteBatch spriteBatch;
+    private Vector2 position;
+
+    private Rectangle sourceRectangle = new Rectangle(52, 184, 9, 17);
+
+    public ArrowParticleSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
+    {
+        this.texture = texture;
+        this.spriteBatch = spriteBatch;
+        this.position = position;
+    }
+    public void SpriteDraw(Vector2 position)
+    {
+        spriteBatch.Draw(texture, position, sourceRectangle, Color.White);
+    }
+    public void Update(GameTime gametime)
+    {
     }
 }
 

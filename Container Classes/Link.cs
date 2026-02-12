@@ -59,6 +59,7 @@ public class Link
             if (!projectile.Active)
             {
                 markedForDeletion.Add(projectile);
+
             }
             projectile.Update(gametime);
         }
@@ -66,6 +67,10 @@ public class Link
         foreach (IProjectile projectile in markedForDeletion)
         {
             projectiles.Remove(projectile);
+            if(!(projectile is ArrowParticle))
+            {
+                projectiles.Add(new ArrowParticle(projectile.Position, "", projectileSpriteFactory));
+            }
         }
 
     }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 public class Boomerang : IProjectile
 {
     public bool Active { get; set; }
+    public Vector2 Position { get; set; }
     public Boomerang()
     {
     }
@@ -24,6 +25,7 @@ public class Boomerang : IProjectile
 
 public class MagicBoomerang : IProjectile
 {
+    public Vector2 Position { get; set; }
     public bool Active { get; set; }
     public MagicBoomerang()
     {
@@ -40,7 +42,7 @@ public class MagicBoomerang : IProjectile
 
 public class Arrow : IProjectile
 {
-    private Vector2 position;
+    public Vector2 Position { get; set; }
     string direction;
     private double startTime = 0.0;
     private double endTime = 0.5;
@@ -53,7 +55,7 @@ public class Arrow : IProjectile
 
     public Arrow(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
     {
-        this.position = position;
+        this.Position = position;
         this.direction = direction;
         this.spriteFactory = spriteFactory;
         sprite = spriteFactory.CreateArrowSprite(position, direction);
@@ -61,28 +63,31 @@ public class Arrow : IProjectile
     }
     public void Draw()
     {
-        sprite.SpriteDraw(position);
+        sprite.SpriteDraw(Position);
     }
     public void Update(GameTime gametime)
     {
         startTime += gametime.ElapsedGameTime.TotalSeconds;
+
+        Vector2 positionNew = new Vector2(Position.X, Position.Y);
         switch (direction)
         {
             case "up":
-                position.Y -= 5;
+                positionNew.Y -= 5;
                 break;
             case "down":
-                position.Y += 5;
+                positionNew.Y += 5;
                 break;
             case "left":
-                position.X -= 5;
+                positionNew.X -= 5;
                 break;
             case "right":
-                position.X += 5;
+                positionNew.X += 5;
                 break;
         }
+        Position = positionNew;
 
-        if(startTime >= endTime)
+        if (startTime >= endTime)
         {
             // do something to delete arrow
             Active = false;
@@ -92,10 +97,10 @@ public class Arrow : IProjectile
 
 public class SilverArrow : IProjectile
 {
-    private Vector2 position;
+    public Vector2 Position { get; set; }
     string direction;
     private double startTime = 0.0;
-    private double endTime = 0.5;
+    private double endTime = 1;
     public bool Active { get; set; }
 
     private ISprite sprite;
@@ -103,38 +108,72 @@ public class SilverArrow : IProjectile
 
     public SilverArrow(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
     {
-        this.position = position;
+        this.Position = position;
         this.direction = direction;
         this.spriteFactory = spriteFactory;
         sprite = spriteFactory.CreateSilverArrowSprite(position, direction);
+        Active = true;
     }
     public void Draw()
     {
-        sprite.SpriteDraw(position);
+        sprite.SpriteDraw(Position);
     }
     public void Update(GameTime gametime)
     {
         startTime += gametime.ElapsedGameTime.TotalSeconds;
 
+        Vector2 positionNew = new Vector2(Position.X, Position.Y);
         switch (direction)
         {
             case "up":
-                position.Y -= 5;
+                positionNew.Y -= 5;
                 break;
             case "down":
-                position.Y += 5;
+                positionNew.Y += 5;
                 break;
             case "left":
-                position.X -= 5;
+                positionNew.X -= 5;
                 break;
             case "right":
-                position.X += 5;
+                positionNew.X += 5;
                 break;
         }
+        Position = positionNew;
 
         if (startTime >= endTime)
         {
-            // do something to delete arrow
+            Active = false;
+        }
+    }
+}
+
+public class ArrowParticle : IProjectile
+{
+    public Vector2 Position { get; set; }
+    private double startTime = 0.0;
+    private double endTime = 0.2;
+    public bool Active { get; set; }
+
+    private ISprite sprite;
+
+    public ArrowParticle(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
+    {
+        this.Position = position;
+        sprite = spriteFactory.CreateArrowParticleSprite(position);
+        Active = true;
+    }
+    public void Draw()
+    {
+        sprite.SpriteDraw(Position);
+    }
+    public void Update(GameTime gametime)
+    {
+        startTime += gametime.ElapsedGameTime.TotalSeconds;
+
+        if (startTime >= endTime)
+        {
+            // do something to delete particle
+            Active = false;
         }
     }
 }
@@ -142,6 +181,7 @@ public class SilverArrow : IProjectile
 public class Bomb : IProjectile
 {
     public bool Active { get; set; }
+    public Vector2 Position { get; set; }
     public Bomb()
     {
     }
@@ -157,6 +197,7 @@ public class Bomb : IProjectile
 
 public class Fireball : IProjectile
 {
+    public Vector2 Position { get; set; }
     public bool Active { get; set; }
     public Fireball()
     {

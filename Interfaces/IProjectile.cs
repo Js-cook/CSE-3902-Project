@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 public interface IProjectile
 { 
     bool Active { get; set; }
+    Vector2 Position { get; set; }
     void Draw();
     void Update(GameTime gametime);
 }
