@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
 public class Boomerang : IProjectile
 {
+    public bool Active { get; set; }
     public Boomerang()
     {
     }
@@ -13,7 +16,7 @@ public class Boomerang : IProjectile
     {
         throw new NotImplementedException();
     }
-    public void Update()
+    public void Update(GameTime gametime)
     {
         throw new NotImplementedException();
     }
@@ -21,6 +24,7 @@ public class Boomerang : IProjectile
 
 public class MagicBoomerang : IProjectile
 {
+    public bool Active { get; set; }
     public MagicBoomerang()
     {
     }
@@ -28,7 +32,7 @@ public class MagicBoomerang : IProjectile
     {
         throw new NotImplementedException();
     }
-    public void Update()
+    public void Update(GameTime gametime)
     {
         throw new NotImplementedException();
     }
@@ -36,36 +40,108 @@ public class MagicBoomerang : IProjectile
 
 public class Arrow : IProjectile
 {
-    public Arrow()
+    private Vector2 position;
+    string direction;
+    private double startTime = 0.0;
+    private double endTime = 0.5;
+    public bool Active { get; set; }
+
+    private ISprite sprite;
+    private ProjectileSpriteFactory spriteFactory;
+
+    //private int velocity = 5;
+
+    public Arrow(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
     {
+        this.position = position;
+        this.direction = direction;
+        this.spriteFactory = spriteFactory;
+        sprite = spriteFactory.CreateArrowSprite(position, direction);
+        Active = true;
     }
     public void Draw()
     {
-        throw new NotImplementedException();
+        sprite.SpriteDraw(position);
     }
-    public void Update()
+    public void Update(GameTime gametime)
     {
-        throw new NotImplementedException();
+        startTime += gametime.ElapsedGameTime.TotalSeconds;
+        switch (direction)
+        {
+            case "up":
+                position.Y -= 5;
+                break;
+            case "down":
+                position.Y += 5;
+                break;
+            case "left":
+                position.X -= 5;
+                break;
+            case "right":
+                position.X += 5;
+                break;
+        }
+
+        if(startTime >= endTime)
+        {
+            // do something to delete arrow
+            Active = false;
+        }
     }
 }
 
 public class SilverArrow : IProjectile
 {
-    public SilverArrow()
+    private Vector2 position;
+    string direction;
+    private double startTime = 0.0;
+    private double endTime = 0.5;
+    public bool Active { get; set; }
+
+    private ISprite sprite;
+    private ProjectileSpriteFactory spriteFactory;
+
+    public SilverArrow(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
     {
+        this.position = position;
+        this.direction = direction;
+        this.spriteFactory = spriteFactory;
+        sprite = spriteFactory.CreateSilverArrowSprite(position, direction);
     }
     public void Draw()
     {
-        throw new NotImplementedException();
+        sprite.SpriteDraw(position);
     }
-    public void Update()
+    public void Update(GameTime gametime)
     {
-        throw new NotImplementedException();
+        startTime += gametime.ElapsedGameTime.TotalSeconds;
+
+        switch (direction)
+        {
+            case "up":
+                position.Y -= 5;
+                break;
+            case "down":
+                position.Y += 5;
+                break;
+            case "left":
+                position.X -= 5;
+                break;
+            case "right":
+                position.X += 5;
+                break;
+        }
+
+        if (startTime >= endTime)
+        {
+            // do something to delete arrow
+        }
     }
 }
 
 public class Bomb : IProjectile
 {
+    public bool Active { get; set; }
     public Bomb()
     {
     }
@@ -73,7 +149,7 @@ public class Bomb : IProjectile
     {
         throw new NotImplementedException();
     }
-    public void Update()
+    public void Update(GameTime gametime)
     {
         throw new NotImplementedException();
     }
@@ -81,6 +157,7 @@ public class Bomb : IProjectile
 
 public class Fireball : IProjectile
 {
+    public bool Active { get; set; }
     public Fireball()
     {
     }
@@ -88,7 +165,7 @@ public class Fireball : IProjectile
     {
         throw new NotImplementedException();
     }
-    public void Update()
+    public void Update(GameTime gametime)
     {
         throw new NotImplementedException();
     }

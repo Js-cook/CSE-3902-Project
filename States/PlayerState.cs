@@ -61,6 +61,10 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
         player.Sprite = spriteFactory.CreateLeftIdlePlayerSprite(player.position);
     }
 
+    public void FireArrow()
+    {
+    }
+
     public void Update(GameTime gametime)
     {
         
@@ -104,6 +108,10 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
     public void BeDamaged()
     {
 
+    }
+
+    public void FireArrow()
+    {
     }
 
     public void BeAttacking()
@@ -166,6 +174,9 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
     {
 
     }
+    public void FireArrow()
+    {
+    }
 
     public void BeIdle()
     {
@@ -219,6 +230,9 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
 
     }
 
+    public void FireArrow()
+    {
+    }
     public void BeAttacking()
     {
 
@@ -287,6 +301,12 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
         player.Sprite = spriteFactory.CreateLeftAttackingPlayerSprite(player.position);
     }
 
+    public void FireArrow()
+    {
+        IProjectile arrow = new Arrow(player.position, "left", player.projectileSpriteFactory);
+        player.projectiles.Add(arrow);
+    }
+
     public void BeIdle()
     {
 
@@ -349,6 +369,12 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
         player.Sprite = spriteFactory.CreateRightAttackingPlayerSprite(player.position);
     }
 
+    public void FireArrow()
+    {
+        IProjectile arrow = new Arrow(player.position, "right", player.projectileSpriteFactory);
+        player.projectiles.Add(arrow);
+    }
+
     public void BeIdle()
     {
 
@@ -364,6 +390,7 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory;
+    public readonly string Direction = "up";
 
     public UpIdlePlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -411,6 +438,11 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
         player.Sprite = spriteFactory.CreateUpAttackingPlayerSprite(player.position);
     }
 
+    public void FireArrow()
+    {
+        IProjectile arrow = new Arrow(player.position, "up", player.projectileSpriteFactory);
+        player.projectiles.Add(arrow);
+    }
     public void BeIdle()
     {
 
@@ -426,6 +458,7 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory;
+    public readonly string Direction = "down";
 
     public DownIdlePlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -473,6 +506,12 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
         player.Sprite = spriteFactory.CreateDownAttackingPlayerSprite(player.position);
     }
 
+    public void FireArrow()
+    {
+        IProjectile arrow = new Arrow(player.position, "down", player.projectileSpriteFactory);
+        player.projectiles.Add(arrow);
+    }
+
     public void BeIdle()
     {
 
@@ -509,6 +548,10 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
     }
     public void BeAttacking()
     {
+    }
+
+    public void FireArrow()
+    { 
     }
     public void BeIdle()
     {
@@ -550,7 +593,10 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
     {
     }
     public void BeAttacking()
-    { 
+    {
+    }
+    public void FireArrow()
+    {
     }
     public void BeIdle()
     {
@@ -591,6 +637,9 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
     public void BeAttacking()
     {
     }
+    public void FireArrow()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new UpIdlePlayerState(player, spriteFactory);
@@ -628,6 +677,9 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
     {
     }
     public void BeAttacking()
+    {
+    }
+    public void FireArrow()
     {
     }
     public void BeIdle()

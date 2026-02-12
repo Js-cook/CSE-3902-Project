@@ -78,6 +78,7 @@ namespace Sprites
         //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
+        private string Direction { get; }
 
         private Rectangle sourceRectangle1 = new Rectangle(34, 10, 16, 17);
         private Rectangle sourceRectangle2 = new Rectangle(51, 10, 16, 17);
@@ -89,6 +90,7 @@ namespace Sprites
             //this.position = position;
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
+            Direction = "right";
         }
 
         public void Update(GameTime gametime)

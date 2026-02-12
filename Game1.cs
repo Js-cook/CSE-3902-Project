@@ -18,6 +18,7 @@ namespace _3902_Project
         private Link player;
         private Texture2D playerTexture;
         private PlayerSpriteFactory spriteFactory;
+        private ProjectileSpriteFactory projectileSpriteFactory;
 
         private IController keyboardController;
 
@@ -41,7 +42,9 @@ namespace _3902_Project
 
             playerTexture = Content.Load<Texture2D>("LinkSprites");
             spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
-            player = new Link(spriteFactory);
+            projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
+
+            player = new Link(spriteFactory, projectileSpriteFactory);
 
             keyboardController = new Controllers.IKeyboard(player);
         }
