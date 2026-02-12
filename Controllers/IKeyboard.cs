@@ -14,7 +14,7 @@ namespace Controllers
     {
 
         private Link player;
-        private bool projectileInputLimiter = false;
+        private int projectileInputLimiter = 0;
         public IKeyboard(Link player)
         {
             this.player = player;
@@ -24,6 +24,10 @@ namespace Controllers
         {
             KeyboardState keyState = Keyboard.GetState();
             bool movementKeyActive = false;
+            if(projectileInputLimiter > 0)
+            {
+                projectileInputLimiter--;
+            }
 
             // TODO: restructure to avoid all the ifs
             if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && !movementKeyActive)
@@ -63,14 +67,10 @@ namespace Controllers
                 player.playerState.BeAttacking();
             }
 
-            if((keyState.IsKeyDown(Keys.D1) || keyState.IsKeyDown(Keys.NumPad1)) && !projectileInputLimiter)
+            if((keyState.IsKeyDown(Keys.D1) || keyState.IsKeyDown(Keys.NumPad1)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireArrow();
-                projectileInputLimiter = true;
-            }
-            if(keyState.IsKeyUp(Keys.D1) || keyState.IsKeyUp(Keys.NumPad1))
-            {
-                projectileInputLimiter = false;
+                projectileInputLimiter = 20;
             }
 
             if (!movementKeyActive && !(player.playerState is LeftAttackingPlayerState || player.playerState is RightAttackingPlayerState || player.playerState is UpAttackingPlayerState || player.playerState is DownAttackingPlayerState))
