@@ -17,13 +17,16 @@ public class Link
     // idk if this should be public
     public IPlayerState playerState { get; set; }
     private PlayerSpriteFactory spriteFactory;
+    public ProjectileSpriteFactory projectileSpriteFactory { get; set; }
 
+    public List<IProjectile> projectiles { get; set; } = new List<IProjectile>();
 
-    public Link(PlayerSpriteFactory spriteFactory)
+    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory)
     {
         position = new Vector2(10, 10); // arbitrary starting position - change later
         playerState = new RightIdlePlayerState(this, spriteFactory);
-        Sprite = spriteFactory.CreateRightMovingPlayerSprite(position);
+        Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
+        this.projectileSpriteFactory = projectileSpriteFactory;
     }
 
     public void MoveUp() 
@@ -49,11 +52,36 @@ public class Link
     {
         playerState.Update(gametime);
         Sprite.Update(gametime);
+        List<IProjectile> markedForDeletion = new List<IProjectile>();
+
+        foreach (IProjectile projectile in projectiles)
+        {
+            if (!projectile.Active)
+            {
+                markedForDeletion.Add(projectile);
+
+            }
+            projectile.Update(gametime);
+        }
+
+        foreach (IProjectile projectile in markedForDeletion)
+        {
+            projectiles.Remove(projectile);
+            if(!(projectile is ArrowParticle))
+            {
+                projectiles.Add(new ArrowParticle(projectile.Position, "", projectileSpriteFactory));
+            }
+        }
+
     }
 
     public void Draw()
     {
         Sprite.SpriteDraw(position);
+        foreach (IProjectile projectile in projectiles)
+        {
+            projectile.Draw();
+        }
     }
 }
 

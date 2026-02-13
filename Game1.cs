@@ -18,6 +18,7 @@ namespace _3902_Project
         private Link player;
         private Texture2D playerTexture;
         private PlayerSpriteFactory spriteFactory;
+        private ProjectileSpriteFactory projectileSpriteFactory;
 
         private Gel gel;
         private Texture2D gelTexture;
@@ -46,7 +47,9 @@ namespace _3902_Project
 
             playerTexture = Content.Load<Texture2D>("LinkSprites");
             spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
-            player = new Link(spriteFactory);
+            projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
+
+            player = new Link(spriteFactory, projectileSpriteFactory);
 
             gelTexture = Content.Load<Texture2D>("EnemySprites");
             gelSpriteFactory = new GelSpriteFactory(gelTexture, _spriteBatch);

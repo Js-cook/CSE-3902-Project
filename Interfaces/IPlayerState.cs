@@ -14,6 +14,8 @@ namespace Interfaces
         void BeDamaged();
         void BeAttacking();
         void BeIdle();
+        void FireArrow();
+        void FireSilverArrow();
         void Update(GameTime gametime);
     
     }

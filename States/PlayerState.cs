@@ -8,7 +8,7 @@ using Interfaces;
 using Microsoft.Xna.Framework;
 using Sprites;
 
-
+// TODO: consolidate moving states into one class and idle states into another class
 public class LeftMovingPlayerState : Interfaces.IPlayerState
 {
     private Link player;
@@ -61,6 +61,12 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
         player.Sprite = spriteFactory.CreateLeftIdlePlayerSprite(player.position);
     }
 
+    public void FireArrow()
+    {
+    }
+    public void FireSilverArrow()
+    {
+    }
     public void Update(GameTime gametime)
     {
         
@@ -106,6 +112,12 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
 
     }
 
+    public void FireArrow()
+    {
+    }
+    public void FireSilverArrow()
+    {
+    }
     public void BeAttacking()
     {
 
@@ -166,7 +178,12 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
     {
 
     }
-
+    public void FireArrow()
+    {
+    }
+    public void FireSilverArrow()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new UpIdlePlayerState(player, spriteFactory);
@@ -219,6 +236,12 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
 
     }
 
+    public void FireArrow()
+    {
+    }
+    public void FireSilverArrow()
+    {
+    }
     public void BeAttacking()
     {
 
@@ -281,10 +304,22 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
 
     }
 
+    public void FireSilverArrow()
+    {
+        IProjectile silverArrow = new SilverArrow(player.position, "left", player.projectileSpriteFactory);
+        player.projectiles.Add(silverArrow);
+    }
+
     public void BeAttacking()
     {
         player.playerState = new LeftAttackingPlayerState(player, spriteFactory);
         player.Sprite = spriteFactory.CreateLeftAttackingPlayerSprite(player.position);
+    }
+
+    public void FireArrow()
+    {
+        IProjectile arrow = new Arrow(player.position, "left", player.projectileSpriteFactory);
+        player.projectiles.Add(arrow);
     }
 
     public void BeIdle()
@@ -345,6 +380,20 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
     public void BeAttacking()
     {
         Debug.WriteLine("RIGHT IDLE NOT IMPLEMENTED");
+        player.playerState = new RightAttackingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateRightAttackingPlayerSprite(player.position);
+    }
+
+    public void FireSilverArrow()
+    {
+        IProjectile silverArrow = new SilverArrow(player.position, "right", player.projectileSpriteFactory);
+        player.projectiles.Add(silverArrow);
+    }
+
+    public void FireArrow()
+    {
+        IProjectile arrow = new Arrow(player.position, "right", player.projectileSpriteFactory);
+        player.projectiles.Add(arrow);
     }
 
     public void BeIdle()
@@ -362,6 +411,7 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory;
+    public readonly string Direction = "up";
 
     public UpIdlePlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -405,8 +455,20 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
     public void BeAttacking()
     {
         Debug.WriteLine("UP IDLE NOT IMPLEMENTED");
+        player.playerState = new UpAttackingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateUpAttackingPlayerSprite(player.position);
     }
 
+    public void FireSilverArrow()
+    {
+        IProjectile silverArrow = new SilverArrow(player.position, "up", player.projectileSpriteFactory);
+        player.projectiles.Add(silverArrow);
+    }
+    public void FireArrow()
+    {
+        IProjectile arrow = new Arrow(player.position, "up", player.projectileSpriteFactory);
+        player.projectiles.Add(arrow);
+    }
     public void BeIdle()
     {
 
@@ -422,6 +484,7 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory;
+    public readonly string Direction = "down";
 
     public DownIdlePlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -465,6 +528,20 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
     public void BeAttacking()
     {
         Debug.WriteLine("DOWN IDLE NOT IMPLEMENTED");
+        player.playerState = new DownAttackingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateDownAttackingPlayerSprite(player.position);
+    }
+
+    public void FireSilverArrow()
+    {
+        IProjectile silverArrow = new SilverArrow(player.position, "down", player.projectileSpriteFactory);
+        player.projectiles.Add(silverArrow);
+    }
+
+    public void FireArrow()
+    {
+        IProjectile arrow = new Arrow(player.position, "down", player.projectileSpriteFactory);
+        player.projectiles.Add(arrow);
     }
 
     public void BeIdle()
@@ -504,6 +581,13 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
     public void BeAttacking()
     {
     }
+
+    public void FireArrow()
+    { 
+    }
+    public void FireSilverArrow()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new LeftIdlePlayerState(player, spriteFactory);
@@ -513,6 +597,143 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
     {
         startClock += gametime.ElapsedGameTime.TotalSeconds;
         Debug.WriteLine("ATTACK STATE UPDATE");
+        if (startClock >= animationDuration)
+        {
+            BeIdle();
+        }
+    }
+}
+
+public class RightAttackingPlayerState : Interfaces.IPlayerState
+{
+    private Link player;
+    private PlayerSpriteFactory spriteFactory;
+
+    private double startClock = 0.0;
+    private double animationDuration = 0.4;
+
+    public RightAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    {
+        this.player = player;
+        this.spriteFactory = spriteFactory;
+    }
+    public void ChangeDirection(String Direction)
+    {
+        // do nothing - can't change direction while attacking
+    }
+    public void BeDead()
+    {
+    }
+    public void BeDamaged()
+    {
+    }
+    public void BeAttacking()
+    {
+    }
+    public void FireArrow()
+    {
+    }
+    public void FireSilverArrow()
+    {
+    }
+    public void BeIdle()
+    {
+        player.playerState = new RightIdlePlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateRightIdlePlayerSprite(player.position);
+    }
+    public void Update(GameTime gametime)
+    {
+        startClock += gametime.ElapsedGameTime.TotalSeconds;
+        if(startClock >= animationDuration)
+        {
+            BeIdle();
+        }
+    }
+}
+
+public class UpAttackingPlayerState : Interfaces.IPlayerState
+{
+    private Link player;
+    private PlayerSpriteFactory spriteFactory;
+    private double startClock = 0.0;
+    private double animationDuration = 0.4;
+    public UpAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    {
+        this.player = player;
+        this.spriteFactory = spriteFactory;
+    }
+    public void ChangeDirection(String Direction)
+    {
+        // do nothing - can't change direction while attacking
+    }
+    public void BeDead()
+    {
+    }
+    public void BeDamaged()
+    {
+    }
+    public void BeAttacking()
+    {
+    }
+    public void FireArrow()
+    {
+    }
+    public void FireSilverArrow()
+    {
+    }
+    public void BeIdle()
+    {
+        player.playerState = new UpIdlePlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateUpIdlePlayerSprite(player.position);
+    }
+    public void Update(GameTime gametime)
+    {
+        startClock += gametime.ElapsedGameTime.TotalSeconds;
+        if (startClock >= animationDuration)
+        {
+            BeIdle();
+        }
+    }
+}
+
+public class DownAttackingPlayerState : Interfaces.IPlayerState
+{
+    private Link player;
+    private PlayerSpriteFactory spriteFactory;
+    private double startClock = 0.0;
+    private double animationDuration = 0.4;
+    public DownAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    {
+        this.player = player;
+        this.spriteFactory = spriteFactory;
+    }
+    public void ChangeDirection(String Direction)
+    {
+        // do nothing - can't change direction while attacking
+    }
+    public void BeDead()
+    {
+    }
+    public void BeDamaged()
+    {
+    }
+    public void BeAttacking()
+    {
+    }
+    public void FireArrow()
+    {
+    }
+    public void FireSilverArrow()
+    {
+    }
+    public void BeIdle()
+    {
+        player.playerState = new DownIdlePlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateDownIdlePlayerSprite(player.position);
+    }
+    public void Update(GameTime gametime)
+    {
+        startClock += gametime.ElapsedGameTime.TotalSeconds;
         if (startClock >= animationDuration)
         {
             BeIdle();
