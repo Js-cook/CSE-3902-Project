@@ -19,6 +19,11 @@ namespace _3902_Project
         private Texture2D playerTexture;
         private PlayerSpriteFactory spriteFactory;
 
+        private Gel gel;
+        private Texture2D gelTexture;
+        private GelSpriteFactory gelSpriteFactory;
+
+
         private IController keyboardController;
 
         public Game1()
@@ -43,6 +48,10 @@ namespace _3902_Project
             spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
             player = new Link(spriteFactory);
 
+            gelTexture = Content.Load<Texture2D>("EnemySprites");
+            gelSpriteFactory = new GelSpriteFactory(gelTexture, _spriteBatch);
+            gel = new Gel(gelSpriteFactory);
+
             keyboardController = new Controllers.IKeyboard(player);
         }
 
@@ -51,6 +60,7 @@ namespace _3902_Project
             // TODO: Add your update logic here
             keyboardController.Update();
             player.Update(gameTime);
+            gel.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -60,6 +70,7 @@ namespace _3902_Project
 
             _spriteBatch.Begin();
             player.Draw();
+            gel.Draw();
             _spriteBatch.End();
             // TODO: Add your drawing code here
 
