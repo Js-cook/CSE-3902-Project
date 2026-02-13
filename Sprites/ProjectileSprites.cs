@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Security.AccessControl;
 
 public class ProjectileSpriteFactory
 {
@@ -49,19 +50,37 @@ public class BoomerangSprite : ISprite
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
+    private int currentFrame = 0;
 
-    private Rectangle sourceRectangle = new Rectangle(0, 0, 16, 16);
+    private double animationTimer = 0.0;
+    private double animationInterval = 0.25;
+
+    private Rectangle[] sourceFrames =
+    {
+        new Rectangle(63, 184, 9, 17),
+        new Rectangle(72, 184, 9, 17),
+        new Rectangle(81, 184, 9, 17),
+
+    };
 
     public BoomerangSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
     {
+        this.texture = texture;
+        this.spriteBatch = spriteBatch;
+        this.position = position;
     }
     public void SpriteDraw(Vector2 position)
     {
-        throw new NotImplementedException();
+        spriteBatch.Draw(texture, position, sourceFrames[currentFrame], Color.White);
     }
     public void Update(GameTime gametime)
     {
-        throw new NotImplementedException();
+        animationTimer += gametime.ElapsedGameTime.TotalSeconds;
+        if (animationTimer >= animationInterval)
+        {
+            currentFrame = (currentFrame + 1) % sourceFrames.Length;
+            animationTimer = 0.0;
+        }
     }
 }
 

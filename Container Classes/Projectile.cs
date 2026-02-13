@@ -6,23 +6,6 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
-public class Boomerang : IProjectile
-{
-    public bool Active { get; set; }
-    public Vector2 Position { get; set; }
-    public Boomerang()
-    {
-    }
-    public void Draw()
-    {
-        throw new NotImplementedException();
-    }
-    public void Update(GameTime gametime)
-    {
-        throw new NotImplementedException();
-    }
-}
-
 public class MagicBoomerang : IProjectile
 {
     public Vector2 Position { get; set; }
@@ -37,6 +20,65 @@ public class MagicBoomerang : IProjectile
     public void Update(GameTime gametime)
     {
         throw new NotImplementedException();
+    }
+}
+
+public class Boomerang : IProjectile
+{
+    public Vector2 Position { get; set; }
+    string direction;
+    private double startTime = 0.0;
+    private double endTime = 0.75;
+    private int directionSign = 1;
+    public bool Active { get; set; }
+    
+    private ISprite sprite;
+    private ProjectileSpriteFactory spriteFactory;
+
+    public Boomerang(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
+    {
+        this.Position = position;
+        this.direction = direction;
+        this.spriteFactory = spriteFactory;
+        sprite = spriteFactory.CreateBoomerangSprite(position);
+        Active = true;
+    }
+    public void Draw()
+    {
+        sprite.SpriteDraw(Position);
+    }
+    public void Update(GameTime gametime)
+    {
+        startTime += gametime.ElapsedGameTime.TotalSeconds;
+
+        Vector2 positionNew = new Vector2(Position.X, Position.Y);
+        switch (direction)
+        {
+            case "up":
+                positionNew.Y -= (3 * directionSign);
+                break;
+            case "down":
+                positionNew.Y += (3 * directionSign);
+                break;
+            case "left":
+                positionNew.X -= (3 * directionSign);
+                break;
+            case "right":
+                positionNew.X += (3 * directionSign);
+                break;
+        }
+        Position = positionNew;
+
+        if (startTime >= (endTime / 2))
+        {
+            directionSign = -1;
+        }
+
+        if (startTime >= endTime)
+        {
+            // do something to delete arrow
+            Active = false;
+        }
     }
 }
 
