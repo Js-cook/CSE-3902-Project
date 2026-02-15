@@ -268,6 +268,7 @@ public class ArrowParticle : IProjectile
 public class Bomb : IProjectile
 {
     public bool Active { get; set; }
+    
     public Vector2 Position { get; set; }
     public Bomb()
     {
@@ -285,16 +286,58 @@ public class Bomb : IProjectile
 public class Fireball : IProjectile
 {
     public Vector2 Position { get; set; }
+    string direction;
+    private double startTime = 0.0;
+    private double endTime = 0.75;
+    private int stopper = 1;
     public bool Active { get; set; }
-    public Fireball()
+
+    private ISprite sprite;
+    private ProjectileSpriteFactory spriteFactory;
+    public Fireball(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
     {
+        this.Position = position;
+        this.direction = direction;
+        this.spriteFactory = spriteFactory;
+        sprite = spriteFactory.CreateFireballSprite(position);
+        Active = true;
     }
     public void Draw()
     {
-        throw new NotImplementedException();
+        sprite.SpriteDraw(Position);
     }
     public void Update(GameTime gametime)
     {
-        throw new NotImplementedException();
+        sprite.Update(gametime);
+        startTime += gametime.ElapsedGameTime.TotalSeconds;
+
+        Vector2 positionNew = new Vector2(Position.X, Position.Y);
+        switch (direction)
+        {
+            case "up":
+                positionNew.Y -= (3 * stopper);
+                break;
+            case "down":
+                positionNew.Y += (3 * stopper);
+                break;
+            case "left":
+                positionNew.X -= (3 * stopper);
+                break;
+            case "right":
+                positionNew.X += (3 * stopper);
+                break;
+        }
+        Position = positionNew;
+
+        if (startTime >= (3 * endTime / 4))
+        {
+            stopper = 0;
+        }
+
+        if (startTime >= endTime)
+        {
+            // do something to delete arrow
+            Active = false;
+        }
     }
 }
