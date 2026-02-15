@@ -17,6 +17,7 @@ namespace Interfaces
         void FireArrow();
         void FireSilverArrow();
         void FireBoomerang();
+        void FireMagicBoomerang();
         void Update(GameTime gametime);
     
     }

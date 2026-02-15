@@ -10,17 +10,59 @@ using System.Threading.Tasks;
 public class MagicBoomerang : IProjectile
 {
     public Vector2 Position { get; set; }
+    string direction;
+    private double startTime = 0.0;
+    private double endTime = 1.5;
+    private int directionSign = 1;
     public bool Active { get; set; }
-    public MagicBoomerang()
+
+    private ISprite sprite;
+    private ProjectileSpriteFactory spriteFactory;
+    public MagicBoomerang(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
     {
+        this.Position = position;
+        this.direction = direction;
+        this.spriteFactory = spriteFactory;
+        sprite = spriteFactory.CreateMagicBoomerangSprite(position);
+        Active = true;
     }
     public void Draw()
     {
-        throw new NotImplementedException();
+        sprite.SpriteDraw(Position);
     }
     public void Update(GameTime gametime)
     {
-        throw new NotImplementedException();
+        sprite.Update(gametime);
+        startTime += gametime.ElapsedGameTime.TotalSeconds;
+
+        Vector2 positionNew = new Vector2(Position.X, Position.Y);
+        switch (direction)
+        {
+            case "up":
+                positionNew.Y -= (3 * directionSign);
+                break;
+            case "down":
+                positionNew.Y += (3 * directionSign);
+                break;
+            case "left":
+                positionNew.X -= (3 * directionSign);
+                break;
+            case "right":
+                positionNew.X += (3 * directionSign);
+                break;
+        }
+        Position = positionNew;
+
+        if (startTime >= (endTime / 2))
+        {
+            directionSign = -1;
+        }
+
+        if (startTime >= endTime)
+        {
+            // do something to delete arrow
+            Active = false;
+        }
     }
 }
 

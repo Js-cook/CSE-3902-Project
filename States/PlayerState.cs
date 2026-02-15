@@ -67,6 +67,9 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
     public void FireBoomerang()
     {
     }
+    public void FireMagicBoomerang()
+    {
+    }
     public void FireSilverArrow()
     {
     }
@@ -122,6 +125,9 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
     {
     }
     public void FireBoomerang()
+    {
+    }
+    public void FireMagicBoomerang()
     {
     }
     public void BeAttacking()
@@ -193,6 +199,9 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
     public void FireBoomerang()
     {
     }
+    public void FireMagicBoomerang()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new UpIdlePlayerState(player, spriteFactory);
@@ -257,7 +266,9 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
     public void FireBoomerang()
     {
     }
-
+    public void FireMagicBoomerang()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new DownIdlePlayerState(player, spriteFactory);
@@ -336,6 +347,11 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
     {
         IProjectile boomerang = new Boomerang(player.position, "left", player.projectileSpriteFactory);
         player.projectiles.Add(boomerang);
+    }
+    public void FireMagicBoomerang()
+    {
+        IProjectile magicBoomerang = new MagicBoomerang(player.position, "left", player.projectileSpriteFactory);
+        player.projectiles.Add(magicBoomerang);
     }
 
     public void BeIdle()
@@ -417,6 +433,11 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
         IProjectile boomerang = new Boomerang(player.position, "right", player.projectileSpriteFactory);
         player.projectiles.Add(boomerang);
     }
+    public void FireMagicBoomerang()
+    {
+        IProjectile magicBoomerang = new MagicBoomerang(player.position, "right", player.projectileSpriteFactory);
+        player.projectiles.Add(magicBoomerang);
+    }
 
     public void BeIdle()
     {
@@ -496,7 +517,11 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
         IProjectile boomerang = new Boomerang(player.position, "up", player.projectileSpriteFactory);
         player.projectiles.Add(boomerang);
     }
-
+    public void FireMagicBoomerang()
+    {
+        IProjectile magicBoomerang = new MagicBoomerang(player.position, "up", player.projectileSpriteFactory);
+        player.projectiles.Add(magicBoomerang);
+    }
     public void BeIdle()
     {
 
@@ -577,6 +602,11 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
         IProjectile boomerang = new Boomerang(player.position, "down", player.projectileSpriteFactory);
         player.projectiles.Add(boomerang);
     }
+    public void FireMagicBoomerang()
+    {
+        IProjectile magicBoomerang = new MagicBoomerang(player.position, "down", player.projectileSpriteFactory);
+        player.projectiles.Add(magicBoomerang);
+    }
 
     public void BeIdle()
     {
@@ -623,6 +653,9 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
     {
     }
     public void FireBoomerang()
+    {
+    }
+    public void FireMagicBoomerang()
     {
     }
     public void BeIdle()
@@ -676,6 +709,9 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
     public void FireBoomerang()
     {
     }
+    public void FireMagicBoomerang()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new RightIdlePlayerState(player, spriteFactory);
@@ -724,6 +760,9 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
     public void FireBoomerang()
     {
     }
+    public void FireMagicBoomerang()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new UpIdlePlayerState(player, spriteFactory);
@@ -770,6 +809,9 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
     {
     }
     public void FireBoomerang()
+    {
+    }
+    public void FireMagicBoomerang()
     {
     }
     public void BeIdle()
