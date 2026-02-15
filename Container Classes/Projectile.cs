@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
@@ -49,6 +50,7 @@ public class Boomerang : IProjectile
     }
     public void Update(GameTime gametime)
     {
+        sprite.Update(gametime);
         startTime += gametime.ElapsedGameTime.TotalSeconds;
 
         Vector2 positionNew = new Vector2(Position.X, Position.Y);
@@ -109,6 +111,7 @@ public class Arrow : IProjectile
     }
     public void Update(GameTime gametime)
     {
+        //Debug.WriteLine("ARROW UPDATE");
         startTime += gametime.ElapsedGameTime.TotalSeconds;
 
         Vector2 positionNew = new Vector2(Position.X, Position.Y);
