@@ -67,7 +67,7 @@ public class Link
         foreach (IProjectile projectile in markedForDeletion)
         {
             projectiles.Remove(projectile);
-            if(!(projectile is ArrowParticle))
+            if(projectile is Arrow || projectile is SilverArrow)
             {
                 projectiles.Add(new ArrowParticle(projectile.Position, "", projectileSpriteFactory));
             }
