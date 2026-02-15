@@ -5,12 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public interface IEnemyState
+public interface IEnemy
 {
-    void ChangeDirection();
-    void BeDead();
+    public void Update(GameTime gameTime);
 
-    void Update(GameTime gameTime);
-
+    public void Draw();
 }
-

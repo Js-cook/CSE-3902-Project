@@ -14,17 +14,22 @@ namespace Controllers
     {
 
         private Link player;
+        private EnemyConroller enemyController;
         private int projectileInputLimiter = 0;
-        public IKeyboard(Link player)
+
+        private KeyboardState previousKeyboardState;
+        public IKeyboard(Link player, EnemyConroller enemyConroller)
         {
             this.player = player;
+            this.enemyController = enemyConroller;
+
         }
 
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
             bool movementKeyActive = false;
-            if(projectileInputLimiter > 0)
+            if (projectileInputLimiter > 0)
             {
                 projectileInputLimiter--;
             }
@@ -62,18 +67,18 @@ namespace Controllers
                 movementKeyActive = true;
             }
 
-            if(keyState.IsKeyDown(Keys.N) || keyState.IsKeyDown(Keys.Z))
+            if (keyState.IsKeyDown(Keys.N) || keyState.IsKeyDown(Keys.Z))
             {
                 player.playerState.BeAttacking();
             }
 
-            if((keyState.IsKeyDown(Keys.D1) || keyState.IsKeyDown(Keys.NumPad1)) && projectileInputLimiter == 0)
+            if ((keyState.IsKeyDown(Keys.D1) || keyState.IsKeyDown(Keys.NumPad1)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireArrow();
                 projectileInputLimiter = 20;
             }
 
-            if((keyState.IsKeyDown(Keys.D2) || keyState.IsKeyDown(Keys.NumPad2)) && projectileInputLimiter == 0)
+            if ((keyState.IsKeyDown(Keys.D2) || keyState.IsKeyDown(Keys.NumPad2)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireSilverArrow();
                 projectileInputLimiter = 20;
@@ -83,6 +88,19 @@ namespace Controllers
             {
                 player.playerState.BeIdle();
             }
+
+
+            //Enemy Controls
+            if (keyState.IsKeyDown(Keys.O) && !previousKeyboardState.IsKeyDown(Keys.O))
+            {
+                enemyController.PreviousEnemy();
+            }
+            if (keyState.IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P))
+            {
+                enemyController.NextEnemy();
+            }
+
+            previousKeyboardState = keyState;
         }
     }
 }

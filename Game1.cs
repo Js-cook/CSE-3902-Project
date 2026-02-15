@@ -20,9 +20,8 @@ namespace _3902_Project
         private PlayerSpriteFactory spriteFactory;
         private ProjectileSpriteFactory projectileSpriteFactory;
 
-        private Gel gel;
-        private Texture2D gelTexture;
-        private GelSpriteFactory gelSpriteFactory;
+        private EnemyConroller enemyController;
+
 
 
         private IController keyboardController;
@@ -51,11 +50,12 @@ namespace _3902_Project
 
             player = new Link(spriteFactory, projectileSpriteFactory);
 
-            gelTexture = Content.Load<Texture2D>("EnemySprites");
-            gelSpriteFactory = new GelSpriteFactory(gelTexture, _spriteBatch);
-            gel = new Gel(gelSpriteFactory);
 
-            keyboardController = new Controllers.IKeyboard(player);
+            // Handles loading content for all enemies
+            enemyController = new EnemyConroller();
+            enemyController.LoadContent(Content, _spriteBatch, _graphics);
+
+            keyboardController = new Controllers.IKeyboard(player, enemyController);
         }
 
         protected override void Update(GameTime gameTime)
@@ -63,7 +63,7 @@ namespace _3902_Project
             // TODO: Add your update logic here
             keyboardController.Update();
             player.Update(gameTime);
-            gel.Update(gameTime);
+            enemyController.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -73,7 +73,7 @@ namespace _3902_Project
 
             _spriteBatch.Begin();
             player.Draw();
-            gel.Draw();
+            enemyController.Draw();
             _spriteBatch.End();
             // TODO: Add your drawing code here
 

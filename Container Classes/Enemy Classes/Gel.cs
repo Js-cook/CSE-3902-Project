@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class Gel {
+public class Gel : IEnemy {
 
     public Vector2 position;
     public ISprite Sprite { get; set; }
@@ -16,10 +16,10 @@ public class Gel {
     
 
 
-    public Gel(GelSpriteFactory spriteFactory)
+    public Gel(GelSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
     {
         position = new Vector2(40, 30); // arbitrary starting position - change later
-        gelState = new MovingGelState(this, spriteFactory);
+        gelState = new MovingGelState(this, spriteFactory, _graphics);
         Sprite = spriteFactory.CreateMovingGelSprite(position);
     }
 

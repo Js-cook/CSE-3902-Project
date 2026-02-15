@@ -1,50 +1,42 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-public class MovingGelState : IEnemyState
+public class MovingBatState : IEnemyState
 {
-    private Gel gel;
-    private GelSpriteFactory spriteFactory;
-
+    private Bat bat;
+    private BatSpriteFactory spriteFactory;
     double timerMax = 5;
     double timer;
-
     private Vector2 velocity;
     private Random randInt;
-
-    private GraphicsDeviceManager _graphics;
-    public MovingGelState(Gel gel, GelSpriteFactory gelSpriteFactory, GraphicsDeviceManager _graphics)
+    GraphicsDeviceManager _graphics;
+    public MovingBatState(Bat bat, BatSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
     {
-        this.gel = gel;
-        this.spriteFactory = gelSpriteFactory;
+        this.bat = bat;
+        this.spriteFactory = spriteFactory;
         timer = 0;
-
         velocity = new Vector2(1, 0);
         randInt = new Random();
         this._graphics = _graphics;
 
     }
-
     public void ChangeDirection()
     {
         // No need for this 
     }
-
     public void BeDead()
     {
-
         //No need for this
         
     }
-
-    public void Update(Microsoft.Xna.Framework.GameTime gameTime)
+    public void Update(GameTime gameTime)
     {
-        gel.position += velocity;
+        bat.position += velocity;
         timer += gameTime.ElapsedGameTime.TotalSeconds;
         if (timer >= timerMax)
         {
@@ -52,12 +44,10 @@ public class MovingGelState : IEnemyState
             timer = 0;
         }
 
-        EnemyHelper.CheckBounds(ref velocity, gel.position, _graphics);
-
+        EnemyHelper.CheckBounds(ref velocity, bat.position, _graphics);
 
 
     }
 
    
-
 }
