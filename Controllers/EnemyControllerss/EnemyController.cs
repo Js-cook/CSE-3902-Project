@@ -21,6 +21,9 @@ public class EnemyConroller {
     {
         Texture2D enemyTexture = content.Load<Texture2D>("EnemySprites");
         Texture2D bossTexture = content.Load<Texture2D>("BossSprites");
+        EnemyProjectileSpriteFactory enemyProjectileSpriteFactory = new EnemyProjectileSpriteFactory(enemyTexture, _spriteBatch);
+        BossProjectileSpriteFactory bossProjectileSpriteFactory = new BossProjectileSpriteFactory(bossTexture, _spriteBatch);
+
 
         GelSpriteFactory gelSpriteFactory = new GelSpriteFactory(enemyTexture, _spriteBatch);
         Gel gel = new Gel(gelSpriteFactory, _graphics);
@@ -31,7 +34,7 @@ public class EnemyConroller {
         enemyArray.Add(bat);
 
         GoriyaSpriteFactory goriyaSpriteFactory = new GoriyaSpriteFactory(enemyTexture, _spriteBatch);
-        Goriya goriya = new Goriya(goriyaSpriteFactory, _graphics);
+        Goriya goriya = new Goriya(goriyaSpriteFactory, _graphics, enemyProjectileSpriteFactory);
         enemyArray.Add(goriya);
 
         SkeletonSpriteFactory skeletonSpriteFactory = new SkeletonSpriteFactory(enemyTexture, _spriteBatch);
@@ -47,7 +50,7 @@ public class EnemyConroller {
         enemyArray.Add(spiketrap);
 
         AquamentusSpriteFactory aquamentusSpriteFactory = new AquamentusSpriteFactory(bossTexture, _spriteBatch);
-        Aquamentus aquamentus = new Aquamentus(aquamentusSpriteFactory, _graphics);
+        Aquamentus aquamentus = new Aquamentus(aquamentusSpriteFactory, _graphics, bossProjectileSpriteFactory);
         enemyArray.Add(aquamentus);
 
 

@@ -13,24 +13,40 @@ public class Goriya : IEnemy
 
     public ISprite Sprite;
 
+    public GoriyaBoomerang goriyaBoomerang;
 
 
-    public Goriya(GoriyaSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
+
+
+
+    public Goriya(GoriyaSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, EnemyProjectileSpriteFactory enemyProjectileSpriteFactory)
     {
         position = new Vector2(40, 30); // arbitrary starting position - change later
         goriyaState = new LeftMovingGoriyaState(this, spriteFactory, _graphics);
+
+        // Give Goriya a boomerang to throw
+        goriyaBoomerang = new GoriyaBoomerang(this.position, "left", enemyProjectileSpriteFactory);
        
+
     }
 
     public void Update(GameTime gametime)
     {
         goriyaState.Update(gametime);
         Sprite.Update(gametime);
+        if (goriyaBoomerang.Active)
+            goriyaBoomerang.Update(gametime);
+
+
     }
 
     public void Draw()
     {
         Sprite.SpriteDraw(position);
+        if (goriyaBoomerang.Active)
+            goriyaBoomerang.Draw();
+       
+
     }
 
 }

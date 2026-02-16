@@ -124,6 +124,7 @@ namespace Controllers
                 enemyController.NextEnemy();
             }
 
+
             previousKeyboardState = keyState;
         }
     }
