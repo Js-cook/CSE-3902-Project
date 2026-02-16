@@ -37,6 +37,8 @@ public class MovingAquamentusSprite : ISprite
     private SpriteBatch spriteBatch;
     private Rectangle currentFrame;
 
+    public bool Hurt { get; set; }
+
     private Rectangle sourceRectangle1 = new Rectangle(1, 11, 24, 32);
     private Rectangle sourceRectangle2 = new Rectangle(26, 11, 24, 32);
     private Rectangle sourceRectangle3 = new Rectangle(

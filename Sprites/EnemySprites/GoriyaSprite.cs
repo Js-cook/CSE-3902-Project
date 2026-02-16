@@ -51,6 +51,8 @@ public class LeftMovingGoriyaSprite : ISprite
     private SpriteBatch spriteBatch;
     private Rectangle currentFrame;
 
+    public bool Hurt {  get; set; }
+
     private Rectangle sourceRectangle1 = new Rectangle(256, 11, 16, 16);
     private Rectangle sourceRectangle2 = new Rectangle(273, 11, 16, 16);
     private int frameCounter = 0;
@@ -82,6 +84,7 @@ public class LeftMovingGoriyaSprite : ISprite
 
 public class RightMovingGoriyaSprite : ISprite
 {
+    public bool Hurt { get; set; }
     private Texture2D texture;
     //private Vector2 position;
     private SpriteBatch spriteBatch;
@@ -113,6 +116,7 @@ public class RightMovingGoriyaSprite : ISprite
 
 public class UpMovingGoriyaSprite : ISprite
 {
+    public bool Hurt { get; set; }
     private Texture2D texture;
     //private Vector2 position;
     private SpriteBatch spriteBatch;
@@ -144,6 +148,7 @@ public class UpMovingGoriyaSprite : ISprite
 
 public class DownMovingGoriyaSprite : ISprite
 {
+    public bool Hurt { get; set; }
     private Texture2D texture;
     //private Vector2 position;
     private SpriteBatch spriteBatch;

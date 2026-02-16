@@ -53,6 +53,7 @@ public class ProjectileSpriteFactory
 
 public class BoomerangSprite : ISprite
 {
+    public bool Hurt { get; set; }
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
@@ -93,6 +94,7 @@ public class BoomerangSprite : ISprite
 
 public class MagicBoomerangSprite : ISprite
 {
+    public bool Hurt { get; set; }
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
@@ -132,6 +134,7 @@ public class MagicBoomerangSprite : ISprite
 
 public class ArrowSprite : ISprite
 {
+    public bool Hurt { get; set; }
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
@@ -173,6 +176,7 @@ public class ArrowSprite : ISprite
 
 public class ArrowParticleSprite : ISprite
 {
+    public bool Hurt { get; set; }
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
@@ -196,6 +200,7 @@ public class ArrowParticleSprite : ISprite
 
 public class SilverArrowSprite : ISprite
 {
+    public bool Hurt { get; set; }
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
@@ -235,6 +240,7 @@ public class SilverArrowSprite : ISprite
 
 public class BombSprite : ISprite
 {
+    public bool Hurt { get; set; }
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
@@ -256,6 +262,7 @@ public class BombSprite : ISprite
 
 public class BombParticleSprite : ISprite
 {
+    public bool Hurt { get; set; }
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
@@ -297,6 +304,7 @@ public class BombParticleSprite : ISprite
 
 public class FireballSprite : ISprite
 {
+    public bool Hurt { get; set; }
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;

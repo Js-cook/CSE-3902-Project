@@ -32,6 +32,8 @@ public class EnemyProjectileSpriteFactory
     private Vector2 position;
     private int currentFrame;
 
+    public bool Hurt { get; set;  }
+
     private double animationTimer = 0.0;
     private double animationInterval = 0.1;
 

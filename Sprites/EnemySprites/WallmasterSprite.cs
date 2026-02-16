@@ -39,6 +39,8 @@ public class MovingWallmasterSprite : ISprite
     private Rectangle sourceRectangle2 = new Rectangle(410, 11, 16, 16);
     private int frameCounter = 0;
 
+    public bool Hurt { get; set; }
+
     public MovingWallmasterSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
     {
         this.texture = texture;

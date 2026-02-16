@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -14,6 +15,9 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory; // create at start of game and will need a reference to player
+
+    private double startTime = 0.0;
+    private double endTime = 2.5;
 
     public LeftMovingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -48,7 +52,7 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-
+        player.Sprite.Hurt = true;
     }
 
     public void BeAttacking()
@@ -82,7 +86,14 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
     }
     public void Update(GameTime gametime)
     {
-        
+        if (player.Sprite.Hurt)
+        {
+            startTime += gametime.ElapsedGameTime.TotalSeconds;
+            if(startTime >= endTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -90,6 +101,9 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory;
+
+    private double startTime = 0.0;
+    private double endTime = 2.5;
 
     public RightMovingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -122,7 +136,7 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-
+        player.Sprite.Hurt = true;
     }
 
     public void FireArrow()
@@ -157,6 +171,14 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
     public void Update(GameTime gametime)
     {
         //player.Sprite = spriteFactory.CreateRightMovingPlayerSprite(player.position);
+        if (player.Sprite.Hurt)
+        {
+            startTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (startTime >= endTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -164,6 +186,9 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory;
+
+    private double startTime = 0.0;
+    private double endTime = 2.5;
 
     public UpMovingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -196,7 +221,7 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-
+        player.Sprite.Hurt = true;
     }
 
     public void BeAttacking()
@@ -230,6 +255,14 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
     public void Update(GameTime gametime)
     {
         //player.Sprite = spriteFactory.CreateUpMovingPlayerSprite(player.position);
+        if (player.Sprite.Hurt)
+        {
+            startTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (startTime >= endTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -237,6 +270,9 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory;
+
+    private double startTime = 0.0;
+    private double endTime = 2.5;
 
     public DownMovingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -270,7 +306,7 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-
+        player.Sprite.Hurt = true;
     }
 
     public void FireArrow()
@@ -303,6 +339,14 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
     public void Update(GameTime gametime)
     {
         //player.Sprite = spriteFactory.CreateDownMovingPlayerSprite(player.position);
+        if (player.Sprite.Hurt)
+        {
+            startTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (startTime >= endTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -310,6 +354,9 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory;
+
+    private double startTime = 0.0;
+    private double endTime = 2.5;
 
     public LeftIdlePlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -348,7 +395,7 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-
+        player.Sprite.Hurt = true;
     }
 
 
@@ -408,7 +455,14 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
 
     public void Update(GameTime gametime)
     {
-
+        if (player.Sprite.Hurt)
+        {
+            startTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (startTime >= endTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -416,6 +470,9 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory;
+
+    private double startTime = 0.0;
+    private double endTime = 2.5;
 
     public RightIdlePlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -453,7 +510,7 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-
+        player.Sprite.Hurt = true;
     }
 
     public void BeAttacking()
@@ -515,7 +572,14 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
 
     public void Update(GameTime gametime)
     {
-
+        if (player.Sprite.Hurt)
+        {
+            startTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (startTime >= endTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -524,6 +588,9 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
     private Link player;
     private PlayerSpriteFactory spriteFactory;
     public readonly string Direction = "up";
+
+    private double startTime = 0.0;
+    private double endTime = 2.5;
 
     public UpIdlePlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -561,7 +628,7 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-
+        player.Sprite.Hurt = true;
     }
 
     public void BeAttacking()
@@ -620,7 +687,14 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
 
     public void Update(GameTime gametime)
     {
-
+        if (player.Sprite.Hurt)
+        {
+            startTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (startTime >= endTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -629,6 +703,9 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
     private Link player;
     private PlayerSpriteFactory spriteFactory;
     public readonly string Direction = "down";
+
+    private double startTime = 0.0;
+    private double endTime = 2.5;
 
     public DownIdlePlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -666,7 +743,7 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-
+        player.Sprite.Hurt = true;
     }
 
     public void BeAttacking()
@@ -728,7 +805,14 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
 
     public void Update(GameTime gametime)
     {
-
+        if (player.Sprite.Hurt)
+        {
+            startTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (startTime >= endTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -739,6 +823,9 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
 
     private double startClock = 0.0;
     private double animationDuration = 0.4;
+
+    private double injuredStartTime = 0.0;
+    private double injuredEndTime = 2.5;
 
     public LeftAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -754,6 +841,7 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
+        player.Sprite.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -790,6 +878,15 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
+
+        if (player.Sprite.Hurt)
+        {
+            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (injuredStartTime >= injuredEndTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -800,6 +897,9 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
 
     private double startClock = 0.0;
     private double animationDuration = 0.4;
+
+    private double injuredStartTime = 0.0;
+    private double injuredEndTime = 2.5;
 
     public RightAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -815,6 +915,7 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
+        player.Sprite.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -849,6 +950,15 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
+
+        if (player.Sprite.Hurt)
+        {
+            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (injuredStartTime >= injuredEndTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -858,6 +968,8 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
     private PlayerSpriteFactory spriteFactory;
     private double startClock = 0.0;
     private double animationDuration = 0.4;
+    private double injuredStartTime = 0.0;
+    private double injuredEndTime = 2.5;
     public UpAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
         this.player = player;
@@ -872,6 +984,7 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
+        player.Sprite.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -906,6 +1019,15 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
+
+        if (player.Sprite.Hurt)
+        {
+            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (injuredStartTime >= injuredEndTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -915,6 +1037,9 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
     private PlayerSpriteFactory spriteFactory;
     private double startClock = 0.0;
     private double animationDuration = 0.4;
+
+    private double injuredStartTime = 0.0;
+    private double injuredEndTime = 2.5;
     public DownAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
         this.player = player;
@@ -929,6 +1054,7 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
+        player.Sprite.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -963,6 +1089,15 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
+
+        if (player.Sprite.Hurt)
+        {
+            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (injuredStartTime >= injuredEndTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -973,6 +1108,9 @@ public class LeftUsingPlayerState : Interfaces.IPlayerState
 
     private double startClock = 0.0;
     private double animationDuration = 0.4;
+
+    private double injuredStartTime = 0.0;
+    private double injuredEndTime = 2.5;
     public LeftUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
         this.player = player;
@@ -987,6 +1125,7 @@ public class LeftUsingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
+        player.Sprite.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -1022,6 +1161,15 @@ public class LeftUsingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
+
+        if (player.Sprite.Hurt)
+        {
+            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (injuredStartTime >= injuredEndTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -1032,6 +1180,9 @@ public class RightUsingPlayerState : Interfaces.IPlayerState
 
     private double startClock = 0.0;
     private double animationDuration = 0.4;
+
+    private double injuredStartTime = 0.0;
+    private double injuredEndTime = 2.5;
     public RightUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
         this.player = player;
@@ -1046,6 +1197,7 @@ public class RightUsingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
+        player.Sprite.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -1082,6 +1234,15 @@ public class RightUsingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
+
+        if (player.Sprite.Hurt)
+        {
+            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (injuredStartTime >= injuredEndTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -1092,6 +1253,9 @@ public class UpUsingPlayerState : Interfaces.IPlayerState
 
     private double startClock = 0.0;
     private double animationDuration = 0.4;
+
+    private double injuredStartTime = 0.0;
+    private double injuredEndTime = 2.5;
     public UpUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
         this.player = player;
@@ -1106,6 +1270,7 @@ public class UpUsingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
+        player.Sprite.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -1141,6 +1306,14 @@ public class UpUsingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
+        if (player.Sprite.Hurt)
+        {
+            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (injuredStartTime >= injuredEndTime)
+            {
+                player.Sprite.Hurt = false;
+            }
+        }
     }
 }
 
@@ -1151,6 +1324,9 @@ public class DownUsingPlayerState : Interfaces.IPlayerState
 
     private double startClock = 0.0;
     private double animationDuration = 0.4;
+
+    private double injuredStartTime = 0.0;
+    private double injuredEndTime = 2.5;
     public DownUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
         this.player = player;
@@ -1165,6 +1341,7 @@ public class DownUsingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
+        player.Sprite.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -1199,6 +1376,15 @@ public class DownUsingPlayerState : Interfaces.IPlayerState
         if (startClock >= animationDuration)
         {
             BeIdle();
+        }
+
+        if (player.Sprite.Hurt)
+        {
+            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
+            if (injuredStartTime >= injuredEndTime)
+            {
+                player.Sprite.Hurt = false;
+            }
         }
     }
 }
