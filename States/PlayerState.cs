@@ -67,7 +67,16 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
     public void FireBoomerang()
     {
     }
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
     public void FireSilverArrow()
+    {
+    }
+    public void FireBomb()
     {
     }
     public void Update(GameTime gametime)
@@ -122,6 +131,15 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
     {
     }
     public void FireBoomerang()
+    {
+    }
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
+    public void FireBomb()
     {
     }
     public void BeAttacking()
@@ -193,6 +211,15 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
     public void FireBoomerang()
     {
     }
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
+    public void FireBomb()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new UpIdlePlayerState(player, spriteFactory);
@@ -257,7 +284,15 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
     public void FireBoomerang()
     {
     }
-
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
+    public void FireBomb()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new DownIdlePlayerState(player, spriteFactory);
@@ -336,6 +371,21 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
     {
         IProjectile boomerang = new Boomerang(player.position, "left", player.projectileSpriteFactory);
         player.projectiles.Add(boomerang);
+    }
+    public void FireMagicBoomerang()
+    {
+        IProjectile magicBoomerang = new MagicBoomerang(player.position, "left", player.projectileSpriteFactory);
+        player.projectiles.Add(magicBoomerang);
+    }
+    public void FireFireball()
+    {
+        IProjectile fireball = new Fireball(player.position, "left", player.projectileSpriteFactory);
+        player.projectiles.Add(fireball);
+    }
+    public void FireBomb()
+    {
+        IProjectile bomb = new Bomb(player.position, "left", player.projectileSpriteFactory);
+        player.projectiles.Add(bomb);
     }
 
     public void BeIdle()
@@ -417,6 +467,21 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
         IProjectile boomerang = new Boomerang(player.position, "right", player.projectileSpriteFactory);
         player.projectiles.Add(boomerang);
     }
+    public void FireMagicBoomerang()
+    {
+        IProjectile magicBoomerang = new MagicBoomerang(player.position, "right", player.projectileSpriteFactory);
+        player.projectiles.Add(magicBoomerang);
+    }
+    public void FireFireball()
+    {
+        IProjectile fireball = new Fireball(player.position, "right", player.projectileSpriteFactory);
+        player.projectiles.Add(fireball);
+    }
+    public void FireBomb()
+    {
+        IProjectile bomb = new Bomb(player.position, "right", player.projectileSpriteFactory);
+        player.projectiles.Add(bomb);
+    }
 
     public void BeIdle()
     {
@@ -496,7 +561,21 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
         IProjectile boomerang = new Boomerang(player.position, "up", player.projectileSpriteFactory);
         player.projectiles.Add(boomerang);
     }
-
+    public void FireMagicBoomerang()
+    {
+        IProjectile magicBoomerang = new MagicBoomerang(player.position, "up", player.projectileSpriteFactory);
+        player.projectiles.Add(magicBoomerang);
+    }
+    public void FireFireball()
+    {
+        IProjectile fireball = new Fireball(player.position, "up", player.projectileSpriteFactory);
+        player.projectiles.Add(fireball);
+    }
+    public void FireBomb()
+    {
+        IProjectile bomb = new Bomb(player.position, "up", player.projectileSpriteFactory);
+        player.projectiles.Add(bomb);
+    }
     public void BeIdle()
     {
 
@@ -577,6 +656,21 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
         IProjectile boomerang = new Boomerang(player.position, "down", player.projectileSpriteFactory);
         player.projectiles.Add(boomerang);
     }
+    public void FireMagicBoomerang()
+    {
+        IProjectile magicBoomerang = new MagicBoomerang(player.position, "down", player.projectileSpriteFactory);
+        player.projectiles.Add(magicBoomerang);
+    }
+    public void FireFireball()
+    {
+        IProjectile fireball = new Fireball(player.position, "down", player.projectileSpriteFactory);
+        player.projectiles.Add(fireball);
+    }
+    public void FireBomb()
+    {
+        IProjectile bomb = new Bomb(player.position, "down", player.projectileSpriteFactory);
+        player.projectiles.Add(bomb);
+    }
 
     public void BeIdle()
     {
@@ -623,6 +717,15 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
     {
     }
     public void FireBoomerang()
+    {
+    }
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
+    public void FireBomb()
     {
     }
     public void BeIdle()
@@ -676,6 +779,15 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
     public void FireBoomerang()
     {
     }
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
+    public void FireBomb()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new RightIdlePlayerState(player, spriteFactory);
@@ -724,6 +836,15 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
     public void FireBoomerang()
     {
     }
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
+    public void FireBomb()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new UpIdlePlayerState(player, spriteFactory);
@@ -770,6 +891,15 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
     {
     }
     public void FireBoomerang()
+    {
+    }
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
+    public void FireBomb()
     {
     }
     public void BeIdle()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Diagnostics;
 using System.Security.AccessControl;
 
 public class ProjectileSpriteFactory
@@ -43,6 +44,11 @@ public class ProjectileSpriteFactory
         return new ArrowParticleSprite(projectileTexture, position, spriteBatch);
     }
 
+    public ISprite CreateBombParticleSprite(Vector2 position)
+    {
+        return new BombParticleSprite(projectileTexture, position, spriteBatch);
+    }
+
 }
 
 public class BoomerangSprite : ISprite
@@ -50,17 +56,16 @@ public class BoomerangSprite : ISprite
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
-    private int currentFrame = 0;
+    private int currentFrame;
 
     private double animationTimer = 0.0;
-    private double animationInterval = 0.25;
+    private double animationInterval = 0.1;
 
     private Rectangle[] sourceFrames =
     {
         new Rectangle(63, 184, 9, 17),
         new Rectangle(72, 184, 9, 17),
         new Rectangle(81, 184, 9, 17),
-
     };
 
     public BoomerangSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
@@ -68,6 +73,47 @@ public class BoomerangSprite : ISprite
         this.texture = texture;
         this.spriteBatch = spriteBatch;
         this.position = position;
+        currentFrame = 0;
+    }
+    public void SpriteDraw(Vector2 position)
+    {
+        spriteBatch.Draw(texture, position, sourceFrames[currentFrame], Color.White);
+    }
+    public void Update(GameTime gametime)
+    {
+        Debug.WriteLine("UPDATE BOOMERANG");
+        animationTimer += gametime.ElapsedGameTime.TotalSeconds;
+        if (animationTimer >= animationInterval)
+        {
+            currentFrame = (currentFrame + 1) % sourceFrames.Length;
+            animationTimer = 0.0;
+        }
+    }
+}
+
+public class MagicBoomerangSprite : ISprite
+{
+    private Texture2D texture;
+    private SpriteBatch spriteBatch;
+    private Vector2 position;
+    private int currentFrame;
+
+    private double animationTimer = 0.0;
+    private double animationInterval = 0.1;
+
+    private Rectangle[] sourceFrames =
+    {
+        new Rectangle(90, 184, 9, 17),
+        new Rectangle(99, 184, 9, 17),
+        new Rectangle(108, 184, 9, 17),
+    };
+
+    public MagicBoomerangSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
+    {
+        this.texture = texture;
+        this.spriteBatch = spriteBatch;
+        this.position = position;
+        currentFrame = 0;
     }
     public void SpriteDraw(Vector2 position)
     {
@@ -81,21 +127,6 @@ public class BoomerangSprite : ISprite
             currentFrame = (currentFrame + 1) % sourceFrames.Length;
             animationTimer = 0.0;
         }
-    }
-}
-
-public class MagicBoomerangSprite : ISprite
-{
-    public MagicBoomerangSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
-    {
-    }
-    public void SpriteDraw(Vector2 position)
-    {
-        throw new NotImplementedException();
-    }
-    public void Update(GameTime gametime)
-    {
-        throw new NotImplementedException();
     }
 }
 
@@ -199,36 +230,106 @@ public class SilverArrowSprite : ISprite
     }
     public void Update(GameTime gametime)
     {
-        throw new NotImplementedException();
     }
 }
 
 public class BombSprite : ISprite
 {
+    private Texture2D texture;
+    private SpriteBatch spriteBatch;
+    private Vector2 position;
+    private Rectangle frame = new Rectangle(128, 184, 9, 17);
     public BombSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
     {
+        this.texture = texture;
+        this.position = position;
+        this.spriteBatch = spriteBatch;
     }
     public void SpriteDraw(Vector2 position)
     {
-        throw new NotImplementedException();
+        spriteBatch.Draw(texture, position, frame, Color.White);
     }
     public void Update(GameTime gametime)
     {
-        throw new NotImplementedException();
+    }
+}
+
+public class BombParticleSprite : ISprite
+{
+    private Texture2D texture;
+    private SpriteBatch spriteBatch;
+    private Vector2 position;
+    private int currentFrame = 0;
+
+    private double animationTimer = 0.0;
+    private double animationDuration = 0.25;
+
+    private Rectangle[] sourceFrames =
+    {
+        new Rectangle(137, 184, 17, 17),
+        new Rectangle(154, 184, 17, 17),
+        new Rectangle(171, 184, 17, 17)
+
+    };
+
+    public BombParticleSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
+    {
+        this.texture = texture;
+        this.spriteBatch = spriteBatch;
+        this.position = position;
+    }
+
+    public void SpriteDraw(Vector2 position)
+    {
+        spriteBatch.Draw(texture, position, sourceFrames[currentFrame], Color.White);
+    }
+    public void Update(GameTime gametime)
+    {
+        animationTimer += gametime.ElapsedGameTime.TotalSeconds;
+        if(animationTimer >= animationDuration)
+        {
+            Debug.WriteLine("CHANGE FRAME OF SMOKE");
+            currentFrame = (currentFrame + 1) % sourceFrames.Length;
+            animationTimer = 0.0;
+        }
     }
 }
 
 public class FireballSprite : ISprite
 {
+    private Texture2D texture;
+    private SpriteBatch spriteBatch;
+    private Vector2 position;
+
+    private double animationTimer = 0.0;
+    private double animationInterval = 0.1;
+
+    private Rectangle frame = new Rectangle(190, 184, 17, 17);
+    bool flipped = false;
+
     public FireballSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
     {
+        this.texture = texture;
+        this.spriteBatch = spriteBatch;
+        this.position = position;
     }
     public void SpriteDraw(Vector2 position)
     {
-        throw new NotImplementedException();
+        if (flipped)
+        {
+            spriteBatch.Draw(texture, position, frame, Color.White, 0.0f, new Vector2(0,0), 1.0f, SpriteEffects.None, 0.0f);
+        } else
+        {
+            spriteBatch.Draw(texture, position, frame, Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.FlipHorizontally, 0.0f);
+        }
     }
     public void Update(GameTime gametime)
     {
-        throw new NotImplementedException();
+        animationTimer += gametime.ElapsedGameTime.TotalSeconds;
+        if(animationTimer >= animationInterval)
+        {
+            flipped = !flipped;
+            animationTimer = 0;
+        }
     }
 }

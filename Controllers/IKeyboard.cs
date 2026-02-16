@@ -89,6 +89,24 @@ namespace Controllers
                 player.playerState.FireBoomerang();
                 projectileInputLimiter = 20;
             }
+            
+            if((keyState.IsKeyDown(Keys.D4) || keyState.IsKeyDown(Keys.NumPad4)) && projectileInputLimiter == 0)
+            {
+                player.playerState.FireMagicBoomerang();
+                projectileInputLimiter = 20;
+            }
+
+            if ((keyState.IsKeyDown(Keys.D5) || keyState.IsKeyDown(Keys.NumPad5)) && projectileInputLimiter == 0)
+            {
+                player.playerState.FireFireball();
+                projectileInputLimiter = 20;
+            }
+
+            if((keyState.IsKeyDown(Keys.D6) || keyState.IsKeyDown(Keys.NumPad6)) && projectileInputLimiter == 0)
+            {
+                player.playerState.FireBomb();
+                projectileInputLimiter = 20;
+            }
 
             if (!movementKeyActive && !(player.playerState is LeftAttackingPlayerState || player.playerState is RightAttackingPlayerState || player.playerState is UpAttackingPlayerState || player.playerState is DownAttackingPlayerState))
             {

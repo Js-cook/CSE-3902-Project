@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Sprites;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,6 +71,10 @@ public class Link
             if(projectile is Arrow || projectile is SilverArrow)
             {
                 projectiles.Add(new ArrowParticle(projectile.Position, "", projectileSpriteFactory));
+            }
+            if(projectile is Bomb)
+            {
+                projectiles.Add(new BombParticle(projectile.Position, "", projectileSpriteFactory));
             }
         }
 
