@@ -76,6 +76,9 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
     public void FireSilverArrow()
     {
     }
+    public void FireBomb()
+    {
+    }
     public void Update(GameTime gametime)
     {
         
@@ -134,6 +137,9 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
     {
     }
     public void FireFireball()
+    {
+    }
+    public void FireBomb()
     {
     }
     public void BeAttacking()
@@ -211,6 +217,9 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
     public void FireFireball()
     {
     }
+    public void FireBomb()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new UpIdlePlayerState(player, spriteFactory);
@@ -279,6 +288,9 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
     {
     }
     public void FireFireball()
+    {
+    }
+    public void FireBomb()
     {
     }
     public void BeIdle()
@@ -370,6 +382,11 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
         IProjectile fireball = new Fireball(player.position, "left", player.projectileSpriteFactory);
         player.projectiles.Add(fireball);
     }
+    public void FireBomb()
+    {
+        IProjectile bomb = new Bomb(player.position, "left", player.projectileSpriteFactory);
+        player.projectiles.Add(bomb);
+    }
 
     public void BeIdle()
     {
@@ -460,6 +477,11 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
         IProjectile fireball = new Fireball(player.position, "right", player.projectileSpriteFactory);
         player.projectiles.Add(fireball);
     }
+    public void FireBomb()
+    {
+        IProjectile bomb = new Bomb(player.position, "right", player.projectileSpriteFactory);
+        player.projectiles.Add(bomb);
+    }
 
     public void BeIdle()
     {
@@ -548,6 +570,11 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
     {
         IProjectile fireball = new Fireball(player.position, "up", player.projectileSpriteFactory);
         player.projectiles.Add(fireball);
+    }
+    public void FireBomb()
+    {
+        IProjectile bomb = new Bomb(player.position, "up", player.projectileSpriteFactory);
+        player.projectiles.Add(bomb);
     }
     public void BeIdle()
     {
@@ -639,6 +666,11 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
         IProjectile fireball = new Fireball(player.position, "down", player.projectileSpriteFactory);
         player.projectiles.Add(fireball);
     }
+    public void FireBomb()
+    {
+        IProjectile bomb = new Bomb(player.position, "down", player.projectileSpriteFactory);
+        player.projectiles.Add(bomb);
+    }
 
     public void BeIdle()
     {
@@ -691,6 +723,9 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
     {
     }
     public void FireFireball()
+    {
+    }
+    public void FireBomb()
     {
     }
     public void BeIdle()
@@ -750,6 +785,9 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
     public void FireFireball()
     {
     }
+    public void FireBomb()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new RightIdlePlayerState(player, spriteFactory);
@@ -804,6 +842,9 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
     public void FireFireball()
     {
     }
+    public void FireBomb()
+    {
+    }
     public void BeIdle()
     {
         player.playerState = new UpIdlePlayerState(player, spriteFactory);
@@ -856,6 +897,9 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
     {
     }
     public void FireFireball()
+    {
+    }
+    public void FireBomb()
     {
     }
     public void BeIdle()

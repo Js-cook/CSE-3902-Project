@@ -72,6 +72,10 @@ public class Link
             {
                 projectiles.Add(new ArrowParticle(projectile.Position, "", projectileSpriteFactory));
             }
+            if(projectile is Bomb)
+            {
+                projectiles.Add(new BombParticle(projectile.Position, "", projectileSpriteFactory));
+            }
         }
 
     }

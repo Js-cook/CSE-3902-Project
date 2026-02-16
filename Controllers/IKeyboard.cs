@@ -97,6 +97,12 @@ namespace Controllers
                 projectileInputLimiter = 20;
             }
 
+            if((keyState.IsKeyDown(Keys.D6) || keyState.IsKeyDown(Keys.NumPad6)) && projectileInputLimiter == 0)
+            {
+                player.playerState.FireBomb();
+                projectileInputLimiter = 20;
+            }
+
             if (!movementKeyActive && !(player.playerState is LeftAttackingPlayerState || player.playerState is RightAttackingPlayerState || player.playerState is UpAttackingPlayerState || player.playerState is DownAttackingPlayerState))
             {
                 player.playerState.BeIdle();

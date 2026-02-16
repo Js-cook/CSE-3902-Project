@@ -19,6 +19,7 @@ namespace Interfaces
         void FireBoomerang();
         void FireMagicBoomerang();
         void FireFireball();
+        void FireBomb();
         void Update(GameTime gametime);
     
     }
