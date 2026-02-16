@@ -6,22 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class MovingGelState : IEnemyState
+public class MovingAquamentusState : IEnemyState
 {
-    private Gel gel;
-    private GelSpriteFactory spriteFactory;
+    private Aquamentus aquamentus;
+    private AquamentusSpriteFactory spriteFactory;
 
-    double timerMax = 2;
+    double timerMax = 1;
     double timer;
 
     private Vector2 velocity;
     private Random randInt;
 
     private GraphicsDeviceManager _graphics;
-    public MovingGelState(Gel gel, GelSpriteFactory gelSpriteFactory, GraphicsDeviceManager _graphics)
+    public MovingAquamentusState(Aquamentus aquamentus, AquamentusSpriteFactory aquamentusSpriteFactory, GraphicsDeviceManager _graphics)
     {
-        this.gel = gel;
-        this.spriteFactory = gelSpriteFactory;
+        this.aquamentus = aquamentus;
+        this.spriteFactory = aquamentusSpriteFactory;
         timer = 0;
 
         velocity = new Vector2(1, 0);
@@ -35,29 +35,35 @@ public class MovingGelState : IEnemyState
         // No need for this 
     }
 
+    public void ChangeDirection(ref Vector2 velocity)
+    {
+        // No need for this
+    }
+
     public void BeDead()
     {
 
         //No need for this
-        
+
     }
 
     public void Update(Microsoft.Xna.Framework.GameTime gameTime)
     {
-        gel.position += velocity;
+        // Keep it moving forward and backward between the bounds of the screen.
+        aquamentus.position += velocity;
         timer += gameTime.ElapsedGameTime.TotalSeconds;
         if (timer >= timerMax)
         {
-            velocity = new Vector2(randInt.Next(0, 2), randInt.Next(0, 2));
+            velocity = -velocity;
             timer = 0;
         }
 
-        EnemyHelper.CheckBounds(ref velocity, gel.position, _graphics);
+        EnemyHelper.CheckBounds(ref velocity, aquamentus.position, _graphics);
 
 
 
     }
 
-   
+
 
 }

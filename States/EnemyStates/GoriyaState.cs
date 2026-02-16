@@ -13,9 +13,9 @@ public class LeftMovingGoriyaState : IEnemyState
     private Goriya goriya;
     private GoriyaSpriteFactory spriteFactory;
 
-    double timerMax = 5;
+    double timerMax = 2;
     double timer;
-
+    int speed = 2;
     private Vector2 velocity;
     private Random randInt;
 
@@ -27,7 +27,7 @@ public class LeftMovingGoriyaState : IEnemyState
         goriya.Sprite = spriteFactory.CreateLeftMovingGoriyaSprite(goriya.position);
         timer = 0;
 
-        velocity = new Vector2(-1, 0);
+        velocity = new Vector2(-1, 0) * speed;
         randInt = new Random();
         this._graphics = _graphics;
 
@@ -79,8 +79,8 @@ public class LeftMovingGoriyaState : IEnemyState
 
 
         EnemyHelper.CheckBounds(ref velocity, goriya.position, _graphics);
-        ChangeState();
-        
+        ChangeState(); // This will adjust the state if the velocity changes due to bounds checking, ensuring the correct sprite is displayed.
+
     }
 
     private void ChangeState()
@@ -109,6 +109,7 @@ public class DownMovingGoriyaState : IEnemyState {
 
     double timerMax = 5;
     double timer;
+    int speed = 2;
 
     private Vector2 velocity;
     private Random randInt;
@@ -121,7 +122,7 @@ public class DownMovingGoriyaState : IEnemyState {
         goriya.Sprite = spriteFactory.CreateDownMovingGoriyaSprite(goriya.position);
         timer = 0;
 
-        velocity = new Vector2(0, 1);
+        velocity = new Vector2(0, 1) * speed;
         randInt = new Random();
         this._graphics = _graphics;
 
@@ -167,7 +168,7 @@ public class DownMovingGoriyaState : IEnemyState {
         }
 
         EnemyHelper.CheckBounds(ref velocity, goriya.position, _graphics);
-        ChangeState();
+        ChangeState(); // This will adjust the state if the velocity changes due to bounds checking, ensuring the correct sprite is displayed.
     }
 
     private void ChangeState()
@@ -197,6 +198,7 @@ public class UpMovingGoriyaState : IEnemyState
 
     double timerMax = 5;
     double timer;
+    int speed = 2;
 
     private Vector2 velocity;
     private Random randInt;
@@ -209,7 +211,7 @@ public class UpMovingGoriyaState : IEnemyState
         goriya.Sprite = spriteFactory.CreateUpMovingGoriyaSprite(goriya.position);
         timer = 0;
 
-        velocity = new Vector2(0, -1);
+        velocity = new Vector2(0, -1) * speed;
         randInt = new Random();
         this._graphics = _graphics;
 
@@ -257,7 +259,7 @@ public class UpMovingGoriyaState : IEnemyState
         
 
         EnemyHelper.CheckBounds(ref velocity, goriya.position, _graphics);
-        ChangeState();
+        ChangeState(); // This will adjust the state if the velocity changes due to bounds checking, ensuring the correct sprite is displayed.
     }
 
     private void ChangeState()
@@ -286,6 +288,7 @@ public class RightMovingGoriyaState : IEnemyState {
 
     double timerMax = 5;
     double timer;
+    int speed = 2;
 
     private Vector2 velocity;
     private Random randInt;
@@ -298,7 +301,7 @@ public class RightMovingGoriyaState : IEnemyState {
         goriya.Sprite = spriteFactory.CreateRightMovingGoriyaSprite(goriya.position);
         timer = 0;
 
-        velocity = new Vector2(1, 0);
+        velocity = new Vector2(1, 0) * speed;
         randInt = new Random();
         this._graphics = _graphics;
 
@@ -349,7 +352,7 @@ public class RightMovingGoriyaState : IEnemyState {
 
 
         EnemyHelper.CheckBounds(ref velocity, goriya.position, _graphics);
-        ChangeState();
+        ChangeState(); // This will adjust the state if the velocity changes due to bounds checking, ensuring the correct sprite is displayed.
     }
 
     private void ChangeState()

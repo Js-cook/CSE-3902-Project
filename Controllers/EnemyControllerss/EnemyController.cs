@@ -19,20 +19,38 @@ public class EnemyConroller {
 
     public void LoadContent(ContentManager content, SpriteBatch _spriteBatch, GraphicsDeviceManager _graphics)
     {
-        Texture2D gelTexture = content.Load<Texture2D>("EnemySprites");
-        GelSpriteFactory gelSpriteFactory = new GelSpriteFactory(gelTexture, _spriteBatch);
+        Texture2D enemyTexture = content.Load<Texture2D>("EnemySprites");
+        Texture2D bossTexture = content.Load<Texture2D>("BossSprites");
+
+        GelSpriteFactory gelSpriteFactory = new GelSpriteFactory(enemyTexture, _spriteBatch);
         Gel gel = new Gel(gelSpriteFactory, _graphics);
         enemyArray.Add(gel);
 
-        Texture2D batTexture = content.Load<Texture2D>("EnemySprites");
-        BatSpriteFactory batSpriteFactory = new BatSpriteFactory(batTexture, _spriteBatch);
+        BatSpriteFactory batSpriteFactory = new BatSpriteFactory(enemyTexture, _spriteBatch);
         Bat bat = new Bat(batSpriteFactory, _graphics);
         enemyArray.Add(bat);
 
-        Texture2D goriyaTexture = content.Load<Texture2D>("EnemySprites");
-        GoriyaSpriteFactory goriyaSpriteFactory = new GoriyaSpriteFactory(goriyaTexture, _spriteBatch);
+        GoriyaSpriteFactory goriyaSpriteFactory = new GoriyaSpriteFactory(enemyTexture, _spriteBatch);
         Goriya goriya = new Goriya(goriyaSpriteFactory, _graphics);
         enemyArray.Add(goriya);
+
+        SkeletonSpriteFactory skeletonSpriteFactory = new SkeletonSpriteFactory(enemyTexture, _spriteBatch);
+        Skeleton skeleton = new Skeleton(skeletonSpriteFactory, _graphics);
+        enemyArray.Add(skeleton);
+
+        WallmasterSpriteFactory wallmasterSpriteFactory = new WallmasterSpriteFactory(enemyTexture, _spriteBatch);
+        Wallmaster wallmaster = new Wallmaster(wallmasterSpriteFactory, _graphics);
+        enemyArray.Add(wallmaster);
+
+        SpiketrapSpriteFactory spiketrapSpriteFactory = new SpiketrapSpriteFactory(enemyTexture, _spriteBatch);
+        Spiketrap spiketrap = new Spiketrap(spiketrapSpriteFactory, _graphics);
+        enemyArray.Add(spiketrap);
+
+        AquamentusSpriteFactory aquamentusSpriteFactory = new AquamentusSpriteFactory(bossTexture, _spriteBatch);
+        Aquamentus aquamentus = new Aquamentus(aquamentusSpriteFactory, _graphics);
+        enemyArray.Add(aquamentus);
+
+
 
     }
 

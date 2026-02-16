@@ -10,7 +10,7 @@ public class MovingBatState : IEnemyState
 {
     private Bat bat;
     private BatSpriteFactory spriteFactory;
-    double timerMax = 5;
+    double timerMax = 2;
     double timer;
     private Vector2 velocity;
     private Random randInt;
