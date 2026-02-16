@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using Interfaces;
 using Microsoft.Xna.Framework;
 using Sprites;
@@ -350,11 +351,6 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
 
     }
 
-    public void FireSilverArrow()
-    {
-        IProjectile silverArrow = new SilverArrow(player.position, "left", player.projectileSpriteFactory);
-        player.projectiles.Add(silverArrow);
-    }
 
     public void BeAttacking()
     {
@@ -362,28 +358,45 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
         player.Sprite = spriteFactory.CreateLeftAttackingPlayerSprite(player.position);
     }
 
+    public void FireSilverArrow()
+    {
+        player.playerState = new LeftUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateLeftUsingPlayerSprite(player.position);
+        IProjectile silverArrow = new SilverArrow(player.position, "left", player.projectileSpriteFactory);
+        player.projectiles.Add(silverArrow);
+    }
     public void FireArrow()
     {
+        player.playerState = new LeftUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateLeftUsingPlayerSprite(player.position);
         IProjectile arrow = new Arrow(player.position, "left", player.projectileSpriteFactory);
         player.projectiles.Add(arrow);
     }
     public void FireBoomerang()
     {
+        player.playerState = new LeftUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateLeftUsingPlayerSprite(player.position);
         IProjectile boomerang = new Boomerang(player.position, "left", player.projectileSpriteFactory);
         player.projectiles.Add(boomerang);
     }
     public void FireMagicBoomerang()
     {
+        player.playerState = new LeftUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateLeftUsingPlayerSprite(player.position);
         IProjectile magicBoomerang = new MagicBoomerang(player.position, "left", player.projectileSpriteFactory);
         player.projectiles.Add(magicBoomerang);
     }
     public void FireFireball()
     {
+        player.playerState = new LeftUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateLeftUsingPlayerSprite(player.position);
         IProjectile fireball = new Fireball(player.position, "left", player.projectileSpriteFactory);
         player.projectiles.Add(fireball);
     }
     public void FireBomb()
     {
+        player.playerState = new LeftUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateLeftUsingPlayerSprite(player.position);
         IProjectile bomb = new Bomb(player.position, "left", player.projectileSpriteFactory);
         player.projectiles.Add(bomb);
     }
@@ -452,33 +465,45 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
 
     public void FireSilverArrow()
     {
+        player.playerState = new RightUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateRightUsingPlayerSprite(player.position);
         IProjectile silverArrow = new SilverArrow(player.position, "right", player.projectileSpriteFactory);
         player.projectiles.Add(silverArrow);
     }
 
     public void FireArrow()
     {
+        player.playerState = new RightUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateRightUsingPlayerSprite(player.position);
         IProjectile arrow = new Arrow(player.position, "right", player.projectileSpriteFactory);
         player.projectiles.Add(arrow);
     }
 
     public void FireBoomerang()
     {
+        player.playerState = new RightUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateRightUsingPlayerSprite(player.position);
         IProjectile boomerang = new Boomerang(player.position, "right", player.projectileSpriteFactory);
         player.projectiles.Add(boomerang);
     }
     public void FireMagicBoomerang()
     {
+        player.playerState = new RightUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateRightUsingPlayerSprite(player.position);
         IProjectile magicBoomerang = new MagicBoomerang(player.position, "right", player.projectileSpriteFactory);
         player.projectiles.Add(magicBoomerang);
     }
     public void FireFireball()
     {
+        player.playerState = new RightUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateRightUsingPlayerSprite(player.position);
         IProjectile fireball = new Fireball(player.position, "right", player.projectileSpriteFactory);
         player.projectiles.Add(fireball);
     }
     public void FireBomb()
     {
+        player.playerState = new RightUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateRightUsingPlayerSprite(player.position);
         IProjectile bomb = new Bomb(player.position, "right", player.projectileSpriteFactory);
         player.projectiles.Add(bomb);
     }
@@ -548,31 +573,43 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
 
     public void FireSilverArrow()
     {
+        player.playerState = new UpUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateUpUsingPlayerSprite(player.position);
         IProjectile silverArrow = new SilverArrow(player.position, "up", player.projectileSpriteFactory);
         player.projectiles.Add(silverArrow);
     }
     public void FireArrow()
     {
+        player.playerState = new UpUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateUpUsingPlayerSprite(player.position);
         IProjectile arrow = new Arrow(player.position, "up", player.projectileSpriteFactory);
         player.projectiles.Add(arrow);
     }
     public void FireBoomerang()
     {
+        player.playerState = new UpUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateUpUsingPlayerSprite(player.position);
         IProjectile boomerang = new Boomerang(player.position, "up", player.projectileSpriteFactory);
         player.projectiles.Add(boomerang);
     }
     public void FireMagicBoomerang()
     {
+        player.playerState = new UpUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateUpUsingPlayerSprite(player.position);
         IProjectile magicBoomerang = new MagicBoomerang(player.position, "up", player.projectileSpriteFactory);
         player.projectiles.Add(magicBoomerang);
     }
     public void FireFireball()
     {
+        player.playerState = new UpUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateUpUsingPlayerSprite(player.position);
         IProjectile fireball = new Fireball(player.position, "up", player.projectileSpriteFactory);
         player.projectiles.Add(fireball);
     }
     public void FireBomb()
     {
+        player.playerState = new UpUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateUpUsingPlayerSprite(player.position);
         IProjectile bomb = new Bomb(player.position, "up", player.projectileSpriteFactory);
         player.projectiles.Add(bomb);
     }
@@ -641,33 +678,45 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
 
     public void FireSilverArrow()
     {
+        player.playerState = new DownUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateDownUsingPlayerSprite(player.position);
         IProjectile silverArrow = new SilverArrow(player.position, "down", player.projectileSpriteFactory);
         player.projectiles.Add(silverArrow);
     }
 
     public void FireArrow()
     {
+        player.playerState = new DownUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateDownUsingPlayerSprite(player.position);
         IProjectile arrow = new Arrow(player.position, "down", player.projectileSpriteFactory);
         player.projectiles.Add(arrow);
     }
 
     public void FireBoomerang()
     {
+        player.playerState = new DownUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateDownUsingPlayerSprite(player.position);
         IProjectile boomerang = new Boomerang(player.position, "down", player.projectileSpriteFactory);
         player.projectiles.Add(boomerang);
     }
     public void FireMagicBoomerang()
     {
+        player.playerState = new DownUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateDownUsingPlayerSprite(player.position);
         IProjectile magicBoomerang = new MagicBoomerang(player.position, "down", player.projectileSpriteFactory);
         player.projectiles.Add(magicBoomerang);
     }
     public void FireFireball()
     {
+        player.playerState = new DownUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateDownUsingPlayerSprite(player.position);
         IProjectile fireball = new Fireball(player.position, "down", player.projectileSpriteFactory);
         player.projectiles.Add(fireball);
     }
     public void FireBomb()
     {
+        player.playerState = new DownUsingPlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateDownUsingPlayerSprite(player.position);
         IProjectile bomb = new Bomb(player.position, "down", player.projectileSpriteFactory);
         player.projectiles.Add(bomb);
     }
@@ -907,6 +956,243 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
         player.playerState = new DownIdlePlayerState(player, spriteFactory);
         player.Sprite = spriteFactory.CreateDownIdlePlayerSprite(player.position);
     }
+    public void Update(GameTime gametime)
+    {
+        startClock += gametime.ElapsedGameTime.TotalSeconds;
+        if (startClock >= animationDuration)
+        {
+            BeIdle();
+        }
+    }
+}
+
+public class LeftUsingPlayerState : Interfaces.IPlayerState
+{
+    private Link player;
+    private PlayerSpriteFactory spriteFactory;
+
+    private double startClock = 0.0;
+    private double animationDuration = 0.4;
+    public LeftUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    {
+        this.player = player;
+        this.spriteFactory = spriteFactory;
+    }
+    public void ChangeDirection(String Direction)
+    {
+        // do nothing - can't change direction while using item
+    }
+    public void BeDead()
+    {
+    }
+    public void BeDamaged()
+    {
+    }
+    public void BeAttacking()
+    {
+    }
+    public void FireArrow()
+    {
+    }
+    public void FireSilverArrow()
+    {
+    }
+    public void FireBoomerang()
+    {
+    }
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
+    public void FireBomb()
+    {
+    }
+    public void BeIdle()
+    {
+        player.playerState = new LeftIdlePlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateLeftIdlePlayerSprite(player.position);
+    }
+
+    public void Update(GameTime gametime)
+    {
+        startClock += gametime.ElapsedGameTime.TotalSeconds;
+        if (startClock >= animationDuration)
+        {
+            BeIdle();
+        }
+    }
+}
+
+public class RightUsingPlayerState : Interfaces.IPlayerState
+{
+    private Link player;
+    private PlayerSpriteFactory spriteFactory;
+
+    private double startClock = 0.0;
+    private double animationDuration = 0.4;
+    public RightUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    {
+        this.player = player;
+        this.spriteFactory = spriteFactory;
+    }
+    public void ChangeDirection(String Direction)
+    {
+        // do nothing - can't change direction while using item
+    }
+    public void BeDead()
+    {
+    }
+    public void BeDamaged()
+    {
+    }
+    public void BeAttacking()
+    {
+    }
+    public void FireArrow()
+    {
+    }
+    public void FireSilverArrow()
+    {
+    }
+    public void FireBoomerang()
+    {
+    }
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
+    public void FireBomb()
+    {
+    }
+    public void BeIdle()
+    {
+        player.playerState = new RightIdlePlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateRightIdlePlayerSprite(player.position);
+    }
+
+    public void Update(GameTime gametime)
+    {
+        Debug.WriteLine("USING ITEM ANIMATION");
+        startClock += gametime.ElapsedGameTime.TotalSeconds;
+        if (startClock >= animationDuration)
+        {
+            BeIdle();
+        }
+    }
+}
+
+public class UpUsingPlayerState : Interfaces.IPlayerState
+{
+    private Link player;
+    private PlayerSpriteFactory spriteFactory;
+
+    private double startClock = 0.0;
+    private double animationDuration = 0.4;
+    public UpUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    {
+        this.player = player;
+        this.spriteFactory = spriteFactory;
+    }
+    public void ChangeDirection(String Direction)
+    {
+        // do nothing - can't change direction while using item
+    }
+    public void BeDead()
+    {
+    }
+    public void BeDamaged()
+    {
+    }
+    public void BeAttacking()
+    {
+    }
+    public void FireArrow()
+    {
+    }
+    public void FireSilverArrow()
+    {
+    }
+    public void FireBoomerang()
+    {
+    }
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
+    public void FireBomb()
+    {
+    }
+    public void BeIdle()
+    {
+        player.playerState = new UpIdlePlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateUpIdlePlayerSprite(player.position);
+    }
+
+    public void Update(GameTime gametime)
+    {
+        startClock += gametime.ElapsedGameTime.TotalSeconds;
+        if (startClock >= animationDuration)
+        {
+            BeIdle();
+        }
+    }
+}
+
+public class DownUsingPlayerState : Interfaces.IPlayerState
+{
+    private Link player;
+    private PlayerSpriteFactory spriteFactory;
+
+    private double startClock = 0.0;
+    private double animationDuration = 0.4;
+    public DownUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    {
+        this.player = player;
+        this.spriteFactory = spriteFactory;
+    }
+    public void ChangeDirection(String Direction)
+    {
+        // do nothing - can't change direction while using item
+    }
+    public void BeDead()
+    {
+    }
+    public void BeDamaged()
+    {
+    }
+    public void BeAttacking()
+    {
+    }
+    public void FireArrow()
+    {
+    }
+    public void FireSilverArrow()
+    {
+    }
+    public void FireBoomerang()
+    {
+    }
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
+    public void FireBomb()
+    {
+    }
+    public void BeIdle()
+    {
+        player.playerState = new DownIdlePlayerState(player, spriteFactory);
+        player.Sprite = spriteFactory.CreateDownIdlePlayerSprite(player.position);
+    }
+
     public void Update(GameTime gametime)
     {
         startClock += gametime.ElapsedGameTime.TotalSeconds;
