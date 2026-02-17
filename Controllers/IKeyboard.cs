@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Interfaces;
+using Microsoft.VisualBasic.FileIO;
 using Microsoft.Xna.Framework.Input;
 
 namespace Controllers
@@ -14,15 +15,23 @@ namespace Controllers
     {
 
         private Link player;
-        public IKeyboard(Link player)
+        private Environment environment;
+        private int envSwitchLimiter = 0;
+        public IKeyboard(Link player, Environment env)
         {
             this.player = player;
+            this.environment = env;
         }
 
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
             Boolean movementKeyActive = false;
+
+            if (envSwitchLimiter > 0)
+            {
+                envSwitchLimiter--;
+            }
 
             // TODO: restructure to avoid all the ifs
             if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && !movementKeyActive)
@@ -65,6 +74,18 @@ namespace Controllers
             if (!movementKeyActive && !(player.playerState is LeftAttackingPlayerState || player.playerState is RightAttackingPlayerState))
             {
                 player.playerState.BeIdle();
+            }
+
+            //for tile cycling
+            if (keyState.IsKeyDown(Keys.T) && envSwitchLimiter == 0)
+            {
+                environment.CycleLeft();
+                envSwitchLimiter = 20;
+            }
+            if (keyState.IsKeyDown(Keys.Y) && envSwitchLimiter == 0)
+            {
+                environment.CycleRight();
+                envSwitchLimiter = 20;
             }
         }
     }
