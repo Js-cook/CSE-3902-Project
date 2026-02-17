@@ -81,7 +81,7 @@ public class TileFactory
     }
 }
 
-public class StatueSprite : ISprite
+public class StatueSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -94,18 +94,18 @@ public class StatueSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }
 
-public class SquareBlockSprite : ISprite
+public class SquareBlockSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -118,18 +118,18 @@ public class SquareBlockSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }
 
-public class BlueGapSprite : ISprite
+public class BlueGapSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -142,18 +142,18 @@ public class BlueGapSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }
 
-public class StairSprite : ISprite
+public class StairSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -166,18 +166,18 @@ public class StairSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }
 
-public class WhiteBrickSprite : ISprite
+public class WhiteBrickSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -190,18 +190,18 @@ public class WhiteBrickSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }
 
-public class LadderSprite : ISprite
+public class LadderSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -214,18 +214,18 @@ public class LadderSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }
 
-public class BlueFloorSprite : ISprite
+public class BlueFloorSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -238,18 +238,18 @@ public class BlueFloorSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }
 
-public class BlueSandSprite : ISprite
+public class BlueSandSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -262,18 +262,18 @@ public class BlueSandSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }
 
-public class WallSprite : ISprite
+public class WallSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -286,18 +286,18 @@ public class WallSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }
 
-public class BombedWallSprite : ISprite
+public class BombedWallSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -310,18 +310,18 @@ public class BombedWallSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }
 
-public class OpenDoorSprite : ISprite
+public class OpenDoorSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -334,18 +334,18 @@ public class OpenDoorSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }
 
-public class KeyLockedDoorSprite : ISprite
+public class KeyLockedDoorSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -358,18 +358,18 @@ public class KeyLockedDoorSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }
 
-public class DiamondLockedDoorSprite : ISprite
+public class DiamondLockedDoorSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -382,11 +382,11 @@ public class DiamondLockedDoorSprite : ISprite
         this.spriteBatch = spriteBatch;
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
     }
 
-    public void SpriteDraw(Vector2 position)
+    public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
