@@ -6,7 +6,7 @@ using System.IO;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Text;
-//using System.Threading.Tasks;
+//using System.Threading.Tasks
 
 namespace Sprites
 {
@@ -61,6 +61,30 @@ namespace Sprites
         {
             return new RightAttackingPlayerSprite(playerTexture, position, spriteBatch);
         }
+        public ISprite CreateUpAttackingPlayerSprite(Vector2 position)
+        {
+            return new UpAttackingPlayerSprite(playerTexture, position, spriteBatch);
+        }
+        public ISprite CreateDownAttackingPlayerSprite(Vector2 position)
+        {
+            return new DownAttackingPlayerSprite(playerTexture, position, spriteBatch);
+        }
+        public ISprite CreateLeftUsingPlayerSprite(Vector2 position)
+        {
+            return new LeftUsingPlayerSprite(playerTexture, position, spriteBatch);
+        }
+        public ISprite CreateRightUsingPlayerSprite(Vector2 position)
+        {
+            return new RightUsingPlayerSprite(playerTexture, position, spriteBatch);
+        }
+        public ISprite CreateUpUsingPlayerSprite(Vector2 position)
+        {
+            return new UpUsingPlayerSprite(playerTexture, position, spriteBatch);
+        }
+        public ISprite CreateDownUsingPlayerSprite(Vector2 position)
+        {
+            return new DownUsingPlayerSprite(playerTexture, position, spriteBatch);
+        }
     }
 
 
@@ -70,6 +94,9 @@ namespace Sprites
         //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
+        private string Direction { get; }
+
+        public bool Hurt { get; set; }
 
         private Rectangle sourceRectangle1 = new Rectangle(34, 10, 16, 17);
         private Rectangle sourceRectangle2 = new Rectangle(51, 10, 16, 17);
@@ -81,6 +108,7 @@ namespace Sprites
             //this.position = position;
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
+            Direction = "right";
         }
 
         public void Update(GameTime gametime)
@@ -107,6 +135,8 @@ namespace Sprites
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
+        public bool Hurt { get; set; }
+
         private Rectangle sourceRectangle1 = new Rectangle(34, 10, 16, 17);
         private Rectangle sourceRectangle2 = new Rectangle(51, 10, 16, 17);
         private int frameCounter = 0;
@@ -131,7 +161,14 @@ namespace Sprites
 
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            }
         }
     }
 
@@ -141,6 +178,8 @@ namespace Sprites
         //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
+
+        public bool Hurt { get; set; }
 
         private Rectangle sourceRectangle1 = new Rectangle(68, 10, 16, 17);
         private Rectangle sourceRectangle2 = new Rectangle(85, 10, 16, 17);
@@ -177,6 +216,8 @@ namespace Sprites
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
+        public bool Hurt { get; set; }
+
         private Rectangle sourceRectangle1 = new Rectangle(0, 10, 16, 17);
         private Rectangle sourceRectangle2 = new Rectangle(17, 10, 16, 17);
         private int frameCounter = 0;
@@ -201,23 +242,29 @@ namespace Sprites
 
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            }
         }
     }
 
     public class RightIdlePlayerSprite : ISprite
     {
         private Texture2D texture;
-        //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
+        public bool Hurt { get; set; }
         private Rectangle sourceRectangle1 = new Rectangle(34, 10, 16, 17);
 
         public RightIdlePlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
             this.texture = texture;
-            //this.position = position;
             this.spriteBatch = spriteBatch;
             currentFrame = sourceRectangle1;
         }
@@ -228,7 +275,14 @@ namespace Sprites
 
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            }
         }
     }
 
@@ -238,6 +292,8 @@ namespace Sprites
         //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
+
+        public bool Hurt { get; set; }
 
         private Rectangle sourceRectangle1 = new Rectangle(34, 10, 16, 17);
 
@@ -255,7 +311,14 @@ namespace Sprites
 
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            }
         }
     }
 
@@ -265,6 +328,8 @@ namespace Sprites
         //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
+
+        public bool Hurt { get; set; }
 
         private Rectangle sourceRectangle1 = new Rectangle(68, 10, 16, 17);
 
@@ -282,7 +347,14 @@ namespace Sprites
 
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            }
         }
     }
 
@@ -292,6 +364,8 @@ namespace Sprites
         //private Vector2 position;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
+
+        public bool Hurt { get; set; }
 
         private Rectangle sourceRectangle1 = new Rectangle(0, 10, 16, 17);
 
@@ -309,7 +383,14 @@ namespace Sprites
 
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            }
         }
     }
 
@@ -318,6 +399,8 @@ namespace Sprites
         private Texture2D texture;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
+
+        public bool Hurt { get; set; }
 
         private double attackTimer = 0.0;
         private double attackDuration = 0.4;
@@ -366,7 +449,14 @@ namespace Sprites
         }
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            }
         }
 
     }
@@ -378,6 +468,7 @@ namespace Sprites
         private Rectangle currentFrame;
         private double attackTimer = 0.0;
         private double attackDuration = 0.4;
+        public bool Hurt { get; set; }
         private Rectangle[] frameContainer =
         {
             new Rectangle(0, 76, 16, 17),
@@ -418,7 +509,250 @@ namespace Sprites
         }
         public void SpriteDraw(Vector2 position)
         {
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            }
+        }
+    }
+            
+
+    public class UpAttackingPlayerSprite : ISprite
+    {
+        private Texture2D texture;
+        private SpriteBatch spriteBatch;
+        private Rectangle currentFrame;
+        public bool Hurt { get; set; }
+
+        private double attackTimer = 0.0;
+        private double attackDuration = 0.4;
+
+        private Rectangle[] frameContainer =
+        {
+            new Rectangle(0, 108, 16, 17), // WRONG VALUES PLEASE CHANGE ME
+            new Rectangle(51, 106, 16, 19),
+            new Rectangle(34, 96, 16, 29),
+            new Rectangle(17, 96, 16, 29)
+        };
+
+        public UpAttackingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
+        {
+            this.texture = texture;
+            this.spriteBatch = spriteBatch;
+            currentFrame = frameContainer[0];
+        }
+        public void Update(GameTime gametime)
+        {
+            attackTimer += gametime.ElapsedGameTime.TotalSeconds;
+            if (attackTimer < 0.1)
+            {
+                currentFrame = frameContainer[0];
+            }
+            else if (attackTimer >= 0.1 && attackTimer < 0.2)
+            {
+                currentFrame = frameContainer[1];
+            }
+            else if (attackTimer >= 0.2 && attackTimer < 0.3)
+            {
+                currentFrame = frameContainer[2];
+            }
+            else if (attackTimer >= 0.3 && attackTimer < 0.4)
+            {
+                currentFrame = frameContainer[3];
+            }
+            else if (attackTimer >= 0.4)
+            {
+                currentFrame = frameContainer[0];
+                attackTimer = 0.0;
+            }
+        }
+        public void SpriteDraw(Vector2 position)
+        {
             spriteBatch.Draw(texture, position, currentFrame, Color.White);
+        }
+    }
+
+    public class DownAttackingPlayerSprite : ISprite
+    {
+        private Texture2D texture;
+        private SpriteBatch spriteBatch;
+        private Rectangle currentFrame;
+        private double attackTimer = 0.0;
+        private double attackDuration = 0.4;
+        public bool Hurt { get; set; }
+        private Rectangle[] frameContainer =
+        {
+            new Rectangle(0, 46, 16, 17),
+            new Rectangle(51, 46, 16, 20),
+            new Rectangle(34, 46, 16, 23),
+            new Rectangle(17, 46, 16, 28)
+        };
+        public DownAttackingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
+        {
+            this.texture = texture;
+            this.spriteBatch = spriteBatch;
+            currentFrame = frameContainer[0];
+        }
+        public void Update(GameTime gametime)
+        {
+            attackTimer += gametime.ElapsedGameTime.TotalSeconds;
+            if (attackTimer < 0.1)
+            {
+                currentFrame = frameContainer[0];
+            }
+            else if (attackTimer >= 0.1 && attackTimer < 0.2)
+            {
+                currentFrame = frameContainer[1];
+            }
+            else if (attackTimer >= 0.2 && attackTimer < 0.3)
+            {
+                currentFrame = frameContainer[2];
+            }
+            else if (attackTimer >= 0.3 && attackTimer < 0.4)
+            {
+                currentFrame = frameContainer[3];
+            }
+            else if (attackTimer >= 0.4)
+            {
+                currentFrame = frameContainer[0];
+                attackTimer = 0.0;
+            }
+        }
+        public void SpriteDraw(Vector2 position)
+        {
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            }
+        }
+    }
+
+    public class LeftUsingPlayerSprite : ISprite
+    {
+        private Texture2D texture;
+        private SpriteBatch spriteBatch;
+        public bool Hurt { get; set; }
+        private Rectangle currentFrame = new Rectangle(123, 10, 17, 17);
+
+        public LeftUsingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
+        {
+            this.texture = texture;
+            this.spriteBatch = spriteBatch;
+        }
+
+        public void SpriteDraw(Vector2 position)
+        {
+            //throw new NotImplementedException();
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            }
+        }
+        public void Update(GameTime gameTime)
+        {
+        }
+    }
+
+    public class RightUsingPlayerSprite : ISprite
+    {
+        private Texture2D texture;
+        private SpriteBatch spriteBatch;
+        private Rectangle currentFrame = new Rectangle(123, 10, 17, 17);
+
+        public bool Hurt { get; set; }
+
+        public RightUsingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
+        {
+            this.texture = texture;
+            this.spriteBatch = spriteBatch;
+        }
+
+        public void SpriteDraw(Vector2 position)
+        {
+            //throw new NotImplementedException();
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            }
+        }
+        public void Update(GameTime gameTime)
+        {
+        }
+    }
+
+    public class UpUsingPlayerSprite : ISprite
+    {
+        private Texture2D texture;
+        private SpriteBatch spriteBatch;
+        public bool Hurt { get; set; }
+        private Rectangle currentFrame = new Rectangle(140, 10, 17, 17);
+
+        public UpUsingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
+        {
+            this.texture = texture;
+            this.spriteBatch = spriteBatch;
+        }
+
+        public void SpriteDraw(Vector2 position)
+        {
+            //throw new NotImplementedException();
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            }
+        }
+        public void Update(GameTime gameTime)
+        {
+        }
+    }
+
+    public class DownUsingPlayerSprite : ISprite
+    {
+        private Texture2D texture;
+        private SpriteBatch spriteBatch;
+        public bool Hurt { get; set; }
+        private Rectangle currentFrame = new Rectangle(106, 10, 17, 17);
+
+        public DownUsingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
+        {
+            this.texture = texture;
+            this.spriteBatch = spriteBatch;
+        }
+
+        public void SpriteDraw(Vector2 position)
+        {
+            //throw new NotImplementedException();
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            }
+        }
+        public void Update(GameTime gameTime)
+        {
         }
     }
 }

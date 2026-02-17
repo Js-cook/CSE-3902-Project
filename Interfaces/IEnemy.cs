@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public interface ISprite
+public interface IEnemy
 {
-    bool Hurt { get; set; }
-    public void SpriteDraw(Vector2 position);
-    public void Update(GameTime gametime);
-}
+    public void Update(GameTime gameTime);
 
+    public void Draw();
+}

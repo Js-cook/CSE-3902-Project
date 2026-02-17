@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public interface ISprite
-{
-    bool Hurt { get; set; }
-    public void SpriteDraw(Vector2 position);
-    public void Update(GameTime gametime);
+public interface IProjectile
+{ 
+    bool Active { get; set; }
+    Vector2 Position { get; set; }
+    void Draw();
+    void Update(GameTime gametime);
 }
 

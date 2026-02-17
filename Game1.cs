@@ -18,6 +18,11 @@ namespace _3902_Project
         private Link player;
         private Texture2D playerTexture;
         private PlayerSpriteFactory spriteFactory;
+        private ProjectileSpriteFactory projectileSpriteFactory;
+
+        private EnemyConroller enemyController;
+
+
 
         private IController keyboardController;
 
@@ -44,20 +49,28 @@ namespace _3902_Project
 
             playerTexture = Content.Load<Texture2D>("LinkSprites");
             spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
-            player = new Link(spriteFactory);
+            projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
+
+            player = new Link(spriteFactory, projectileSpriteFactory);
+
+
+            // Handles loading content for all enemies
+            enemyController = new EnemyConroller();
+            enemyController.LoadContent(Content, _spriteBatch, _graphics);
 
             tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), _spriteBatch);
             environment = new Environment(tileFactory);
 
-            keyboardController = new Controllers.IKeyboard(player, environment);
+            keyboardController = new Controllers.IKeyboard(player, environment, enemyController);
         }
 
         protected override void Update(GameTime gameTime)
-        { 
+        {
             // TODO: Add your update logic here
             keyboardController.Update();
             player.Update(gameTime);
             environment.Update(gameTime);
+            enemyController.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -68,6 +81,7 @@ namespace _3902_Project
             _spriteBatch.Begin();
             player.Draw();
             environment.Draw();
+            enemyController.Draw();
             _spriteBatch.End();
             // TODO: Add your drawing code here
 

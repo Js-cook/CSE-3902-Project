@@ -14,6 +14,12 @@ namespace Interfaces
         void BeDamaged();
         void BeAttacking();
         void BeIdle();
+        void FireArrow();
+        void FireSilverArrow();
+        void FireBoomerang();
+        void FireMagicBoomerang();
+        void FireFireball();
+        void FireBomb();
         void Update(GameTime gametime);
     
     }
