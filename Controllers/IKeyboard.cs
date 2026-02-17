@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Interfaces;
+using Microsoft.VisualBasic.FileIO;
 using Microsoft.Xna.Framework.Input;
 
 namespace Controllers
@@ -14,13 +15,16 @@ namespace Controllers
     {
 
         private Link player;
+        private Environment environment;
+        private int envSwitchLimiter = 0;
         private EnemyConroller enemyController;
         private int projectileInputLimiter = 0;
 
         private KeyboardState previousKeyboardState;
-        public IKeyboard(Link player, EnemyConroller enemyConroller)
+        public IKeyboard(Link player, Environment env, EnemyConroller enemyConroller)
         {
             this.player = player;
+            this.environment = env;
             this.enemyController = enemyConroller;
 
         }
@@ -29,6 +33,11 @@ namespace Controllers
         {
             KeyboardState keyState = Keyboard.GetState();
             bool movementKeyActive = false;
+
+            if (envSwitchLimiter > 0)
+            {
+                envSwitchLimiter--;
+            }
             if (projectileInputLimiter > 0)
             {
                 projectileInputLimiter--;
@@ -84,13 +93,13 @@ namespace Controllers
                 projectileInputLimiter = 20;
             }
 
-            if((keyState.IsKeyDown(Keys.D3) || keyState.IsKeyDown(Keys.NumPad3)) && projectileInputLimiter == 0)
+            if ((keyState.IsKeyDown(Keys.D3) || keyState.IsKeyDown(Keys.NumPad3)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireBoomerang();
                 projectileInputLimiter = 20;
             }
-            
-            if((keyState.IsKeyDown(Keys.D4) || keyState.IsKeyDown(Keys.NumPad4)) && projectileInputLimiter == 0)
+
+            if ((keyState.IsKeyDown(Keys.D4) || keyState.IsKeyDown(Keys.NumPad4)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireMagicBoomerang();
                 projectileInputLimiter = 20;
@@ -102,7 +111,7 @@ namespace Controllers
                 projectileInputLimiter = 20;
             }
 
-            if((keyState.IsKeyDown(Keys.D6) || keyState.IsKeyDown(Keys.NumPad6)) && projectileInputLimiter == 0)
+            if ((keyState.IsKeyDown(Keys.D6) || keyState.IsKeyDown(Keys.NumPad6)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireBomb();
                 projectileInputLimiter = 20;
@@ -116,6 +125,18 @@ namespace Controllers
             if (!movementKeyActive && !(player.playerState is LeftAttackingPlayerState || player.playerState is RightAttackingPlayerState || player.playerState is UpAttackingPlayerState || player.playerState is DownAttackingPlayerState || player.playerState is LeftUsingPlayerState || player.playerState is RightUsingPlayerState || player.playerState is UpUsingPlayerState || player.playerState is DownUsingPlayerState))
             {
                 player.playerState.BeIdle();
+            }
+
+            //for tile cycling
+            if (keyState.IsKeyDown(Keys.T) && envSwitchLimiter == 0)
+            {
+                environment.CycleLeft();
+                envSwitchLimiter = 20;
+            }
+            if (keyState.IsKeyDown(Keys.Y) && envSwitchLimiter == 0)
+            {
+                environment.CycleRight();
+                envSwitchLimiter = 20;
             }
 
 
