@@ -1,12 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
-using System.IO;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks
+using Interfaces;
 
 namespace Sprites
 {
@@ -21,74 +15,74 @@ namespace Sprites
             this.spriteBatch = spriteBatch;
         }
 
-        public ISprite CreateRightMovingPlayerSprite(Vector2 position)
+        public IPlayerSprite CreateRightMovingPlayerSprite(Vector2 position)
         {
             return new RightMovingPlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateLeftMovingPlayerSprite(Vector2 position)
+        public IPlayerSprite CreateLeftMovingPlayerSprite(Vector2 position)
         {
             return new LeftMovingPlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateUpMovingPlayerSprite(Vector2 position)
+        public IPlayerSprite CreateUpMovingPlayerSprite(Vector2 position)
         {
             return new UpMovingPlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateDownMovingPlayerSprite(Vector2 position)
+        public IPlayerSprite CreateDownMovingPlayerSprite(Vector2 position)
         {
             return new DownMovingPlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateRightIdlePlayerSprite(Vector2 position)
+        public IPlayerSprite CreateRightIdlePlayerSprite(Vector2 position)
         {
             return new RightIdlePlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateLeftIdlePlayerSprite(Vector2 position)
+        public IPlayerSprite CreateLeftIdlePlayerSprite(Vector2 position)
         {
             return new LeftIdlePlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateUpIdlePlayerSprite(Vector2 position)
+        public IPlayerSprite CreateUpIdlePlayerSprite(Vector2 position)
         {
             return new UpIdlePlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateDownIdlePlayerSprite(Vector2 position)
+        public IPlayerSprite CreateDownIdlePlayerSprite(Vector2 position)
         {
             return new DownIdlePlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateLeftAttackingPlayerSprite(Vector2 position)
+        public IPlayerSprite CreateLeftAttackingPlayerSprite(Vector2 position)
         {
             return new LeftAttackingPlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateRightAttackingPlayerSprite(Vector2 position)
+        public IPlayerSprite CreateRightAttackingPlayerSprite(Vector2 position)
         {
             return new RightAttackingPlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateUpAttackingPlayerSprite(Vector2 position)
+        public IPlayerSprite CreateUpAttackingPlayerSprite(Vector2 position)
         {
             return new UpAttackingPlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateDownAttackingPlayerSprite(Vector2 position)
+        public IPlayerSprite CreateDownAttackingPlayerSprite(Vector2 position)
         {
             return new DownAttackingPlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateLeftUsingPlayerSprite(Vector2 position)
+        public IPlayerSprite CreateLeftUsingPlayerSprite(Vector2 position)
         {
             return new LeftUsingPlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateRightUsingPlayerSprite(Vector2 position)
+        public IPlayerSprite CreateRightUsingPlayerSprite(Vector2 position)
         {
             return new RightUsingPlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateUpUsingPlayerSprite(Vector2 position)
+        public IPlayerSprite CreateUpUsingPlayerSprite(Vector2 position)
         {
             return new UpUsingPlayerSprite(playerTexture, position, spriteBatch);
         }
-        public ISprite CreateDownUsingPlayerSprite(Vector2 position)
+        public IPlayerSprite CreateDownUsingPlayerSprite(Vector2 position)
         {
             return new DownUsingPlayerSprite(playerTexture, position, spriteBatch);
         }
     }
 
 
-    public class RightMovingPlayerSprite : ISprite
+    public class RightMovingPlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         //private Vector2 position;
@@ -134,7 +128,7 @@ namespace Sprites
         }
     }
 
-    public class LeftMovingPlayerSprite : ISprite
+    public class LeftMovingPlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         //private Vector2 position;
@@ -178,7 +172,7 @@ namespace Sprites
         }
     }
 
-    public class UpMovingPlayerSprite : ISprite
+    public class UpMovingPlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         //private Vector2 position;
@@ -221,7 +215,7 @@ namespace Sprites
         }
     }
 
-    public class DownMovingPlayerSprite : ISprite
+    public class DownMovingPlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         //private Vector2 position;
@@ -265,7 +259,7 @@ namespace Sprites
         }
     }
 
-    public class RightIdlePlayerSprite : ISprite
+    public class RightIdlePlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         private SpriteBatch spriteBatch;
@@ -298,7 +292,7 @@ namespace Sprites
         }
     }
 
-    public class LeftIdlePlayerSprite : ISprite
+    public class LeftIdlePlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         //private Vector2 position;
@@ -334,7 +328,7 @@ namespace Sprites
         }
     }
 
-    public class UpIdlePlayerSprite : ISprite
+    public class UpIdlePlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         //private Vector2 position;
@@ -370,7 +364,7 @@ namespace Sprites
         }
     }
 
-    public class DownIdlePlayerSprite : ISprite
+    public class DownIdlePlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         //private Vector2 position;
@@ -406,7 +400,7 @@ namespace Sprites
         }
     }
 
-    public class LeftAttackingPlayerSprite : ISprite
+    public class LeftAttackingPlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         private SpriteBatch spriteBatch;
@@ -473,7 +467,7 @@ namespace Sprites
 
     }
 
-    public class RightAttackingPlayerSprite : ISprite
+    public class RightAttackingPlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         private SpriteBatch spriteBatch;
@@ -533,7 +527,7 @@ namespace Sprites
     }
             
 
-    public class UpAttackingPlayerSprite : ISprite
+    public class UpAttackingPlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         private SpriteBatch spriteBatch;
@@ -588,7 +582,7 @@ namespace Sprites
         }
     }
 
-    public class DownAttackingPlayerSprite : ISprite
+    public class DownAttackingPlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         private SpriteBatch spriteBatch;
@@ -647,7 +641,7 @@ namespace Sprites
         }
     }
 
-    public class LeftUsingPlayerSprite : ISprite
+    public class LeftUsingPlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         private SpriteBatch spriteBatch;
@@ -677,7 +671,7 @@ namespace Sprites
         }
     }
 
-    public class RightUsingPlayerSprite : ISprite
+    public class RightUsingPlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         private SpriteBatch spriteBatch;
@@ -708,7 +702,7 @@ namespace Sprites
         }
     }
 
-    public class UpUsingPlayerSprite : ISprite
+    public class UpUsingPlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         private SpriteBatch spriteBatch;
@@ -738,7 +732,7 @@ namespace Sprites
         }
     }
 
-    public class DownUsingPlayerSprite : ISprite
+    public class DownUsingPlayerSprite : Interfaces.IPlayerSprite
     {
         private Texture2D texture;
         private SpriteBatch spriteBatch;

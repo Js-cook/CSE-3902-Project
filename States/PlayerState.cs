@@ -29,7 +29,6 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
             case "up":
                 player.playerState = new UpMovingPlayerState(player, spriteFactory);
                 player.Sprite = spriteFactory.CreateUpMovingPlayerSprite(player.position);
-                //player.Sprite = UpMovingPlayerSprite()
                 break;
             case "down":
                 player.playerState = new DownMovingPlayerState(player, spriteFactory);
