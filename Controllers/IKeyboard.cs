@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Interfaces;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace Controllers
 {
@@ -21,12 +22,15 @@ namespace Controllers
         private int projectileInputLimiter = 0;
 
         private KeyboardState previousKeyboardState;
-        public IKeyboard(Link player, Environment env, EnemyConroller enemyConroller)
+
+        private Game gameInstance;
+
+        public IKeyboard(Link player, Environment env, EnemyConroller enemyConroller, Game gameInstance)
         {
             this.player = player;
             this.environment = env;
             this.enemyController = enemyConroller;
-
+            this.gameInstance = gameInstance;
         }
 
         public void Update()
@@ -148,6 +152,22 @@ namespace Controllers
             if (keyState.IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P))
             {
                 enemyController.NextEnemy();
+            }
+
+            if (keyState.IsKeyDown(Keys.R))
+            {
+                // reset
+                enemyController.ResetEnemy();
+                environment.CycleReset();
+                enemyController.CurrentEnemy().position = new Vector2(40, 30);
+                player.position = new Vector2(10, 10);
+                player.playerState.ChangeDirection("right");
+                player.Hurt = false;
+
+            }
+            if (keyState.IsKeyDown(Keys.Q))
+            {
+                gameInstance.Exit();
             }
 
 

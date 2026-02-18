@@ -53,6 +53,11 @@ public class Environment
             currentTileIndex = tiles.Count - 1;
     }
 
+    public void CycleReset()
+    {
+        currentTileIndex = 0;
+    }
+
     public void Update(GameTime gameTime)
     {
         tiles[currentTileIndex].Update(gameTime);

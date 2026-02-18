@@ -16,9 +16,6 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
     private Link player;
     private PlayerSpriteFactory spriteFactory; // create at start of game and will need a reference to player
 
-    private double startTime = 0.0;
-    private double endTime = 2.5;
-
     public LeftMovingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
         this.player = player;
@@ -52,7 +49,7 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
 
     public void BeAttacking()
@@ -86,14 +83,6 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
     }
     public void Update(GameTime gametime)
     {
-        if (player.Sprite.Hurt)
-        {
-            startTime += gametime.ElapsedGameTime.TotalSeconds;
-            if(startTime >= endTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -101,9 +90,6 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory;
-
-    private double startTime = 0.0;
-    private double endTime = 2.5;
 
     public RightMovingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
@@ -136,7 +122,7 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
 
     public void FireArrow()
@@ -170,15 +156,6 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
 
     public void Update(GameTime gametime)
     {
-        //player.Sprite = spriteFactory.CreateRightMovingPlayerSprite(player.position);
-        if (player.Sprite.Hurt)
-        {
-            startTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (startTime >= endTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -221,7 +198,7 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
 
     public void BeAttacking()
@@ -254,15 +231,6 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
 
     public void Update(GameTime gametime)
     {
-        //player.Sprite = spriteFactory.CreateUpMovingPlayerSprite(player.position);
-        if (player.Sprite.Hurt)
-        {
-            startTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (startTime >= endTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -306,7 +274,7 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
 
     public void FireArrow()
@@ -338,15 +306,6 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
 
     public void Update(GameTime gametime)
     {
-        //player.Sprite = spriteFactory.CreateDownMovingPlayerSprite(player.position);
-        if (player.Sprite.Hurt)
-        {
-            startTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (startTime >= endTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -395,7 +354,7 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
 
 
@@ -454,15 +413,7 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
     }
 
     public void Update(GameTime gametime)
-    {
-        if (player.Sprite.Hurt)
-        {
-            startTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (startTime >= endTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
+    { 
     }
 }
 
@@ -510,7 +461,7 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
 
     public void BeAttacking()
@@ -572,14 +523,6 @@ public class RightIdlePlayerState : Interfaces.IPlayerState
 
     public void Update(GameTime gametime)
     {
-        if (player.Sprite.Hurt)
-        {
-            startTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (startTime >= endTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -628,7 +571,7 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
 
     public void BeAttacking()
@@ -687,14 +630,6 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
 
     public void Update(GameTime gametime)
     {
-        if (player.Sprite.Hurt)
-        {
-            startTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (startTime >= endTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -743,7 +678,7 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
 
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
 
     public void BeAttacking()
@@ -805,14 +740,6 @@ public class DownIdlePlayerState : Interfaces.IPlayerState
 
     public void Update(GameTime gametime)
     {
-        if (player.Sprite.Hurt)
-        {
-            startTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (startTime >= endTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -841,7 +768,7 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -878,15 +805,6 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
-
-        if (player.Sprite.Hurt)
-        {
-            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (injuredStartTime >= injuredEndTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -915,7 +833,7 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -950,15 +868,6 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
-
-        if (player.Sprite.Hurt)
-        {
-            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (injuredStartTime >= injuredEndTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -984,7 +893,7 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -1019,15 +928,6 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
-
-        if (player.Sprite.Hurt)
-        {
-            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (injuredStartTime >= injuredEndTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -1054,7 +954,7 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -1089,15 +989,6 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
-
-        if (player.Sprite.Hurt)
-        {
-            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (injuredStartTime >= injuredEndTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -1125,7 +1016,7 @@ public class LeftUsingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -1161,15 +1052,6 @@ public class LeftUsingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
-
-        if (player.Sprite.Hurt)
-        {
-            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (injuredStartTime >= injuredEndTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -1197,7 +1079,7 @@ public class RightUsingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -1234,15 +1116,6 @@ public class RightUsingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
-
-        if (player.Sprite.Hurt)
-        {
-            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (injuredStartTime >= injuredEndTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -1270,7 +1143,7 @@ public class UpUsingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -1306,14 +1179,6 @@ public class UpUsingPlayerState : Interfaces.IPlayerState
         {
             BeIdle();
         }
-        if (player.Sprite.Hurt)
-        {
-            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (injuredStartTime >= injuredEndTime)
-            {
-                player.Sprite.Hurt = false;
-            }
-        }
     }
 }
 
@@ -1341,7 +1206,7 @@ public class DownUsingPlayerState : Interfaces.IPlayerState
     }
     public void BeDamaged()
     {
-        player.Sprite.Hurt = true;
+        player.Hurt = true;
     }
     public void BeAttacking()
     {
@@ -1376,15 +1241,6 @@ public class DownUsingPlayerState : Interfaces.IPlayerState
         if (startClock >= animationDuration)
         {
             BeIdle();
-        }
-
-        if (player.Sprite.Hurt)
-        {
-            injuredStartTime += gametime.ElapsedGameTime.TotalSeconds;
-            if (injuredStartTime >= injuredEndTime)
-            {
-                player.Sprite.Hurt = false;
-            }
         }
     }
 }

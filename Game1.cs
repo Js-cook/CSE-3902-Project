@@ -61,7 +61,7 @@ namespace _3902_Project
             tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), _spriteBatch);
             environment = new Environment(tileFactory);
 
-            keyboardController = new Controllers.IKeyboard(player, environment, enemyController);
+            keyboardController = new Controllers.IKeyboard(player, environment, enemyController, this);
         }
 
         protected override void Update(GameTime gameTime)

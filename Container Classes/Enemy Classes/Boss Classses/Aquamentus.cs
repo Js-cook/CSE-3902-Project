@@ -3,7 +3,7 @@
 public class Aquamentus : IEnemy
 {
 
-    public Vector2 position;
+    public Vector2 position { get; set; }
     public ISprite Sprite { get; set; }
     // idk if this should be public
     public IEnemyState aquamentusState { get; set; }

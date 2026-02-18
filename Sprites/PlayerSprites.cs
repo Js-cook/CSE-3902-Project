@@ -98,8 +98,8 @@ namespace Sprites
 
         public bool Hurt { get; set; }
 
-        private Rectangle sourceRectangle1 = new Rectangle(34, 10, 16, 17);
-        private Rectangle sourceRectangle2 = new Rectangle(51, 10, 16, 17);
+        private Rectangle sourceRectangle1 = new Rectangle(35, 11, 16, 16);
+        private Rectangle sourceRectangle2 = new Rectangle(52, 11, 16, 16);
         private int frameCounter = 0;
 
         public RightMovingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
@@ -124,7 +124,13 @@ namespace Sprites
 
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red);
+            } else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            }
         }
     }
 
@@ -137,8 +143,8 @@ namespace Sprites
 
         public bool Hurt { get; set; }
 
-        private Rectangle sourceRectangle1 = new Rectangle(34, 10, 16, 17);
-        private Rectangle sourceRectangle2 = new Rectangle(51, 10, 16, 17);
+        private Rectangle sourceRectangle1 = new Rectangle(35, 11, 16, 16);
+        private Rectangle sourceRectangle2 = new Rectangle(52, 11, 16, 16);
         private int frameCounter = 0;
 
         public LeftMovingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
@@ -181,8 +187,8 @@ namespace Sprites
 
         public bool Hurt { get; set; }
 
-        private Rectangle sourceRectangle1 = new Rectangle(68, 10, 16, 17);
-        private Rectangle sourceRectangle2 = new Rectangle(85, 10, 16, 17);
+        private Rectangle sourceRectangle1 = new Rectangle(69, 11, 16, 16);
+        private Rectangle sourceRectangle2 = new Rectangle(86, 11, 16, 16);
         private int frameCounter = 0;
 
         public UpMovingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
@@ -205,7 +211,13 @@ namespace Sprites
 
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red);
+            } else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White);
+            }
         }
     }
 
@@ -218,8 +230,8 @@ namespace Sprites
 
         public bool Hurt { get; set; }
 
-        private Rectangle sourceRectangle1 = new Rectangle(0, 10, 16, 17);
-        private Rectangle sourceRectangle2 = new Rectangle(17, 10, 16, 17);
+        private Rectangle sourceRectangle1 = new Rectangle(1, 11, 16, 16);
+        private Rectangle sourceRectangle2 = new Rectangle(18, 11, 16, 16);
         private int frameCounter = 0;
 
         public DownMovingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
@@ -260,7 +272,7 @@ namespace Sprites
         private Rectangle currentFrame;
 
         public bool Hurt { get; set; }
-        private Rectangle sourceRectangle1 = new Rectangle(34, 10, 16, 17);
+        private Rectangle sourceRectangle1 = new Rectangle(35, 11, 16, 16);
 
         public RightIdlePlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
@@ -295,7 +307,7 @@ namespace Sprites
 
         public bool Hurt { get; set; }
 
-        private Rectangle sourceRectangle1 = new Rectangle(34, 10, 16, 17);
+        private Rectangle sourceRectangle1 = new Rectangle(35, 11, 16, 16);
 
         public LeftIdlePlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
@@ -331,7 +343,7 @@ namespace Sprites
 
         public bool Hurt { get; set; }
 
-        private Rectangle sourceRectangle1 = new Rectangle(68, 10, 16, 17);
+        private Rectangle sourceRectangle1 = new Rectangle(69, 11, 16, 16);
 
         public UpIdlePlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
@@ -367,7 +379,7 @@ namespace Sprites
 
         public bool Hurt { get; set; }
 
-        private Rectangle sourceRectangle1 = new Rectangle(0, 10, 16, 17);
+        private Rectangle sourceRectangle1 = new Rectangle(1, 11, 16, 16);
 
         public DownIdlePlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
@@ -407,10 +419,10 @@ namespace Sprites
 
         private Rectangle[] frameContainer =
         {
-            new Rectangle(0, 76, 16, 17),
-            new Rectangle(69, 76, 19, 17),
-            new Rectangle(45, 76, 23, 17),
-            new Rectangle(17, 76, 27, 17)
+            new Rectangle(1, 77, 14, 15),
+            new Rectangle(70, 77, 18, 15),
+            new Rectangle(46, 77, 22, 15),
+            new Rectangle(18, 77, 26, 15)
         };
 
         private int frameCounter = 0;
@@ -471,10 +483,10 @@ namespace Sprites
         public bool Hurt { get; set; }
         private Rectangle[] frameContainer =
         {
-            new Rectangle(0, 76, 16, 17),
-            new Rectangle(69, 76, 19, 17),
-            new Rectangle(45, 76, 23, 17),
-            new Rectangle(17, 76, 27, 17)
+            new Rectangle(1, 77, 14, 15),
+            new Rectangle(70, 77, 18, 15),
+            new Rectangle(46, 77, 22, 15),
+            new Rectangle(18, 77, 26, 15)
         };
         public RightAttackingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
@@ -533,10 +545,10 @@ namespace Sprites
 
         private Rectangle[] frameContainer =
         {
-            new Rectangle(0, 108, 16, 17), // WRONG VALUES PLEASE CHANGE ME
-            new Rectangle(51, 106, 16, 19),
-            new Rectangle(34, 96, 16, 29),
-            new Rectangle(17, 96, 16, 29)
+            new Rectangle(1, 109, 15, 15),
+            new Rectangle(52, 106, 15, 18),
+            new Rectangle(35, 98, 15, 26),
+            new Rectangle(18, 97, 15, 27)
         };
 
         public UpAttackingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
@@ -586,10 +598,10 @@ namespace Sprites
         public bool Hurt { get; set; }
         private Rectangle[] frameContainer =
         {
-            new Rectangle(0, 46, 16, 17),
-            new Rectangle(51, 46, 16, 20),
-            new Rectangle(34, 46, 16, 23),
-            new Rectangle(17, 46, 16, 28)
+            new Rectangle(1, 47, 15, 15),
+            new Rectangle(52, 47, 15, 18),
+            new Rectangle(35, 47, 15, 22),
+            new Rectangle(18, 47, 15, 26)
         };
         public DownAttackingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
@@ -640,7 +652,7 @@ namespace Sprites
         private Texture2D texture;
         private SpriteBatch spriteBatch;
         public bool Hurt { get; set; }
-        private Rectangle currentFrame = new Rectangle(123, 10, 17, 17);
+        private Rectangle currentFrame = new Rectangle(124, 11, 15, 15);
 
         public LeftUsingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
@@ -669,7 +681,7 @@ namespace Sprites
     {
         private Texture2D texture;
         private SpriteBatch spriteBatch;
-        private Rectangle currentFrame = new Rectangle(123, 10, 17, 17);
+        private Rectangle currentFrame = new Rectangle(124, 11, 15, 15);
 
         public bool Hurt { get; set; }
 
@@ -701,7 +713,7 @@ namespace Sprites
         private Texture2D texture;
         private SpriteBatch spriteBatch;
         public bool Hurt { get; set; }
-        private Rectangle currentFrame = new Rectangle(140, 10, 17, 17);
+        private Rectangle currentFrame = new Rectangle(141, 11, 15, 15);
 
         public UpUsingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
@@ -731,7 +743,7 @@ namespace Sprites
         private Texture2D texture;
         private SpriteBatch spriteBatch;
         public bool Hurt { get; set; }
-        private Rectangle currentFrame = new Rectangle(106, 10, 17, 17);
+        private Rectangle currentFrame = new Rectangle(107, 11, 15, 15);
 
         public DownUsingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {

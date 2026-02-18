@@ -20,6 +20,10 @@ public class Link
     private PlayerSpriteFactory spriteFactory;
     public ProjectileSpriteFactory projectileSpriteFactory { get; set; }
 
+    public bool Hurt { get; set; }
+    private double hurtTimer = 0.0;
+    private double hurtDuration = 2.5;
+
     public List<IProjectile> projectiles { get; set; } = new List<IProjectile>();
 
     public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory)
@@ -55,6 +59,16 @@ public class Link
         Sprite.Update(gametime);
         List<IProjectile> markedForDeletion = new List<IProjectile>();
 
+        if (Hurt)
+        {
+            hurtTimer += gametime.ElapsedGameTime.TotalSeconds;
+            if(hurtTimer >= hurtDuration)
+            {
+                Hurt = false;
+                hurtTimer = 0.0;
+            }
+        }
+
         foreach (IProjectile projectile in projectiles)
         {
             if (!projectile.Active)
@@ -82,6 +96,7 @@ public class Link
 
     public void Draw()
     {
+        Sprite.Hurt = Hurt;
         Sprite.SpriteDraw(position);
         foreach (IProjectile projectile in projectiles)
         {

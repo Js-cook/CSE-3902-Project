@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 public interface IEnemy
 {
+    public Vector2 position {  get; set; }
     public void Update(GameTime gameTime);
 
     public void Draw();

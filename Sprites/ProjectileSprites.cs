@@ -64,9 +64,9 @@ public class BoomerangSprite : ISprite
 
     private Rectangle[] sourceFrames =
     {
-        new Rectangle(63, 184, 9, 17),
-        new Rectangle(72, 184, 9, 17),
-        new Rectangle(81, 184, 9, 17),
+        new Rectangle(64, 185, 7, 15),
+        new Rectangle(73, 185, 7, 15),
+        new Rectangle(82, 185, 7, 15),
     };
 
     public BoomerangSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
@@ -105,9 +105,9 @@ public class MagicBoomerangSprite : ISprite
 
     private Rectangle[] sourceFrames =
     {
-        new Rectangle(90, 184, 9, 17),
-        new Rectangle(99, 184, 9, 17),
-        new Rectangle(108, 184, 9, 17),
+        new Rectangle(91, 185, 7, 15),
+        new Rectangle(100, 185, 7, 15),
+        new Rectangle(109, 185, 7, 15),
     };
 
     public MagicBoomerangSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
@@ -140,8 +140,8 @@ public class ArrowSprite : ISprite
     private Vector2 position;
     private string direction;
 
-    private Rectangle sourceRectangleHorizontal = new Rectangle(9, 184, 17, 17);
-    private Rectangle sourceRectangleVertical = new Rectangle(0, 184, 9, 17);
+    private Rectangle sourceRectangleHorizontal = new Rectangle(10, 185, 15, 15);
+    private Rectangle sourceRectangleVertical = new Rectangle(1, 185, 7, 15);
 
     public ArrowSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch, string direction)
     {
@@ -181,7 +181,7 @@ public class ArrowParticleSprite : ISprite
     private SpriteBatch spriteBatch;
     private Vector2 position;
 
-    private Rectangle sourceRectangle = new Rectangle(52, 184, 9, 17);
+    private Rectangle sourceRectangle = new Rectangle(53, 185, 7, 15);
 
     public ArrowParticleSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
     {
@@ -206,8 +206,8 @@ public class SilverArrowSprite : ISprite
     private Vector2 position;
     private string direction;
 
-    private Rectangle sourceRectangleHorizontal = new Rectangle(35, 184, 17, 17);
-    private Rectangle sourceRectangleVertical = new Rectangle(26, 184, 9, 17);
+    private Rectangle sourceRectangleHorizontal = new Rectangle(36, 185, 15, 15);
+    private Rectangle sourceRectangleVertical = new Rectangle(27, 185, 7, 15);
     public SilverArrowSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch, string direction)
     {
         this.texture = texture;
@@ -244,7 +244,7 @@ public class BombSprite : ISprite
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
-    private Rectangle frame = new Rectangle(128, 184, 9, 17);
+    private Rectangle frame = new Rectangle(129, 185, 7, 15);
     public BombSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
     {
         this.texture = texture;
@@ -273,9 +273,9 @@ public class BombParticleSprite : ISprite
 
     private Rectangle[] sourceFrames =
     {
-        new Rectangle(137, 184, 17, 17),
-        new Rectangle(154, 184, 17, 17),
-        new Rectangle(171, 184, 17, 17)
+        new Rectangle(138, 185, 15, 15),
+        new Rectangle(155, 185, 15, 15),
+        new Rectangle(172, 185, 15, 15)
 
     };
 
@@ -312,7 +312,7 @@ public class FireballSprite : ISprite
     private double animationTimer = 0.0;
     private double animationInterval = 0.1;
 
-    private Rectangle frame = new Rectangle(190, 184, 17, 17);
+    private Rectangle frame = new Rectangle(191, 185, 15, 15);
     bool flipped = false;
 
     public FireballSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
