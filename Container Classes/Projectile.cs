@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 public class MagicBoomerang : IProjectile
 {
     public Vector2 Position { get; set; }
-    string direction;
+    private Direction direction;
     private double startTime = 0.0;
     private double endTime = 1.5;
     private int directionSign = 1;
@@ -19,7 +20,7 @@ public class MagicBoomerang : IProjectile
 
     private ISprite sprite;
     private ProjectileSpriteFactory spriteFactory;
-    public MagicBoomerang(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
+    public MagicBoomerang(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory)
     {
         this.Position = position;
         this.direction = direction;
@@ -39,16 +40,16 @@ public class MagicBoomerang : IProjectile
         Vector2 positionNew = new Vector2(Position.X, Position.Y);
         switch (direction)
         {
-            case "up":
+            case Direction.UP:
                 positionNew.Y -= (3 * directionSign);
                 break;
-            case "down":
+            case Direction.DOWN:
                 positionNew.Y += (3 * directionSign);
                 break;
-            case "left":
+            case Direction.LEFT:
                 positionNew.X -= (3 * directionSign);
                 break;
-            case "right":
+            case Direction.RIGHT:
                 positionNew.X += (3 * directionSign);
                 break;
         }
@@ -70,7 +71,7 @@ public class MagicBoomerang : IProjectile
 public class Boomerang : IProjectile
 {
     public Vector2 Position { get; set; }
-    string direction;
+    private Direction direction;
     private double startTime = 0.0;
     private double endTime = 0.75;
     private int directionSign = 1;
@@ -79,7 +80,7 @@ public class Boomerang : IProjectile
     private ISprite sprite;
     private ProjectileSpriteFactory spriteFactory;
 
-    public Boomerang(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
+    public Boomerang(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory)
     {
         this.Position = position;
         this.direction = direction;
@@ -99,16 +100,16 @@ public class Boomerang : IProjectile
         Vector2 positionNew = new Vector2(Position.X, Position.Y);
         switch (direction)
         {
-            case "up":
+            case Direction.UP:
                 positionNew.Y -= (3 * directionSign);
                 break;
-            case "down":
+            case Direction.DOWN:
                 positionNew.Y += (3 * directionSign);
                 break;
-            case "left":
+            case Direction.LEFT:
                 positionNew.X -= (3 * directionSign);
                 break;
-            case "right":
+            case Direction.RIGHT:
                 positionNew.X += (3 * directionSign);
                 break;
         }
@@ -130,7 +131,7 @@ public class Boomerang : IProjectile
 public class Arrow : IProjectile
 {
     public Vector2 Position { get; set; }
-    string direction;
+    private Direction direction;
     private double startTime = 0.0;
     private double endTime = 0.5;
     public bool Active { get; set; }
@@ -140,7 +141,7 @@ public class Arrow : IProjectile
 
     //private int velocity = 5;
 
-    public Arrow(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
+    public Arrow(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory)
     {
         this.Position = position;
         this.direction = direction;
@@ -160,16 +161,16 @@ public class Arrow : IProjectile
         Vector2 positionNew = new Vector2(Position.X, Position.Y);
         switch (direction)
         {
-            case "up":
+            case Direction.UP:
                 positionNew.Y -= 5;
                 break;
-            case "down":
+            case Direction.DOWN:
                 positionNew.Y += 5;
                 break;
-            case "left":
+            case Direction.LEFT:
                 positionNew.X -= 5;
                 break;
-            case "right":
+            case Direction.RIGHT:
                 positionNew.X += 5;
                 break;
         }
@@ -186,7 +187,7 @@ public class Arrow : IProjectile
 public class SilverArrow : IProjectile
 {
     public Vector2 Position { get; set; }
-    string direction;
+    private Direction direction;
     private double startTime = 0.0;
     private double endTime = 1;
     public bool Active { get; set; }
@@ -194,7 +195,7 @@ public class SilverArrow : IProjectile
     private ISprite sprite;
     private ProjectileSpriteFactory spriteFactory;
 
-    public SilverArrow(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
+    public SilverArrow(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory)
     {
         this.Position = position;
         this.direction = direction;
@@ -213,16 +214,16 @@ public class SilverArrow : IProjectile
         Vector2 positionNew = new Vector2(Position.X, Position.Y);
         switch (direction)
         {
-            case "up":
+            case Direction.UP:
                 positionNew.Y -= 5;
                 break;
-            case "down":
+            case Direction.DOWN:
                 positionNew.Y += 5;
                 break;
-            case "left":
+            case Direction.LEFT:
                 positionNew.X -= 5;
                 break;
-            case "right":
+            case Direction.RIGHT:
                 positionNew.X += 5;
                 break;
         }
@@ -244,7 +245,7 @@ public class ArrowParticle : IProjectile
 
     private ISprite sprite;
 
-    public ArrowParticle(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
+    public ArrowParticle(Vector2 position, ProjectileSpriteFactory spriteFactory)
     {
         this.Position = position;
         sprite = spriteFactory.CreateArrowParticleSprite(position);
@@ -275,7 +276,7 @@ public class BombParticle : IProjectile
     private double duration = 0.6;
     private ISprite sprite;
 
-    public BombParticle(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
+    public BombParticle(Vector2 position, ProjectileSpriteFactory spriteFactory)
     {
         Position = position;
         sprite = spriteFactory.CreateBombParticleSprite(position);
@@ -304,7 +305,7 @@ public class BombParticle : IProjectile
 public class Bomb : IProjectile
 {
     public bool Active { get; set; }
-    string direction;
+    private Direction direction;
     private double startTime = 0.0;
     private double endTime = 0.75;
 
@@ -312,21 +313,21 @@ public class Bomb : IProjectile
     private ProjectileSpriteFactory spriteFactory;
 
     public Vector2 Position { get; set; }
-    public Bomb(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
+    public Bomb(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory)
     {
         //this.Position = position;
         switch (direction)
         {
-            case ("left"):
+            case Direction.LEFT:
                 this.Position = new Vector2(position.X-20, position.Y);
                 break;
-            case ("right"):
+            case Direction.RIGHT:
                 this.Position = new Vector2(position.X + 20, position.Y);
                 break;
-            case ("down"):
+            case Direction.DOWN:
                 this.Position = new Vector2(position.X, position.Y + 20);
                 break;
-            case ("up"):
+            case Direction.UP:
                 this.Position = new Vector2(position.X, position.Y - 20);
                 break;
         }
@@ -341,10 +342,8 @@ public class Bomb : IProjectile
     public void Update(GameTime gametime)
     {
         startTime += gametime.ElapsedGameTime.TotalSeconds;
-        Debug.WriteLine("UPDATE BOMB");
         if (startTime >= endTime)
         {
-            Debug.WriteLine("BOMB DONE");
             Active = false;
         }
     }
@@ -353,7 +352,7 @@ public class Bomb : IProjectile
 public class Fireball : IProjectile
 {
     public Vector2 Position { get; set; }
-    string direction;
+    private Direction direction;
     private double startTime = 0.0;
     private double endTime = 0.75;
     private int stopper = 1;
@@ -361,7 +360,7 @@ public class Fireball : IProjectile
 
     private ISprite sprite;
     private ProjectileSpriteFactory spriteFactory;
-    public Fireball(Vector2 position, string direction, ProjectileSpriteFactory spriteFactory)
+    public Fireball(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory)
     {
         this.Position = position;
         this.direction = direction;
@@ -381,16 +380,16 @@ public class Fireball : IProjectile
         Vector2 positionNew = new Vector2(Position.X, Position.Y);
         switch (direction)
         {
-            case "up":
+            case Direction.UP:
                 positionNew.Y -= (3 * stopper);
                 break;
-            case "down":
+            case Direction.DOWN:
                 positionNew.Y += (3 * stopper);
                 break;
-            case "left":
+            case Direction.LEFT:
                 positionNew.X -= (3 * stopper);
                 break;
-            case "right":
+            case Direction.RIGHT:
                 positionNew.X += (3 * stopper);
                 break;
         }

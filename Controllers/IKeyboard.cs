@@ -9,6 +9,7 @@ using Interfaces;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using Enums;
 
 namespace Controllers
 {
@@ -51,7 +52,7 @@ namespace Controllers
             if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && !movementKeyActive)
             {
                 // link go up
-                player.playerState.ChangeDirection("up");
+                player.playerState.ChangeDirection(Direction.UP);
                 player.MoveUp();
                 movementKeyActive = true;
             }
@@ -59,7 +60,7 @@ namespace Controllers
             if ((keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S)) && !movementKeyActive)
             {
                 // link go down
-                player.playerState.ChangeDirection("down");
+                player.playerState.ChangeDirection(Direction.DOWN);
                 player.MoveDown();
                 movementKeyActive = true;
             }
@@ -67,7 +68,7 @@ namespace Controllers
             if ((keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A)) && !movementKeyActive)
             {
                 // link go left
-                player.playerState.ChangeDirection("left");
+                player.playerState.ChangeDirection(Direction.LEFT);
                 player.MoveLeft();
                 movementKeyActive = true;
             }
@@ -75,7 +76,7 @@ namespace Controllers
             if ((keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D)) && !movementKeyActive)
             {
                 // link go right
-                player.playerState.ChangeDirection("right");
+                player.playerState.ChangeDirection(Direction.RIGHT);
                 player.MoveRight();
                 movementKeyActive = true;
             }
@@ -161,7 +162,7 @@ namespace Controllers
                 environment.CycleReset();
                 enemyController.CurrentEnemy().position = new Vector2(40, 30);
                 player.position = new Vector2(10, 10);
-                player.playerState.ChangeDirection("right");
+                player.playerState.ChangeDirection(Direction.RIGHT);
                 player.Hurt = false;
 
             }

@@ -84,11 +84,11 @@ public class Link
             projectiles.Remove(projectile);
             if(projectile is Arrow || projectile is SilverArrow)
             {
-                projectiles.Add(new ArrowParticle(projectile.Position, "", projectileSpriteFactory));
+                projectiles.Add(new ArrowParticle(projectile.Position, projectileSpriteFactory));
             }
             if(projectile is Bomb)
             {
-                projectiles.Add(new BombParticle(projectile.Position, "", projectileSpriteFactory));
+                projectiles.Add(new BombParticle(projectile.Position, projectileSpriteFactory));
             }
         }
 

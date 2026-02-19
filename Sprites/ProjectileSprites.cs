@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Diagnostics;
-using System.Security.AccessControl;
+using Enums;
 
 public class ProjectileSpriteFactory
 {
@@ -23,11 +22,11 @@ public class ProjectileSpriteFactory
     {
         return new MagicBoomerangSprite(projectileTexture, position, spriteBatch);
     }
-    public ISprite CreateArrowSprite(Vector2 position, string direction)
+    public ISprite CreateArrowSprite(Vector2 position, Direction direction)
     {
         return new ArrowSprite(projectileTexture, position, spriteBatch, direction);
     }
-    public ISprite CreateSilverArrowSprite(Vector2 position, string direction)
+    public ISprite CreateSilverArrowSprite(Vector2 position, Direction direction)
     {
         return new SilverArrowSprite(projectileTexture, position, spriteBatch, direction);
     }
@@ -53,7 +52,7 @@ public class ProjectileSpriteFactory
 
 public class BoomerangSprite : ISprite
 {
-    public bool Hurt { get; set; }
+    
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
@@ -82,7 +81,6 @@ public class BoomerangSprite : ISprite
     }
     public void Update(GameTime gametime)
     {
-        Debug.WriteLine("UPDATE BOOMERANG");
         animationTimer += gametime.ElapsedGameTime.TotalSeconds;
         if (animationTimer >= animationInterval)
         {
@@ -94,7 +92,7 @@ public class BoomerangSprite : ISprite
 
 public class MagicBoomerangSprite : ISprite
 {
-    public bool Hurt { get; set; }
+    
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
@@ -134,16 +132,16 @@ public class MagicBoomerangSprite : ISprite
 
 public class ArrowSprite : ISprite
 {
-    public bool Hurt { get; set; }
+    
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
-    private string direction;
+    private Direction direction;
 
     private Rectangle sourceRectangleHorizontal = new Rectangle(10, 185, 15, 15);
     private Rectangle sourceRectangleVertical = new Rectangle(1, 185, 7, 15);
 
-    public ArrowSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch, string direction)
+    public ArrowSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch, Direction direction)
     {
         this.texture = texture;
         this.spriteBatch = spriteBatch;
@@ -154,16 +152,16 @@ public class ArrowSprite : ISprite
     {
         switch(direction)
         {
-            case "up":
+            case Direction.UP:
                 spriteBatch.Draw(texture, position, sourceRectangleVertical, Color.White);
                 break;
-            case "down":
+            case Direction.DOWN:
                 spriteBatch.Draw(texture, position, sourceRectangleVertical, Color.White, 0.0f, new Vector2(0,0), 1.0f, SpriteEffects.FlipVertically, 0.0f);
                 break;
-            case "left":
+            case Direction.LEFT:
                 spriteBatch.Draw(texture, position, sourceRectangleHorizontal, Color.White, 0.0f, new Vector2(0,0), 1.0f, SpriteEffects.FlipHorizontally, 0.0f);
                 break;
-            case "right":
+            case Direction.RIGHT:
                 spriteBatch.Draw(texture, position, sourceRectangleHorizontal, Color.White);
                 break;
         }
@@ -176,7 +174,7 @@ public class ArrowSprite : ISprite
 
 public class ArrowParticleSprite : ISprite
 {
-    public bool Hurt { get; set; }
+    
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
@@ -200,15 +198,15 @@ public class ArrowParticleSprite : ISprite
 
 public class SilverArrowSprite : ISprite
 {
-    public bool Hurt { get; set; }
+    
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
-    private string direction;
+    private Direction direction;
 
     private Rectangle sourceRectangleHorizontal = new Rectangle(36, 185, 15, 15);
     private Rectangle sourceRectangleVertical = new Rectangle(27, 185, 7, 15);
-    public SilverArrowSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch, string direction)
+    public SilverArrowSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch, Direction direction)
     {
         this.texture = texture;
         this.spriteBatch = spriteBatch;
@@ -219,16 +217,16 @@ public class SilverArrowSprite : ISprite
     {
         switch (direction)
         {
-            case "up":
+            case Direction.UP:
                 spriteBatch.Draw(texture, position, sourceRectangleVertical, Color.White);
                 break;
-            case "down":
+            case Direction.DOWN:
                 spriteBatch.Draw(texture, position, sourceRectangleVertical, Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.FlipVertically, 0.0f);
                 break;
-            case "left":
+            case Direction.LEFT:
                 spriteBatch.Draw(texture, position, sourceRectangleHorizontal, Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.FlipHorizontally, 0.0f);
                 break;
-            case "right":
+            case Direction.RIGHT:
                 spriteBatch.Draw(texture, position, sourceRectangleHorizontal, Color.White);
                 break;
         }
@@ -240,7 +238,7 @@ public class SilverArrowSprite : ISprite
 
 public class BombSprite : ISprite
 {
-    public bool Hurt { get; set; }
+    
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
@@ -262,7 +260,7 @@ public class BombSprite : ISprite
 
 public class BombParticleSprite : ISprite
 {
-    public bool Hurt { get; set; }
+    
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;
@@ -304,7 +302,7 @@ public class BombParticleSprite : ISprite
 
 public class FireballSprite : ISprite
 {
-    public bool Hurt { get; set; }
+    
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;

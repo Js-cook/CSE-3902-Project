@@ -1,15 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Enums;
 
 namespace Interfaces
 {
     public interface IPlayerState
     {
-        void ChangeDirection(String Direction);
+        void ChangeDirection(Direction direction);
         void BeDead();
         void BeDamaged();
         void BeAttacking();
