@@ -10,6 +10,7 @@ public class UpUsingPlayerState : Interfaces.IPlayerState
     private double startClock = 0.0;
     private double animationDuration = 0.4;
 
+    private bool animationDone = false;
     public UpUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
         this.player = player;
@@ -49,8 +50,11 @@ public class UpUsingPlayerState : Interfaces.IPlayerState
     }
     public void BeIdle()
     {
-        player.playerState = new UpIdlePlayerState(player, spriteFactory);
-        player.Sprite = spriteFactory.CreateUpIdlePlayerSprite(player.position);
+        if (animationDone)
+        {
+            player.playerState = new UpIdlePlayerState(player, spriteFactory);
+            player.Sprite = spriteFactory.CreateUpIdlePlayerSprite(player.position);
+        }
     }
 
     public void Update(GameTime gametime)
@@ -58,6 +62,7 @@ public class UpUsingPlayerState : Interfaces.IPlayerState
         startClock += gametime.ElapsedGameTime.TotalSeconds;
         if (startClock >= animationDuration)
         {
+            animationDone = true;
             BeIdle();
         }
     }

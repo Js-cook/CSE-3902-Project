@@ -1,6 +1,7 @@
 ﻿using Enums;
 using Microsoft.Xna.Framework;
 using Sprites;
+using System.Transactions;
 
 public class DownAttackingPlayerState : Interfaces.IPlayerState
 {
@@ -9,6 +10,7 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
     private double startClock = 0.0;
     private double animationDuration = 0.4;
 
+    private bool animationDone = false;
     public DownAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
     {
         this.player = player;
@@ -48,14 +50,18 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
     }
     public void BeIdle()
     {
-        player.playerState = new DownIdlePlayerState(player, spriteFactory);
-        player.Sprite = spriteFactory.CreateDownIdlePlayerSprite(player.position);
+        if (animationDone)
+        {
+            player.playerState = new DownIdlePlayerState(player, spriteFactory);
+            player.Sprite = spriteFactory.CreateDownIdlePlayerSprite(player.position);
+        }
     }
     public void Update(GameTime gametime)
     {
         startClock += gametime.ElapsedGameTime.TotalSeconds;
         if (startClock >= animationDuration)
         {
+            animationDone = true;
             BeIdle();
         }
     }
