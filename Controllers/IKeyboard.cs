@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Interfaces;
-using Microsoft.VisualBasic.FileIO;
+﻿using Interfaces;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Enums;
@@ -48,10 +40,8 @@ namespace Controllers
                 projectileInputLimiter--;
             }
 
-            // TODO: restructure to avoid all the ifs
             if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && !movementKeyActive)
             {
-                // link go up
                 player.playerState.ChangeDirection(Direction.UP);
                 player.MoveUp();
                 movementKeyActive = true;
@@ -59,7 +49,6 @@ namespace Controllers
 
             if ((keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S)) && !movementKeyActive)
             {
-                // link go down
                 player.playerState.ChangeDirection(Direction.DOWN);
                 player.MoveDown();
                 movementKeyActive = true;
@@ -67,7 +56,6 @@ namespace Controllers
 
             if ((keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A)) && !movementKeyActive)
             {
-                // link go left
                 player.playerState.ChangeDirection(Direction.LEFT);
                 player.MoveLeft();
                 movementKeyActive = true;
@@ -75,7 +63,6 @@ namespace Controllers
 
             if ((keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D)) && !movementKeyActive)
             {
-                // link go right
                 player.playerState.ChangeDirection(Direction.RIGHT);
                 player.MoveRight();
                 movementKeyActive = true;

@@ -3,19 +3,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprites;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 public class Link
 {
     public Vector2 position { get; set; }
     public IPlayerSprite Sprite { get; set; }
-    // idk if this should be public
     public IPlayerState playerState { get; set; }
     private PlayerSpriteFactory spriteFactory;
     public ProjectileSpriteFactory projectileSpriteFactory { get; set; }
