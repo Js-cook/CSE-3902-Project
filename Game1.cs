@@ -19,10 +19,9 @@ namespace _3902_Project
         private Texture2D playerTexture;
         private PlayerSpriteFactory spriteFactory;
         private ProjectileSpriteFactory projectileSpriteFactory;
+        private ProjectileController projectileController;
 
         private EnemyConroller enemyController;
-
-
 
         private IController keyboardController;
 
@@ -50,9 +49,9 @@ namespace _3902_Project
             playerTexture = Content.Load<Texture2D>("LinkSprites");
             spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
             projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
+            projectileController = new ProjectileController(projectileSpriteFactory);
 
-            player = new Link(spriteFactory, projectileSpriteFactory);
-
+            player = new Link(spriteFactory, projectileSpriteFactory, projectileController);
 
             // Handles loading content for all enemies
             enemyController = new EnemyConroller();
@@ -71,6 +70,7 @@ namespace _3902_Project
             player.Update(gameTime);
             environment.Update(gameTime);
             enemyController.Update(gameTime);
+            projectileController.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -82,6 +82,7 @@ namespace _3902_Project
             player.Draw();
             environment.Draw();
             enemyController.Draw();
+            projectileController.Draw();
             _spriteBatch.End();
             // TODO: Add your drawing code here
 

@@ -1,4 +1,5 @@
-﻿using Enums;
+﻿using Controllers;
+using Enums;
 using Microsoft.Xna.Framework;
 using Sprites;
 using System;
@@ -11,26 +12,28 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
 {
     private Link player;
     private PlayerSpriteFactory spriteFactory;
+    private ProjectileController projectileController;
 
-    public UpMovingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    public UpMovingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController)
     {
         this.player = player;
         this.spriteFactory = spriteFactory;
+        this.projectileController = projectileController;
     }
     public void ChangeDirection(Direction Direction)
     {
         switch (Direction)
         {
             case Direction.DOWN:
-                player.playerState = new DownMovingPlayerState(player, spriteFactory);
+                player.playerState = new DownMovingPlayerState(player, spriteFactory, projectileController);
                 player.Sprite = spriteFactory.CreateDownMovingPlayerSprite(player.position);
                 break;
             case Direction.LEFT:
-                player.playerState = new LeftMovingPlayerState(player, spriteFactory);
+                player.playerState = new LeftMovingPlayerState(player, spriteFactory, projectileController);
                 player.Sprite = spriteFactory.CreateLeftMovingPlayerSprite(player.position);
                 break;
             case Direction.RIGHT:
-                player.playerState = new RightMovingPlayerState(player, spriteFactory);
+                player.playerState = new RightMovingPlayerState(player, spriteFactory, projectileController);
                 player.Sprite = spriteFactory.CreateRightMovingPlayerSprite(player.position);
                 break;
         }
@@ -70,7 +73,7 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
     }
     public void BeIdle()
     {
-        player.playerState = new UpIdlePlayerState(player, spriteFactory);
+        player.playerState = new UpIdlePlayerState(player, spriteFactory, projectileController);
         player.Sprite = spriteFactory.CreateUpIdlePlayerSprite(player.position);
     }
 
