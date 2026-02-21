@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Controllers;
 using Sprites;
 using Interfaces;
+using Microsoft.Xna.Framework.Media;
 
 namespace _3902_Project
 {
@@ -28,6 +29,9 @@ namespace _3902_Project
         private TileFactory tileFactory;
         private Environment environment;
 
+        private AudioController audioController;
+        private Song dungeonSong;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -38,7 +42,7 @@ namespace _3902_Project
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            //AudioController audioController = new AudioController();
             base.Initialize();
         }
 
@@ -61,6 +65,10 @@ namespace _3902_Project
             environment = new Environment(tileFactory);
 
             keyboardController = new Controllers.IKeyboard(player, environment, enemyController, this);
+
+            AudioController audioController = new AudioController();
+            dungeonSong = Content.Load<Song>("BackgroundMusic");
+            audioController.PlaySong(dungeonSong);
         }
 
         protected override void Update(GameTime gameTime)
