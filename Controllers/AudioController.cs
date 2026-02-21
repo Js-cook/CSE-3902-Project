@@ -17,7 +17,6 @@ public class AudioController
         ActiveSoundEffectInstances = new List<SoundEffectInstance>();
     }
 
-
     public SoundEffectInstance PlaySoundEffect(SoundEffect soundEffect, float volume, float pitch, float pan, bool isLooped) 
     {
         SoundEffectInstance soundEffectInstance = soundEffect.CreateInstance();
@@ -41,6 +40,7 @@ public class AudioController
             MediaPlayer.Stop();
         }
 
+        MediaPlayer.Volume = 0.35f;
         MediaPlayer.Play(song);
         MediaPlayer.IsRepeating = isRepeating;
     }

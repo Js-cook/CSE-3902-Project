@@ -1,11 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System.Collections.Generic;
 using Controllers;
 using Sprites;
 using Interfaces;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 
 namespace _3902_Project
 {
@@ -46,9 +48,26 @@ namespace _3902_Project
             base.Initialize();
         }
 
+        private Dictionary<string, SoundEffect> LoadPlayerSFX(ContentManager content)
+        {
+            Dictionary<string, SoundEffect> res = new()
+            {
+                { "ArrowBoomerang", content.Load<SoundEffect>("SFX/ArrowBoomerang") },
+                { "BombDrop", content.Load<SoundEffect>("SFX/BombDrop") },
+                { "BombExplode", content.Load<SoundEffect>("SFX/BombExplode") },
+                { "SwordSlash", content.Load<SoundEffect>("SFX/SwordSlash") }
+            };
+
+            return res;
+        }
+
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            AudioController audioController = new AudioController();
+            dungeonSong = Content.Load<Song>("BackgroundMusic");
+            audioController.PlaySong(dungeonSong);
 
             playerTexture = Content.Load<Texture2D>("LinkSprites");
             spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
@@ -64,11 +83,8 @@ namespace _3902_Project
             tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), _spriteBatch);
             environment = new Environment(tileFactory);
 
-            keyboardController = new Controllers.IKeyboard(player, environment, enemyController, this);
+            keyboardController = new Controllers.IKeyboard(player, environment, enemyController, this, audioController, LoadPlayerSFX(Content));
 
-            AudioController audioController = new AudioController();
-            dungeonSong = Content.Load<Song>("BackgroundMusic");
-            audioController.PlaySong(dungeonSong);
         }
 
         protected override void Update(GameTime gameTime)

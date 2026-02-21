@@ -1,7 +1,9 @@
 ﻿using Controllers;
 using Enums;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Sprites;
+using System.Collections.Generic;
 
 public class RightIdlePlayerState : Interfaces.IPlayerState
 {
