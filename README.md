@@ -25,7 +25,21 @@
 ## Bugs and Known Issues
 - No collision
 - No screen bounds/cycling (things that go off-screen won't go around the other side)
-- Inconsistent sprite scaling 
+- Inconsistent sprite scaling
+- Limited implementation of sound effects (no enemy sounds and bomb explosions not yet implemented)
 
 ## Metrics
-- idk if we need this but if we do we can put a table here
+Metrics calculated using the "Code Metrics" tool
+
+### Baseline (metrics calculated from a newly created Monogame project with no other content)
+
+| Maintainability Index | Cyclomatic Complexity | Depth of Inheritance | Class Coupling | Lines of source code | Lines of executable code |  
+| --------------------- | -------------------- | -------------- | -------------------- | ------------------------ | --------------------- |  
+| 81                    | 9                    | 2              | 16                   | 50                       | 13                    |    
+
+
+### Project (current project)
+
+| Date | Maintainability Index | Cyclomatic Complexity | Depth of Inheritance | Class Coupling | Lines of source code | Lines of executable code |  
+| ---- | --------------------- | --------------------- | -------------------- | -------------- | -------------------- | ------------------------ |  
+| 2/22 (Sprint 2 complete) | 84                    | 1156                  | 2                    | 158            | 6152                 | 1500                     |  
