@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 public class Gel : IEnemy {
 
-    public Vector2 position;
+    public Vector2 position {  get; set; }
     public ISprite Sprite { get; set; }
     // idk if this should be public
     public IEnemyState gelState { get; set; }

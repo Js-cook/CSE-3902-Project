@@ -35,6 +35,8 @@ public class MovingSkeletonSprite : ISprite
     private SpriteBatch spriteBatch;
     private Rectangle currentFrame;
 
+    public bool Hurt {  get; set; }
+
     private Rectangle sourceRectangle1 = new Rectangle(404, 194, 16, 16);
     private Rectangle sourceRectangle2 = new Rectangle(404, 212, 16, 16);
     private int frameCounter = 0;

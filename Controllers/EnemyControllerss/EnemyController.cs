@@ -75,6 +75,16 @@ public class EnemyConroller {
         }
     }
 
+    public void ResetEnemy()
+    {
+        index = 0;
+    }
+
+    public IEnemy CurrentEnemy()
+    {
+        return enemyArray[index];
+    }
+
     public EnemyConroller()
     {
         enemyArray = new List<IEnemy>();

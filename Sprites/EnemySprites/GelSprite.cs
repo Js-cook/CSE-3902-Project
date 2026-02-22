@@ -35,6 +35,8 @@ public class GelSpriteFactory
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
+        public bool Hurt { get; set; }
+
         private Rectangle sourceRectangle1 = new Rectangle(1, 11, 8, 16);
         private Rectangle sourceRectangle2 = new Rectangle(10, 11, 8, 16);
         private int frameCounter = 0;

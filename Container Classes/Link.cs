@@ -1,31 +1,28 @@
-﻿ using Interfaces;
+﻿using Interfaces;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Sprites;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Controllers;
+using Microsoft.Xna.Framework.Audio;
 
 public class Link
 {
     public Vector2 position { get; set; }
-    public ISprite Sprite { get; set; }
-    // idk if this should be public
+    public IPlayerSprite Sprite { get; set; }
     public IPlayerState playerState { get; set; }
     private PlayerSpriteFactory spriteFactory;
     public ProjectileSpriteFactory projectileSpriteFactory { get; set; }
 
+    public bool Hurt { get; set; }
+    private double hurtTimer = 0.0;
+    private double hurtDuration = 2.5;
+
     public List<IProjectile> projectiles { get; set; } = new List<IProjectile>();
 
-    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory)
+    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController)
     {
         position = new Vector2(10, 10); // arbitrary starting position - change later
-        playerState = new RightIdlePlayerState(this, spriteFactory);
+        playerState = new RightIdlePlayerState(this, spriteFactory, projectileController);
         Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
         this.projectileSpriteFactory = projectileSpriteFactory;
     }
@@ -55,38 +52,49 @@ public class Link
         Sprite.Update(gametime);
         List<IProjectile> markedForDeletion = new List<IProjectile>();
 
-        foreach (IProjectile projectile in projectiles)
+        if (Hurt)
         {
-            if (!projectile.Active)
+            hurtTimer += gametime.ElapsedGameTime.TotalSeconds;
+            if(hurtTimer >= hurtDuration)
             {
-                markedForDeletion.Add(projectile);
-
+                Hurt = false;
+                hurtTimer = 0.0;
             }
-            projectile.Update(gametime);
         }
 
-        foreach (IProjectile projectile in markedForDeletion)
-        {
-            projectiles.Remove(projectile);
-            if(projectile is Arrow || projectile is SilverArrow)
-            {
-                projectiles.Add(new ArrowParticle(projectile.Position, "", projectileSpriteFactory));
-            }
-            if(projectile is Bomb)
-            {
-                projectiles.Add(new BombParticle(projectile.Position, "", projectileSpriteFactory));
-            }
-        }
+        //foreach (IProjectile projectile in projectiles)
+        //{
+        //    if (!projectile.Active)
+        //    {
+        //        markedForDeletion.Add(projectile);
+
+        //    }
+        //    projectile.Update(gametime);
+        //}
+
+        //foreach (IProjectile projectile in markedForDeletion)
+        //{
+        //    projectiles.Remove(projectile);
+        //    if(projectile is Arrow || projectile is SilverArrow)
+        //    {
+        //        projectiles.Add(new ArrowParticle(projectile.Position, projectileSpriteFactory));
+        //    }
+        //    if(projectile is Bomb)
+        //    {
+        //        projectiles.Add(new BombParticle(projectile.Position, projectileSpriteFactory));
+        //    }
+        //}
 
     }
 
     public void Draw()
     {
+        Sprite.Hurt = Hurt;
         Sprite.SpriteDraw(position);
-        foreach (IProjectile projectile in projectiles)
-        {
-            projectile.Draw();
-        }
+        //foreach (IProjectile projectile in projectiles)
+        //{
+        //    projectile.Draw();
+        //}
     }
 }
 

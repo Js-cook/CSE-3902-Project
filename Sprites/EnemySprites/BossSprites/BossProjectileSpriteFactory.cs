@@ -26,6 +26,7 @@ public class BossProjectileSpriteFactory
 
 public class AquamentusFireballSprite : ISprite
 {
+    public bool Hurt { get; set; }
     private Texture2D texture;
     private SpriteBatch spriteBatch;
     private Vector2 position;

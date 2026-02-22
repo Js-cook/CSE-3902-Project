@@ -1,0 +1,72 @@
+﻿using Controllers;
+using Enums;
+using Microsoft.Xna.Framework;
+using Sprites;
+using System.Transactions;
+
+public class DownAttackingPlayerState : Interfaces.IPlayerState
+{
+    private Link player;
+    private PlayerSpriteFactory spriteFactory;
+    private double startClock = 0.0;
+    private double animationDuration = 0.4;
+
+    private bool animationDone = false;
+    private ProjectileController projectileController;
+
+    public DownAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController)
+    {
+        this.player = player;
+        this.spriteFactory = spriteFactory;
+        this.projectileController = projectileController;
+    }
+    public void ChangeDirection(Direction Direction)
+    {
+        // do nothing - can't change direction while attacking
+    }
+    public void BeDead()
+    {
+    }
+    public void BeDamaged()
+    {
+        player.Hurt = true;
+    }
+    public void BeAttacking()
+    {
+    }
+    public void FireArrow()
+    {
+    }
+    public void FireSilverArrow()
+    {
+    }
+    public void FireBoomerang()
+    {
+    }
+    public void FireMagicBoomerang()
+    {
+    }
+    public void FireFireball()
+    {
+    }
+    public void FireBomb()
+    {
+    }
+    public void BeIdle()
+    {
+        if (animationDone)
+        {
+            player.playerState = new DownIdlePlayerState(player, spriteFactory, projectileController);
+            player.Sprite = spriteFactory.CreateDownIdlePlayerSprite(player.position);
+        }
+    }
+    public void Update(GameTime gametime)
+    {
+        startClock += gametime.ElapsedGameTime.TotalSeconds;
+        if (startClock >= animationDuration)
+        {
+            animationDone = true;
+            BeIdle();
+        }
+    }
+}

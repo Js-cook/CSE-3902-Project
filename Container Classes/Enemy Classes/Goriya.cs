@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 public class Goriya : IEnemy
 {
-    public Vector2 position;
+    public Vector2 position { get; set; }
     // idk if this should be public
     public IEnemyState goriyaState { get; set; }
 
