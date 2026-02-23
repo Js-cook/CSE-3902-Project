@@ -1,0 +1,19 @@
+﻿Author of the code review: Adeel Khatri
+Date of the code review: 2/23/2026
+Sprint number: Sprint 2
+Name of the .cs file being reviewed: BossProjectileSpriteFactory.cs
+Author of the .cs file being reviewed: Hashim Zafar
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality:
+
+Overall very good code I'd say for readibility. The logic is easy to read, the naming conventions are
+as expected. The class and method names are pretty descriptive. The if-else chain in the update
+method is easy to read and understand, but maybe using something like an array for this could be a
+tad cleaner, but its still good as is.
+
+The formatting in this script, along with other scripts you wrote, is pretty consistent as well.
+
+My only concern is is that you have defined a position var in the boss projectile sprite, but don't
+use it. Not sure if you want to later on, but if not it's probably best to remove this for now. It
+could get confusing if there are more bosses later on.

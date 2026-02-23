@@ -1,0 +1,24 @@
+﻿Author of the code review: Adeel Khatri
+Date of the code review: 2/23/2026
+Sprint number: Sprint 2
+Name of the .cs file being reviewed: Link.cs
+Author of the .cs file being reviewed: Jacob Cook
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality:
+
+I think overall the code is pretty good, its designed pretty well and frankly I initially used it for
+the container classes I designed. However, I'd say there are maybe a few areas of improvement that 
+might be problematic later on.
+
+I did see ur comment but reiterating, I think the magic numbers for position and speed could be an
+issue later on. Setting these as some constant vars at the top of the script might not be a bad idea,
+but clearly you have intentions to change this later on.
+
+A small note, and maybe my understanding of the hurt component isn't correct, but I found it strange
+that Sprite.Hurt was in the draw method, not update. If its strictly visual right now that seems fine,
+but if there's gonna be more functionallity added, wouldn't it be smart to move this to update?
+
+Last point, couldn't the public position of link be an issue when colliders are added? For example, if
+other scripts are changing link's position, wouldn't that mean each one would need its own collider 
+check? Maybe this is too far into the future, but might be worth noting.
