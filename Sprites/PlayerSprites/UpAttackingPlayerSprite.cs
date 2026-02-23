@@ -11,7 +11,6 @@ namespace Sprites
         public bool Hurt { get; set; }
 
         private double attackTimer = 0.0;
-        private double attackDuration = 0.4;
 
         private Rectangle[] frameContainer =
         {

@@ -12,7 +12,6 @@ namespace Sprites
         public bool Hurt { get; set; }
 
         private double attackTimer = 0.0;
-        private double attackDuration = 0.4;
 
         private Rectangle[] frameContainer =
         {
@@ -21,8 +20,6 @@ namespace Sprites
             new Rectangle(46, 77, 22, 15),
             new Rectangle(18, 77, 26, 15)
         };
-
-        private int frameCounter = 0;
 
         public LeftAttackingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {

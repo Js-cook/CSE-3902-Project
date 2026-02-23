@@ -9,7 +9,6 @@ namespace Sprites
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
         private double attackTimer = 0.0;
-        private double attackDuration = 0.4;
         public bool Hurt { get; set; }
         private Rectangle[] frameContainer =
         {

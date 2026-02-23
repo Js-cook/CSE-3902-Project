@@ -13,8 +13,6 @@ namespace _3902_Project
 {
     public class Game1 : Game
     {
-        //private Controllers.IKeyboard keyboardController = new Controllers.IKeyboard();
-
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -31,7 +29,6 @@ namespace _3902_Project
         private TileFactory tileFactory;
         private Environment environment;
 
-        private AudioController audioController;
         private Song dungeonSong;
 
         private ItemFactory itemFactory;

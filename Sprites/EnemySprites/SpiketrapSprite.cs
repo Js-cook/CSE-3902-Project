@@ -31,14 +31,13 @@ public class SpiketrapSpriteFactory
 public class SpiketrapSprite : ISprite
 {
     private Texture2D texture;
-    //private Vector2 position;
     private SpriteBatch spriteBatch;
     private Rectangle currentFrame;
 
     public bool Hurt { get; set; }
 
     private Rectangle sourceRectangle1 = new Rectangle(164, 59, 16, 16);
-    private int frameCounter = 0;
+    //private int frameCounter = 0;
 
     public SpiketrapSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
     {

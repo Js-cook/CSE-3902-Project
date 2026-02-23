@@ -1,20 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
-
-
+﻿using Microsoft.Xna.Framework;
 
 public class AquamentusFireball : IProjectile
 {
@@ -56,9 +40,5 @@ public class AquamentusFireball : IProjectile
         this.Position = position;
         startTime = 0.0;
     }
-
-
-
-
 }
 

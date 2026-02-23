@@ -1,19 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 public class EnemyConroller {
 
     public List<IEnemy> enemyArray { get; set; } = new List<IEnemy>();
-
-    private Gel gel;
-    private Bat bat;
 
     private int index;
 
@@ -62,9 +54,6 @@ public class EnemyConroller {
         OldManFlameSpriteFactory oldManFlameSpriteFactory = new OldManFlameSpriteFactory(npcTexture, _spriteBatch);
         OldManFlame oldManFlame = new OldManFlame(oldManFlameSpriteFactory, _graphics);
         enemyArray.Add(oldManFlame);
-
-
-
     }
 
     public void NextEnemy()
@@ -111,16 +100,5 @@ public class EnemyConroller {
         enemyArray[index].Draw();
 
     }
-
-
-
-
-
-
-
-
-
-
-
 }
 

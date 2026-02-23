@@ -10,7 +10,6 @@ public class Link
     public Vector2 position { get; set; }
     public IPlayerSprite Sprite { get; set; }
     public IPlayerState playerState { get; set; }
-    private PlayerSpriteFactory spriteFactory;
     public ProjectileSpriteFactory projectileSpriteFactory { get; set; }
 
     public bool Hurt { get; set; }

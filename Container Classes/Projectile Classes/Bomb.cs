@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 public class Bomb : IProjectile
 {
     public bool Active { get; set; }
-    private Direction direction;
     private double startTime = 0.0;
     private double endTime = 0.75;
 
