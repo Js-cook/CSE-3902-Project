@@ -34,6 +34,9 @@ namespace _3902_Project
         private AudioController audioController;
         private Song dungeonSong;
 
+        private ItemFactory itemFactory;
+        private Item item;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -83,7 +86,10 @@ namespace _3902_Project
             tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), _spriteBatch);
             environment = new Environment(tileFactory);
 
-            keyboardController = new Controllers.IKeyboard(player, environment, enemyController, this, audioController, LoadPlayerSFX(Content));
+            itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
+            item = new Item(itemFactory);
+
+            keyboardController = new Controllers.IKeyboard(player, environment, item, enemyController, this, audioController, LoadPlayerSFX(Content));
 
         }
 
@@ -93,6 +99,7 @@ namespace _3902_Project
             keyboardController.Update();
             player.Update(gameTime);
             environment.Update(gameTime);
+            item.Update(gameTime);
             enemyController.Update(gameTime);
             projectileController.Update(gameTime);
             base.Update(gameTime);
@@ -105,6 +112,7 @@ namespace _3902_Project
             _spriteBatch.Begin();
             player.Draw();
             environment.Draw();
+            item.Draw();
             enemyController.Draw();
             projectileController.Draw();
             _spriteBatch.End();
