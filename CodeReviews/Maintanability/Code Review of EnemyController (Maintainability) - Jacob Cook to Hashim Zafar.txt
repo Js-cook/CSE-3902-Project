@@ -1,0 +1,11 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 2/22/2026
+Sprint number: Sprint 2
+Name of the .cs file being reviewed: PlayerState.cs
+Author of the .cs file being reviewed: Hashim Zafar
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality: 
+
+There are a lot of good practices demonstrated here like method separation of conern along with helper methods to abstract away complexity from the game class and the keyboard controller. If I were to offer some critiques, the foremost one would be the class name is misspelled which can cause some confusion and minor errors later. Another concern is that the Gel and Bat fields go unused and are replaced by local copies in the loadContent method. Additionally, there could be additional protections applied to the draw and update methods. In the situation the array is empty, the calls to update and draw will fail, so some sort of conditional to prevent this could be nice.
+Overall, however, this method is very well implemented and does well to provide extensibility for future additions and implementations.

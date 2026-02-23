@@ -1,4 +1,5 @@
-﻿using Enums;
+﻿using Controllers;
+using Enums;
 using Microsoft.Xna.Framework;
 using Sprites;
 
@@ -11,11 +12,13 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
     private double animationDuration = 0.4;
 
     private bool animationDone = false;
+    private ProjectileController projectileController;
 
-    public RightAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    public RightAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController)
     {
         this.player = player;
         this.spriteFactory = spriteFactory;
+        this.projectileController = projectileController;
     }
     public void ChangeDirection(Direction Direction)
     {
@@ -53,7 +56,7 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
     {
         if (animationDone)
         {
-            player.playerState = new RightIdlePlayerState(player, spriteFactory);
+            player.playerState = new RightIdlePlayerState(player, spriteFactory, projectileController);
             player.Sprite = spriteFactory.CreateRightIdlePlayerSprite(player.position);
         }
     }

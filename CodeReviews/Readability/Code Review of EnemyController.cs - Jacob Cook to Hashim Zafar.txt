@@ -1,0 +1,11 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 2/22/2026
+Sprint number: Sprint 2
+Name of the .cs file being reviewed: EnemyController.cs
+Author of the .cs file being reviewed: Hashim Zafar
+Number of minutes taken to complete the review: 30 minutes
+
+
+Specific comments on what is readable and what is not:
+
+Overall I find this class to be very readable. Variables and methods are aptly named with features that are perfectly described by their names. My only concern is that the LoadContent method seems very verbose with all the sprite factory and enemy class creations. The variable naming helps to alleviate this quite a bit, however.

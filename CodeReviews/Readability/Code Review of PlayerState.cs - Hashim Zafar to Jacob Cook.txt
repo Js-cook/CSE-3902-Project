@@ -1,0 +1,12 @@
+Author of the code review: Hashim Zafar
+Date of the code review: 2/22/2026
+Sprint number: Sprint 2
+Name of the .cs file being reviewed: PlayerState.cs
+Author of the .cs file being reviewed: Jacob Cook
+Number of minutes taken to complete the review: 30 minutes
+
+
+Specific comments on what is readable and what is not:
+
+The player state class is readable in terms of clarity since each state (e.g DownUsing, UpMoving, LeftIdle) are clearly defined and with methods that correspond to each state. The critique as to what is not readable is the amount of classes which when expanded can become very confusing to read especially with the repeated methods. 
+

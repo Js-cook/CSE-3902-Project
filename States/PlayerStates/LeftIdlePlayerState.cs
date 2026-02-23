@@ -1,4 +1,5 @@
-﻿using Enums;
+﻿using Controllers;
+using Enums;
 using Microsoft.Xna.Framework;
 using Sprites;
 
@@ -7,10 +8,12 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
     private Link player;
     private PlayerSpriteFactory spriteFactory;
 
-    public LeftIdlePlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    private ProjectileController projectileController;
+    public LeftIdlePlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController)
     {
         this.player = player;
         this.spriteFactory = spriteFactory;
+        this.projectileController = projectileController;
     }
 
     public void ChangeDirection(Direction Direction)
@@ -18,19 +21,19 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
         switch (Direction)
         {
             case Direction.UP:
-                player.playerState = new UpMovingPlayerState(player, spriteFactory);
+                player.playerState = new UpMovingPlayerState(player, spriteFactory, projectileController);
                 player.Sprite = spriteFactory.CreateUpMovingPlayerSprite(player.position);
                 break;
             case Direction.DOWN:
-                player.playerState = new DownMovingPlayerState(player, spriteFactory);
+                player.playerState = new DownMovingPlayerState(player, spriteFactory, projectileController);
                 player.Sprite = spriteFactory.CreateDownMovingPlayerSprite(player.position);
                 break;
             case Direction.RIGHT:
-                player.playerState = new RightMovingPlayerState(player, spriteFactory);
+                player.playerState = new RightMovingPlayerState(player, spriteFactory, projectileController);
                 player.Sprite = spriteFactory.CreateRightMovingPlayerSprite(player.position);
                 break;
             case Direction.LEFT:
-                player.playerState = new LeftMovingPlayerState(player, spriteFactory);
+                player.playerState = new LeftMovingPlayerState(player, spriteFactory, projectileController);
                 player.Sprite = spriteFactory.CreateLeftMovingPlayerSprite(player.position);
                 break;
         }
@@ -49,51 +52,51 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
 
     public void BeAttacking()
     {
-        player.playerState = new LeftAttackingPlayerState(player, spriteFactory);
+        player.playerState = new LeftAttackingPlayerState(player, spriteFactory, projectileController);
         player.Sprite = spriteFactory.CreateLeftAttackingPlayerSprite(player.position);
     }
 
     public void FireSilverArrow()
     {
-        player.playerState = new LeftUsingPlayerState(player, spriteFactory);
+        player.playerState = new LeftUsingPlayerState(player, spriteFactory, projectileController);
         player.Sprite = spriteFactory.CreateLeftUsingPlayerSprite(player.position);
         IProjectile silverArrow = new SilverArrow(player.position, Direction.LEFT, player.projectileSpriteFactory);
-        player.projectiles.Add(silverArrow);
+        projectileController.projectiles.Add(silverArrow);
     }
     public void FireArrow()
     {
-        player.playerState = new LeftUsingPlayerState(player, spriteFactory);
+        player.playerState = new LeftUsingPlayerState(player, spriteFactory, projectileController);
         player.Sprite = spriteFactory.CreateLeftUsingPlayerSprite(player.position);
         IProjectile arrow = new Arrow(player.position, Direction.LEFT, player.projectileSpriteFactory);
-        player.projectiles.Add(arrow);
+        projectileController.projectiles.Add(arrow);
     }
     public void FireBoomerang()
     {
-        player.playerState = new LeftUsingPlayerState(player, spriteFactory);
+        player.playerState = new LeftUsingPlayerState(player, spriteFactory, projectileController);
         player.Sprite = spriteFactory.CreateLeftUsingPlayerSprite(player.position);
         IProjectile boomerang = new Boomerang(player.position, Direction.LEFT, player.projectileSpriteFactory);
-        player.projectiles.Add(boomerang);
+        projectileController.projectiles.Add(boomerang);
     }
     public void FireMagicBoomerang()
     {
-        player.playerState = new LeftUsingPlayerState(player, spriteFactory);
+        player.playerState = new LeftUsingPlayerState(player, spriteFactory, projectileController);
         player.Sprite = spriteFactory.CreateLeftUsingPlayerSprite(player.position);
         IProjectile magicBoomerang = new MagicBoomerang(player.position, Direction.LEFT, player.projectileSpriteFactory);
-        player.projectiles.Add(magicBoomerang);
+        projectileController.projectiles.Add(magicBoomerang);
     }
     public void FireFireball()
     {
-        player.playerState = new LeftUsingPlayerState(player, spriteFactory);
+        player.playerState = new LeftUsingPlayerState(player, spriteFactory, projectileController);
         player.Sprite = spriteFactory.CreateLeftUsingPlayerSprite(player.position);
         IProjectile fireball = new Fireball(player.position, Direction.LEFT, player.projectileSpriteFactory);
-        player.projectiles.Add(fireball);
+        projectileController.projectiles.Add(fireball);
     }
     public void FireBomb()
     {
-        player.playerState = new LeftUsingPlayerState(player, spriteFactory);
+        player.playerState = new LeftUsingPlayerState(player, spriteFactory, projectileController);
         player.Sprite = spriteFactory.CreateLeftUsingPlayerSprite(player.position);
         IProjectile bomb = new Bomb(player.position, Direction.LEFT, player.projectileSpriteFactory);
-        player.projectiles.Add(bomb);
+        projectileController.projectiles.Add(bomb);
     }
 
     public void BeIdle()

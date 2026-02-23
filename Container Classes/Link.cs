@@ -1,21 +1,14 @@
 ﻿using Interfaces;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Sprites;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Controllers;
+using Microsoft.Xna.Framework.Audio;
 
 public class Link
 {
     public Vector2 position { get; set; }
     public IPlayerSprite Sprite { get; set; }
-    // idk if this should be public
     public IPlayerState playerState { get; set; }
     private PlayerSpriteFactory spriteFactory;
     public ProjectileSpriteFactory projectileSpriteFactory { get; set; }
@@ -26,10 +19,10 @@ public class Link
 
     public List<IProjectile> projectiles { get; set; } = new List<IProjectile>();
 
-    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory)
+    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController)
     {
         position = new Vector2(10, 10); // arbitrary starting position - change later
-        playerState = new RightIdlePlayerState(this, spriteFactory);
+        playerState = new RightIdlePlayerState(this, spriteFactory, projectileController);
         Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
         this.projectileSpriteFactory = projectileSpriteFactory;
     }
@@ -69,28 +62,28 @@ public class Link
             }
         }
 
-        foreach (IProjectile projectile in projectiles)
-        {
-            if (!projectile.Active)
-            {
-                markedForDeletion.Add(projectile);
+        //foreach (IProjectile projectile in projectiles)
+        //{
+        //    if (!projectile.Active)
+        //    {
+        //        markedForDeletion.Add(projectile);
 
-            }
-            projectile.Update(gametime);
-        }
+        //    }
+        //    projectile.Update(gametime);
+        //}
 
-        foreach (IProjectile projectile in markedForDeletion)
-        {
-            projectiles.Remove(projectile);
-            if(projectile is Arrow || projectile is SilverArrow)
-            {
-                projectiles.Add(new ArrowParticle(projectile.Position, projectileSpriteFactory));
-            }
-            if(projectile is Bomb)
-            {
-                projectiles.Add(new BombParticle(projectile.Position, projectileSpriteFactory));
-            }
-        }
+        //foreach (IProjectile projectile in markedForDeletion)
+        //{
+        //    projectiles.Remove(projectile);
+        //    if(projectile is Arrow || projectile is SilverArrow)
+        //    {
+        //        projectiles.Add(new ArrowParticle(projectile.Position, projectileSpriteFactory));
+        //    }
+        //    if(projectile is Bomb)
+        //    {
+        //        projectiles.Add(new BombParticle(projectile.Position, projectileSpriteFactory));
+        //    }
+        //}
 
     }
 
@@ -98,10 +91,10 @@ public class Link
     {
         Sprite.Hurt = Hurt;
         Sprite.SpriteDraw(position);
-        foreach (IProjectile projectile in projectiles)
-        {
-            projectile.Draw();
-        }
+        //foreach (IProjectile projectile in projectiles)
+        //{
+        //    projectile.Draw();
+        //}
     }
 }
 

@@ -28,7 +28,6 @@ public class MovingBatSprite : ISprite
     private Texture2D texture;
     private SpriteBatch spriteBatch;
 
-    public bool Hurt { get; set; }
 
     private Rectangle currentFrame;
     private Rectangle sourceRectangle1 = new Rectangle(183, 11, 16, 16);

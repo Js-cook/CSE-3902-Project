@@ -1,4 +1,5 @@
-﻿using Enums;
+﻿using Controllers;
+using Enums;
 using Microsoft.Xna.Framework;
 using Sprites;
 
@@ -7,10 +8,12 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
     private Link player;
     private PlayerSpriteFactory spriteFactory; // create at start of game and will need a reference to player
 
-    public LeftMovingPlayerState(Link player, PlayerSpriteFactory spriteFactory)
+    private ProjectileController projectileController;
+    public LeftMovingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController)
     {
         this.player = player;
         this.spriteFactory = spriteFactory;
+        this.projectileController = projectileController;
     }
 
     public void ChangeDirection(Direction Direction)
@@ -18,15 +21,15 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
         switch (Direction)
         {
             case Direction.UP:
-                player.playerState = new UpMovingPlayerState(player, spriteFactory);
+                player.playerState = new UpMovingPlayerState(player, spriteFactory, projectileController);
                 player.Sprite = spriteFactory.CreateUpMovingPlayerSprite(player.position);
                 break;
             case Direction.DOWN:
-                player.playerState = new DownMovingPlayerState(player, spriteFactory);
+                player.playerState = new DownMovingPlayerState(player, spriteFactory, projectileController);
                 player.Sprite = spriteFactory.CreateDownMovingPlayerSprite(player.position);
                 break;
             case Direction.RIGHT:
-                player.playerState = new RightMovingPlayerState(player, spriteFactory);
+                player.playerState = new RightMovingPlayerState(player, spriteFactory, projectileController);
                 player.Sprite = spriteFactory.CreateRightMovingPlayerSprite(player.position);
                 break;
         }
@@ -49,7 +52,7 @@ public class LeftMovingPlayerState : Interfaces.IPlayerState
 
     public void BeIdle()
     {
-        player.playerState = new LeftIdlePlayerState(player, spriteFactory);
+        player.playerState = new LeftIdlePlayerState(player, spriteFactory, projectileController);
         player.Sprite = spriteFactory.CreateLeftIdlePlayerSprite(player.position);
     }
 

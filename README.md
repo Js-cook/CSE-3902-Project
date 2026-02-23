@@ -1,79 +1,45 @@
-# Sprint 2 - Due 2/23
+# 3902 Legend of Zelda (NES) Documentation
 
-## Rough Plan
-### States
-- Use the example in 9-GoombaStateExample.cs
-- Interface for state with methods that change the state
-- Class for whatever it is (player, enemy, etc) has a public field of the state interface type
-- Classes for each state with a private field for the actual thing (player, enemy) that implements the interface
-### Sprites
-- Use the example in 8-EnemySpriteFactorySingletonExample.cs
-- Ideally, this handles animation too
-- State classes will likely interface with these the most
+## Controls
+### Movement
+- WASD or arrow keys for movement
+- Z or N to attack
+- E to enter damaged state
+- Number keys 1-6 are items as follows
+	- 1 is arrow
+	- 2 is silver arrow
+	- 3 is boomerang
+	- 4 is magic boomerang
+	- 5 is fireball
+	- 6 is bomb
+### Enemies
+- O or P will cycle which enemy or npc is being shown (O goes to previous enemy and P goes to next enemy sequentially)
+### Items
+- U or I will cycle between which item is being shown (U goes to previous item and I goes to the next item sequentially)
+### Environment/Tiles
+- T and Y will cycle between which block is being shown (T switches to previous block and Y switches to the next block)
+### Other
+- Q will quit the game
+- R will reset the game to the initial state
 
-## Objects and Sprites to implement
-Environment (tiles)
-- Statues
-- Square block
-- Push-able block
-- Fire
-- Blue gap (unwalkable)
-- Stairs
-
-Environment (background)
-- White brick
-- Ladders
-- Blue floor
-- Blue sand
-
-Environment (other)
-- Walls / room border
-- Open door
-- Bombed wall opening
-- Keyhole locked door
-- Diamond symbol locked door
-
-Player and "friendly projectiles" (moving and animated)
-- Link
-- Wooden Sword
-- Sword beam
-- Arrows
-- Boomerang
-
-Items
-- Compass
-- Map
-- Key
-- Heart container
-- Triforce piece
-- Wooden boomerang
-- Bow
-- Heart
-- Rupee
-- Arrow
-- Bomb
-- Fairy
-- Clock
-
-Enemies and harmful projectiles (moving and animated)
-- Bat (keese)
-- Skeleton (stalfos)
-- Dog-like monster (goriya)
-- Jelly (gel-small)
-- Hand (wall master)
-- Spike cross (trap)
-- Boss/Dragon (aquamentus)
-- Boss/Dragon fireballs
-- Enemy cloud appearance
-- Enemy death explosion
-
-NPCs and neutral projectiles
-- Old man
-- Flame in old man room
-- Link's bombs
-
-## Bugs and Known Issues (yet)
-- ...
+## Bugs and Known Issues
+- No collision
+- No screen bounds/cycling (things that go off-screen won't go around the other side)
+- Inconsistent sprite scaling
+- Limited implementation of sound effects (no enemy sounds and bomb explosions not yet implemented)
 
 ## Metrics
-- idk if we need this but if we do we can put a table here
+Metrics calculated using the "Code Metrics" tool
+
+### Baseline (metrics calculated from a newly created Monogame project with no other content)
+
+| Maintainability Index | Cyclomatic Complexity | Depth of Inheritance | Class Coupling | Lines of source code | Lines of executable code |  
+| --------------------- | -------------------- | -------------- | -------------------- | ------------------------ | --------------------- |  
+| 81                    | 9                    | 2              | 16                   | 50                       | 13                    |    
+
+
+### Project (current project)
+
+| Date | Maintainability Index | Cyclomatic Complexity | Depth of Inheritance | Class Coupling | Lines of source code | Lines of executable code |  
+| ---- | --------------------- | --------------------- | -------------------- | -------------- | -------------------- | ------------------------ |  
+| 2/22 (Sprint 2 complete) | 84                    | 1156                  | 2                    | 158            | 6152                 | 1500                     |  

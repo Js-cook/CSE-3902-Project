@@ -21,8 +21,10 @@ public class EnemyConroller {
     {
         Texture2D enemyTexture = content.Load<Texture2D>("EnemySprites");
         Texture2D bossTexture = content.Load<Texture2D>("BossSprites");
+        Texture2D npcTexture = content.Load<Texture2D>("NPCSprites");
         EnemyProjectileSpriteFactory enemyProjectileSpriteFactory = new EnemyProjectileSpriteFactory(enemyTexture, _spriteBatch);
         BossProjectileSpriteFactory bossProjectileSpriteFactory = new BossProjectileSpriteFactory(bossTexture, _spriteBatch);
+
 
 
         GelSpriteFactory gelSpriteFactory = new GelSpriteFactory(enemyTexture, _spriteBatch);
@@ -52,6 +54,14 @@ public class EnemyConroller {
         AquamentusSpriteFactory aquamentusSpriteFactory = new AquamentusSpriteFactory(bossTexture, _spriteBatch);
         Aquamentus aquamentus = new Aquamentus(aquamentusSpriteFactory, _graphics, bossProjectileSpriteFactory);
         enemyArray.Add(aquamentus);
+
+        OldManSpriteFactory oldManSpriteFactory = new OldManSpriteFactory(npcTexture, _spriteBatch);
+        OldMan oldMan = new OldMan(oldManSpriteFactory, _graphics);
+        enemyArray.Add(oldMan);
+
+        OldManFlameSpriteFactory oldManFlameSpriteFactory = new OldManFlameSpriteFactory(npcTexture, _spriteBatch);
+        OldManFlame oldManFlame = new OldManFlame(oldManFlameSpriteFactory, _graphics);
+        enemyArray.Add(oldManFlame);
 
 
 

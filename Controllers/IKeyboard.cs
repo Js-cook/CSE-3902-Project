@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Interfaces;
-using Microsoft.VisualBasic.FileIO;
+﻿using Interfaces;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Enums;
+using System.Collections.Generic;
 
 namespace Controllers
 {
@@ -31,13 +25,18 @@ namespace Controllers
 
         private Game gameInstance;
 
-        public IKeyboard(Link player, Environment env, Item item, EnemyConroller enemyConroller, Game gameInstance)
+        private AudioController audioController;
+        private Dictionary<string, SoundEffect> soundEffects;
+
+        public IKeyboard(Link player, Environment env, Item item, EnemyConroller enemyConroller, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect)
         {
             this.player = player;
             this.environment = env;
             this.item = item;
             this.enemyController = enemyConroller;
             this.gameInstance = gameInstance;
+            this.audioController = audioController;
+            this.soundEffects = soundEffect;
         }
 
         public void Update()
@@ -58,10 +57,8 @@ namespace Controllers
                 projectileInputLimiter--;
             }
 
-            // TODO: restructure to avoid all the ifs
             if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && !movementKeyActive)
             {
-                // link go up
                 player.playerState.ChangeDirection(Direction.UP);
                 player.MoveUp();
                 movementKeyActive = true;
@@ -69,7 +66,6 @@ namespace Controllers
 
             if ((keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S)) && !movementKeyActive)
             {
-                // link go down
                 player.playerState.ChangeDirection(Direction.DOWN);
                 player.MoveDown();
                 movementKeyActive = true;
@@ -77,7 +73,6 @@ namespace Controllers
 
             if ((keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A)) && !movementKeyActive)
             {
-                // link go left
                 player.playerState.ChangeDirection(Direction.LEFT);
                 player.MoveLeft();
                 movementKeyActive = true;
@@ -85,26 +80,29 @@ namespace Controllers
 
             if ((keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D)) && !movementKeyActive)
             {
-                // link go right
                 player.playerState.ChangeDirection(Direction.RIGHT);
                 player.MoveRight();
                 movementKeyActive = true;
             }
 
-            if (keyState.IsKeyDown(Keys.N) || keyState.IsKeyDown(Keys.Z))
+            if ((keyState.IsKeyDown(Keys.N) || keyState.IsKeyDown(Keys.Z)) && projectileInputLimiter == 0)
             {
                 player.playerState.BeAttacking();
+                audioController.PlaySoundEffect(soundEffects["SwordSlash"], 0.5f, 1.0f, 0.0f, false);
+                projectileInputLimiter = 10;
             }
 
             if ((keyState.IsKeyDown(Keys.D1) || keyState.IsKeyDown(Keys.NumPad1)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireArrow();
+                audioController.PlaySoundEffect(soundEffects["ArrowBoomerang"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 20;
             }
 
             if ((keyState.IsKeyDown(Keys.D2) || keyState.IsKeyDown(Keys.NumPad2)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireSilverArrow();
+                audioController.PlaySoundEffect(soundEffects["ArrowBoomerang"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 20;
             }
 
@@ -129,6 +127,7 @@ namespace Controllers
             if ((keyState.IsKeyDown(Keys.D6) || keyState.IsKeyDown(Keys.NumPad6)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireBomb();
+                audioController.PlaySoundEffect(soundEffects["BombDrop"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 20;
             }
 
