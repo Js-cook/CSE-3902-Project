@@ -17,8 +17,13 @@ namespace Controllers
     {
 
         private Link player;
+
         private Environment environment;
         private int envSwitchLimiter = 0;
+
+        private Item item;
+        private int itemSwitchLimiter = 0;
+
         private EnemyConroller enemyController;
         private int projectileInputLimiter = 0;
 
@@ -26,10 +31,11 @@ namespace Controllers
 
         private Game gameInstance;
 
-        public IKeyboard(Link player, Environment env, EnemyConroller enemyConroller, Game gameInstance)
+        public IKeyboard(Link player, Environment env, Item item, EnemyConroller enemyConroller, Game gameInstance)
         {
             this.player = player;
             this.environment = env;
+            this.item = item;
             this.enemyController = enemyConroller;
             this.gameInstance = gameInstance;
         }
@@ -42,6 +48,10 @@ namespace Controllers
             if (envSwitchLimiter > 0)
             {
                 envSwitchLimiter--;
+            }
+            if (itemSwitchLimiter > 0)
+            {
+                itemSwitchLimiter--;
             }
             if (projectileInputLimiter > 0)
             {
@@ -144,6 +154,18 @@ namespace Controllers
                 envSwitchLimiter = 20;
             }
 
+            //for item cycling
+            if (keyState.IsKeyDown(Keys.U) && itemSwitchLimiter == 0)
+            {
+                item.CycleLeft();
+                itemSwitchLimiter = 20;
+            }
+            if (keyState.IsKeyDown(Keys.I) && itemSwitchLimiter == 0)
+            {
+                item.CycleRight();
+                itemSwitchLimiter = 20;
+            }
+
 
             //Enemy Controls
             if (keyState.IsKeyDown(Keys.O) && !previousKeyboardState.IsKeyDown(Keys.O))
@@ -160,6 +182,7 @@ namespace Controllers
                 // reset
                 enemyController.ResetEnemy();
                 environment.CycleReset();
+                item.CycleReset();
                 enemyController.CurrentEnemy().position = new Vector2(40, 30);
                 player.position = new Vector2(10, 10);
                 player.playerState.ChangeDirection(Direction.RIGHT);

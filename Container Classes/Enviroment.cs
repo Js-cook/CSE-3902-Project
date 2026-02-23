@@ -21,7 +21,6 @@ public class Environment
         position = new Vector2(200, 200);
         currentTileIndex = 0;
 
-        // Populate the list using your factory
         tiles = new List<ISprite>();
         tiles.Add(factory.CreateStatueSprite());
         tiles.Add(factory.CreateSquareBlockSprite());

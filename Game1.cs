@@ -22,12 +22,13 @@ namespace _3902_Project
 
         private EnemyConroller enemyController;
 
-
-
         private IController keyboardController;
 
         private TileFactory tileFactory;
         private Environment environment;
+
+        private ItemFactory itemFactory;
+        private Item item;
 
         public Game1()
         {
@@ -61,7 +62,10 @@ namespace _3902_Project
             tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), _spriteBatch);
             environment = new Environment(tileFactory);
 
-            keyboardController = new Controllers.IKeyboard(player, environment, enemyController, this);
+            itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
+            item = new Item(itemFactory);
+
+            keyboardController = new Controllers.IKeyboard(player, environment, item, enemyController, this);
         }
 
         protected override void Update(GameTime gameTime)
@@ -70,6 +74,7 @@ namespace _3902_Project
             keyboardController.Update();
             player.Update(gameTime);
             environment.Update(gameTime);
+            item.Update(gameTime);
             enemyController.Update(gameTime);
             base.Update(gameTime);
         }
@@ -81,6 +86,7 @@ namespace _3902_Project
             _spriteBatch.Begin();
             player.Draw();
             environment.Draw();
+            item.Draw();
             enemyController.Draw();
             _spriteBatch.End();
             // TODO: Add your drawing code here
