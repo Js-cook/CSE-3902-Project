@@ -29,6 +29,8 @@ public class Item
         items.Add(factory.CreateTriForcePieceSprite());
         items.Add(factory.CreateWoodenBoomerangSprite());
         items.Add(factory.CreateBowSprite());
+        items.Add(factory.CreateStaticArrowSprite());
+        items.Add(factory.CreateStaticBombSprite());
         items.Add(factory.CreateHeartSprite());
         items.Add(factory.CreateRupeeSprite());
         items.Add(factory.CreateFairySprite());

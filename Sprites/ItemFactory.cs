@@ -50,6 +50,16 @@ public class ItemFactory
         return new BowSprite(itemTexture, spriteBatch);
     }
 
+    public ISprite CreateStaticArrowSprite()
+    {
+        return new StaticArrowSprite(itemTexture, spriteBatch);
+    }
+
+    public ISprite CreateStaticBombSprite()
+    {
+        return new StaticBombSprite(itemTexture, spriteBatch);
+    }
+
     public ISprite CreateHeartSprite()
     {
         return new HeartSprite(itemTexture, spriteBatch);
