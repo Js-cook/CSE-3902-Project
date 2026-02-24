@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-public class EnemyConroller {
+public class EnemyController {
 
     public List<IEnemy> enemyArray { get; set; } = new List<IEnemy>();
 
@@ -39,7 +39,7 @@ public class EnemyConroller {
         Wallmaster wallmaster = new Wallmaster(wallmasterSpriteFactory, _graphics);
         enemyArray.Add(wallmaster);
 
-        SpiketrapSpriteFactory spiketrapSpriteFactory = new SpiketrapSpriteFactory(enemyTexture, _spriteBatch);
+        SpiketrapSprite spiketrapSpriteFactory = new SpiketrapSprite(enemyTexture, _spriteBatch);
         Spiketrap spiketrap = new Spiketrap(spiketrapSpriteFactory, _graphics);
         enemyArray.Add(spiketrap);
 
@@ -84,7 +84,7 @@ public class EnemyConroller {
         return enemyArray[index];
     }
 
-    public EnemyConroller()
+    public EnemyController()
     {
         enemyArray = new List<IEnemy>();
     }

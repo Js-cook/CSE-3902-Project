@@ -18,7 +18,7 @@ namespace Controllers
         private Item item;
         private int itemSwitchLimiter = 0;
 
-        private EnemyConroller enemyController;
+        private EnemyController enemyController;
         private int projectileInputLimiter = 0;
 
         private KeyboardState previousKeyboardState;
@@ -28,12 +28,12 @@ namespace Controllers
         private AudioController audioController;
         private Dictionary<string, SoundEffect> soundEffects;
 
-        public IKeyboard(Link player, Environment env, Item item, EnemyConroller enemyConroller, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect)
+        public IKeyboard(Link player, Environment env, Item item, EnemyController enemyController, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect)
         {
             this.player = player;
             this.environment = env;
             this.item = item;
-            this.enemyController = enemyConroller;
+            this.enemyController = enemyController;
             this.gameInstance = gameInstance;
             this.audioController = audioController;
             this.soundEffects = soundEffect;

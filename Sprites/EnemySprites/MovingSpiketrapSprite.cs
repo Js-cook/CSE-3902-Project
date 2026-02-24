@@ -1,34 +1,7 @@
-﻿using Microsoft.Xna;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprites;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-
-
-public class SpiketrapSpriteFactory
-{
-    private Texture2D spiketrapTexture;
-    private SpriteBatch spriteBatch;
-    public SpiketrapSpriteFactory(Texture2D spiketrapTexture, SpriteBatch spriteBatch)
-    {
-        this.spiketrapTexture = spiketrapTexture;
-        this.spriteBatch = spriteBatch;
-    }
-
-    public ISprite CreateMovingSpiketrapSprite(Vector2 position)
-    {
-        return new SpiketrapSprite(spiketrapTexture, position, spriteBatch);
-    }
-
-}
-
-public class SpiketrapSprite : ISprite
+public class MovingSpiketrapSprite : ISprite
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
@@ -39,7 +12,7 @@ public class SpiketrapSprite : ISprite
     private Rectangle sourceRectangle1 = new Rectangle(164, 59, 16, 16);
     //private int frameCounter = 0;
 
-    public SpiketrapSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
+    public MovingSpiketrapSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
     {
         this.texture = texture;
         //this.position = position;
@@ -63,10 +36,3 @@ public class SpiketrapSprite : ISprite
         spriteBatch.Draw(texture, position, currentFrame, Color.White);
     }
 }
-
-
-
-
-
-
-
