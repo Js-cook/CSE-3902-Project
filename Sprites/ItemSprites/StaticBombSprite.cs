@@ -1,19 +1,19 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class FireSprite : BaseTile
+public class StaticBombSprite : BaseItem
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
 
-    private Rectangle sourceRectangle = new Rectangle(191, 185, 16, 16);
+    private Rectangle sourceRectangle = new Rectangle(136, 0, 8, 16);
 
-    public FireSprite(Texture2D texture, SpriteBatch spriteBatch)
+    public StaticBombSprite(Texture2D texture, SpriteBatch spriteBatch)
     {
         this.texture = texture;
         this.spriteBatch = spriteBatch;
@@ -25,7 +25,14 @@ public class FireSprite : BaseTile
 
     public override void SpriteDraw(Vector2 position)
     {
-        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+        int scale = 4;
+
+        Rectangle destinationRectangle = new Rectangle(
+            (int)position.X,
+            (int)position.Y,
+            sourceRectangle.Width * scale,
+            sourceRectangle.Height * scale
+        );
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }

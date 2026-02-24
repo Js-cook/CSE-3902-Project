@@ -24,6 +24,8 @@ public class Environment
         tiles = new List<ISprite>();
         tiles.Add(factory.CreateStatueSprite());
         tiles.Add(factory.CreateSquareBlockSprite());
+        tiles.Add(factory.CreatePushSquareBlockSprite());
+        tiles.Add(factory.CreateFireSprite());
         tiles.Add(factory.CreateBlueGapSprite());
         tiles.Add(factory.CreateStairSprite());
         tiles.Add(factory.CreateWhiteBrickSprite());

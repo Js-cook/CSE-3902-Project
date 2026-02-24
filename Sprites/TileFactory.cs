@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 public class TileFactory
 {
     private Texture2D tileTexture;
+    private Texture2D linkTexture;
     private SpriteBatch spriteBatch;
-
-    public TileFactory(Texture2D tileTexture, SpriteBatch spriteBatch)
+    public TileFactory(Texture2D tileTexture, Texture2D linkTexture, SpriteBatch spriteBatch)
     {
         this.tileTexture = tileTexture;
+        this.linkTexture = linkTexture;
         this.spriteBatch = spriteBatch;
     }
 
@@ -25,9 +26,18 @@ public class TileFactory
     {
         return new SquareBlockSprite(tileTexture, spriteBatch);
     }
+    public ISprite CreatePushSquareBlockSprite()
+    {
+        return new PushSquareBlockSprite(tileTexture, spriteBatch);
+    }
     public ISprite CreateBlueGapSprite()
     {
         return new BlueGapSprite(tileTexture, spriteBatch);
+    }
+
+    public ISprite CreateFireSprite()
+    {
+        return new FireSprite(linkTexture, spriteBatch);
     }
 
     public ISprite CreateStairSprite()

@@ -80,7 +80,7 @@ namespace _3902_Project
             enemyController = new EnemyConroller();
             enemyController.LoadContent(Content, _spriteBatch, _graphics);
 
-            tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), _spriteBatch);
+            tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), Content.Load<Texture2D>("LinkSprites"), _spriteBatch);
             environment = new Environment(tileFactory);
 
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
