@@ -5,20 +5,19 @@ using Microsoft.Xna.Framework.Input;
 using Sprites;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public class Environment
 {
-    private List<ISprite> tiles;
+    public List<ISprite> tiles { get; set; }
     private int currentTileIndex;
     private Vector2 position;
+
+    public Dictionary<string, ISprite> tileMap { get; set; }
 
     public Environment(TileFactory factory)
     {
         // arbitrary starting position
-        position = new Vector2(200, 200);
+        position = Vector2.Zero;
         currentTileIndex = 0;
 
         tiles = new List<ISprite>();
@@ -37,6 +36,25 @@ public class Environment
         tiles.Add(factory.CreateKeyLockedDoorSprite());
         tiles.Add(factory.CreateDiamondLockedDoorSprite());
         tiles.Add(factory.CreateOpenDoorSprite());
+
+        tileMap = new Dictionary<string, ISprite> 
+        {
+            { "Statue", factory.CreateStatueSprite() },
+            { "SquareBlock", factory.CreateSquareBlockSprite() },
+            { "PushSquareBlock", factory.CreatePushSquareBlockSprite() },
+            {  "Fire", factory.CreateFireSprite()  },
+            { "BlueGap", factory.CreateBlueGapSprite() },
+            { "Stair", factory.CreateStairSprite() },
+            { "WhiteBrick", factory.CreateWhiteBrickSprite() },
+            { "Ladder", factory.CreateLadderSprite() },
+            { "BlueFloor", factory.CreateBlueFloorSprite() },
+            { "BlueSand", factory.CreateBlueSandSprite() },
+            { "Wall", factory.CreateWallSprite() },
+            { "BombedWall", factory.CreateBombedWallSprite() },
+            { "KeyLockedDoor", factory.CreateKeyLockedDoorSprite() },
+            { "DiamondLockedDoor", factory.CreateDiamondLockedDoorSprite() },
+            { "OpenDoor", factory.CreateOpenDoorSprite() }
+        };
 
     }
 
@@ -66,6 +84,11 @@ public class Environment
 
     public void Draw()
     {
-        tiles[currentTileIndex].SpriteDraw(position);
+        foreach(ISprite tile in tiles)
+        {
+            tile.SpriteDraw(position);
+            position.X += 15;
+        }
+        //tiles[currentTileIndex].SpriteDraw(position);
     }
 }
