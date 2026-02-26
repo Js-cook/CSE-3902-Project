@@ -22,7 +22,7 @@ namespace _3902_Project
         private ProjectileSpriteFactory projectileSpriteFactory;
         private ProjectileController projectileController;
 
-        private EnemyConroller enemyController;
+        private EnemyController enemyController;
 
         private IController keyboardController;
 
@@ -77,7 +77,7 @@ namespace _3902_Project
             player = new Link(spriteFactory, projectileSpriteFactory, projectileController);
 
             // Handles loading content for all enemies
-            enemyController = new EnemyConroller();
+            enemyController = new EnemyController();
             enemyController.LoadContent(Content, _spriteBatch, _graphics);
 
             tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), Content.Load<Texture2D>("LinkSprites"), _spriteBatch);
