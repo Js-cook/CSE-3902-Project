@@ -39,7 +39,7 @@ public class EnemyController {
         Wallmaster wallmaster = new Wallmaster(wallmasterSpriteFactory, _graphics);
         enemyArray.Add(wallmaster);
 
-        SpiketrapSprite spiketrapSpriteFactory = new SpiketrapSprite(enemyTexture, _spriteBatch);
+        SpiketrapSpriteFactory spiketrapSpriteFactory = new SpiketrapSpriteFactory(enemyTexture, _spriteBatch);
         Spiketrap spiketrap = new Spiketrap(spiketrapSpriteFactory, _graphics);
         enemyArray.Add(spiketrap);
 

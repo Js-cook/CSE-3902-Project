@@ -10,7 +10,7 @@ public class Spiketrap : IEnemy
 
 
 
-    public Spiketrap(SpiketrapSprite spriteFactory, GraphicsDeviceManager _graphics)
+    public Spiketrap(SpiketrapSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
     {
         position = new Vector2(40, 30); // arbitrary starting position - change later
         spiketrapState = new MovingSpiketrapState(this, spriteFactory, _graphics);

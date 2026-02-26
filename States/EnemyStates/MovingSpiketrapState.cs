@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 public class MovingSpiketrapState : IEnemyState
 {
     private Spiketrap spiketrap;
-    private SpiketrapSprite spriteFactory;
+    private SpiketrapSpriteFactory spriteFactory;
 
     double timerMax = 5;
     double timer;
@@ -18,7 +18,7 @@ public class MovingSpiketrapState : IEnemyState
     private Random randInt;
 
     private GraphicsDeviceManager _graphics;
-    public MovingSpiketrapState(Spiketrap spiketrap, SpiketrapSprite spiketrapSpriteFactory, GraphicsDeviceManager _graphics)
+    public MovingSpiketrapState(Spiketrap spiketrap, SpiketrapSpriteFactory spiketrapSpriteFactory, GraphicsDeviceManager _graphics)
     {
         this.spiketrap = spiketrap;
         this.spriteFactory = spiketrapSpriteFactory;
