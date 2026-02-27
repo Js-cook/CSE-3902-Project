@@ -5,44 +5,46 @@ using Microsoft.Xna.Framework.Input;
 using Sprites;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class Environment
 {
-    public List<ISprite> tiles { get; set; }
+    public List<ISprite[]> tiles { get; set; }
     private int currentTileIndex;
     private Vector2 position;
-
     public Dictionary<string, ISprite> tileMap { get; set; }
 
     public Environment(TileFactory factory)
     {
         // arbitrary starting position
-        position = Vector2.Zero;
+        position = new Vector2(32,32);
         currentTileIndex = 0;
 
-        tiles = new List<ISprite>();
-        tiles.Add(factory.CreateStatueSprite());
-        tiles.Add(factory.CreateSquareBlockSprite());
-        tiles.Add(factory.CreatePushSquareBlockSprite());
-        tiles.Add(factory.CreateFireSprite());
-        tiles.Add(factory.CreateBlueGapSprite());
-        tiles.Add(factory.CreateStairSprite());
-        tiles.Add(factory.CreateWhiteBrickSprite());
-        tiles.Add(factory.CreateLadderSprite());
-        tiles.Add(factory.CreateBlueFloorSprite());
-        tiles.Add(factory.CreateBlueSandSprite());
-        tiles.Add(factory.CreateWallSprite());
-        tiles.Add(factory.CreateBombedWallSprite());
-        tiles.Add(factory.CreateKeyLockedDoorSprite());
-        tiles.Add(factory.CreateDiamondLockedDoorSprite());
-        tiles.Add(factory.CreateOpenDoorSprite());
+        tiles = new List<ISprite[]>();
+
+        //tiles = new List<ISprite>();
+        //tiles.Add(factory.CreateStatueSprite());
+        //tiles.Add(factory.CreateSquareBlockSprite());
+        //tiles.Add(factory.CreatePushSquareBlockSprite());
+        //tiles.Add(factory.CreateFireSprite());
+        //tiles.Add(factory.CreateBlueGapSprite());
+        //tiles.Add(factory.CreateStairSprite());
+        //tiles.Add(factory.CreateWhiteBrickSprite());
+        //tiles.Add(factory.CreateLadderSprite());
+        //tiles.Add(factory.CreateBlueFloorSprite());
+        //tiles.Add(factory.CreateBlueSandSprite());
+        //tiles.Add(factory.CreateWallSprite());
+        //tiles.Add(factory.CreateBombedWallSprite());
+        //tiles.Add(factory.CreateKeyLockedDoorSprite());
+        //tiles.Add(factory.CreateDiamondLockedDoorSprite());
+        //tiles.Add(factory.CreateOpenDoorSprite());
 
         tileMap = new Dictionary<string, ISprite> 
         {
             { "Statue", factory.CreateStatueSprite() },
             { "SquareBlock", factory.CreateSquareBlockSprite() },
             { "PushSquareBlock", factory.CreatePushSquareBlockSprite() },
-            {  "Fire", factory.CreateFireSprite()  },
+            { "Fire", factory.CreateFireSprite()  },
             { "BlueGap", factory.CreateBlueGapSprite() },
             { "Stair", factory.CreateStairSprite() },
             { "WhiteBrick", factory.CreateWhiteBrickSprite() },
@@ -53,7 +55,8 @@ public class Environment
             { "BombedWall", factory.CreateBombedWallSprite() },
             { "KeyLockedDoor", factory.CreateKeyLockedDoorSprite() },
             { "DiamondLockedDoor", factory.CreateDiamondLockedDoorSprite() },
-            { "OpenDoor", factory.CreateOpenDoorSprite() }
+            { "OpenDoor", factory.CreateOpenDoorSprite() },
+            { "RoomExterior", factory.CreateRoomExteriorSprite() }
         };
 
     }
@@ -79,16 +82,32 @@ public class Environment
 
     public void Update(GameTime gameTime)
     {
-        tiles[currentTileIndex].Update(gameTime);
+        //tiles[currentTileIndex].Update(gameTime);
+        tileMap["RoomExterior"].Update(gameTime);
+        foreach (ISprite[] tileRow in tiles)
+        {
+            foreach (ISprite tile in tileRow)
+            {
+                tile.Update(gameTime);
+            }
+        }
     }
 
     public void Draw()
     {
-        foreach(ISprite tile in tiles)
+        int increment = 32;
+        foreach (ISprite[] tileRow in tiles)
         {
-            tile.SpriteDraw(position);
-            position.X += 15; // TODO: make it so that it wraps back around to do next row; also change scaling in all the tile sprite classes (15x15)
+            foreach(ISprite tile in tileRow)
+            {
+                tile.SpriteDraw(position);
+                position.X += increment; // TODO: make it so that it wraps back around to do next row; also change scaling in all the tile sprite classes (15x15)
+            }
+            position.X = 32;
+            position.Y += increment;
         }
+        position.Y = 32;
+        tileMap["RoomExterior"].SpriteDraw(Vector2.Zero);
         //tiles[currentTileIndex].SpriteDraw(position);
     }
 }

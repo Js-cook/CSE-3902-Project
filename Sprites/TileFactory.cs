@@ -89,4 +89,9 @@ public class TileFactory
     {
         return new DiamondLockedDoorSprite(tileTexture, spriteBatch);
     }
+
+    public ISprite CreateRoomExteriorSprite()
+    {
+        return new RoomExteriorSprite(tileTexture, spriteBatch);
+    }
 }

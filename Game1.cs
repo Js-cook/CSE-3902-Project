@@ -8,6 +8,7 @@ using Interfaces;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using System.IO;
 
 namespace _3902_Project
 {
@@ -28,6 +29,7 @@ namespace _3902_Project
 
         private TileFactory tileFactory;
         private Environment environment;
+        private LevelFileReader levelFileReader;
 
         private Song dungeonSong;
 
@@ -61,6 +63,7 @@ namespace _3902_Project
             return res;
         }
 
+        // This method needs to be cleaned up bad
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -82,6 +85,9 @@ namespace _3902_Project
 
             tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), Content.Load<Texture2D>("LinkSprites"), _spriteBatch);
             environment = new Environment(tileFactory);
+            levelFileReader = new LevelFileReader(environment);
+
+            levelFileReader.LoadLevel(Path.Combine(Content.RootDirectory, "Room1.csv"));
 
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
             item = new Item(itemFactory);
@@ -107,8 +113,8 @@ namespace _3902_Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            player.Draw();
             environment.Draw();
+            player.Draw();
             item.Draw();
             enemyController.Draw();
             projectileController.Draw();

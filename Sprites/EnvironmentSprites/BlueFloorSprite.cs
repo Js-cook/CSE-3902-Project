@@ -24,7 +24,7 @@ public class BlueFloorSprite : BaseTile
 
     public override void SpriteDraw(Vector2 position)
     {
-        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 15, 15);
+        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 32, 32);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }

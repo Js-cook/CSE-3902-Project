@@ -28,21 +28,21 @@ public class Link
 
     public void MoveUp() 
     {
-        position = new Vector2(position.X, position.Y - 1);
+        position = new Vector2(position.X, position.Y - 2);
     }
 
     public void MoveDown()
     {
-        position = new Vector2(position.X, position.Y + 1);
+        position = new Vector2(position.X, position.Y + 2);
     }
 
     public void MoveLeft()
     {
-        position = new Vector2(position.X - 1, position.Y);
+        position = new Vector2(position.X - 2, position.Y);
     }
     public void MoveRight()
     {
-        position = new Vector2(position.X + 1, position.Y);
+        position = new Vector2(position.X + 2, position.Y);
     }
 
     public void Update(GameTime gametime)
