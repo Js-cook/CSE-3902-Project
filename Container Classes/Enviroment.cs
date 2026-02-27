@@ -16,8 +16,8 @@ public class Environment
 
     public Environment(TileFactory factory)
     {
-        // arbitrary starting position
-        position = new Vector2(32,32);
+        // fix magic number calculations here
+        position = new Vector2(32 * (800/255.0f), 32 * (480 / 175.0f));
         currentTileIndex = 0;
 
         tiles = new List<ISprite[]>();
@@ -103,10 +103,10 @@ public class Environment
                 tile.SpriteDraw(position);
                 position.X += increment; // TODO: make it so that it wraps back around to do next row; also change scaling in all the tile sprite classes (15x15)
             }
-            position.X = 32;
+            position.X = 32 * (800/255.0f);
             position.Y += increment;
         }
-        position.Y = 32;
+        position.Y = 32 * (480 / 175.0f);
         tileMap["RoomExterior"].SpriteDraw(Vector2.Zero);
         //tiles[currentTileIndex].SpriteDraw(position);
     }
