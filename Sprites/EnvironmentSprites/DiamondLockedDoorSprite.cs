@@ -24,7 +24,7 @@ public class DiamondLockedDoorSprite : BaseTile
 
     public override void SpriteDraw(Vector2 position)
     {
-        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 15, 15);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }

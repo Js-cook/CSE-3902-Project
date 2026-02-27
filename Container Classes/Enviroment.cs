@@ -87,7 +87,7 @@ public class Environment
         foreach(ISprite tile in tiles)
         {
             tile.SpriteDraw(position);
-            position.X += 15;
+            position.X += 15; // TODO: make it so that it wraps back around to do next row; also change scaling in all the tile sprite classes (15x15)
         }
         //tiles[currentTileIndex].SpriteDraw(position);
     }
