@@ -14,6 +14,9 @@ public class Bat : IEnemy
 
 
 
+
+
+
     public Bat(BatSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
     {
         position = new Vector2(60, 30); // arbitrary starting position - change later
