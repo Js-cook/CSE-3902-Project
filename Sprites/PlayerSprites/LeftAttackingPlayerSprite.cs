@@ -55,13 +55,28 @@ namespace Sprites
         }
         public void SpriteDraw(Vector2 position)
         {
+            Vector2 origin = new Vector2(0, 0);
+
+            switch(currentFrame)
+            {
+                case Rectangle r when r == frameContainer[1]:
+                    origin.X = 3;
+                    break;
+                case Rectangle r when r == frameContainer[2]:
+                    origin.X = 7;
+                    break;
+                case Rectangle r when r == frameContainer[3]:
+                    origin.X = 11;
+                    break;
+            }
+
             if (Hurt)
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, new Vector2(0, 0), new Vector2(2.0f, 2.0f), SpriteEffects.FlipHorizontally, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, origin, new Vector2(2.0f, 2.0f), SpriteEffects.FlipHorizontally, 0.0f);
             }
             else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(2.0f, 2.0f), SpriteEffects.FlipHorizontally, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, new Vector2(2.0f, 2.0f), SpriteEffects.FlipHorizontally, 0.0f);
             }
         }
 

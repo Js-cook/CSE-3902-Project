@@ -53,7 +53,27 @@ namespace Sprites
         }
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), 2.0f, SpriteEffects.None, 0.0f); // put origin on same x but lower the y
+            Vector2 origin = new Vector2(0, 0);
+
+            switch (currentFrame)
+            {
+                case Rectangle r when r == frameContainer[1]:
+                    origin.Y = 3;
+                    break;
+                case Rectangle r when r == frameContainer[2]:
+                    origin.Y = 11;
+                    break;
+                case Rectangle r when r == frameContainer[3]:
+                    origin.Y = 12;
+                    break;
+            }
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, origin, 2.0f, SpriteEffects.None, 0.0f);
+            } else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, 2.0f, SpriteEffects.None, 0.0f); // put origin on same x but lower the y
+            }
         }
     }
 
