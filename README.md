@@ -42,4 +42,5 @@ Metrics calculated using the "Code Metrics" tool
 
 | Date | Maintainability Index | Cyclomatic Complexity | Depth of Inheritance | Class Coupling | Lines of source code | Lines of executable code |  
 | ---- | --------------------- | --------------------- | -------------------- | -------------- | -------------------- | ------------------------ |  
-| 2/22 (Sprint 2 complete) | 84                    | 1156                  | 2                    | 158            | 6152                 | 1500                     |  
+| 2/22 | 84                    | 1156                  | 2                    | 158            | 6152                 | 1500                     |  
+| 2/28 | 83                    | 1229                  | 2                    | 191            | 6857                 | 1697                     |

@@ -53,7 +53,7 @@ namespace Sprites
         }
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), 2.0f, SpriteEffects.None, 0.0f); // put origin on same x but lower the y
         }
     }
 
