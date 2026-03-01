@@ -14,6 +14,14 @@ public class Aquamentus : IEnemy
 
     public AquamentusFireball bottomFireball { get; set; }
 
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)position.X, (int)position.Y, 32, 32);
+        }
+    }
+
 
 
 

@@ -5,8 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class OldManFlame : IEnemy
+public class OldManFlame
 {
+
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)position.X, (int)position.Y, 16, 16);
+        }
+    }
     public Vector2 position { get; set; }
     public ISprite Sprite { get; set; }
     // idk if this should be public

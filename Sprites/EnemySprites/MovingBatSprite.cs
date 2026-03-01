@@ -28,6 +28,6 @@ public class MovingBatSprite : ISprite
     }
     public void SpriteDraw(Vector2 position)
     {
-        spriteBatch.Draw(texture, position, currentFrame, Color.White);
+        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0.0f);
     }
 }

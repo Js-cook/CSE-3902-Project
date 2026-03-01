@@ -7,6 +7,13 @@ using Microsoft.Xna.Framework;
 
 public class Goriya : IEnemy
 {
+        public Rectangle Hitbox
+            {
+                get
+                {
+                    return new Rectangle((int)position.X, (int)position.Y, 16, 16);
+                }
+    }
     public Vector2 position { get; set; }
     // idk if this should be public
     public IEnemyState goriyaState { get; set; }

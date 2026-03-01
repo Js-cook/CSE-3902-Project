@@ -5,8 +5,16 @@ using System.Collections.Generic;
 using Controllers;
 using Microsoft.Xna.Framework.Audio;
 
-public class Link
+public class Link : ICollidable
 {
+
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)position.X, (int)position.Y, 16, 16);
+        }
+    }
     public Vector2 position { get; set; }
     public IPlayerSprite Sprite { get; set; }
     public IPlayerState playerState { get; set; }

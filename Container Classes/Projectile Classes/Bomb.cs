@@ -3,6 +3,13 @@ using Microsoft.Xna.Framework;
 
 public class Bomb : IProjectile
 {
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+        }
+    }
     public bool Active { get; set; }
     private double startTime = 0.0;
     private double endTime = 0.75;

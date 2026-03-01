@@ -46,6 +46,12 @@ public class MovingBatState : IEnemyState
 
         EnemyHelper.CheckBounds(ref velocity, bat.position, _graphics);
 
+        if (bat.isDead)
+        {
+            bat.batState = new DeadBatState(bat, spriteFactory);
+           
+        }
+
 
     }
 

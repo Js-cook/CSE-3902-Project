@@ -2,6 +2,13 @@
 
 public class BombParticle : IProjectile
 {
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+        }
+    }
     public bool Active { get; set; }
     public Vector2 Position { get; set; }
 

@@ -8,9 +8,19 @@ public class Boomerang : IProjectile
     private double startTime = 0.0;
     private double endTime = 0.75;
     private int directionSign = 1;
+
+    public int DamageValue { get; } = 1;
     public bool Active { get; set; }
 
-    private ISprite sprite;
+    private ISprite sprite; 
+    
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+        }
+    }
     private ProjectileSpriteFactory spriteFactory;
 
     public Boomerang(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory)

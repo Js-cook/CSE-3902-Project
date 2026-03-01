@@ -78,7 +78,7 @@ public class LeftMovingGoriyaSprite : ISprite
 
     public void SpriteDraw(Vector2 position)
     {
-        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(1.0f, 1.0f), SpriteEffects.FlipHorizontally, 0.0f);
+        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), 1.5f, SpriteEffects.FlipHorizontally, 0.0f);
     }
 }
 
@@ -110,7 +110,7 @@ public class RightMovingGoriyaSprite : ISprite
     }
     public void SpriteDraw(Vector2 position)
     {
-        spriteBatch.Draw(texture, position, currentFrame, Color.White);
+        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0.0f);
     }
 }
 
@@ -142,7 +142,7 @@ public class UpMovingGoriyaSprite : ISprite
     }
     public void SpriteDraw(Vector2 position)
     {
-        spriteBatch.Draw(texture, position, currentFrame, Color.White);
+        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0.0f);
     }
 }
 
@@ -174,7 +174,7 @@ public class DownMovingGoriyaSprite : ISprite
     }
     public void SpriteDraw(Vector2 position)
     {
-        spriteBatch.Draw(texture, position, currentFrame, Color.White);
+        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0.0f);
     }
 }
 

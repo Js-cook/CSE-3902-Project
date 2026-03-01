@@ -8,7 +8,13 @@ public class Wallmaster : IEnemy
     // idk if this should be public
     public IEnemyState wallmasterState { get; set; }
 
-
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)position.X, (int)position.Y, 16, 16);
+        }
+    }
 
     public Wallmaster(WallmasterSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
     {

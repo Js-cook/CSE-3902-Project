@@ -2,6 +2,14 @@
 
 public class AquamentusFireball : IProjectile
 {
+
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+        }
+    }
     public Vector2 Position { get; set; }
     Vector2 velocity;
     private double startTime = 0.0;

@@ -46,14 +46,6 @@ public class EnemyController {
         AquamentusSpriteFactory aquamentusSpriteFactory = new AquamentusSpriteFactory(bossTexture, _spriteBatch);
         Aquamentus aquamentus = new Aquamentus(aquamentusSpriteFactory, _graphics, bossProjectileSpriteFactory);
         enemyArray.Add(aquamentus);
-
-        OldManSpriteFactory oldManSpriteFactory = new OldManSpriteFactory(npcTexture, _spriteBatch);
-        OldMan oldMan = new OldMan(oldManSpriteFactory, _graphics);
-        enemyArray.Add(oldMan);
-
-        OldManFlameSpriteFactory oldManFlameSpriteFactory = new OldManFlameSpriteFactory(npcTexture, _spriteBatch);
-        OldManFlame oldManFlame = new OldManFlame(oldManFlameSpriteFactory, _graphics);
-        enemyArray.Add(oldManFlame);
     }
 
     public void NextEnemy()
@@ -91,7 +83,21 @@ public class EnemyController {
 
     public void Update(GameTime gameTime)
     {
+        if (enemyArray[index].isDead)
+        {
+            enemyArray.RemoveAt(index);
+            if (index >= enemyArray.Count - 1)
+            {
+                index = 0;
+            }
+            else
+            {
+                index++;
+            }
+        }
+
         enemyArray[index].Update(gameTime);
+       
 
     }
 

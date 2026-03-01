@@ -4,6 +4,13 @@ using Microsoft.Xna.Framework;
 
 public class MagicBoomerang : IProjectile
 {
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+        }
+    }
     public Vector2 Position { get; set; }
     private Direction direction;
     private double startTime = 0.0;

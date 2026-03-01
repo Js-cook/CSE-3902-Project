@@ -12,6 +12,14 @@ using System.Threading.Tasks;
 
 public class GoriyaBoomerang : IProjectile
 {
+
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+        }
+    }
     public Vector2 Position { get; set; }
     string direction;
     private double startTime = 0.0;

@@ -2,5 +2,5 @@
 
 public interface ICollidable
 {
-    Rectangle Hitbox { get; }
+    public Rectangle Hitbox { get; }
 }

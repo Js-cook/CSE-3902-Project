@@ -2,6 +2,13 @@
 
 public class ArrowParticle : IProjectile
 {
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+        }
+    }
     public Vector2 Position { get; set; }
     private double startTime = 0.0;
     private double endTime = 0.2;

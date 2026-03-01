@@ -50,6 +50,6 @@ public class OldManIdleSprite : ISprite
     }
     public void SpriteDraw(Vector2 position)
     {
-        spriteBatch.Draw(texture, position, currentFrame, Color.White);
+        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 0f);
     }
 }

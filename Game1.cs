@@ -36,6 +36,7 @@ namespace _3902_Project
         private ItemFactory itemFactory;
         private Item item;
 
+        private CollisionManager collisionManager;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -93,18 +94,41 @@ namespace _3902_Project
             item = new Item(itemFactory);
 
             keyboardController = new Controllers.IKeyboard(player, environment, item, enemyController, this, audioController, LoadPlayerSFX(Content));
-
+            collisionManager = new CollisionManager();
+            collisionManager.RegisterHandler(typeof(Bat), typeof(Boomerang), new BatBoomerangCollisionHandler());
         }
 
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
-            keyboardController.Update();
+            
+            keyboardController.Update(); // first check input
+
+            // then update all entities based on that input
             player.Update(gameTime);
             environment.Update(gameTime);
             item.Update(gameTime);
             enemyController.Update(gameTime);
             projectileController.Update(gameTime);
+
+            // 1. Create the empty master list
+            List<ICollidable> collidables =
+            [
+                // 2. Add all collidable objects to the master list
+                player,
+                .. enemyController.enemyArray,
+                .. projectileController.projectiles,
+            ];
+
+            collisionManager.Update(gameTime, collidables);
+
+
+
+
+
+
+            // 5. Finally, run the physics!
+
+
             base.Update(gameTime);
         }
 
