@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-public class IdleOldManFlameState : IEnemyState
+public class IdleOldManFlameState //TODO: Not an IEnemyState
 {
     private OldManFlame oldManFlame;
     private OldManFlameSpriteFactory spriteFactory;

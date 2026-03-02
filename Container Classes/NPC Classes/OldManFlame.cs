@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class OldManFlame
+public class OldManFlame //TODO: NPC Object nterface
 {
 
     public Rectangle Hitbox
@@ -25,7 +25,7 @@ public class OldManFlame
     public OldManFlame(OldManFlameSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
     {
         position = new Vector2(60, 30); // arbitrary starting position - change later
-        oldManFlameState = new IdleOldManFlameState(this, spriteFactory, _graphics);
+        oldManFlameState = (IEnemyState)new IdleOldManFlameState(this, spriteFactory, _graphics); //TODO: CHANGE TO NPC STATE
         Sprite = spriteFactory.CreateOldManFlameSprite(position);
     }
 

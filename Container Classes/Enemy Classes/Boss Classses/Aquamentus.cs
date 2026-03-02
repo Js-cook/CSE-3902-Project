@@ -3,6 +3,11 @@
 public class Aquamentus : IEnemy
 {
 
+    public int Health { get; set; } = 90;
+    public bool isDead { get; set; } = false;
+
+
+
     public Vector2 position { get; set; }
     public ISprite Sprite { get; set; }
     // idk if this should be public
@@ -21,6 +26,7 @@ public class Aquamentus : IEnemy
             return new Rectangle((int)position.X, (int)position.Y, 32, 32);
         }
     }
+    public bool HitboxActive { get; set; }
 
 
 
@@ -62,6 +68,16 @@ public class Aquamentus : IEnemy
             middleFireball.Draw();
         if (bottomFireball.Active)
             bottomFireball.Draw();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        // Implement damage logic here, such as reducing health and changing state if health reaches zero
+        Health -= damage;
+
+        aquamentusState.TakeDamage();
+
+
     }
 
 }

@@ -23,6 +23,12 @@ public class AttackingAquamentusState : IEnemyState
         randInt = new Random();
         this._graphics = _graphics;
 
+        aquamentus.topFireball.ResetFireball(aquamentus.position);
+        aquamentus.middleFireball.ResetFireball(aquamentus.position);
+        aquamentus.bottomFireball.ResetFireball(aquamentus.position);
+        aquamentus.topFireball.Activate();
+        aquamentus.middleFireball.Activate();
+        aquamentus.bottomFireball.Activate();
     }
 
     public void ChangeDirection()
@@ -62,6 +68,16 @@ public class AttackingAquamentusState : IEnemyState
 
     }
 
+    public void TakeDamage()
+    {
+        if (aquamentus.Health <= 0)
+        {
+            
+            aquamentus.aquamentusState = new DeadAquamentusState(aquamentus, spriteFactory);
+        }
+        
+
+    }
 
 
 }

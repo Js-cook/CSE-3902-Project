@@ -3,6 +3,8 @@ using Enums;
 
 public class SwordBeam : IProjectile
 {
+
+    public int DamageValue { get; set; } = 1;
     public Rectangle Hitbox
     {
         get
@@ -10,6 +12,7 @@ public class SwordBeam : IProjectile
             return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
         }
     }
+    public bool HitboxActive { get; set; }
 
     public bool Active { get; set; }
     public Vector2 Position { get; set; }
@@ -23,6 +26,7 @@ public class SwordBeam : IProjectile
     {
         this.Position = position;
         Active = true;
+        HitboxActive = true;
         this.direction = direction;
         sprite = spriteFactory.CreateSwordBeamSprite(position, direction);
     }
@@ -53,12 +57,20 @@ public class SwordBeam : IProjectile
         }
         Position = positionNew;
 
-        // TODO: make sword beam disappear after collision with enemy or screen boundary
 
         //if (startTime >= endTime)
         //{
         //    // do something to delete arrow
         //    Active = false;
         //}
+    }
+
+    public void OnCollision()
+    {
+
+        // TODO: make sword beam disappear after collision with enemy or screen boundary.
+        // TODO IS DONE. Currently, the sword beam will disappear after 0.5 seconds or after colliding
+        Active = false;
+        HitboxActive = false;
     }
 }

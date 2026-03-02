@@ -55,5 +55,13 @@ public class MovingBatState : IEnemyState
 
     }
 
-   
+    public void TakeDamage()
+    {
+        if (bat.Health <= 0)
+        {
+            bat.batState = new DeadBatState(bat, spriteFactory);
+        }
+    }
+
+
 }

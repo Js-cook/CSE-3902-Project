@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 
 public class Arrow : IProjectile
 {
+    public int DamageValue { get; set; } = 1;
     public Rectangle Hitbox
     {
         get
@@ -10,6 +11,7 @@ public class Arrow : IProjectile
             return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
         }
     }
+    public bool HitboxActive { get; set; }
     public Vector2 Position { get; set; }
     private Direction direction;
     private double startTime = 0.0;
@@ -28,6 +30,8 @@ public class Arrow : IProjectile
         this.spriteFactory = spriteFactory;
         sprite = spriteFactory.CreateArrowSprite(position, direction);
         Active = true;
+        HitboxActive = true;
+
     }
     public void Draw()
     {
@@ -60,6 +64,11 @@ public class Arrow : IProjectile
             // do something to delete arrow
             Active = false;
         }
+    }
+
+    public void OnCollision()
+    {
+        Active = false;
     }
 }
 

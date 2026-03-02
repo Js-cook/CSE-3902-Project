@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 
 public class Fireball : IProjectile
 {
+
+    public int DamageValue { get; set; } = 1;
     public Rectangle Hitbox
     {
         get
@@ -10,6 +12,7 @@ public class Fireball : IProjectile
             return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
         }
     }
+    public bool HitboxActive { get; set; }
     public Vector2 Position { get; set; }
     private Direction direction;
     private double startTime = 0.0;
@@ -26,6 +29,7 @@ public class Fireball : IProjectile
         this.spriteFactory = spriteFactory;
         sprite = spriteFactory.CreateFireballSprite(position);
         Active = true;
+        HitboxActive = true;
     }
     public void Draw()
     {
@@ -63,6 +67,13 @@ public class Fireball : IProjectile
         {
             // do something to delete arrow
             Active = false;
+            HitboxActive = false;
         }
+    }
+
+    public void OnCollision()
+    {
+        // do nothing, fireball should not interact with anything, it passes through but doesn't damage again
+        HitboxActive = false;
     }
 }

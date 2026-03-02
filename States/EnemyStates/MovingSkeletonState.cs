@@ -85,6 +85,15 @@ public class MovingSkeletonState : IEnemyState
 
     }
 
+    public void TakeDamage()
+    {
+        
+        if (skeleton.Health <= 0)
+        {
+            skeleton.skeletonState = new DeadSkeletonState(skeleton, spriteFactory);
+        }
+    }
+
 
 
 }

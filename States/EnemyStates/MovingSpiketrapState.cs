@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class MovingSpiketrapState : IEnemyState
+public class MovingSpiketrapState //TODO: Not an enemy state, move to TrapState
 {
     private Spiketrap spiketrap;
     private SpiketrapSpriteFactory spriteFactory;
@@ -83,6 +83,11 @@ public class MovingSpiketrapState : IEnemyState
 
 
 
+    }
+
+    void TakeDamage()
+    {
+        // No need for this
     }
 
 

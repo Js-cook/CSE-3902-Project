@@ -15,6 +15,7 @@ public class Link : ICollidable
             return new Rectangle((int)position.X, (int)position.Y, 16, 16);
         }
     }
+    public bool HitboxActive { get; set; } //not sure if this is necessary for Link, but it is for enemies and projectiles so I added it here for consistency and to implement ICollidable correctly
     public Vector2 position { get; set; }
     public IPlayerSprite Sprite { get; set; }
     public IPlayerState playerState { get; set; }

@@ -11,7 +11,8 @@ public class MagicBoomerang : IProjectile
             return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
         }
     }
-    public Vector2 Position { get; set; }
+    public bool HitboxActive { get; set; }
+    public int DamageValue { get; set; } = 1; public Vector2 Position { get; set; }
     private Direction direction;
     private double startTime = 0.0;
     private double endTime = 1.5;
@@ -27,6 +28,7 @@ public class MagicBoomerang : IProjectile
         this.spriteFactory = spriteFactory;
         sprite = spriteFactory.CreateMagicBoomerangSprite(position);
         Active = true;
+        HitboxActive = true;
     }
     public void Draw()
     {
@@ -64,7 +66,15 @@ public class MagicBoomerang : IProjectile
         {
             // do something to delete arrow
             Active = false;
+            HitboxActive = false;
         }
+    }
+
+    public void OnCollision()
+    {
+        // Come back
+        startTime = endTime / 2;
+        HitboxActive = false;
     }
 }
 

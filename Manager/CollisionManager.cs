@@ -38,8 +38,9 @@ public class CollisionManager
             {
                 ICollidable obj1 = collidables[i];
                 ICollidable obj2 = collidables[j];
-
-                if (obj1.Hitbox.Intersects(obj2.Hitbox))
+               
+                if (obj1.HitboxActive && obj2.HitboxActive)
+                    if (obj1.Hitbox.Intersects(obj2.Hitbox))
                 {
                     Rectangle intersection = Rectangle.Intersect(obj1.Hitbox, obj2.Hitbox);
 
