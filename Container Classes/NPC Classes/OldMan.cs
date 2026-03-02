@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class OldMan
+public class OldMan //TODO: NPC Interface
 {
     public Vector2 position { get; set; }
     public ISprite Sprite { get; set; }
@@ -24,7 +24,7 @@ public class OldMan
     public OldMan(OldManSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
     {
         position = new Vector2(60, 30); // arbitrary starting position - change later
-        oldManState = new IdleOldManState(this, spriteFactory, _graphics);
+        oldManState = (IEnemyState)new IdleOldManState(this, spriteFactory, _graphics); //TODO: Change to NPC State
         Sprite = spriteFactory.CreateOldManIdleSprite(position);
     }
 

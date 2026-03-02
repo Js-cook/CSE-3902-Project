@@ -1,18 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Threading;
 
-public class DeadBatState : IEnemyState
+public class DeadGelState : IEnemyState
 {
-    private Bat bat;
-    private BatSpriteFactory spriteFactory;
+    private Gel gel;
+    private GelSpriteFactory spriteFactory;
 
     int timer = 0;
     int timerMax = 5;
-    public DeadBatState(Bat bat, BatSpriteFactory spriteFactory)
+    public DeadGelState(Gel gel, GelSpriteFactory spriteFactory)
     {
-        this.bat = bat;
+        this.gel = gel;
         this.spriteFactory = spriteFactory;
-        bat.isDead = true;
+        gel.isDead = true;
 
     }
     public void ChangeDirection()
@@ -21,11 +21,11 @@ public class DeadBatState : IEnemyState
     }
     public void BeDead()
     {
-        
+
     }
     public void Update(GameTime gameTime)
     {
-        
+
     }
 
     public void TakeDamage()

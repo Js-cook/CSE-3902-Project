@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 
 using System.Text;
 using System.Threading.Tasks;
+
 
 public static class EnemyHelper { 
 
@@ -35,5 +37,26 @@ public static class EnemyHelper {
         }
     
 }
+
+    public static Direction GetDirection(Vector2 velocity)
+    {
+        if (velocity.X > 0)
+        {
+            return Direction.RIGHT;
+        }
+        else if (velocity.X < 0)
+        {
+            return Direction.LEFT;
+        }
+        else if (velocity.Y > 0)
+        {
+            return Direction.DOWN;
+        }
+        else
+        {
+            return Direction.UP;
+        }
+        
+    }
 
 }

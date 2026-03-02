@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 public class Gel : IEnemy {
 
+    public int Health { get; set; }
+    public bool isDead { get; set; }
+
 
        public Rectangle Hitbox
         {
@@ -17,6 +20,7 @@ public class Gel : IEnemy {
                 return new Rectangle((int)position.X, (int)position.Y, 16, 16);
             }
     }   
+    public bool HitboxActive { get; set; }
     public Vector2 position {  get; set; }
     public ISprite Sprite { get; set; }
     // idk if this should be public
@@ -33,6 +37,7 @@ public class Gel : IEnemy {
 
     public void Update(GameTime gametime)
     {
+       
         gelState.Update(gametime);
         Sprite.Update(gametime);
     }
@@ -41,5 +46,12 @@ public class Gel : IEnemy {
     {
         Sprite.SpriteDraw(position);
     }
+
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        gelState.TakeDamage();
+    }
+
 
 }

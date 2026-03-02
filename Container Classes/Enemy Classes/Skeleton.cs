@@ -12,6 +12,10 @@ public class Skeleton : IEnemy
             return new Rectangle((int)position.X, (int)position.Y, 16, 16);
         }
     }
+    public bool HitboxActive { get; set; }
+    public int Health { get; set; }
+    public bool isDead { get; set; }
+
     public ISprite Sprite { get; set; }
     // idk if this should be public
     public IEnemyState skeletonState { get; set; }
@@ -34,6 +38,12 @@ public class Skeleton : IEnemy
     public void Draw()
     {
         Sprite.SpriteDraw(position);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        skeletonState.TakeDamage();
     }
 
 }

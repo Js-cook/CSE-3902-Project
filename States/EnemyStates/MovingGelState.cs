@@ -58,6 +58,13 @@ public class MovingGelState : IEnemyState
 
     }
 
-   
+    public void TakeDamage()
+    {
+        if (gel.Health <= 0)
+        {
+            gel.gelState = new DeadGelState(gel, spriteFactory);
+        }
+
+    }
 
 }

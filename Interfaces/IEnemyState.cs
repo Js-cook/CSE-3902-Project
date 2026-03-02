@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 public interface IEnemyState
 {
+    void TakeDamage();
     void ChangeDirection();
     void BeDead();
 

@@ -118,4 +118,16 @@ public class LeftMovingGoriyaState : IEnemyState
 
     }
 
+    public void TakeDamage()
+    {
+        if (goriya.Health > 0)
+        {
+            goriya.goriyaState = new DamagedGoriyaState(goriya, spriteFactory, _graphics, velocity);
+        }
+        else
+        {
+            goriya.goriyaState = new DeadGoriyaState(goriya, spriteFactory);
+        }
+    }
+
 }

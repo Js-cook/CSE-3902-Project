@@ -95,8 +95,13 @@ namespace _3902_Project
             item = new Item(itemFactory);
 
             keyboardController = new Controllers.IKeyboard(player, environment, item, enemyController, this, audioController, LoadPlayerSFX(Content));
+
+            // Add additional collision handlers here as needed
             collisionManager = new CollisionManager();
-            collisionManager.RegisterHandler(typeof(Bat), typeof(Boomerang), new BatBoomerangCollisionHandler());
+
+            CollisionRegistry.Initialize(collisionManager);
+
+
         }
 
         protected override void Update(GameTime gameTime)
