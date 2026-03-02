@@ -26,12 +26,12 @@ public class Link : ICollidable
 
     public List<IProjectile> projectiles { get; set; } = new List<IProjectile>();
 
-    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController)
+    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
     {
         position = new Vector2(10, 10); // arbitrary starting position - change later
-        playerState = new RightIdlePlayerState(this, spriteFactory, projectileController);
-        Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
+        playerState = new RightIdlePlayerState(this, spriteFactory, projectileController, soundEffect);
         this.projectileSpriteFactory = projectileSpriteFactory;
+        Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
     }
 
     public void MoveUp() 
@@ -57,7 +57,7 @@ public class Link : ICollidable
     {
         playerState.Update(gametime);
         Sprite.Update(gametime);
-        List<IProjectile> markedForDeletion = new List<IProjectile>();
+        //List<IProjectile> markedForDeletion = new List<IProjectile>();
 
         if (Hurt)
         {
@@ -68,40 +68,12 @@ public class Link : ICollidable
                 hurtTimer = 0.0;
             }
         }
-
-        //foreach (IProjectile projectile in projectiles)
-        //{
-        //    if (!projectile.Active)
-        //    {
-        //        markedForDeletion.Add(projectile);
-
-        //    }
-        //    projectile.Update(gametime);
-        //}
-
-        //foreach (IProjectile projectile in markedForDeletion)
-        //{
-        //    projectiles.Remove(projectile);
-        //    if(projectile is Arrow || projectile is SilverArrow)
-        //    {
-        //        projectiles.Add(new ArrowParticle(projectile.Position, projectileSpriteFactory));
-        //    }
-        //    if(projectile is Bomb)
-        //    {
-        //        projectiles.Add(new BombParticle(projectile.Position, projectileSpriteFactory));
-        //    }
-        //}
-
     }
 
     public void Draw()
     {
         Sprite.Hurt = Hurt;
         Sprite.SpriteDraw(position);
-        //foreach (IProjectile projectile in projectiles)
-        //{
-        //    projectile.Draw();
-        //}
     }
 }
 

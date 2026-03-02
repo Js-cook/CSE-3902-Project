@@ -34,7 +34,7 @@ public class SwordBeamSprite : ISprite
         new Rectangle(106, 154, 7, 15)
     };
 
-    public SwordBeam(Texture2D texture, Vector2 position, SpriteBatch spriteBatch, Direction direction)
+    public SwordBeamSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch, Direction direction)
     {
         this.texture = texture;
         this.spriteBatch = spriteBatch;

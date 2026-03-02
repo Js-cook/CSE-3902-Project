@@ -2,10 +2,12 @@
 using Enums;
 using Microsoft.Xna.Framework;
 using Sprites;
-using System.Transactions;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Audio;
 
 public class DownAttackingPlayerState : Interfaces.IPlayerState
 {
+    public Dictionary<string, SoundEffect> soundEffect { get; set; }
     private Link player;
     private PlayerSpriteFactory spriteFactory;
     private double startClock = 0.0;
@@ -14,11 +16,12 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
     private bool animationDone = false;
     private ProjectileController projectileController;
 
-    public DownAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController)
+    public DownAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
     {
         this.player = player;
         this.spriteFactory = spriteFactory;
         this.projectileController = projectileController;
+        this.soundEffect = soundEffect;
     }
     public void ChangeDirection(Direction Direction)
     {
@@ -56,7 +59,7 @@ public class DownAttackingPlayerState : Interfaces.IPlayerState
     {
         if (animationDone)
         {
-            player.playerState = new DownIdlePlayerState(player, spriteFactory, projectileController);
+            player.playerState = new DownIdlePlayerState(player, spriteFactory, projectileController, soundEffect);
             player.Sprite = spriteFactory.CreateDownIdlePlayerSprite(player.position);
         }
     }
