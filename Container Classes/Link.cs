@@ -27,16 +27,12 @@ public class Link : ICollidable
 
     public List<IProjectile> projectiles { get; set; } = new List<IProjectile>();
 
-    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
+    public Link(FactoryStorage factoryStorage, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
     {
-        // Spawn player in center of floor area
-        // Floor grid starts at ~(100, 88) and is 19x10 tiles of 32px each
-        // Center position: (100 + (19*32)/2, 88 + (10*32)/2) ≈ (404, 248)
-        position = new Vector2(400, 250);
-        HitboxActive = true; // Enable collision detection for player
-        playerState = new RightIdlePlayerState(this, spriteFactory, projectileController, soundEffect);
-        this.projectileSpriteFactory = projectileSpriteFactory;
-        Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
+        position = new Vector2(10, 10); // arbitrary starting position - change later
+        playerState = new RightIdlePlayerState(this, factoryStorage, projectileController, soundEffect);
+        this.projectileSpriteFactory = factoryStorage.projectileSpriteFactory;
+        Sprite = factoryStorage.playerSpriteFactory.CreateRightIdlePlayerSprite(position);
     }
 
     public void MoveUp() 

@@ -25,17 +25,12 @@ namespace Controllers
 
         private Game gameInstance;
 
-        private AudioController audioController;
-        private Dictionary<string, SoundEffect> soundEffects;
-
-        public IKeyboard(Link player, Environment env, Item item, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect)
+        public IKeyboard(Link player, Environment env, Item item, EnemyController enemyController, Game gameInstance)
         {
             this.player = player;
             this.environment = env;
             this.item = item;
             this.gameInstance = gameInstance;
-            this.audioController = audioController;
-            this.soundEffects = soundEffect;
         }
 
         public void Update()
@@ -87,21 +82,18 @@ namespace Controllers
             if ((keyState.IsKeyDown(Keys.N) || keyState.IsKeyDown(Keys.Z)) && projectileInputLimiter == 0)
             {
                 player.playerState.BeAttacking();
-                audioController.PlaySoundEffect(soundEffects["SwordSlash"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 10;
             }
 
             if ((keyState.IsKeyDown(Keys.D1) || keyState.IsKeyDown(Keys.NumPad1)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireArrow();
-                audioController.PlaySoundEffect(soundEffects["ArrowBoomerang"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 20;
             }
 
             if ((keyState.IsKeyDown(Keys.D2) || keyState.IsKeyDown(Keys.NumPad2)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireSilverArrow();
-                audioController.PlaySoundEffect(soundEffects["ArrowBoomerang"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 20;
             }
 
@@ -126,7 +118,6 @@ namespace Controllers
             if ((keyState.IsKeyDown(Keys.D6) || keyState.IsKeyDown(Keys.NumPad6)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireBomb();
-                audioController.PlaySoundEffect(soundEffects["BombDrop"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 20;
             }
 
