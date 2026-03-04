@@ -66,13 +66,12 @@ namespace _3902_Project
         // This method needs to be cleaned up bad
         protected override void LoadContent()
         {
-            
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             playerTexture = Content.Load<Texture2D>("LinkSprites");
             tileTexture = Content.Load<Texture2D>("DungeonTileSprites");
             itemTexture = Content.Load<Texture2D>("ItemSprites");
             dungeonSong = Content.Load<Song>("BackgroundMusic");
-            enemyController.LoadContent(Content, _spriteBatch, _graphics);
             Dictionary<string, SoundEffect> sfx = ContentLoaderHelper.LoadPlayerSFX(Content);
 
             factoryStorage = new FactoryStorage(playerTexture, tileTexture, itemTexture, _spriteBatch);
@@ -81,17 +80,7 @@ namespace _3902_Project
 
             projectileController = new ProjectileController(factoryStorage, sfx);
 
-
-            // EnemySpriteFactory, Enemy Actor Factory Enemy Controller, and EnemyLoader Initialization
-            enemyMasterSpriteFactory.LoadContent(Content, _spriteBatch, _graphics);
-            enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory);
-            enemyController = new EnemyController();
-            enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Handles laoding enemies into the enemyCotnroller which then updates each of them
-
-            //Load the enmies into the scene
-            enemyLoader.LoadFakeLevel(); //Load a fake level whihc loads all the enmies
-
-
+            player = new Link(factoryStorage, projectileController, sfx);
 
             tileFactory = new TileFactory(tileTexture, playerTexture, _spriteBatch);
             environment = new Environment(tileFactory);
@@ -100,14 +89,9 @@ namespace _3902_Project
 
             levelFileReader.LoadLevel(Path.Combine(Content.RootDirectory, "Room1.csv"));
 
-            itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
-            item = new Item(itemFactory);
+            item = new Item(factoryStorage);
 
-            keyboardController = new Controllers.IKeyboard(player, environment, item, this, audioController, LoadPlayerSFX(Content));
-
-            // Initialize collision manager and register handlers using CollisionRegistry
-            collisionManager = new CollisionManager();
-            CollisionRegistry.Initialize(collisionManager);
+            keyboardController = new Controllers.IKeyboard(player, environment, item, enemyController, this);
         }
 
         protected override void Update(GameTime gameTime)
@@ -164,6 +148,9 @@ namespace _3902_Project
         }
     }
 
-    
-    
+
+
 }
+
+
+
