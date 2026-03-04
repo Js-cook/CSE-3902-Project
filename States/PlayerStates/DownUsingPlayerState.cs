@@ -10,17 +10,17 @@ public class DownUsingPlayerState : Interfaces.IPlayerState
     public Dictionary<string, SoundEffect> soundEffect { get; set; }
 
     private Link player;
-    private PlayerSpriteFactory spriteFactory;
+    private FactoryStorage factoryStorage;
 
     private double startClock = 0.0;
     private double animationDuration = 0.4;
 
     private bool animationDone = false;
     private ProjectileController projectileController;
-    public DownUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
+    public DownUsingPlayerState(Link player, FactoryStorage factoryStorage, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
     {
         this.player = player;
-        this.spriteFactory = spriteFactory;
+        this.factoryStorage = factoryStorage;
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
     }
@@ -60,8 +60,8 @@ public class DownUsingPlayerState : Interfaces.IPlayerState
     {
         if (animationDone)
         {
-            player.playerState = new DownIdlePlayerState(player, spriteFactory, projectileController, soundEffect);
-            player.Sprite = spriteFactory.CreateDownIdlePlayerSprite(player.position);
+            player.playerState = new DownIdlePlayerState(player, factoryStorage, projectileController, soundEffect);
+            player.Sprite = factoryStorage.playerSpriteFactory.CreateDownIdlePlayerSprite(player.position);
         }
     }
 

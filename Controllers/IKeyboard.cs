@@ -58,10 +58,10 @@ namespace Controllers
             }
 
             //room management
-            if (keyState.IsKeyDown(Keys.Y) && roomSwitchLimiter == 0) {  roomManager.MoveUp();    roomSwitchLimiter = 10; }
-            if (keyState.IsKeyDown(Keys.H) && roomSwitchLimiter == 0) {  roomManager.MoveDown();  roomSwitchLimiter = 10; }
-            if (keyState.IsKeyDown(Keys.G) && roomSwitchLimiter == 0) {  roomManager.MoveLeft();  roomSwitchLimiter = 10; }
-            if (keyState.IsKeyDown(Keys.J) && roomSwitchLimiter == 0) {  roomManager.MoveRight(); roomSwitchLimiter = 10; }
+            if (keyState.IsKeyDown(Keys.Y) && roomSwitchLimiter == 0) { roomManager.MoveUp(); roomSwitchLimiter = 10; }
+            if (keyState.IsKeyDown(Keys.H) && roomSwitchLimiter == 0) { roomManager.MoveDown(); roomSwitchLimiter = 10; }
+            if (keyState.IsKeyDown(Keys.G) && roomSwitchLimiter == 0) { roomManager.MoveLeft(); roomSwitchLimiter = 10; }
+            if (keyState.IsKeyDown(Keys.J) && roomSwitchLimiter == 0) { roomManager.MoveRight(); roomSwitchLimiter = 10; }
 
             //other inputs
             if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && !movementKeyActive)
@@ -95,21 +95,18 @@ namespace Controllers
             if ((keyState.IsKeyDown(Keys.N) || keyState.IsKeyDown(Keys.Z)) && projectileInputLimiter == 0)
             {
                 player.playerState.BeAttacking();
-                audioController.PlaySoundEffect(soundEffects["SwordSlash"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 10;
             }
 
             if ((keyState.IsKeyDown(Keys.D1) || keyState.IsKeyDown(Keys.NumPad1)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireArrow();
-                audioController.PlaySoundEffect(soundEffects["ArrowBoomerang"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 20;
             }
 
             if ((keyState.IsKeyDown(Keys.D2) || keyState.IsKeyDown(Keys.NumPad2)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireSilverArrow();
-                audioController.PlaySoundEffect(soundEffects["ArrowBoomerang"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 20;
             }
 
@@ -134,7 +131,6 @@ namespace Controllers
             if ((keyState.IsKeyDown(Keys.D6) || keyState.IsKeyDown(Keys.NumPad6)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireBomb();
-                audioController.PlaySoundEffect(soundEffects["BombDrop"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 20;
             }
 

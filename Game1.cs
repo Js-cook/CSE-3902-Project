@@ -19,8 +19,9 @@ namespace _3902_Project
 
         private Link player;
         private Texture2D playerTexture;
-        private PlayerSpriteFactory spriteFactory;
-        private ProjectileSpriteFactory projectileSpriteFactory;
+        private Texture2D tileTexture;
+        private Texture2D itemTexture;
+
         private ProjectileController projectileController;
 
         private EnemyController enemyController;
@@ -32,12 +33,15 @@ namespace _3902_Project
         private LevelFileReader levelFileReader;
         private RoomManager roomManager;
 
+        private AudioController audioController;
         private Song dungeonSong;
 
-        private ItemFactory itemFactory;
         private Item item;
 
         private CollisionManager collisionManager;
+
+        private FactoryStorage factoryStorage;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -52,45 +56,33 @@ namespace _3902_Project
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            //AudioController audioController = new AudioController();
             base.Initialize();
-        }
-
-        private Dictionary<string, SoundEffect> LoadPlayerSFX(ContentManager content)
-        {
-            Dictionary<string, SoundEffect> res = new()
-            {
-                { "ArrowBoomerang", content.Load<SoundEffect>("SFX/ArrowBoomerang") },
-                { "BombDrop", content.Load<SoundEffect>("SFX/BombDrop") },
-                { "BombExplode", content.Load<SoundEffect>("SFX/BombExplode") },
-                { "SwordSlash", content.Load<SoundEffect>("SFX/SwordSlash") }
-            };
-
-            return res;
+            audioController = new();
+            enemyController = new EnemyController();
+            collisionManager = new CollisionManager();
+            CollisionRegistry.Initialize(collisionManager);
         }
 
         // This method needs to be cleaned up bad
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            Dictionary<string, SoundEffect> sfx = LoadPlayerSFX(Content);
-
-            AudioController audioController = new AudioController();
+            playerTexture = Content.Load<Texture2D>("LinkSprites");
+            tileTexture = Content.Load<Texture2D>("DungeonTileSprites");
+            itemTexture = Content.Load<Texture2D>("ItemSprites");
             dungeonSong = Content.Load<Song>("BackgroundMusic");
+            enemyController.LoadContent(Content, _spriteBatch, _graphics);
+            Dictionary<string, SoundEffect> sfx = ContentLoaderHelper.LoadPlayerSFX(Content);
+
+            factoryStorage = new FactoryStorage(playerTexture, tileTexture, itemTexture, _spriteBatch);
+
             audioController.PlaySong(dungeonSong);
 
-            playerTexture = Content.Load<Texture2D>("LinkSprites");
-            spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
-            projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
-            projectileController = new ProjectileController(projectileSpriteFactory, sfx);
+            projectileController = new ProjectileController(factoryStorage, sfx);
 
-            player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx);
+            player = new Link(factoryStorage, projectileController, sfx);
 
-            // Handles loading content for all enemies
-            enemyController = new EnemyController();
-            enemyController.LoadContent(Content, _spriteBatch, _graphics);
-
-            tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), Content.Load<Texture2D>("LinkSprites"), _spriteBatch);
+            tileFactory = new TileFactory(tileTexture, playerTexture, _spriteBatch);
             environment = new Environment(tileFactory);
 
             //room manager
@@ -98,10 +90,11 @@ namespace _3902_Project
             string fullPath = Path.Combine(Content.RootDirectory, "rooms.xml");
             roomManager = new RoomManager(levelFileReader, fullPath, 0, 1);
 
-            itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
-            item = new Item(itemFactory);
+            levelFileReader.LoadLevel(Path.Combine(Content.RootDirectory, "Room1.csv"));
 
-            keyboardController = new Controllers.IKeyboard(player, roomManager, item, enemyController, this, audioController, LoadPlayerSFX(Content));
+            item = new Item(factoryStorage);
+
+            keyboardController = new Controllers.IKeyboard(player, environment, item, enemyController, this, audioController, LoadPlayerSFX(Content));
 
             // Add additional collision handlers here as needed
             collisionManager = new CollisionManager();
@@ -113,7 +106,7 @@ namespace _3902_Project
 
         protected override void Update(GameTime gameTime)
         {
-            
+
             keyboardController.Update(); // first check input
 
             // then update all entities based on that input

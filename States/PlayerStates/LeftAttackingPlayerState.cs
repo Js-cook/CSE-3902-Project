@@ -10,17 +10,17 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
     public Dictionary<string, SoundEffect> soundEffect { get; set; }
 
     private Link player;
-    private PlayerSpriteFactory spriteFactory;
+    private FactoryStorage factoryStorage;
 
     private double startClock = 0.0;
     private double animationDuration = 0.2;
 
     private bool animationDone;
     private ProjectileController projectileController;
-    public LeftAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
+    public LeftAttackingPlayerState(Link player, FactoryStorage factoryStorage, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
     {
         this.player = player;
-        this.spriteFactory = spriteFactory;
+        this.factoryStorage = factoryStorage;
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
     }
@@ -61,8 +61,8 @@ public class LeftAttackingPlayerState : Interfaces.IPlayerState
     {
         if (animationDone)
         {
-            player.playerState = new LeftIdlePlayerState(player, spriteFactory, projectileController, soundEffect);
-            player.Sprite = spriteFactory.CreateLeftIdlePlayerSprite(player.position);
+            player.playerState = new LeftIdlePlayerState(player, factoryStorage, projectileController, soundEffect);
+            player.Sprite = factoryStorage.playerSpriteFactory.CreateLeftIdlePlayerSprite(player.position);
         }
     }
     public void Update(GameTime gametime)
