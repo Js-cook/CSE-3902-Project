@@ -24,7 +24,7 @@ public class Wallmaster : IEnemy
     public Wallmaster(WallmasterSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, Vector2 startPosition)
     {
         position = startPosition; // arbitrary starting position - change later
-        wallmasterState = new MovingWallmasterState(this, spriteFactory, _graphics);
+        wallmasterState = new MovingWallmasterState(this, spriteFactory);
         Sprite = spriteFactory.CreateMovingWallmasterSprite(position);
     }
 
@@ -45,5 +45,10 @@ public class Wallmaster : IEnemy
         wallmasterState.TakeDamage();
 
     }   
+
+    public void ChangeState(IEnemyState newState)
+    {
+        wallmasterState = newState;
+    }
 
 }

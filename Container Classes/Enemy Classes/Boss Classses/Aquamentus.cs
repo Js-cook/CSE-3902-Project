@@ -80,4 +80,9 @@ public class Aquamentus : IEnemy
 
     }
 
+    public void ChangeState(IEnemyState newState)
+    {
+        aquamentusState = newState;
+    }
+
 }

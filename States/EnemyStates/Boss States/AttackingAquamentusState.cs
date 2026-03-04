@@ -61,7 +61,7 @@ public class AttackingAquamentusState : IEnemyState
 
         if (!aquamentus.topFireball.Active && !aquamentus.middleFireball.Active && !aquamentus.bottomFireball.Active)
         {
-            aquamentus.aquamentusState = new MovingAquamentusState(aquamentus, spriteFactory, _graphics);
+            aquamentus.ChangeState(new MovingAquamentusState(aquamentus, spriteFactory, _graphics));
         }
 
         EnemyHelper.CheckBounds(ref velocity, aquamentus.position, _graphics);
@@ -73,7 +73,7 @@ public class AttackingAquamentusState : IEnemyState
         if (aquamentus.Health <= 0)
         {
             
-            aquamentus.aquamentusState = new DeadAquamentusState(aquamentus, spriteFactory);
+            aquamentus.ChangeState(new DeadAquamentusState(aquamentus, spriteFactory));
         }
         
 

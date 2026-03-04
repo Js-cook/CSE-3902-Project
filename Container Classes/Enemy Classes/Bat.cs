@@ -36,7 +36,7 @@ public class Bat : IEnemy
     public Bat(BatSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, Vector2 startPosition)
     {
         position = startPosition; // arbitrary starting position - change later
-        batState = new MovingBatState(this, spriteFactory, _graphics);
+        batState = new MovingBatState(this, spriteFactory);
         this.spriteFactory = spriteFactory;
         Sprite = spriteFactory.CreateBatMovingSprite(position);
 
@@ -60,5 +60,10 @@ public class Bat : IEnemy
 
         batState.TakeDamage();
         // change to batState.TakeDamage() to have a death animation
+    }
+
+    public void ChangeState(IEnemyState newState)
+    {
+        batState = newState;
     }
 }

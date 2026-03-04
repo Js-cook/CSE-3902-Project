@@ -11,14 +11,14 @@ public class MovingGelState : IEnemyState
     private Gel gel;
     private GelSpriteFactory spriteFactory;
 
-    double timerMax = 2;
+    double directionTimerMax = 2;
     double timer;
 
     private Vector2 velocity;
     private Random randInt;
 
-    private GraphicsDeviceManager _graphics;
-    public MovingGelState(Gel gel, GelSpriteFactory gelSpriteFactory, GraphicsDeviceManager _graphics)
+   
+    public MovingGelState(Gel gel, GelSpriteFactory gelSpriteFactory)
     {
         this.gel = gel;
         this.spriteFactory = gelSpriteFactory;
@@ -26,13 +26,34 @@ public class MovingGelState : IEnemyState
 
         velocity = new Vector2(1, 0);
         randInt = new Random();
-        this._graphics = _graphics;
+    
 
     }
 
     public void ChangeDirection()
     {
-        // No need for this 
+        int choice = randInt.Next(4);
+
+        switch (choice)
+        {
+            // Down
+            case 0:
+                velocity = new Vector2(0, 1);
+                break;
+            // Up
+            case 1:
+                velocity = new Vector2(0, -1);
+                break;
+            // Right
+            case 2:
+                velocity = new Vector2(1, 0);
+                break;
+            // Left
+            case 3:
+                velocity = new Vector2(-1, 0);
+                break;
+
+        }
     }
 
     public void BeDead()
@@ -45,14 +66,9 @@ public class MovingGelState : IEnemyState
     public void Update(Microsoft.Xna.Framework.GameTime gameTime)
     {
         gel.position += velocity;
-        timer += gameTime.ElapsedGameTime.TotalSeconds;
-        if (timer >= timerMax)
-        {
-            velocity = new Vector2(randInt.Next(0, 2), randInt.Next(0, 2));
-            timer = 0;
-        }
+        UpdateDirectionChangeTimer(gameTime);
 
-        EnemyHelper.CheckBounds(ref velocity, gel.position, _graphics);
+       
 
 
 
@@ -66,5 +82,16 @@ public class MovingGelState : IEnemyState
         }
 
     }
+
+    private void UpdateDirectionChangeTimer(GameTime gameTime)
+    {
+        timer += gameTime.ElapsedGameTime.TotalSeconds;
+        if (timer >= directionTimerMax)
+        {
+            ChangeDirection();
+            timer = 0;
+        }
+    }
+
 
 }

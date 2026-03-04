@@ -31,7 +31,7 @@ public class Gel : IEnemy {
     public Gel(GelSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, Vector2 startPosition)
     {
         position = startPosition; // arbitrary starting position - change later
-        gelState = new MovingGelState(this, spriteFactory, _graphics);
+        gelState = new MovingGelState(this, spriteFactory);
         Sprite = spriteFactory.CreateMovingGelSprite(position);
     }
 
@@ -53,5 +53,9 @@ public class Gel : IEnemy {
         gelState.TakeDamage();
     }
 
+    public void ChangeState(IEnemyState newState)
+    {
+        gelState = newState;
+    }
 
 }

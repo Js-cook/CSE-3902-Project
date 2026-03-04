@@ -12,9 +12,12 @@ public class Boomerang : IProjectile
     public int DamageValue { get; } = 1;
     public bool Active { get; set; }
 
-    private ISprite sprite; 
+    private ISprite sprite;
 
-    
+    public bool isPlayerProjectile { get; set; } = true;
+
+
+
     public Rectangle Hitbox
     {
         get

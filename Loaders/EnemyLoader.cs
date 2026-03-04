@@ -27,7 +27,7 @@ public class EnemyLoader
 
         enemyController.AddEnemy(enemyFactory.CreateGel(new Vector2(100, 100)));
         enemyController.AddEnemy(enemyFactory.CreateAquamentus(new Vector2(200, 200)));
-        enemyController.AddEnemy(enemyFactory.CreateGel(new Vector2(20, 50)));
+        enemyController.AddEnemy(enemyFactory.CreateGel(new Vector2(200, 300)));
         enemyController.AddEnemy(enemyFactory.CreateGoriya(new Vector2(300, 300)));
 
         foreach (var enemy in enemyController.enemyArray)

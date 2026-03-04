@@ -35,5 +35,10 @@ public class Spiketrap //TODO: Trap Interface
         Sprite.SpriteDraw(position);
     }
 
+    public void ChangeState(IEnemyState newState)
+    {
+        spiketrapState = newState;
+    }
+
     // No take damage function
 }

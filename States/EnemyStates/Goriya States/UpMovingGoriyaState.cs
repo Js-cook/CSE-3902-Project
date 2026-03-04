@@ -1,13 +1,16 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using System;
 
 public class UpMovingGoriyaState : IEnemyState
 {
+
+
     private Goriya goriya;
     private GoriyaSpriteFactory spriteFactory;
 
-    double timerMax = 5;
-    double timer;
+    double changeDirectionTimerMax = 5;
+    double directionTimer;
     int speed = 2;
 
     double shootTimerMax = 3;
@@ -23,8 +26,7 @@ public class UpMovingGoriyaState : IEnemyState
         this.goriya = goriya;
         this.spriteFactory = goriyaSpriteFactory;
         goriya.Sprite = spriteFactory.CreateUpMovingGoriyaSprite(goriya.position);
-        timer = 0;
-
+        directionTimer = 0;
         shootTimer = 0;
 
         velocity = new Vector2(0, -1) * speed;
@@ -41,15 +43,15 @@ public class UpMovingGoriyaState : IEnemyState
         {
             // Down
             case 0:
-                goriya.goriyaState = new DownMovingGoriyaState(goriya, spriteFactory, _graphics);
+                goriya.ChangeState(new DownMovingGoriyaState(goriya, spriteFactory, _graphics));
                 break;
-            // Up
+            // Left
             case 1:
-                goriya.goriyaState = new LeftMovingGoriyaState(goriya, spriteFactory, _graphics);
+                goriya.ChangeState(new LeftMovingGoriyaState(goriya, spriteFactory, _graphics));
                 break;
             // Right
             case 2:
-                goriya.goriyaState = new RightMovingGoriyaState(goriya, spriteFactory, _graphics);
+                goriya.ChangeState(new RightMovingGoriyaState(goriya, spriteFactory, _graphics));
                 break;
         }
 
@@ -57,56 +59,20 @@ public class UpMovingGoriyaState : IEnemyState
 
     public void BeDead()
     {
-
-        //No need for this
-
     }
 
-    public void Update(Microsoft.Xna.Framework.GameTime gameTime)
+    public void Update(GameTime gameTime)
     {
-        goriya.position += velocity;
-        timer += gameTime.ElapsedGameTime.TotalSeconds;
-        if (timer >= timerMax)
-        {
-            ChangeDirection();
-            timer = 0;
-        }
-
-        shootTimer += gameTime.ElapsedGameTime.TotalSeconds;
-        if (shootTimer >= shootTimerMax)
-        {
-            FireBoomerang();
-            shootTimer = 0;
-        }
-
-
-
-
-        EnemyHelper.CheckBounds(ref velocity, goriya.position, _graphics);
-        ChangeState(); // This will adjust the state if the velocity changes due to bounds checking, ensuring the correct sprite is displayed.
+        goriya.position += velocity; // Move the Goriya according to its velocity 
+        UpdateDirectionChangeTimer(gameTime); // Handle direction change logic
+        UpdateShootTimer(gameTime); // Handle shooting logic
     }
 
-    private void ChangeState()
-    {
-        if (velocity.X < 0)
-        {
-            goriya.goriyaState = new LeftMovingGoriyaState(goriya, spriteFactory, _graphics);
-        }
-        if (velocity.X > 0)
-        {
-            goriya.goriyaState = new RightMovingGoriyaState(goriya, spriteFactory, _graphics);
-        }
-
-        if (velocity.Y > 0)
-        {
-            goriya.goriyaState = new DownMovingGoriyaState(goriya, spriteFactory, _graphics);
-        }
-    }
 
     public void FireBoomerang()
     {
-        goriya.goriyaState = new GoriyaAttackState(goriya, spriteFactory, _graphics, "up");
-        goriya.goriyaBoomerang.ResetBoomerang(goriya.position, "up");
+        goriya.ChangeState(new GoriyaAttackState(goriya, spriteFactory, _graphics, Direction.UP));
+        goriya.goriyaBoomerang.ResetBoomerang(goriya.position, Direction.UP);
         goriya.goriyaBoomerang.Active = true; // Activate the boomerang when fired
     }
 
@@ -114,12 +80,32 @@ public class UpMovingGoriyaState : IEnemyState
     {
         if (goriya.Health > 0)
         {
-            goriya.goriyaState = new DamagedGoriyaState(goriya, spriteFactory, _graphics);
+            goriya.ChangeState(new DamagedGoriyaState(goriya, spriteFactory, _graphics));
         }
         else
         {
-            goriya.goriyaState = new DeadGoriyaState(goriya, spriteFactory);
+            goriya.ChangeState(new DeadGoriyaState(goriya, spriteFactory));
         }
     }
 
+
+    private void UpdateShootTimer(GameTime gameTime)
+    {
+        shootTimer += gameTime.ElapsedGameTime.TotalSeconds;
+        if (shootTimer >= shootTimerMax)
+        {
+            FireBoomerang();
+            shootTimer = 0;
+        }
+    }
+
+    private void UpdateDirectionChangeTimer(GameTime gameTime)
+    {
+        directionTimer += gameTime.ElapsedGameTime.TotalSeconds;
+        if (directionTimer >= changeDirectionTimerMax)
+        {
+            ChangeDirection();
+            directionTimer = 0;
+        }
+    }
 }

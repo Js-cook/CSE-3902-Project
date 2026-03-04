@@ -16,5 +16,7 @@ public interface IEnemy : ICollidable
 
     public void TakeDamage(int damage);
 
-   
+    public void ChangeState(IEnemyState newState);
+
+
 }

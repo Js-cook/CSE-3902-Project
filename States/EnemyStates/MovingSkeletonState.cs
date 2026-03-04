@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 public class MovingSkeletonState : IEnemyState
 {
@@ -17,27 +13,20 @@ public class MovingSkeletonState : IEnemyState
     private Vector2 velocity;
     private Random randInt;
 
-    private GraphicsDeviceManager _graphics;
-    public MovingSkeletonState(Skeleton skeleton, SkeletonSpriteFactory skeletonSpriteFactory, GraphicsDeviceManager _graphics)
+    public MovingSkeletonState(Skeleton skeleton, SkeletonSpriteFactory skeletonSpriteFactory)
     {
         this.skeleton = skeleton;
-        this.spriteFactory = skeletonSpriteFactory;
+        spriteFactory = skeletonSpriteFactory;
         timer = 0;
 
         velocity = new Vector2(1, 0);
         randInt = new Random();
-        this._graphics = _graphics;
+       
 
     }
 
     public void ChangeDirection()
     {
-        // No need for this 
-    }   
-
-    public void ChangeDirection(ref Vector2 velocity)
-    {
-
         int choice = randInt.Next(4);
 
         switch (choice)
@@ -55,7 +44,7 @@ public class MovingSkeletonState : IEnemyState
                 velocity = new Vector2(1, 0);
                 break;
             // Left
-                case 3:
+            case 3:
                 velocity = new Vector2(-1, 0);
                 break;
 
@@ -72,25 +61,23 @@ public class MovingSkeletonState : IEnemyState
     public void Update(Microsoft.Xna.Framework.GameTime gameTime)
     {
         skeleton.position += velocity;
-        timer += gameTime.ElapsedGameTime.TotalSeconds;
-        if (timer >= timerMax)
-        {
-            ChangeDirection(ref velocity);
-            timer = 0;
-        }
-
-        EnemyHelper.CheckBounds(ref velocity, skeleton.position, _graphics);
-
-
-
+        UpdateDirectionTimer(gameTime);
     }
-
     public void TakeDamage()
     {
-        
         if (skeleton.Health <= 0)
         {
             skeleton.skeletonState = new DeadSkeletonState(skeleton, spriteFactory);
+        }
+    }
+
+    private void UpdateDirectionTimer(GameTime gameTime)
+    {
+        timer += gameTime.ElapsedGameTime.TotalSeconds;
+        if (timer >= timerMax)
+        {
+            ChangeDirection();
+            timer = 0;
         }
     }
 

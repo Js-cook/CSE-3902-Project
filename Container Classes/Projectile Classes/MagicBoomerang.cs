@@ -12,6 +12,8 @@ public class MagicBoomerang : IProjectile
         }
     }
     public bool HitboxActive { get; set; }
+
+    public bool isPlayerProjectile { get; set; } = true;
     public int DamageValue { get; set; } = 1; public Vector2 Position { get; set; }
     private Direction direction;
     private double startTime = 0.0;
@@ -29,6 +31,7 @@ public class MagicBoomerang : IProjectile
         sprite = spriteFactory.CreateMagicBoomerangSprite(position);
         Active = true;
         HitboxActive = true;
+        
     }
     public void Draw()
     {

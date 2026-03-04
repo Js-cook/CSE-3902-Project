@@ -23,6 +23,10 @@ public class AquamentusFireball : IProjectile
 
     private ISprite sprite;
 
+    // new properties
+    public ICollidable owner { get; set; }
+    public bool isPlayerProjectile { get; set; }
+
     public AquamentusFireball(Vector2 position, BossProjectileSpriteFactory spriteFactory, Vector2 velocity)
     {
         this.Position = position;
@@ -30,6 +34,9 @@ public class AquamentusFireball : IProjectile
         sprite = spriteFactory.CreateAquamentusFireballSprite(position);
         Active = false;
         HitboxActive = false;
+
+        // mark as enemy projectile
+        isPlayerProjectile = false;
     }
     public void Draw()
     {

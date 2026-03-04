@@ -8,13 +8,16 @@ public static class CollisionRegistry
 {
     public static void Initialize(CollisionManager collisionManager)
     {
-        RegisterEnemyProjectileCollisions(collisionManager);
+        RegisterEnemyPlayerProjectileCollisions(collisionManager);
+        RegisterEnemyWallCollisions(collisionManager);
         RegisterPlayerCollisions(collisionManager);
+
+        RegisterProjectileWallCollisions(collisionManager);
 
 
     }
 
-    private static void RegisterEnemyProjectileCollisions(CollisionManager collisionManager)
+    private static void RegisterEnemyPlayerProjectileCollisions(CollisionManager collisionManager)
     {
         // Get all types in your project assembly. Citation: GEMINI AI
         var allTypes = Assembly.GetExecutingAssembly().GetTypes();
@@ -24,8 +27,29 @@ public static class CollisionRegistry
         {
             foreach (var pType in projectileTypes)
             {
-                collisionManager.RegisterHandler(eType, pType, new EnemyProjectileCollisionHandler());
+                collisionManager.RegisterHandler(eType, pType, new EnemyPlayerProjectileCollisionHandler());
             }
+        }
+    }
+
+    private static void RegisterProjectileWallCollisions(CollisionManager collisionManager)
+    {
+        var allTypes = Assembly.GetExecutingAssembly().GetTypes();
+        var projectileTypes = allTypes.Where(t => typeof(IProjectile).IsAssignableFrom(t) && !t.IsInterface);
+        foreach (var pType in projectileTypes)
+        {
+            collisionManager.RegisterHandler(pType, typeof(Tile), new ProjectileWallCollisionHandler());
+        }
+    }
+
+    private static void RegisterEnemyWallCollisions(CollisionManager collisionManager)
+    {
+        var allTypes = Assembly.GetExecutingAssembly().GetTypes();
+        var enemyTypes = allTypes.Where(t => typeof(IEnemy).IsAssignableFrom(t) && !t.IsInterface);
+        // Get all types in your project assembly. Citation: GEMINI AI
+        foreach (var eType in enemyTypes)
+        {
+            collisionManager.RegisterHandler(eType, typeof(Tile), new EnemyWallCollisionHandler());
         }
     }
 

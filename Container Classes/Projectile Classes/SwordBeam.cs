@@ -22,6 +22,9 @@ public class SwordBeam : IProjectile
     private ISprite sprite;
     private Direction direction;
 
+    // new property implementation
+    public bool isPlayerProjectile { get; set; }
+
     public SwordBeam(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory)
     {
         this.Position = position;
@@ -29,6 +32,9 @@ public class SwordBeam : IProjectile
         HitboxActive = true;
         this.direction = direction;
         sprite = spriteFactory.CreateSwordBeamSprite(position, direction);
+
+        // mark as player projectile
+        isPlayerProjectile = true;
     }
 
     public void Draw()

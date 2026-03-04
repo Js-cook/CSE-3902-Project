@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 public class MovingAquamentusState : IEnemyState
 {
@@ -50,7 +46,7 @@ public class MovingAquamentusState : IEnemyState
 
     }
 
-    public void Update(Microsoft.Xna.Framework.GameTime gameTime)
+    public void Update(GameTime gameTime)
     {
         // Keep it moving forward and backward between the bounds of the screen.
         aquamentus.position += velocity;
@@ -77,7 +73,7 @@ public class MovingAquamentusState : IEnemyState
 
     public void ShootFireball()
     {
-        aquamentus.aquamentusState = new AttackingAquamentusState(aquamentus, spriteFactory, _graphics);
+        aquamentus.ChangeState(new AttackingAquamentusState(aquamentus, spriteFactory, _graphics));
         
     }
 
@@ -85,7 +81,7 @@ public class MovingAquamentusState : IEnemyState
     {
         if (aquamentus.Health <= 0)
         {
-            aquamentus.aquamentusState = new DeadAquamentusState(aquamentus, spriteFactory);
+            aquamentus.ChangeState(new DeadAquamentusState(aquamentus, spriteFactory));
         }
     }
 

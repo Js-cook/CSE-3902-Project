@@ -13,6 +13,7 @@ public class Fireball : IProjectile
         }
     }
     public bool HitboxActive { get; set; }
+    public bool isPlayerProjectile { get; set; } = true;
     public Vector2 Position { get; set; }
     private Direction direction;
     private double startTime = 0.0;
