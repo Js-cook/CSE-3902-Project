@@ -30,9 +30,9 @@ public class Goriya : IEnemy
 
 
 
-    public Goriya(GoriyaSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, EnemyProjectileSpriteFactory enemyProjectileSpriteFactory)
+    public Goriya(GoriyaSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, EnemyProjectileSpriteFactory enemyProjectileSpriteFactory, Vector2 startPosition)
     {
-        position = new Vector2(40, 30); // arbitrary starting position - change later
+        position = startPosition; // arbitrary starting position - change later
         goriyaState = new LeftMovingGoriyaState(this, spriteFactory, _graphics);
 
         // Give Goriya a boomerang to throw

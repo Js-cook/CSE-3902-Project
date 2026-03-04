@@ -21,9 +21,9 @@ public class Wallmaster : IEnemy
     public int Health { get; set; }
     public bool isDead { get; set; }
 
-    public Wallmaster(WallmasterSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
+    public Wallmaster(WallmasterSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, Vector2 startPosition)
     {
-        position = new Vector2(40, 30); // arbitrary starting position - change later
+        position = startPosition; // arbitrary starting position - change later
         wallmasterState = new MovingWallmasterState(this, spriteFactory, _graphics);
         Sprite = spriteFactory.CreateMovingWallmasterSprite(position);
     }

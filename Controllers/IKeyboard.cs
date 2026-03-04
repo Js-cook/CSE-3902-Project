@@ -28,12 +28,11 @@ namespace Controllers
         private AudioController audioController;
         private Dictionary<string, SoundEffect> soundEffects;
 
-        public IKeyboard(Link player, Environment env, Item item, EnemyController enemyController, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect)
+        public IKeyboard(Link player, Environment env, Item item, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect)
         {
             this.player = player;
             this.environment = env;
             this.item = item;
-            this.enemyController = enemyController;
             this.gameInstance = gameInstance;
             this.audioController = audioController;
             this.soundEffects = soundEffect;
@@ -166,28 +165,6 @@ namespace Controllers
             }
 
 
-            //Enemy Controls
-            if (keyState.IsKeyDown(Keys.O) && !previousKeyboardState.IsKeyDown(Keys.O))
-            {
-                enemyController.PreviousEnemy();
-            }
-            if (keyState.IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P))
-            {
-                enemyController.NextEnemy();
-            }
-
-            if (keyState.IsKeyDown(Keys.R))
-            {
-                // reset
-                enemyController.ResetEnemy();
-                environment.CycleReset();
-                item.CycleReset();
-                enemyController.CurrentEnemy().position = new Vector2(40, 30);
-                player.position = new Vector2(10, 10);
-                player.playerState.ChangeDirection(Direction.RIGHT);
-                player.Hurt = false;
-
-            }
             if (keyState.IsKeyDown(Keys.Q))
             {
                 gameInstance.Exit();

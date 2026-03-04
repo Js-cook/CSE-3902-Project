@@ -13,6 +13,7 @@ public class DeadAquamentusState : IEnemyState
         this.aquamentus = aquamentus;
         this.spriteFactory = spriteFactory;
         aquamentus.isDead = true;
+            aquamentus.HitboxActive = false;
     }
     public void ChangeDirection()
     {

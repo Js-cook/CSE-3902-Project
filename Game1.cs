@@ -23,7 +23,12 @@ namespace _3902_Project
         private ProjectileSpriteFactory projectileSpriteFactory;
         private ProjectileController projectileController;
 
+        private EnemyMasterSpriteFactory enemyMasterSpriteFactory;
+        private EnemyFactory enemyFactory;
         private EnemyController enemyController;
+        private EnemyLoader enemyLoader;
+
+
 
         private IController keyboardController;
 
@@ -48,6 +53,7 @@ namespace _3902_Project
         {
             // TODO: Add your initialization logic here
             //AudioController audioController = new AudioController();
+            enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
             base.Initialize();
         }
 
@@ -67,6 +73,7 @@ namespace _3902_Project
         // This method needs to be cleaned up bad
         protected override void LoadContent()
         {
+            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Dictionary<string, SoundEffect> sfx = LoadPlayerSFX(Content);
 
@@ -81,9 +88,17 @@ namespace _3902_Project
 
             player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx);
 
-            // Handles loading content for all enemies
+
+            // EnemySpriteFactory, Enemy Actor Factory Enemy Controller, and EnemyLoader Initialization
+            enemyMasterSpriteFactory.LoadContent(Content, _spriteBatch, _graphics);
+            enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory);
             enemyController = new EnemyController();
-            enemyController.LoadContent(Content, _spriteBatch, _graphics);
+            enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Handles laoding enemies into the enemyCotnroller which then updates each of them
+
+            //Load the enmies into the scene
+            enemyLoader.LoadFakeLevel(); //Load a fake level whihc loads all the enmies
+
+
 
             tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), Content.Load<Texture2D>("LinkSprites"), _spriteBatch);
             environment = new Environment(tileFactory);
@@ -94,7 +109,7 @@ namespace _3902_Project
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
             item = new Item(itemFactory);
 
-            keyboardController = new Controllers.IKeyboard(player, environment, item, enemyController, this, audioController, LoadPlayerSFX(Content));
+            keyboardController = new Controllers.IKeyboard(player, environment, item, this, audioController, LoadPlayerSFX(Content));
 
             // Add additional collision handlers here as needed
             collisionManager = new CollisionManager();

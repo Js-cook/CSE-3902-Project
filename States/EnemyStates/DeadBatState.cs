@@ -13,6 +13,7 @@ public class DeadBatState : IEnemyState
         this.bat = bat;
         this.spriteFactory = spriteFactory;
         bat.isDead = true;
+        bat.HitboxActive = false;
 
     }
     public void ChangeDirection()
