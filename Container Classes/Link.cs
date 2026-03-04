@@ -28,7 +28,10 @@ public class Link : ICollidable
 
     public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController)
     {
-        position = new Vector2(10, 10); // arbitrary starting position - change later
+        // Spawn player in center of floor area
+        // Floor grid starts at ~(100, 88) and is 19x10 tiles of 32px each
+        // Center position: (100 + (19*32)/2, 88 + (10*32)/2) ≈ (404, 248)
+        position = new Vector2(400, 250);
         playerState = new RightIdlePlayerState(this, spriteFactory, projectileController);
         Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
         this.projectileSpriteFactory = projectileSpriteFactory;

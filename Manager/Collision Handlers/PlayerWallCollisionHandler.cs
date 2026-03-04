@@ -22,7 +22,7 @@ public class PlayerWallCollisionHandler : ICollisionHandler
     {
         // Push player out based on smallest overlap dimension
         // This prevents player from getting stuck in corners
-        // Add a small buffer (1-2 pixels) to create separation from walls
+        // Add a small buffer (1-2 pixels)  to create separation from walls 
         const int wallBuffer = 2;
 
         if (intersection.Width < intersection.Height)
