@@ -64,6 +64,13 @@ public class GoriyaAttackState : IEnemyState
 
     public void TakeDamage()
     {
-        // Invulnerable during attack, so no damage taken.
+        if (goriya.Health > 0)
+        {
+            goriya.goriyaState = new DamagedGoriyaState(goriya, spriteFactory, _graphics);
+        }
+        else
+        {
+            goriya.goriyaState = new DeadGoriyaState(goriya, spriteFactory);
+        }
     }
 }

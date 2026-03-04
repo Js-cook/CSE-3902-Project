@@ -13,6 +13,7 @@ public class DeadWallmasterState : IEnemyState
         this.wallmaster = wallmaster;
         this.spriteFactory = spriteFactory;
         wallmaster.isDead = true;
+            wallmaster.HitboxActive = false;
     }
     public void ChangeDirection()
     {

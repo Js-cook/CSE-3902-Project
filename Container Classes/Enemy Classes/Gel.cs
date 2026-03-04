@@ -28,9 +28,9 @@ public class Gel : IEnemy {
     
 
 
-    public Gel(GelSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
+    public Gel(GelSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, Vector2 startPosition)
     {
-        position = new Vector2(40, 30); // arbitrary starting position - change later
+        position = startPosition; // arbitrary starting position - change later
         gelState = new MovingGelState(this, spriteFactory, _graphics);
         Sprite = spriteFactory.CreateMovingGelSprite(position);
     }

@@ -13,6 +13,7 @@ public class DeadGelState : IEnemyState
         this.gel = gel;
         this.spriteFactory = spriteFactory;
         gel.isDead = true;
+            gel.HitboxActive = false;
 
     }
     public void ChangeDirection()

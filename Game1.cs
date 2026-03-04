@@ -23,7 +23,12 @@ namespace _3902_Project
         private ProjectileSpriteFactory projectileSpriteFactory;
         private ProjectileController projectileController;
 
+        private EnemyMasterSpriteFactory enemyMasterSpriteFactory;
+        private EnemyFactory enemyFactory;
         private EnemyController enemyController;
+        private EnemyLoader enemyLoader;
+
+
 
         private IController keyboardController;
 
@@ -48,6 +53,7 @@ namespace _3902_Project
         {
             // TODO: Add your initialization logic here
             //AudioController audioController = new AudioController();
+            enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
             base.Initialize();
         }
 
@@ -67,6 +73,7 @@ namespace _3902_Project
         // This method needs to be cleaned up bad
         protected override void LoadContent()
         {
+            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Dictionary<string, SoundEffect> sfx = LoadPlayerSFX(Content);
 
@@ -81,9 +88,17 @@ namespace _3902_Project
 
             player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx);
 
-            // Handles loading content for all enemies
+
+            // EnemySpriteFactory, Enemy Actor Factory Enemy Controller, and EnemyLoader Initialization
+            enemyMasterSpriteFactory.LoadContent(Content, _spriteBatch, _graphics);
+            enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory);
             enemyController = new EnemyController();
-            enemyController.LoadContent(Content, _spriteBatch, _graphics);
+            enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Handles laoding enemies into the enemyCotnroller which then updates each of them
+
+            //Load the enmies into the scene
+            enemyLoader.LoadFakeLevel(); //Load a fake level whihc loads all the enmies
+
+
 
             tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), Content.Load<Texture2D>("LinkSprites"), _spriteBatch);
             environment = new Environment(tileFactory);
@@ -94,35 +109,11 @@ namespace _3902_Project
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
             item = new Item(itemFactory);
 
-            keyboardController = new Controllers.IKeyboard(player, environment, item, enemyController, this, audioController, LoadPlayerSFX(Content));
+            keyboardController = new Controllers.IKeyboard(player, environment, item, this, audioController, LoadPlayerSFX(Content));
 
-            // Initialize collision manager and register handlers
+            // Initialize collision manager and register handlers using CollisionRegistry
             collisionManager = new CollisionManager();
-            RegisterCollisionHandlers();
-        }
-
-        private void RegisterCollisionHandlers()
-        {
-            // Create shared handler instances
-            PlayerEnemyCollisionHandler playerEnemyHandler = new PlayerEnemyCollisionHandler();
-            PlayerProjectileCollisionHandler playerProjectileHandler = new PlayerProjectileCollisionHandler();
-            PlayerWallCollisionHandler playerWallHandler = new PlayerWallCollisionHandler();
-
-            // Register Player vs Enemy collisions for all enemy types
-            collisionManager.RegisterHandler(typeof(Link), typeof(Bat), playerEnemyHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(Gel), playerEnemyHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(Goriya), playerEnemyHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(Skeleton), playerEnemyHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(Wallmaster), playerEnemyHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(Spiketrap), playerEnemyHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(Aquamentus), playerEnemyHandler);
-
-            // Register Player vs Enemy Projectiles  // ← ADD THIS SECTION
-            collisionManager.RegisterHandler(typeof(Link), typeof(GoriyaBoomerang), playerProjectileHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(AquamentusFireball), playerProjectileHandler);
-
-            // Register Player vs Tiles (walls, blocks, etc.)
-            collisionManager.RegisterHandler(typeof(Link), typeof(Tile), playerWallHandler);
+            CollisionRegistry.Initialize(collisionManager);
         }
 
         protected override void Update(GameTime gameTime)

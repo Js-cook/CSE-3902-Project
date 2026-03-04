@@ -17,7 +17,6 @@ public class DownMovingGoriyaState : IEnemyState
 
     private Vector2 velocity;
     private Random randInt;
-    public bool isAttacking = false;
 
 
     private GraphicsDeviceManager _graphics;
@@ -118,7 +117,7 @@ public class DownMovingGoriyaState : IEnemyState
     {
         if (goriya.Health > 0)
         {
-            goriya.goriyaState = new DamagedGoriyaState(goriya, spriteFactory, _graphics, velocity);
+            goriya.goriyaState = new DamagedGoriyaState(goriya, spriteFactory, _graphics);
         }
         else
         {

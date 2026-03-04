@@ -33,12 +33,13 @@ public class Bat : IEnemy
 
 
 
-    public Bat(BatSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
+    public Bat(BatSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, Vector2 startPosition)
     {
-        position = new Vector2(60, 30); // arbitrary starting position - change later
+        position = startPosition; // arbitrary starting position - change later
         batState = new MovingBatState(this, spriteFactory, _graphics);
         this.spriteFactory = spriteFactory;
         Sprite = spriteFactory.CreateBatMovingSprite(position);
+
     }
 
     public void Update(GameTime gametime)

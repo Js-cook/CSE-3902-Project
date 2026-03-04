@@ -13,6 +13,7 @@ public class DeadSkeletonState : IEnemyState
         this.skeleton = skeleton;
         this.spriteFactory = spriteFactory;
         skeleton.isDead = true;
+            skeleton.HitboxActive = false;
     }
     public void ChangeDirection()
     {

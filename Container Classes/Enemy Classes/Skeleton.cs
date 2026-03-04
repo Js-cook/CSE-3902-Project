@@ -22,9 +22,9 @@ public class Skeleton : IEnemy
 
 
 
-    public Skeleton(SkeletonSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
+    public Skeleton(SkeletonSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, Vector2 startPosition)
     {
-        position = new Vector2(40, 30); // arbitrary starting position - change later
+        position = startPosition; // arbitrary starting position - change later
         skeletonState = new MovingSkeletonState(this, spriteFactory, _graphics);
         Sprite = spriteFactory.CreateMovingSkeletonSprite(position);
     }
