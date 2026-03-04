@@ -90,11 +90,9 @@ namespace _3902_Project
             string fullPath = Path.Combine(Content.RootDirectory, "rooms.xml");
             roomManager = new RoomManager(levelFileReader, fullPath, 0, 1);
 
-            levelFileReader.LoadLevel(Path.Combine(Content.RootDirectory, "Room1.csv"));
-
             item = new Item(factoryStorage);
 
-            keyboardController = new Controllers.IKeyboard(player, environment, item, enemyController, this, audioController, LoadPlayerSFX(Content));
+            keyboardController = new Controllers.IKeyboard(player, roomManager, item, enemyController, this, audioController, LoadPlayerSFX(Content));
 
             // Add additional collision handlers here as needed
             collisionManager = new CollisionManager();
