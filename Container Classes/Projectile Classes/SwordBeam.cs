@@ -37,22 +37,23 @@ public class SwordBeam : IProjectile
     }
     public void Update(GameTime gametime)
     {
+        sprite.Update(gametime);
         startTime += gametime.ElapsedGameTime.TotalSeconds;
 
         Vector2 positionNew = new Vector2(Position.X, Position.Y);
         switch (direction)
         {
             case Direction.UP:
-                positionNew.Y -= 5;
+                positionNew.Y -= 7;
                 break;
             case Direction.DOWN:
-                positionNew.Y += 5;
+                positionNew.Y += 7;
                 break;
             case Direction.LEFT:
-                positionNew.X -= 5;
+                positionNew.X -= 7;
                 break;
             case Direction.RIGHT:
-                positionNew.X += 5;
+                positionNew.X += 7;
                 break;
         }
         Position = positionNew;
