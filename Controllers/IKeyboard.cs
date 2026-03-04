@@ -12,9 +12,6 @@ namespace Controllers
 
         private Link player;
 
-        private Environment environment;
-        private int envSwitchLimiter = 0;
-
         private Item item;
         private int itemSwitchLimiter = 0;
 
@@ -31,7 +28,6 @@ namespace Controllers
         public IKeyboard(Link player, Environment env, Item item, EnemyController enemyController, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect)
         {
             this.player = player;
-            this.environment = env;
             this.item = item;
             this.enemyController = enemyController;
             this.gameInstance = gameInstance;
@@ -44,10 +40,6 @@ namespace Controllers
             KeyboardState keyState = Keyboard.GetState();
             bool movementKeyActive = false;
 
-            if (envSwitchLimiter > 0)
-            {
-                envSwitchLimiter--;
-            }
             if (itemSwitchLimiter > 0)
             {
                 itemSwitchLimiter--;
@@ -141,18 +133,6 @@ namespace Controllers
                 player.playerState.BeIdle();
             }
 
-            //for tile cycling
-            if (keyState.IsKeyDown(Keys.T) && envSwitchLimiter == 0)
-            {
-                environment.CycleLeft();
-                envSwitchLimiter = 20;
-            }
-            if (keyState.IsKeyDown(Keys.Y) && envSwitchLimiter == 0)
-            {
-                environment.CycleRight();
-                envSwitchLimiter = 20;
-            }
-
             //for item cycling
             if (keyState.IsKeyDown(Keys.U) && itemSwitchLimiter == 0)
             {
@@ -180,7 +160,6 @@ namespace Controllers
             {
                 // reset
                 enemyController.ResetEnemy();
-                environment.CycleReset();
                 item.CycleReset();
                 enemyController.CurrentEnemy().position = new Vector2(40, 30);
                 player.position = new Vector2(10, 10);

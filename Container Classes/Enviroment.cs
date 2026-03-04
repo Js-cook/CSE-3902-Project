@@ -10,13 +10,17 @@ using System.Diagnostics;
 public class Environment
 {
     public List<ISprite[]> tiles { get; set; }
-
-    public Dictionary<int, BaseTile> doorMap = new Dictionary<int, BaseTile>();
-
+    public Dictionary<int, ISprite> doorMap = new Dictionary<int, ISprite>();
     public Dictionary<string, ISprite> tileMap { get; set; }
+    private TileFactory factory;
+
+    private const int tileSize = 32;
+    private const int hudHeight = 112;
+    private const int wallOffset = 64;
 
     public Environment(TileFactory factory)
     {
+        this.factory = factory;
         tiles = new List<ISprite[]>();
 
 
@@ -32,38 +36,48 @@ public class Environment
             { "Ladder", factory.CreateLadderSprite() },
             { "BlueFloor", factory.CreateBlueFloorSprite() },
             { "BlueSand", factory.CreateBlueSandSprite() },
-            { "Wall", factory.CreateWallSprite(direction) },
-            { "BombedWall", factory.CreateBombedWallSprite(direction)},
-            { "OpenDoor", factory.CreateOpenDoorSprite(direction)},
-            { "KeyLockedDoor", factory.CreateKeyLockedDoorSprite(direction)},
-            { "DiamondLockedDoor", factory.CreateDiamondLockedDoorSprite(direction)},
             { "RoomExterior", factory.CreateRoomExteriorSprite() }
         };
+    }
 
+    public void AssignDoor(int direction, string type)
+    {
+        doorMap[direction] = type switch
+        {
+            "BombedWall" => factory.CreateBombedWallSprite(direction),
+            "DiamondLockedDoor" => factory.CreateDiamondLockedDoorSprite(direction),
+            "KeyLockedDoor" => factory.CreateKeyLockedDoorSprite(direction),
+            "OpenDoor" => factory.CreateOpenDoorSprite(direction),
+            _ => factory.CreateWallSprite(direction)
+        };
+    }
+
+    private Vector2 GetDoorPosition(int direction)
+    {
+        return direction switch
+        {
+            0 => new Vector2(224, 112),
+            1 => new Vector2(448, 256),
+            2 => new Vector2(224, 400),
+            3 => new Vector2(0, 256),
+            _ => Vector2.Zero
+        };
     }
 
     public void Update(GameTime gameTime)
     {
-        //tiles[currentTileIndex].Update(gameTime);
         tileMap["RoomExterior"].Update(gameTime);
         foreach (ISprite[] tileRow in tiles)
         {
-            foreach (ISprite tile in tileRow)
-            {
-                tile.Update(gameTime);
-            }
+            foreach (ISprite tile in tileRow) tile.Update(gameTime);
         }
+        foreach (var door in doorMap.Values) door.Update(gameTime);
     }
 
     public void Draw()
     {
-        int tileSize = 32;
-        int hudHeight = 112;
-        int wallOffset = 64; // 2 tiles * 32px
 
-        // Start floor at X:64, Y:112(HUD) + 64(Wall) = 176
         Vector2 currentPos = new Vector2(wallOffset, hudHeight + wallOffset);
-
         foreach (ISprite[] tileRow in tiles)
         {
             float rowStartX = currentPos.X;
@@ -76,7 +90,11 @@ public class Environment
             currentPos.Y += tileSize;
         }
 
-        // Draw walls starting right under the HUD
         tileMap["RoomExterior"].SpriteDraw(new Vector2(0, hudHeight));
+
+        foreach (var kvp in doorMap)
+        {
+            kvp.Value.SpriteDraw(GetDoorPosition(kvp.Key));
+        }
     }
 }

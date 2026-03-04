@@ -22,37 +22,32 @@ public class LevelFileReader
         {
             XDocument doc = XDocument.Load(stream);
 
-            var tileRows = doc.Descendants("Tiles").Descendants("row");
+            gameEnv.tiles.Clear();
+            gameEnv.doorMap.Clear();
 
+            var tileRows = doc.Descendants("Tiles").Descendants("row");
             foreach (var rowElement in tileRows)
             {
                 string[] cols = rowElement.Value.Trim().Split(',');
-
                 if (cols.Length > 0 && !string.IsNullOrWhiteSpace(cols[0]))
                 {
                     ISprite[] tileRow = new ISprite[cols.Length];
-
                     for (int i = 0; i < cols.Length; i++)
                     {
-                        string tileKey = cols[i].Trim();
-                        if (gameEnv.tileMap.ContainsKey(tileKey))
+                        string key = cols[i].Trim();
+                        if (gameEnv.tileMap.ContainsKey(key))
                         {
-                            tileRow[i] = gameEnv.tileMap[tileKey];
+                            tileRow[i] = gameEnv.tileMap[key];
                         }
                     }
                     gameEnv.tiles.Add(tileRow);
                 }
-            
             }
 
-            // 3. PARSE DOORS and store in gameEnv
             var doors = doc.Descendants("Doors").Elements();
             foreach (var door in doors)
             {
-                string sideName = door.Name.LocalName;
-                string type = door.Attribute("type")?.Value;
-
-                int direction = sideName switch
+                int direction = door.Name.LocalName switch
                 {
                     "Top" => 0,
                     "Right" => 1,
@@ -60,16 +55,8 @@ public class LevelFileReader
                     "Left" => 3,
                     _ => 0
                 };
-
-                // Create the door and store it immediately in gameEnv
-                gameEnv.doorMap[direction] = type switch
-                {
-                    "BombedWall" => gameEnv.factory.CreateBombedWallSprite(direction),
-                    "DiamondLockedDoor" => gameEnv.factory.CreateDiamondLockedDoorSprite(direction),
-                    "KeyLockedDoor" => gameEnv.factory.CreateKeyLockedDoorSprite(direction),
-                    "OpenDoor" => gameEnv.factory.CreateOpenDoorSprite(direction),
-                    _ => gameEnv.factory.CreateWallSprite(direction)
-                };
+                string type = door.Attribute("type").Value;
+                gameEnv.AssignDoor(direction, type);
             }
         }
     }

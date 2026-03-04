@@ -10,9 +10,9 @@
 	</Tiles>
 
 	<Doors>
-		<top type="BombedWall" />
-		<right type="OpenDoor" />
-		<bottom type="KeyLockedDoor" />
-		<left type="DiamondLockedDoor" />
+		<Top type="BombedWall" />
+		<Right type="OpenDoor" />
+		<Bottom type="KeyLockedDoor" />
+		<Left type="DiamondLockedDoor" />
 	</Doors>
 </Room>
