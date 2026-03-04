@@ -51,5 +51,39 @@ public class EnemyController
             enemy.Draw();
         }
     }
+
+    public List<IProjectile> GetAllEnemyProjectiles()
+    {
+        List<IProjectile> projectiles = new List<IProjectile>();
+
+        foreach (var enemy in enemyArray)
+        {
+            // Check if it's a Goriya with a boomerang
+            if (enemy is Goriya goriya)
+            {
+                if (goriya.goriyaBoomerang != null && goriya.goriyaBoomerang.Active)
+                {
+                    projectiles.Add(goriya.goriyaBoomerang);
+                }
+            }
+
+            // Check if it's Aquamentus with fireballs
+            if (enemy is Aquamentus aquamentus)
+            {
+                if (aquamentus.topFireball != null && aquamentus.topFireball.Active)
+                    projectiles.Add(aquamentus.topFireball);
+                if (aquamentus.middleFireball != null && aquamentus.middleFireball.Active)
+                    projectiles.Add(aquamentus.middleFireball);
+                if (aquamentus.bottomFireball != null && aquamentus.bottomFireball.Active)
+                    projectiles.Add(aquamentus.bottomFireball);
+            }
+        }
+
+        return projectiles;
+    }
 }
+
+
+
+
 

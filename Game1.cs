@@ -139,8 +139,7 @@ namespace _3902_Project
             // Register Player vs Tiles (walls, blocks, etc.)  // ← ADD THIS SECTION
             collisionManager.RegisterHandler(typeof(Link), typeof(Tile), playerWallHandler);
 
-            // Register existing handlers
-            collisionManager.RegisterHandler(typeof(Bat), typeof(Boomerang), new BatBoomerangCollisionHandler());
+          
         }
 
         protected override void Update(GameTime gameTime)
