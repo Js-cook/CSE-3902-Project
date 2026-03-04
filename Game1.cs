@@ -77,9 +77,10 @@ namespace _3902_Project
 
             //Enemy loading
             enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
-            enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory);
-            enemyLoader = new EnemyLoader(enemyFactory, enemyController);
-            enemyLoader.LoadFakeLevel();
+            enemyMasterSpriteFactory.LoadContent(Content, _spriteBatch, _graphics); // Load all the enemy sprite factories' content
+            enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory); // Pass the master factory to the enemy factory so it can use the individual factories to create enemies
+            enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Pass the enemy factory and controller to the loader so it can create enemies and add them to the controller
+            enemyLoader.LoadFakeLevel(); // Load a fake level with some enemies for testing
 
 
             factoryStorage = new FactoryStorage(playerTexture, tileTexture, itemTexture, _spriteBatch);
