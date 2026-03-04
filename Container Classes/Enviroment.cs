@@ -142,11 +142,16 @@ public class Environment
         }
 
         // Add boundary walls to contain player within the floor tile area
-        // The floor tiles are a 19x10 grid starting at gridOffset
-        // Calculate the actual boundaries based on the tile grid
-        int numCols = tiles.Count > 0 ? tiles[0].Length : 19;
-        int numRows = tiles.Count > 0 ? tiles.Count : 10;
+        // The floor tiles start at gridOffset and form the playable area
+        // Calculate boundaries based on actual tile grid dimensions
 
+        if (tiles.Count == 0)
+            return collidableTiles; // No tiles loaded yet
+
+        int numCols = tiles[0].Length;
+        int numRows = tiles.Count;
+
+        // Calculate the actual floor area boundaries
         int floorLeft = (int)gridOffset.X;
         int floorTop = (int)gridOffset.Y;
         int floorRight = floorLeft + (numCols * tileSize);
