@@ -27,12 +27,12 @@ public class Link : ICollidable
 
     public List<IProjectile> projectiles { get; set; } = new List<IProjectile>();
 
-    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
+    public Link(FactoryStorage factoryStorage, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
     {
         position = new Vector2(10, 10); // arbitrary starting position - change later
-        playerState = new RightIdlePlayerState(this, spriteFactory, projectileController, soundEffect);
-        this.projectileSpriteFactory = projectileSpriteFactory;
-        Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
+        playerState = new RightIdlePlayerState(this, factoryStorage, projectileController, soundEffect);
+        this.projectileSpriteFactory = factoryStorage.projectileSpriteFactory;
+        Sprite = factoryStorage.playerSpriteFactory.CreateRightIdlePlayerSprite(position);
     }
 
     public void MoveUp() 

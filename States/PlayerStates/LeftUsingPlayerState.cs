@@ -10,17 +10,17 @@ public class LeftUsingPlayerState : Interfaces.IPlayerState
     public Dictionary<string, SoundEffect> soundEffect { get; set; }
 
     private Link player;
-    private PlayerSpriteFactory spriteFactory;
+    private FactoryStorage factoryStorage;
 
     private double startClock = 0.0;
     private double animationDuration = 0.4;
 
     private bool animationDone = false;
     private ProjectileController projectileController;
-    public LeftUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
+    public LeftUsingPlayerState(Link player, FactoryStorage factoryStorage, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
     {
         this.player = player;
-        this.spriteFactory = spriteFactory;
+        this.factoryStorage = factoryStorage;
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
     }
@@ -59,8 +59,8 @@ public class LeftUsingPlayerState : Interfaces.IPlayerState
     public void BeIdle()
     {
         if (animationDone) { 
-            player.playerState = new LeftIdlePlayerState(player, spriteFactory, projectileController, soundEffect);
-            player.Sprite = spriteFactory.CreateLeftIdlePlayerSprite(player.position);
+            player.playerState = new LeftIdlePlayerState(player, factoryStorage, projectileController, soundEffect);
+            player.Sprite = factoryStorage.playerSpriteFactory.CreateLeftIdlePlayerSprite(player.position);
         }
     }
 

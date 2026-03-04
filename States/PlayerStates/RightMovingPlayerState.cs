@@ -10,13 +10,13 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
     public Dictionary<string, SoundEffect> soundEffect { get; set; }
 
     private Link player;
-    private PlayerSpriteFactory spriteFactory;
+    private FactoryStorage factoryStorage;
     private ProjectileController projectileController;
 
-    public RightMovingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
+    public RightMovingPlayerState(Link player, FactoryStorage factoryStorage, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
     {
         this.player = player;
-        this.spriteFactory = spriteFactory;
+        this.factoryStorage = factoryStorage;
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
     }
@@ -25,16 +25,16 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
         switch (Direction)
         {
             case Direction.UP:
-                player.playerState = new UpMovingPlayerState(player, spriteFactory, projectileController, soundEffect);
-                player.Sprite = spriteFactory.CreateUpMovingPlayerSprite(player.position);
+                player.playerState = new UpMovingPlayerState(player, factoryStorage, projectileController, soundEffect);
+                player.Sprite = factoryStorage.playerSpriteFactory.CreateUpMovingPlayerSprite(player.position);
                 break;
             case Direction.DOWN:
-                player.playerState = new DownMovingPlayerState(player, spriteFactory, projectileController, soundEffect);
-                player.Sprite = spriteFactory.CreateDownMovingPlayerSprite(player.position);
+                player.playerState = new DownMovingPlayerState(player, factoryStorage, projectileController, soundEffect);
+                player.Sprite = factoryStorage.playerSpriteFactory.CreateDownMovingPlayerSprite(player.position);
                 break;
             case Direction.LEFT:
-                player.playerState = new LeftMovingPlayerState(player, spriteFactory, projectileController, soundEffect);
-                player.Sprite = spriteFactory.CreateLeftMovingPlayerSprite(player.position);
+                player.playerState = new LeftMovingPlayerState(player, factoryStorage, projectileController, soundEffect);
+                player.Sprite = factoryStorage.playerSpriteFactory.CreateLeftMovingPlayerSprite(player.position);
                 break;
         }
     }
@@ -74,8 +74,8 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
 
     public void BeIdle()
     {
-        player.playerState = new RightIdlePlayerState(player, spriteFactory, projectileController, soundEffect);
-        player.Sprite = spriteFactory.CreateRightIdlePlayerSprite(player.position);
+        player.playerState = new RightIdlePlayerState(player, factoryStorage, projectileController, soundEffect);
+        player.Sprite = factoryStorage.playerSpriteFactory.CreateRightIdlePlayerSprite(player.position);
     }
 
     public void Update(GameTime gametime)

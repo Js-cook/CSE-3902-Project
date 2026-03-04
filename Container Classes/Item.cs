@@ -15,26 +15,28 @@ public class Item
     private int currentItemIndex;
     private Vector2 position;
 
-    public Item(ItemFactory factory)
+    public Item(FactoryStorage factoryStorage)
     {
         // arbitrary starting position
         position = new Vector2(400, 100);
         currentItemIndex = 0;
 
-        items = new List<ISprite>();
-        items.Add(factory.CreateCompassSprite());
-        items.Add(factory.CreateMapSprite());
-        items.Add(factory.CreateKeySprite());
-        items.Add(factory.CreateHeartContainerSprite());
-        items.Add(factory.CreateTriForcePieceSprite());
-        items.Add(factory.CreateWoodenBoomerangSprite());
-        items.Add(factory.CreateBowSprite());
-        items.Add(factory.CreateStaticArrowSprite());
-        items.Add(factory.CreateStaticBombSprite());
-        items.Add(factory.CreateHeartSprite());
-        items.Add(factory.CreateRupeeSprite());
-        items.Add(factory.CreateFairySprite());
-        items.Add(factory.CreateClockSprite());
+        items = new List<ISprite>()
+        {
+            factoryStorage.itemFactory.CreateCompassSprite(),
+            factoryStorage.itemFactory.CreateMapSprite(),
+            factoryStorage.itemFactory.CreateKeySprite(),
+            factoryStorage.itemFactory.CreateHeartContainerSprite(),
+            factoryStorage.itemFactory.CreateTriForcePieceSprite(),
+            factoryStorage.itemFactory.CreateWoodenBoomerangSprite(),
+            factoryStorage.itemFactory.CreateBowSprite(),
+            factoryStorage.itemFactory.CreateStaticArrowSprite(),
+            factoryStorage.itemFactory.CreateStaticBombSprite(),
+            factoryStorage.itemFactory.CreateHeartSprite(),
+            factoryStorage.itemFactory.CreateRupeeSprite(),
+            factoryStorage.itemFactory.CreateFairySprite(),
+            factoryStorage.itemFactory.CreateClockSprite()
+        };
 
 
     }
