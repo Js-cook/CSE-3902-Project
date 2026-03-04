@@ -141,37 +141,41 @@ public class Environment
             }
         }
 
-        // Add boundary walls to prevent player from going off screen
-        // The playable area starts at gridOffset, not (0,0)
-        // Screen boundaries should be just outside the visible area
-        int boundaryThickness = 64;
-        int playableLeft = 0;
-        int playableTop = 0;
-        int playableRight = 800;
-        int playableBottom = 480;
+        // Add boundary walls to contain player within the floor tile area
+        // The floor tiles are a 19x10 grid starting at gridOffset
+        // Calculate the actual boundaries based on the tile grid
+        int numCols = tiles.Count > 0 ? tiles[0].Length : 19;
+        int numRows = tiles.Count > 0 ? tiles.Count : 10;
 
-        // Top boundary (spanning full width)
-        for (int x = playableLeft - boundaryThickness; x < playableRight + boundaryThickness; x += tileSize)
+        int floorLeft = (int)gridOffset.X;
+        int floorTop = (int)gridOffset.Y;
+        int floorRight = floorLeft + (numCols * tileSize);
+        int floorBottom = floorTop + (numRows * tileSize);
+
+        int wallThickness = 32;
+
+        // Top boundary - just above the floor area
+        for (int x = floorLeft - wallThickness; x <= floorRight + wallThickness; x += tileSize)
         {
-            collidableTiles.Add(new Tile(null, new Vector2(x, playableTop - boundaryThickness), true));
+            collidableTiles.Add(new Tile(null, new Vector2(x, floorTop - wallThickness), true));
         }
 
-        // Bottom boundary (spanning full width)
-        for (int x = playableLeft - boundaryThickness; x < playableRight + boundaryThickness; x += tileSize)
+        // Bottom boundary - just below the floor area
+        for (int x = floorLeft - wallThickness; x <= floorRight + wallThickness; x += tileSize)
         {
-            collidableTiles.Add(new Tile(null, new Vector2(x, playableBottom), true));
+            collidableTiles.Add(new Tile(null, new Vector2(x, floorBottom), true));
         }
 
-        // Left boundary (spanning full height plus extra)
-        for (int y = playableTop - boundaryThickness; y < playableBottom + boundaryThickness; y += tileSize)
+        // Left boundary - along the left side of floor area
+        for (int y = floorTop - wallThickness; y <= floorBottom + wallThickness; y += tileSize)
         {
-            collidableTiles.Add(new Tile(null, new Vector2(playableLeft - boundaryThickness, y), true));
+            collidableTiles.Add(new Tile(null, new Vector2(floorLeft - wallThickness, y), true));
         }
 
-        // Right boundary (spanning full height plus extra)
-        for (int y = playableTop - boundaryThickness; y < playableBottom + boundaryThickness; y += tileSize)
+        // Right boundary - along the right side of floor area
+        for (int y = floorTop - wallThickness; y <= floorBottom + wallThickness; y += tileSize)
         {
-            collidableTiles.Add(new Tile(null, new Vector2(playableRight, y), true));
+            collidableTiles.Add(new Tile(null, new Vector2(floorRight, y), true));
         }
 
         return collidableTiles;
