@@ -1,0 +1,18 @@
+﻿<Room row="0" col="1">
+	<Tiles>
+		<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+	</Tiles>
+
+	<Doors>
+		<top type="BombedWall" />
+		<right type="OpenDoor" />
+		<bottom type="KeyLockedDoor" />
+		<left type="DiamondLockedDoor" />
+	</Doors>
+</Room>

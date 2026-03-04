@@ -10,34 +10,15 @@ using System.Diagnostics;
 public class Environment
 {
     public List<ISprite[]> tiles { get; set; }
-    private int currentTileIndex;
-    private Vector2 position;
+
+    public Dictionary<int, BaseTile> doorMap = new Dictionary<int, BaseTile>();
+
     public Dictionary<string, ISprite> tileMap { get; set; }
 
     public Environment(TileFactory factory)
     {
-        // fix magic number calculations here
-        position = new Vector2(32 * (800/255.0f), 32 * (480 / 175.0f));
-        currentTileIndex = 0;
-
         tiles = new List<ISprite[]>();
 
-        //tiles = new List<ISprite>();
-        //tiles.Add(factory.CreateStatueSprite());
-        //tiles.Add(factory.CreateSquareBlockSprite());
-        //tiles.Add(factory.CreatePushSquareBlockSprite());
-        //tiles.Add(factory.CreateFireSprite());
-        //tiles.Add(factory.CreateBlueGapSprite());
-        //tiles.Add(factory.CreateStairSprite());
-        //tiles.Add(factory.CreateWhiteBrickSprite());
-        //tiles.Add(factory.CreateLadderSprite());
-        //tiles.Add(factory.CreateBlueFloorSprite());
-        //tiles.Add(factory.CreateBlueSandSprite());
-        //tiles.Add(factory.CreateWallSprite());
-        //tiles.Add(factory.CreateBombedWallSprite());
-        //tiles.Add(factory.CreateKeyLockedDoorSprite());
-        //tiles.Add(factory.CreateDiamondLockedDoorSprite());
-        //tiles.Add(factory.CreateOpenDoorSprite());
 
         tileMap = new Dictionary<string, ISprite> 
         {
@@ -51,33 +32,14 @@ public class Environment
             { "Ladder", factory.CreateLadderSprite() },
             { "BlueFloor", factory.CreateBlueFloorSprite() },
             { "BlueSand", factory.CreateBlueSandSprite() },
-            { "Wall", factory.CreateWallSprite() },
-            { "BombedWall", factory.CreateBombedWallSprite() },
-            { "KeyLockedDoor", factory.CreateKeyLockedDoorSprite() },
-            { "DiamondLockedDoor", factory.CreateDiamondLockedDoorSprite() },
-            { "OpenDoor", factory.CreateOpenDoorSprite() },
+            { "Wall", factory.CreateWallSprite(direction) },
+            { "BombedWall", factory.CreateBombedWallSprite(direction)},
+            { "OpenDoor", factory.CreateOpenDoorSprite(direction)},
+            { "KeyLockedDoor", factory.CreateKeyLockedDoorSprite(direction)},
+            { "DiamondLockedDoor", factory.CreateDiamondLockedDoorSprite(direction)},
             { "RoomExterior", factory.CreateRoomExteriorSprite() }
         };
 
-    }
-
-    public void CycleRight()
-    {
-        currentTileIndex++;
-        if (currentTileIndex >= tiles.Count)
-            currentTileIndex = 0;
-    }
-
-    public void CycleLeft()
-    {
-        currentTileIndex--;
-        if (currentTileIndex < 0)
-            currentTileIndex = tiles.Count - 1;
-    }
-
-    public void CycleReset()
-    {
-        currentTileIndex = 0;
     }
 
     public void Update(GameTime gameTime)
@@ -95,19 +57,26 @@ public class Environment
 
     public void Draw()
     {
-        int increment = 32;
+        int tileSize = 32;
+        int hudHeight = 112;
+        int wallOffset = 64; // 2 tiles * 32px
+
+        // Start floor at X:64, Y:112(HUD) + 64(Wall) = 176
+        Vector2 currentPos = new Vector2(wallOffset, hudHeight + wallOffset);
+
         foreach (ISprite[] tileRow in tiles)
         {
-            foreach(ISprite tile in tileRow)
+            float rowStartX = currentPos.X;
+            foreach (ISprite tile in tileRow)
             {
-                tile.SpriteDraw(position);
-                position.X += increment; // TODO: make it so that it wraps back around to do next row; also change scaling in all the tile sprite classes (15x15)
+                tile.SpriteDraw(currentPos);
+                currentPos.X += tileSize;
             }
-            position.X = 32 * (800/255.0f);
-            position.Y += increment;
+            currentPos.X = rowStartX;
+            currentPos.Y += tileSize;
         }
-        position.Y = 32 * (480 / 175.0f);
-        tileMap["RoomExterior"].SpriteDraw(Vector2.Zero);
-        //tiles[currentTileIndex].SpriteDraw(position);
+
+        // Draw walls starting right under the HUD
+        tileMap["RoomExterior"].SpriteDraw(new Vector2(0, hudHeight));
     }
 }

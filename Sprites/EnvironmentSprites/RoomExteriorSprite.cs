@@ -11,7 +11,7 @@ public class RoomExteriorSprite : BaseTile
     private Texture2D texture;
     private SpriteBatch spriteBatch;
 
-    private Rectangle sourceRectangle = new Rectangle(521, 11, 255, 175);
+    private Rectangle sourceRectangle = new Rectangle(521, 11, 256, 176);
 
     public RoomExteriorSprite(Texture2D texture, SpriteBatch spriteBatch)
     {
@@ -25,7 +25,7 @@ public class RoomExteriorSprite : BaseTile
 
     public override void SpriteDraw(Vector2 position)
     {
-        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 800, 480);
+        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 512, 352);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }

@@ -41,6 +41,10 @@ namespace _3902_Project
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            _graphics.PreferredBackBufferWidth = 512;
+            _graphics.PreferredBackBufferHeight = 464;
+            _graphics.ApplyChanges();
         }
 
         protected override void Initialize()
@@ -87,7 +91,7 @@ namespace _3902_Project
             environment = new Environment(tileFactory);
             levelFileReader = new LevelFileReader(environment);
 
-            levelFileReader.LoadLevel(Path.Combine(Content.RootDirectory, "Room1.csv"));
+            levelFileReader.LoadLevel(Path.Combine(Content.RootDirectory, "rooms.xml"));
 
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
             item = new Item(itemFactory);
@@ -112,7 +116,7 @@ namespace _3902_Project
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             environment.Draw();
             player.Draw();
             item.Draw();

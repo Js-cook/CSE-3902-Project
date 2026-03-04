@@ -9,13 +9,18 @@ public class KeyLockedDoorSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
+    private int direction;
 
-    private Rectangle sourceRectangle = new Rectangle(881, 11, 32, 32);
+    private Rectangle sourceRectangleTop = new Rectangle(881, 11, 32, 32);
+    private Rectangle sourceRectangleBottom = new Rectangle(881, 110, 32, 32);
+    private Rectangle sourceRectangleLeft = new Rectangle(881, 44, 32, 32);
+    private Rectangle sourceRectangleRight = new Rectangle(881, 77, 32, 32);
 
-    public KeyLockedDoorSprite(Texture2D texture, SpriteBatch spriteBatch)
+    public KeyLockedDoorSprite(Texture2D texture, SpriteBatch spriteBatch, int direction)
     {
         this.texture = texture;
         this.spriteBatch = spriteBatch;
+        this.direction = direction;
     }
 
     public override void Update(GameTime gameTime)
@@ -25,6 +30,23 @@ public class KeyLockedDoorSprite : BaseTile
     public override void SpriteDraw(Vector2 position)
     {
         Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 32, 32);
-        spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+        switch (direction)
+        {
+            case 0:
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangleTop, Color.White);
+                break;
+            case 1:
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangleRight, Color.White);
+                break;
+            case 2:
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangleBottom, Color.White);
+                break;
+            case 3:
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangleLeft, Color.White);
+                break;
+            default:
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangleTop, Color.White);
+                break;
+        }
     }
 }
