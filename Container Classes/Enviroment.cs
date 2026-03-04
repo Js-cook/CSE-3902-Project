@@ -142,31 +142,36 @@ public class Environment
         }
 
         // Add boundary walls to prevent player from going off screen
-        // Create walls around the entire perimeter of the 800x480 screen
-        int boundaryThickness = 50;
+        // The playable area starts at gridOffset, not (0,0)
+        // Screen boundaries should be just outside the visible area
+        int boundaryThickness = 64;
+        int playableLeft = 0;
+        int playableTop = 0;
+        int playableRight = 800;
+        int playableBottom = 480;
 
-        // Top boundary (spanning full width plus extra)
-        for (int x = -boundaryThickness; x < 800 + boundaryThickness; x += tileSize)
+        // Top boundary (spanning full width)
+        for (int x = playableLeft - boundaryThickness; x < playableRight + boundaryThickness; x += tileSize)
         {
-            collidableTiles.Add(new Tile(null, new Vector2(x, -boundaryThickness), true));
+            collidableTiles.Add(new Tile(null, new Vector2(x, playableTop - boundaryThickness), true));
         }
 
-        // Bottom boundary (spanning full width plus extra)
-        for (int x = -boundaryThickness; x < 800 + boundaryThickness; x += tileSize)
+        // Bottom boundary (spanning full width)
+        for (int x = playableLeft - boundaryThickness; x < playableRight + boundaryThickness; x += tileSize)
         {
-            collidableTiles.Add(new Tile(null, new Vector2(x, 480), true));
+            collidableTiles.Add(new Tile(null, new Vector2(x, playableBottom), true));
         }
 
-        // Left boundary (spanning full height)
-        for (int y = 0; y < 480; y += tileSize)
+        // Left boundary (spanning full height plus extra)
+        for (int y = playableTop - boundaryThickness; y < playableBottom + boundaryThickness; y += tileSize)
         {
-            collidableTiles.Add(new Tile(null, new Vector2(-boundaryThickness, y), true));
+            collidableTiles.Add(new Tile(null, new Vector2(playableLeft - boundaryThickness, y), true));
         }
 
-        // Right boundary (spanning full height)
-        for (int y = 0; y < 480; y += tileSize)
+        // Right boundary (spanning full height plus extra)
+        for (int y = playableTop - boundaryThickness; y < playableBottom + boundaryThickness; y += tileSize)
         {
-            collidableTiles.Add(new Tile(null, new Vector2(800, y), true));
+            collidableTiles.Add(new Tile(null, new Vector2(playableRight, y), true));
         }
 
         return collidableTiles;

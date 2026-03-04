@@ -22,23 +22,25 @@ public class PlayerWallCollisionHandler : ICollisionHandler
     {
         // Push player out based on smallest overlap dimension
         // This prevents player from getting stuck in corners
+        // Add a small buffer (1-2 pixels) to create separation from walls
+        const int wallBuffer = 2;
 
         if (intersection.Width < intersection.Height)
         {   
             // Horizontal collision - push left or right
             if (player.Hitbox.Center.X < tileHitbox.Center.X)
             {
-                // Player is to the left of tile - push left
+                // Player is to the left of tile - push left with buffer
                 player.position = new Vector2(
-                    tileHitbox.Left - player.Hitbox.Width,
+                    tileHitbox.Left - player.Hitbox.Width - wallBuffer,
                     player.position.Y
                 );
             }
             else
             {
-                // Player is to the right of tile - push right
+                // Player is to the right of tile - push right with buffer
                 player.position = new Vector2(
-                    tileHitbox.Right,
+                    tileHitbox.Right + wallBuffer,
                     player.position.Y
                 );
             }
@@ -48,18 +50,18 @@ public class PlayerWallCollisionHandler : ICollisionHandler
             // Vertical collision - push up or down
             if (player.Hitbox.Center.Y < tileHitbox.Center.Y)
             {
-                // Player is above tile - push up
+                // Player is above tile - push up with buffer
                 player.position = new Vector2(
                     player.position.X,
-                    tileHitbox.Top - player.Hitbox.Height
+                    tileHitbox.Top - player.Hitbox.Height - wallBuffer
                 );
             }
             else
             {
-                // Player is below tile - push down
+                // Player is below tile - push down with buffer
                 player.position = new Vector2(
                     player.position.X,
-                    tileHitbox.Bottom
+                    tileHitbox.Bottom + wallBuffer
                 );
             }
         }
