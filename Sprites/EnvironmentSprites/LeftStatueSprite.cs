@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-public class StatueSprite : BaseTile
+public class LeftStatueSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
 
-    private Rectangle sourceRectangle = new Rectangle(339, 74, 16, 16);
+    private Rectangle sourceRectangle = new Rectangle(339, 75, 16, 16);
 
-    public StatueSprite(Texture2D texture, SpriteBatch spriteBatch)
+    public LeftStatueSprite(Texture2D texture, SpriteBatch spriteBatch)
     {
         this.texture = texture;
         this.spriteBatch = spriteBatch;

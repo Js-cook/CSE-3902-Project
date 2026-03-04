@@ -91,7 +91,7 @@ namespace _3902_Project
             environment = new Environment(tileFactory);
             levelFileReader = new LevelFileReader(environment);
 
-            levelFileReader.LoadLevel(Path.Combine(Content.RootDirectory, "rooms.xml"));
+            levelFileReader.LoadLevel(Path.Combine(Content.RootDirectory, "rooms.xml"),99,99);
 
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
             item = new Item(itemFactory);

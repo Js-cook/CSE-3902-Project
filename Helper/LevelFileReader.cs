@@ -16,16 +16,26 @@ public class LevelFileReader
         this.gameEnv = gameEnv;
     }
 
-    public void LoadLevel(string filePath)
+    public void LoadLevel(string filePath, int row, int col)
     {
         using (Stream stream = TitleContainer.OpenStream(filePath))
         {
             XDocument doc = XDocument.Load(stream);
 
+            var roomNode = doc.Descendants("Room")
+            .FirstOrDefault(r => (int)r.Attribute("row") == row &&
+                                 (int)r.Attribute("col") == col);
+
+            if (roomNode == null)
+            {
+                Debug.WriteLine($"Room {row},{col} not found in {filePath}");
+                return;
+            }
+
             gameEnv.tiles.Clear();
             gameEnv.doorMap.Clear();
 
-            var tileRows = doc.Descendants("Tiles").Descendants("row");
+            var tileRows = roomNode.Descendants("Tiles").Descendants("row");
             foreach (var rowElement in tileRows)
             {
                 string[] cols = rowElement.Value.Trim().Split(',');
@@ -44,7 +54,7 @@ public class LevelFileReader
                 }
             }
 
-            var doors = doc.Descendants("Doors").Elements();
+            var doors = roomNode.Descendants("Doors").Elements();
             foreach (var door in doors)
             {
                 int direction = door.Name.LocalName switch

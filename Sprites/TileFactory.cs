@@ -17,9 +17,13 @@ public class TileFactory
         this.spriteBatch = spriteBatch;
     }
 
-    public ISprite CreateStatueSprite()
+    public ISprite CreateLeftStatueSprite()
     {
-        return new StatueSprite(tileTexture, spriteBatch);
+        return new LeftStatueSprite(tileTexture, spriteBatch);
+    }
+    public ISprite CreateRightStatueSprite()
+    {
+        return new RightStatueSprite(tileTexture, spriteBatch);
     }
 
     public ISprite CreateSquareBlockSprite()

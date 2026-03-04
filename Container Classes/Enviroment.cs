@@ -26,7 +26,6 @@ public class Environment
 
         tileMap = new Dictionary<string, ISprite> 
         {
-            { "Statue", factory.CreateStatueSprite() },
             { "SquareBlock", factory.CreateSquareBlockSprite() },
             { "PushSquareBlock", factory.CreatePushSquareBlockSprite() },
             { "Fire", factory.CreateFireSprite()  },
@@ -36,7 +35,9 @@ public class Environment
             { "Ladder", factory.CreateLadderSprite() },
             { "BlueFloor", factory.CreateBlueFloorSprite() },
             { "BlueSand", factory.CreateBlueSandSprite() },
-            { "RoomExterior", factory.CreateRoomExteriorSprite() }
+            { "RoomExterior", factory.CreateRoomExteriorSprite() },
+            { "LeftStatue", factory.CreateLeftStatueSprite()  },
+            { "RightStatue", factory.CreateRightStatueSprite()  }
         };
     }
 
