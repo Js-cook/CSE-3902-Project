@@ -37,7 +37,8 @@ public class Goriya : IEnemy
 
         // Give Goriya a boomerang to throw
         goriyaBoomerang = new GoriyaBoomerang(this.position, "left", enemyProjectileSpriteFactory);
-       
+        HitboxActive = false;
+
 
     }
 

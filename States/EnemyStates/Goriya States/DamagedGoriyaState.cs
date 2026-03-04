@@ -18,11 +18,10 @@ public class DamagedGoriyaState : IEnemyState
 
     private Vector2 velocity;
     private Random randInt;
-    public bool isAttacking = false;
 
 
     private GraphicsDeviceManager _graphics;
-    public DamagedGoriyaState(Goriya goriya, GoriyaSpriteFactory goriyaSpriteFactory, GraphicsDeviceManager _graphics, Vector2 prevVelocity)
+    public DamagedGoriyaState(Goriya goriya, GoriyaSpriteFactory goriyaSpriteFactory, GraphicsDeviceManager _graphics)
     {
         this.goriya = goriya;
         this.spriteFactory = goriyaSpriteFactory;
@@ -31,7 +30,7 @@ public class DamagedGoriyaState : IEnemyState
 
         shootTimer = 0;
 
-        velocity = prevVelocity; // Goriya is stationary while damaged
+        
         randInt = new Random();
         this._graphics = _graphics;
 
