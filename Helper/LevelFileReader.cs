@@ -16,7 +16,7 @@ public class LevelFileReader
         this.gameEnv = gameEnv;
     }
 
-    public void LoadLevel(string filePath, int row, int col)
+    public bool LoadLevel(string filePath, int row, int col)
     {
         using (Stream stream = TitleContainer.OpenStream(filePath))
         {
@@ -29,7 +29,7 @@ public class LevelFileReader
             if (roomNode == null)
             {
                 Debug.WriteLine($"Room {row},{col} not found in {filePath}");
-                return;
+                return false;
             }
 
             gameEnv.tiles.Clear();
@@ -68,6 +68,8 @@ public class LevelFileReader
                 string type = door.Attribute("type").Value;
                 gameEnv.AssignDoor(direction, type);
             }
+
+            return true;
         }
     }
 }

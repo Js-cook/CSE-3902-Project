@@ -25,7 +25,10 @@ namespace Controllers
         private AudioController audioController;
         private Dictionary<string, SoundEffect> soundEffects;
 
-        public IKeyboard(Link player, Environment env, Item item, EnemyController enemyController, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect)
+        private RoomManager roomManager;
+        private int roomSwitchLimiter = 0;
+
+        public IKeyboard(Link player, RoomManager roomManager, Item item, EnemyController enemyController, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect)
         {
             this.player = player;
             this.item = item;
@@ -33,6 +36,7 @@ namespace Controllers
             this.gameInstance = gameInstance;
             this.audioController = audioController;
             this.soundEffects = soundEffect;
+            this.roomManager = roomManager;
         }
 
         public void Update()
@@ -48,7 +52,18 @@ namespace Controllers
             {
                 projectileInputLimiter--;
             }
+            if (roomSwitchLimiter > 0)
+            {
+                roomSwitchLimiter--;
+            }
 
+            //room management
+            if (keyState.IsKeyDown(Keys.Y) && roomSwitchLimiter == 0) {  roomManager.MoveUp();    roomSwitchLimiter = 10; }
+            if (keyState.IsKeyDown(Keys.H) && roomSwitchLimiter == 0) {  roomManager.MoveDown();  roomSwitchLimiter = 10; }
+            if (keyState.IsKeyDown(Keys.G) && roomSwitchLimiter == 0) {  roomManager.MoveLeft();  roomSwitchLimiter = 10; }
+            if (keyState.IsKeyDown(Keys.J) && roomSwitchLimiter == 0) {  roomManager.MoveRight(); roomSwitchLimiter = 10; }
+
+            //other inputs
             if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && !movementKeyActive)
             {
                 player.playerState.ChangeDirection(Direction.UP);

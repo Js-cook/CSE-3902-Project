@@ -30,6 +30,7 @@ namespace _3902_Project
         private TileFactory tileFactory;
         private Environment environment;
         private LevelFileReader levelFileReader;
+        private RoomManager roomManager;
 
         private Song dungeonSong;
 
@@ -91,14 +92,16 @@ namespace _3902_Project
 
             tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), Content.Load<Texture2D>("LinkSprites"), _spriteBatch);
             environment = new Environment(tileFactory);
-            levelFileReader = new LevelFileReader(environment);
 
-            levelFileReader.LoadLevel(Path.Combine(Content.RootDirectory, "rooms.xml"),99,99);
+            //room manager
+            levelFileReader = new LevelFileReader(environment);
+            string fullPath = Path.Combine(Content.RootDirectory, "rooms.xml");
+            roomManager = new RoomManager(levelFileReader, fullPath, 0, 1);
 
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
             item = new Item(itemFactory);
 
-            keyboardController = new Controllers.IKeyboard(player, environment, item, enemyController, this, audioController, LoadPlayerSFX(Content));
+            keyboardController = new Controllers.IKeyboard(player, roomManager, item, enemyController, this, audioController, LoadPlayerSFX(Content));
 
             // Add additional collision handlers here as needed
             collisionManager = new CollisionManager();
