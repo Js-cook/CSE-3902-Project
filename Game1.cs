@@ -55,12 +55,13 @@ namespace _3902_Project
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            base.Initialize();
-            audioController = new();
+           
+            audioController = new AudioController();
             enemyController = new EnemyController();
             collisionManager = new CollisionManager();
             CollisionRegistry.Initialize(collisionManager);
+            
+            base.Initialize();
         }
 
         // This method needs to be cleaned up bad
@@ -73,6 +74,13 @@ namespace _3902_Project
             itemTexture = Content.Load<Texture2D>("ItemSprites");
             dungeonSong = Content.Load<Song>("BackgroundMusic");
             Dictionary<string, SoundEffect> sfx = ContentLoaderHelper.LoadPlayerSFX(Content);
+
+            //Enemy loading
+            enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
+            enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory);
+            enemyLoader = new EnemyLoader(enemyFactory, enemyController);
+            enemyLoader.LoadFakeLevel();
+
 
             factoryStorage = new FactoryStorage(playerTexture, tileTexture, itemTexture, _spriteBatch);
 
