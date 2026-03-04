@@ -113,34 +113,10 @@ namespace _3902_Project
 
             // Add additional collision handlers here as needed
             collisionManager = new CollisionManager();
-            RegisterCollisionHandlers();
+            CollisionRegistry.Initialize(collisionManager);
         }
 
-        private void RegisterCollisionHandlers()
-        {
-            // Create shared handler instances
-            PlayerEnemyCollisionHandler playerEnemyHandler = new PlayerEnemyCollisionHandler();
-            PlayerProjectileCollisionHandler playerProjectileHandler = new PlayerProjectileCollisionHandler();
-            PlayerWallCollisionHandler playerWallHandler = new PlayerWallCollisionHandler();
-
-            // Register Player vs Enemy collisions for all enemy types
-            collisionManager.RegisterHandler(typeof(Link), typeof(Bat), playerEnemyHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(Gel), playerEnemyHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(Goriya), playerEnemyHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(Skeleton), playerEnemyHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(Wallmaster), playerEnemyHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(Spiketrap), playerEnemyHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(Aquamentus), playerEnemyHandler);
-
-            // Register Player vs Enemy Projectiles  // ← ADD THIS SECTION
-            collisionManager.RegisterHandler(typeof(Link), typeof(GoriyaBoomerang), playerProjectileHandler);
-            collisionManager.RegisterHandler(typeof(Link), typeof(AquamentusFireball), playerProjectileHandler);
-
-            // Register Player vs Tiles (walls, blocks, etc.)  // ← ADD THIS SECTION
-            collisionManager.RegisterHandler(typeof(Link), typeof(Tile), playerWallHandler);
-
-          
-        }
+        
 
         protected override void Update(GameTime gameTime)
         {
