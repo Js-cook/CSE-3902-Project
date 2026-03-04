@@ -8,7 +8,18 @@ public class Wallmaster : IEnemy
     // idk if this should be public
     public IEnemyState wallmasterState { get; set; }
 
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)position.X, (int)position.Y, 16, 16);
+        }
+    }
 
+    public bool HitboxActive { get; set; }
+
+    public int Health { get; set; }
+    public bool isDead { get; set; }
 
     public Wallmaster(WallmasterSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
     {
@@ -27,5 +38,12 @@ public class Wallmaster : IEnemy
     {
         Sprite.SpriteDraw(position);
     }
+
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        wallmasterState.TakeDamage();
+
+    }   
 
 }

@@ -8,9 +8,21 @@ public class Boomerang : IProjectile
     private double startTime = 0.0;
     private double endTime = 0.75;
     private int directionSign = 1;
+
+    public int DamageValue { get; } = 1;
     public bool Active { get; set; }
 
-    private ISprite sprite;
+    private ISprite sprite; 
+
+    
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+        }
+    }
+    public bool HitboxActive { get; set; } = true;
     private ProjectileSpriteFactory spriteFactory;
 
     public Boomerang(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory)
@@ -20,6 +32,7 @@ public class Boomerang : IProjectile
         this.spriteFactory = spriteFactory;
         sprite = spriteFactory.CreateBoomerangSprite(position);
         Active = true;
+        HitboxActive = true;
     }
     public void Draw()
     {
@@ -57,7 +70,15 @@ public class Boomerang : IProjectile
         {
             // do something to delete arrow
             Active = false;
+            HitboxActive = false;
         }
+    }
+
+    public void OnCollision()
+    {
+        // Go back and dont damage again
+        startTime = endTime / 2;
+        HitboxActive = false;
     }
 }
 

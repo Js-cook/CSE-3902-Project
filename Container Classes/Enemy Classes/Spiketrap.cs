@@ -1,21 +1,28 @@
 ﻿using Microsoft.Xna.Framework;
 
-public class Spiketrap : IEnemy
+public class Spiketrap //TODO: Trap Interface
 {
 
     public Vector2 position { get; set; }
     public ISprite Sprite { get; set; }
-    // idk if this should be public
     public IEnemyState spiketrapState { get; set; }
-
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)position.X, (int)position.Y, 16, 16);
+        }
+    }
+    public bool HitboxActive { get; set; } = true;
 
 
     public Spiketrap(SpiketrapSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
     {
         position = new Vector2(40, 30); // arbitrary starting position - change later
-        spiketrapState = new MovingSpiketrapState(this, spriteFactory, _graphics);
+        spiketrapState = (IEnemyState)new MovingSpiketrapState(this, spriteFactory, _graphics);
         Sprite = spriteFactory.CreateMovingSpiketrapSprite(position);
-    }
+  
+}
 
     public void Update(GameTime gametime)
     {
@@ -28,4 +35,5 @@ public class Spiketrap : IEnemy
         Sprite.SpriteDraw(position);
     }
 
+    // No take damage function
 }

@@ -4,6 +4,7 @@ using System;
 public class DownMovingGoriyaState : IEnemyState
 {
 
+
     private Goriya goriya;
     private GoriyaSpriteFactory spriteFactory;
 
@@ -111,6 +112,18 @@ public class DownMovingGoriyaState : IEnemyState
         goriya.goriyaState = new GoriyaAttackState(goriya, spriteFactory, _graphics, "down");
         goriya.goriyaBoomerang.ResetBoomerang(goriya.position, "down");
         goriya.goriyaBoomerang.Active = true; // Activate the boomerang when fired
+    }
+
+    public void TakeDamage()
+    {
+        if (goriya.Health > 0)
+        {
+            goriya.goriyaState = new DamagedGoriyaState(goriya, spriteFactory, _graphics, velocity);
+        }
+        else
+        {
+            goriya.goriyaState = new DeadGoriyaState(goriya, spriteFactory);
+        }
     }
 
 }

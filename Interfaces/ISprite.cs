@@ -9,5 +9,6 @@ public interface ISprite
 {
     public void SpriteDraw(Vector2 position);
     public void Update(GameTime gametime);
+
 }
 

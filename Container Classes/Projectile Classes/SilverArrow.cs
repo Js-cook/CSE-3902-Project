@@ -3,7 +3,15 @@ using Microsoft.Xna.Framework;
 
 public class SilverArrow : IProjectile
 {
-    public Vector2 Position { get; set; }
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+        }
+    }
+    public bool HitboxActive { get; set; }
+    public int DamageValue { get; set; } = 1; public Vector2 Position { get; set; }
     private Direction direction;
     private double startTime = 0.0;
     private double endTime = 1;
@@ -19,6 +27,7 @@ public class SilverArrow : IProjectile
         this.spriteFactory = spriteFactory;
         sprite = spriteFactory.CreateSilverArrowSprite(position, direction);
         Active = true;
+        HitboxActive = true;
     }
     public void Draw()
     {
@@ -49,7 +58,16 @@ public class SilverArrow : IProjectile
         if (startTime >= endTime)
         {
             Active = false;
+            HitboxActive = false;
         }
+    }
+
+    public void OnCollision()
+    {
+        // Play an animation: TODO
+            Active = false;
+        HitboxActive = false;
+
     }
 }
 

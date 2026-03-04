@@ -17,7 +17,7 @@ public class AudioController
         ActiveSoundEffectInstances = new List<SoundEffectInstance>();
     }
 
-    public SoundEffectInstance PlaySoundEffect(SoundEffect soundEffect, float volume, float pitch, float pan, bool isLooped) 
+    public SoundEffectInstance PlaySoundEffect(SoundEffect soundEffect, float volume=0.5f, float pitch=1.0f, float pan=0.0f, bool isLooped=false) 
     {
         SoundEffectInstance soundEffectInstance = soundEffect.CreateInstance();
 

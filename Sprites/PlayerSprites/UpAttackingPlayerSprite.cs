@@ -29,23 +29,23 @@ namespace Sprites
         public void Update(GameTime gametime)
         {
             attackTimer += gametime.ElapsedGameTime.TotalSeconds;
-            if (attackTimer < 0.1)
+            if (attackTimer < 0.05)
             {
                 currentFrame = frameContainer[0];
             }
-            else if (attackTimer >= 0.1 && attackTimer < 0.2)
+            else if (attackTimer >= 0.05 && attackTimer < 0.1)
             {
                 currentFrame = frameContainer[1];
             }
-            else if (attackTimer >= 0.2 && attackTimer < 0.3)
+            else if (attackTimer >= 0.1 && attackTimer < 0.15)
             {
                 currentFrame = frameContainer[2];
             }
-            else if (attackTimer >= 0.3 && attackTimer < 0.4)
+            else if (attackTimer >= 0.15 && attackTimer < 0.2)
             {
                 currentFrame = frameContainer[3];
             }
-            else if (attackTimer >= 0.4)
+            else if (attackTimer >= 0.2)
             {
                 currentFrame = frameContainer[0];
                 attackTimer = 0.0;
@@ -53,7 +53,27 @@ namespace Sprites
         }
         public void SpriteDraw(Vector2 position)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0.0f);
+            Vector2 origin = new Vector2(0, 0);
+
+            switch (currentFrame)
+            {
+                case Rectangle r when r == frameContainer[1]:
+                    origin.Y = 3;
+                    break;
+                case Rectangle r when r == frameContainer[2]:
+                    origin.Y = 11;
+                    break;
+                case Rectangle r when r == frameContainer[3]:
+                    origin.Y = 12;
+                    break;
+            }
+            if (Hurt)
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, origin, 2.0f, SpriteEffects.None, 0.0f);
+            } else
+            {
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, 2.0f, SpriteEffects.None, 0.0f); // put origin on same x but lower the y
+            }
         }
     }
 

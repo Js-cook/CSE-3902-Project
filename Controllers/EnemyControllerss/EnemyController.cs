@@ -39,41 +39,40 @@ public class EnemyController {
         Wallmaster wallmaster = new Wallmaster(wallmasterSpriteFactory, _graphics);
         enemyArray.Add(wallmaster);
 
-        SpiketrapSpriteFactory spiketrapSpriteFactory = new SpiketrapSpriteFactory(enemyTexture, _spriteBatch);
-        Spiketrap spiketrap = new Spiketrap(spiketrapSpriteFactory, _graphics);
-        enemyArray.Add(spiketrap);
-
         AquamentusSpriteFactory aquamentusSpriteFactory = new AquamentusSpriteFactory(bossTexture, _spriteBatch);
         Aquamentus aquamentus = new Aquamentus(aquamentusSpriteFactory, _graphics, bossProjectileSpriteFactory);
         enemyArray.Add(aquamentus);
 
-        OldManSpriteFactory oldManSpriteFactory = new OldManSpriteFactory(npcTexture, _spriteBatch);
-        OldMan oldMan = new OldMan(oldManSpriteFactory, _graphics);
-        enemyArray.Add(oldMan);
-
-        OldManFlameSpriteFactory oldManFlameSpriteFactory = new OldManFlameSpriteFactory(npcTexture, _spriteBatch);
-        OldManFlame oldManFlame = new OldManFlame(oldManFlameSpriteFactory, _graphics);
-        enemyArray.Add(oldManFlame);
+        enemyArray[0].HitboxActive = true; // Set the first enemy's hitbox to active by default
     }
 
     public void NextEnemy()
     {
+        enemyArray[index].HitboxActive
+            = false;
         index++;
         if (index >= enemyArray.Count)
         {
             index = 0;
         }
+        enemyArray[index].HitboxActive
+            = true;
+
     }
 
     public void PreviousEnemy()
     {
+            enemyArray[index].HitboxActive
+                = false;
         index--;
         if (index < 0)
         {
             index = enemyArray.Count - 1;
         }
+        enemyArray[index].HitboxActive
+            = true;
     }
-
+    
     public void ResetEnemy()
     {
         index = 0;
@@ -91,14 +90,47 @@ public class EnemyController {
 
     public void Update(GameTime gameTime)
     {
-        enemyArray[index].Update(gameTime);
+        if (enemyArray.Count == 0)
+        {
+            return;
+            
+        }
+        if (index < enemyArray.Count && enemyArray.Count > 0)
+        {
+
+
+            if (enemyArray[index].isDead)
+            {
+                
+                enemyArray[index].HitboxActive = false;
+                enemyArray.RemoveAt(index);
+                if (enemyArray.Count == 0)
+                {
+                    return;
+                }
+                if (index >= enemyArray.Count - 1)
+                {
+                    index = 0;
+                }
+                else
+                {
+                    index++;
+                }
+                enemyArray[index].HitboxActive = true;
+            }
+
+            enemyArray[index].Update(gameTime);
+        }
+       
 
     }
 
     public void Draw()
     {
-        enemyArray[index].Draw();
-
+        if (index < enemyArray.Count && enemyArray.Count > 0)
+        {
+            enemyArray[index].Draw();
+        }
     }
 }
 

@@ -12,6 +12,16 @@ using System.Threading.Tasks;
 
 public class GoriyaBoomerang : IProjectile
 {
+
+    public int DamageValue { get; set; }
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+        }
+    }
+    public bool HitboxActive { get; set; }
     public Vector2 Position { get; set; }
     string direction;
     private double startTime = 0.0;
@@ -74,7 +84,13 @@ public class GoriyaBoomerang : IProjectile
         startTime = 0.0;
     }
 
-    
+    public void OnCollision()
+    {
+        //This will make it return
+        startTime = endTime / 2;
+    }
+
+
 
 
 }

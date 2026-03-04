@@ -3,7 +3,15 @@ using Microsoft.Xna.Framework;
 
 public class Bomb : IProjectile
 {
-    public bool Active { get; set; }
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+        }
+    }
+    public bool HitboxActive { get; set; }
+    public int DamageValue { get; set; } = 1; public bool Active { get; set; }
     private double startTime = 0.0;
     private double endTime = 0.75;
 
@@ -32,6 +40,7 @@ public class Bomb : IProjectile
         this.spriteFactory = spriteFactory;
         this.sprite = spriteFactory.CreateBombSprite(position);
         Active = true;
+        HitboxActive = true;
     }
     public void Draw()
     {
@@ -43,6 +52,12 @@ public class Bomb : IProjectile
         if (startTime >= endTime)
         {
             Active = false;
+            HitboxActive = false;
         }
+    }
+
+    public void OnCollision()
+    {
+        // do nothing, bomb should not interact with anything
     }
 }

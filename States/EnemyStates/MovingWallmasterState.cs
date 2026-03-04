@@ -85,6 +85,15 @@ public class MovingWallmasterState : IEnemyState
 
     }
 
+    public void TakeDamage()
+    {
+              
+        if (wallmaster.Health <= 0)
+        {
+            wallmaster.wallmasterState = new DeadWallmasterState(wallmaster, spriteFactory);
+        }
+    }
+
 
 
 

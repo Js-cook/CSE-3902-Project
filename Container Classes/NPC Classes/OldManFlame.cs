@@ -5,8 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class OldManFlame : IEnemy
+public class OldManFlame //TODO: NPC Object nterface
 {
+
+    public Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle((int)position.X, (int)position.Y, 16, 16);
+        }
+    }
     public Vector2 position { get; set; }
     public ISprite Sprite { get; set; }
     // idk if this should be public
@@ -17,7 +25,7 @@ public class OldManFlame : IEnemy
     public OldManFlame(OldManFlameSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
     {
         position = new Vector2(60, 30); // arbitrary starting position - change later
-        oldManFlameState = new IdleOldManFlameState(this, spriteFactory, _graphics);
+        oldManFlameState = (IEnemyState)new IdleOldManFlameState(this, spriteFactory, _graphics); //TODO: CHANGE TO NPC STATE
         Sprite = spriteFactory.CreateOldManFlameSprite(position);
     }
 
