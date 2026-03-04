@@ -43,7 +43,7 @@ public class EnemyMasterSpriteFactory
         
         aquamentusSpriteFactory = new AquamentusSpriteFactory(bossTexture, _spriteBatch);
         bossProjectileSpriteFactory = new BossProjectileSpriteFactory(bossTexture, _spriteBatch);
-        enemyProjectileSpriteFactory = new EnemyProjectileSpriteFactory(npcTexture, _spriteBatch);
+        enemyProjectileSpriteFactory = new EnemyProjectileSpriteFactory(enemyTexture, _spriteBatch);
 
 
 
