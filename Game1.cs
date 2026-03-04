@@ -113,10 +113,34 @@ namespace _3902_Project
 
             // Add additional collision handlers here as needed
             collisionManager = new CollisionManager();
+            RegisterCollisionHandlers();
+        }
 
-            CollisionRegistry.Initialize(collisionManager);
+        private void RegisterCollisionHandlers()
+        {
+            // Create shared handler instances
+            PlayerEnemyCollisionHandler playerEnemyHandler = new PlayerEnemyCollisionHandler();
+            PlayerProjectileCollisionHandler playerProjectileHandler = new PlayerProjectileCollisionHandler();
+            PlayerWallCollisionHandler playerWallHandler = new PlayerWallCollisionHandler();
 
+            // Register Player vs Enemy collisions for all enemy types
+            collisionManager.RegisterHandler(typeof(Link), typeof(Bat), playerEnemyHandler);
+            collisionManager.RegisterHandler(typeof(Link), typeof(Gel), playerEnemyHandler);
+            collisionManager.RegisterHandler(typeof(Link), typeof(Goriya), playerEnemyHandler);
+            collisionManager.RegisterHandler(typeof(Link), typeof(Skeleton), playerEnemyHandler);
+            collisionManager.RegisterHandler(typeof(Link), typeof(Wallmaster), playerEnemyHandler);
+            collisionManager.RegisterHandler(typeof(Link), typeof(Spiketrap), playerEnemyHandler);
+            collisionManager.RegisterHandler(typeof(Link), typeof(Aquamentus), playerEnemyHandler);
 
+            // Register Player vs Enemy Projectiles  // ← ADD THIS SECTION
+            collisionManager.RegisterHandler(typeof(Link), typeof(GoriyaBoomerang), playerProjectileHandler);
+            collisionManager.RegisterHandler(typeof(Link), typeof(AquamentusFireball), playerProjectileHandler);
+
+            // Register Player vs Tiles (walls, blocks, etc.)  // ← ADD THIS SECTION
+            collisionManager.RegisterHandler(typeof(Link), typeof(Tile), playerWallHandler);
+
+            // Register existing handlers
+            collisionManager.RegisterHandler(typeof(Bat), typeof(Boomerang), new BatBoomerangCollisionHandler());
         }
 
         protected override void Update(GameTime gameTime)
@@ -132,12 +156,15 @@ namespace _3902_Project
             projectileController.Update(gameTime);
 
             // 1. Create the empty master list
-            List<ICollidable> collidables =
+            List<ICollidable> collidables = 
             [
                 // 2. Add all collidable objects to the master list
                 player,
                 .. enemyController.enemyArray,
                 .. projectileController.projectiles,
+                .. enemyController.GetAllEnemyProjectiles(), // Enemy projectiles (Goriya boomerang, Aquamentus fireballs)
+                .. environment.GetCollidableTiles(), //Added collidable tiles from environment since environment is not a collidable class, dk
+                
             ];
 
             collisionManager.Update(gameTime, collidables);
@@ -169,4 +196,7 @@ namespace _3902_Project
             base.Draw(gameTime);
         }
     }
+
+    
+    
 }
