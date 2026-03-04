@@ -44,16 +44,16 @@ public class SwordBeam : IProjectile
         switch (direction)
         {
             case Direction.UP:
-                positionNew.Y -= 7;
+                positionNew.Y -= 6;
                 break;
             case Direction.DOWN:
-                positionNew.Y += 7;
+                positionNew.Y += 6;
                 break;
             case Direction.LEFT:
-                positionNew.X -= 7;
+                positionNew.X -= 6;
                 break;
             case Direction.RIGHT:
-                positionNew.X += 7;
+                positionNew.X += 6;
                 break;
         }
         Position = positionNew;
