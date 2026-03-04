@@ -68,6 +68,7 @@ namespace _3902_Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Dictionary<string, SoundEffect> sfx = LoadPlayerSFX(Content);
 
             AudioController audioController = new AudioController();
             dungeonSong = Content.Load<Song>("BackgroundMusic");
@@ -76,9 +77,9 @@ namespace _3902_Project
             playerTexture = Content.Load<Texture2D>("LinkSprites");
             spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
             projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
-            projectileController = new ProjectileController(projectileSpriteFactory);
+            projectileController = new ProjectileController(projectileSpriteFactory, sfx);
 
-            player = new Link(spriteFactory, projectileSpriteFactory, projectileController);
+            player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx);
 
             // Handles loading content for all enemies
             enemyController = new EnemyController();
@@ -120,11 +121,8 @@ namespace _3902_Project
             collisionManager.RegisterHandler(typeof(Link), typeof(GoriyaBoomerang), playerProjectileHandler);
             collisionManager.RegisterHandler(typeof(Link), typeof(AquamentusFireball), playerProjectileHandler);
 
-            // Register Player vs Tiles (walls, blocks, etc.)  // ← ADD THIS SECTION
+            // Register Player vs Tiles (walls, blocks, etc.)
             collisionManager.RegisterHandler(typeof(Link), typeof(Tile), playerWallHandler);
-
-            // Register existing handlers
-            collisionManager.RegisterHandler(typeof(Bat), typeof(Boomerang), new BatBoomerangCollisionHandler());
         }
 
         protected override void Update(GameTime gameTime)

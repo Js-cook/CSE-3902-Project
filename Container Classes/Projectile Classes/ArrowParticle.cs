@@ -9,7 +9,8 @@ public class ArrowParticle : IProjectile
             return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
         }
     }
-    public Vector2 Position { get; set; }
+    public bool HitboxActive { get; set; }
+    public int DamageValue { get; set; } = 1; public Vector2 Position { get; set; }
     private double startTime = 0.0;
     private double endTime = 0.2;
     public bool Active { get; set; }
@@ -21,6 +22,7 @@ public class ArrowParticle : IProjectile
         this.Position = position;
         sprite = spriteFactory.CreateArrowParticleSprite(position);
         Active = true;
+        HitboxActive = true;
     }
     public void Draw()
     {
@@ -34,7 +36,14 @@ public class ArrowParticle : IProjectile
         {
             // do something to delete particle
             Active = false;
+            HitboxActive = false;
         }
+    }
+
+    public void OnCollision()
+    {
+        // do nothing, particle should not interact with anything
+
     }
 }
 

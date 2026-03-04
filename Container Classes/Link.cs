@@ -15,6 +15,7 @@ public class Link : ICollidable
             return new Rectangle((int)position.X, (int)position.Y, 16, 16);
         }
     }
+    public bool HitboxActive { get; set; } //not sure if this is necessary for Link, but it is for enemies and projectiles so I added it here for consistency and to implement ICollidable correctly
     public Vector2 position { get; set; }
     public IPlayerSprite Sprite { get; set; }
     public IPlayerState playerState { get; set; }
@@ -26,15 +27,16 @@ public class Link : ICollidable
 
     public List<IProjectile> projectiles { get; set; } = new List<IProjectile>();
 
-    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController)
+    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
     {
         // Spawn player in center of floor area
         // Floor grid starts at ~(100, 88) and is 19x10 tiles of 32px each
         // Center position: (100 + (19*32)/2, 88 + (10*32)/2) ≈ (404, 248)
         position = new Vector2(400, 250);
-        playerState = new RightIdlePlayerState(this, spriteFactory, projectileController);
-        Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
+        HitboxActive = true; // Enable collision detection for player
+        playerState = new RightIdlePlayerState(this, spriteFactory, projectileController, soundEffect);
         this.projectileSpriteFactory = projectileSpriteFactory;
+        Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
     }
 
     public void MoveUp() 
@@ -60,7 +62,7 @@ public class Link : ICollidable
     {
         playerState.Update(gametime);
         Sprite.Update(gametime);
-        List<IProjectile> markedForDeletion = new List<IProjectile>();
+        //List<IProjectile> markedForDeletion = new List<IProjectile>();
 
         if (Hurt)
         {
@@ -71,40 +73,12 @@ public class Link : ICollidable
                 hurtTimer = 0.0;
             }
         }
-
-        //foreach (IProjectile projectile in projectiles)
-        //{
-        //    if (!projectile.Active)
-        //    {
-        //        markedForDeletion.Add(projectile);
-
-        //    }
-        //    projectile.Update(gametime);
-        //}
-
-        //foreach (IProjectile projectile in markedForDeletion)
-        //{
-        //    projectiles.Remove(projectile);
-        //    if(projectile is Arrow || projectile is SilverArrow)
-        //    {
-        //        projectiles.Add(new ArrowParticle(projectile.Position, projectileSpriteFactory));
-        //    }
-        //    if(projectile is Bomb)
-        //    {
-        //        projectiles.Add(new BombParticle(projectile.Position, projectileSpriteFactory));
-        //    }
-        //}
-
     }
 
     public void Draw()
     {
         Sprite.Hurt = Hurt;
         Sprite.SpriteDraw(position);
-        //foreach (IProjectile projectile in projectiles)
-        //{
-        //    projectile.Draw();
-        //}
     }
 }
 

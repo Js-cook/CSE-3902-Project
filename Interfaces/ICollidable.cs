@@ -3,4 +3,5 @@
 public interface ICollidable
 {
     public Rectangle Hitbox { get; }
+    public bool HitboxActive { get; set; }
 }

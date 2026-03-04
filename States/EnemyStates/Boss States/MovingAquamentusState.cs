@@ -78,12 +78,15 @@ public class MovingAquamentusState : IEnemyState
     public void ShootFireball()
     {
         aquamentus.aquamentusState = new AttackingAquamentusState(aquamentus, spriteFactory, _graphics);
-        aquamentus.topFireball.ResetFireball(aquamentus.position);
-        aquamentus.middleFireball.ResetFireball(aquamentus.position);
-        aquamentus.bottomFireball.ResetFireball(aquamentus.position);
-        aquamentus.topFireball.Active = true;
-        aquamentus.middleFireball.Active = true;
-        aquamentus.bottomFireball.Active = true;
+        
+    }
+
+    public void TakeDamage()
+    {
+        if (aquamentus.Health <= 0)
+        {
+            aquamentus.aquamentusState = new DeadAquamentusState(aquamentus, spriteFactory);
+        }
     }
 
 

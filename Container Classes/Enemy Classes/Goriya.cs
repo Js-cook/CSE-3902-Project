@@ -14,6 +14,10 @@ public class Goriya : IEnemy
                     return new Rectangle((int)position.X, (int)position.Y, 16, 16);
                 }
     }
+    public bool HitboxActive { get; set; }
+    public int Health { get; set; }
+    public bool isDead { get; set; }
+
     public Vector2 position { get; set; }
     // idk if this should be public
     public IEnemyState goriyaState { get; set; }
@@ -54,6 +58,12 @@ public class Goriya : IEnemy
             goriyaBoomerang.Draw();
        
 
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        goriyaState.TakeDamage();
     }
 
 }

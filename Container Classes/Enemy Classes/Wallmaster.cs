@@ -16,6 +16,11 @@ public class Wallmaster : IEnemy
         }
     }
 
+    public bool HitboxActive { get; set; }
+
+    public int Health { get; set; }
+    public bool isDead { get; set; }
+
     public Wallmaster(WallmasterSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
     {
         position = new Vector2(40, 30); // arbitrary starting position - change later
@@ -33,5 +38,12 @@ public class Wallmaster : IEnemy
     {
         Sprite.SpriteDraw(position);
     }
+
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        wallmasterState.TakeDamage();
+
+    }   
 
 }

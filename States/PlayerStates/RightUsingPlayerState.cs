@@ -1,10 +1,14 @@
 ﻿using Controllers;
 using Enums;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Sprites;
+using System.Collections.Generic;
 
 public class RightUsingPlayerState : Interfaces.IPlayerState
 {
+    public Dictionary<string, SoundEffect> soundEffect { get; set; }
+
     private Link player;
     private PlayerSpriteFactory spriteFactory;
 
@@ -14,11 +18,12 @@ public class RightUsingPlayerState : Interfaces.IPlayerState
     private bool animationDone = false;
     private ProjectileController projectileController;
 
-    public RightUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController)
+    public RightUsingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
     {
         this.player = player;
         this.spriteFactory = spriteFactory;
         this.projectileController = projectileController;
+        this.soundEffect = soundEffect;
     }
     public void ChangeDirection(Direction Direction)
     {
@@ -56,7 +61,7 @@ public class RightUsingPlayerState : Interfaces.IPlayerState
     {
         if (animationDone)
         {
-            player.playerState = new RightIdlePlayerState(player, spriteFactory, projectileController);
+            player.playerState = new RightIdlePlayerState(player, spriteFactory, projectileController, soundEffect);
             player.Sprite = spriteFactory.CreateRightIdlePlayerSprite(player.position);
         }
     }

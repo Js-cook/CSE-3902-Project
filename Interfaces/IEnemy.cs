@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 public interface IEnemy : ICollidable
 {
+    public int Health { get; set; }
     public Vector2 position {  get; set; }
-    public bool isDead => false;
+    public bool isDead { get; set; }
     public void Update(GameTime gameTime);
 
     public void Draw();
+
+    public void TakeDamage(int damage);
 
    
 }

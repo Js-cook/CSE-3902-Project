@@ -47,4 +47,8 @@ public class ProjectileSpriteFactory
         return new BombParticleSprite(projectileTexture, position, spriteBatch);
     }
 
+    public ISprite CreateSwordBeamSprite(Vector2 position, Direction direction)
+    {
+        return new SwordBeamSprite(projectileTexture, position, spriteBatch, direction);
+    }
 }

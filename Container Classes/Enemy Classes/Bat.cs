@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ public class Bat : IEnemy
             return new Rectangle((int)position.X, (int)position.Y, 16, 16);
         }
     }
+    public bool HitboxActive { get; set; }
     public int Health { get; set; } 
     public bool isDead { get; set; } = false;
     public Vector2 position { get; set; }
@@ -41,6 +43,7 @@ public class Bat : IEnemy
 
     public void Update(GameTime gametime)
     {
+        
         batState.Update(gametime);
         Sprite.Update(gametime);
     }
@@ -48,12 +51,13 @@ public class Bat : IEnemy
     public void Draw()
     {
         Sprite.SpriteDraw(position);
+        
     }
 
     public void TakeDamage(int damage)
     {
 
-        Health -= damage;
-        batState = new DeadBatState(this, spriteFactory);
+        batState.TakeDamage();
+        // change to batState.TakeDamage() to have a death animation
     }
 }

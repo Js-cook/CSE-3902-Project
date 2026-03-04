@@ -28,6 +28,7 @@ public class GoriyaAttackState : IEnemyState
                 break;
         }
         this.direction = direction;
+        goriya.goriyaBoomerang.HitboxActive = true;
     }
     public void ChangeDirection()
     {
@@ -59,5 +60,10 @@ public class GoriyaAttackState : IEnemyState
                     break;
             }
         }
+    }
+
+    public void TakeDamage()
+    {
+        // Invulnerable during attack, so no damage taken.
     }
 }
