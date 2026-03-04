@@ -61,6 +61,10 @@ public class LeftIdlePlayerState : Interfaces.IPlayerState
     public void BeAttacking()
     {
         audioController.PlaySoundEffect(soundEffect["SwordSlash"]);
+
+        IProjectile swordBeam = new SwordBeam(player.position, Direction.LEFT, player.projectileSpriteFactory);
+        projectileController.projectiles.Add(swordBeam);
+
         player.playerState = new LeftAttackingPlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateLeftAttackingPlayerSprite(player.position);
     }

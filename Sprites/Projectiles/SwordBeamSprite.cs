@@ -10,11 +10,11 @@ public class SwordBeamSprite : ISprite
     private Vector2 position;
     private Direction direction;
 
-    private Rectangle sourceRectangleHorizontal = new Rectangle(10, 185, 15, 15);
-    private Rectangle sourceRectangleVertical = new Rectangle(1, 185, 7, 15);
+    //private Rectangle sourceRectangleHorizontal = new Rectangle(10, 185, 15, 15);
+    //private Rectangle sourceRectangleVertical = new Rectangle(1, 185, 7, 15);
 
     private double animationTimer = 0.0;
-    private double animationInterval = 0.1;
+    private double animationInterval = 0.05;
     private int currentFrame = 0;
 
     private Rectangle[] sourceFramesHorizontal =

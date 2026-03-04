@@ -13,7 +13,7 @@ public class RightAttackingPlayerState : Interfaces.IPlayerState
     private PlayerSpriteFactory spriteFactory;
 
     private double startClock = 0.0;
-    private double animationDuration = 0.4;
+    private double animationDuration = 0.2;
 
     private bool animationDone = false;
     private ProjectileController projectileController;

@@ -61,6 +61,10 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
     public void BeAttacking()
     {
         audioController.PlaySoundEffect(soundEffect["SwordSlash"]);
+
+        IProjectile swordBeam = new SwordBeam(player.position, Direction.UP, player.projectileSpriteFactory);
+        projectileController.projectiles.Add(swordBeam);
+
         player.playerState = new UpAttackingPlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateUpAttackingPlayerSprite(player.position);
     }

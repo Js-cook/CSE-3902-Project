@@ -26,23 +26,23 @@ namespace Sprites
         public void Update(GameTime gametime)
         {
             attackTimer += gametime.ElapsedGameTime.TotalSeconds;
-            if (attackTimer < 0.1)
+            if (attackTimer < 0.05)
             {
                 currentFrame = frameContainer[0];
             }
-            else if (attackTimer >= 0.1 && attackTimer < 0.2)
+            else if (attackTimer >= 0.05 && attackTimer < 0.1)
             {
                 currentFrame = frameContainer[1];
             }
-            else if (attackTimer >= 0.2 && attackTimer < 0.3)
+            else if (attackTimer >= 0.1 && attackTimer < 0.15)
             {
                 currentFrame = frameContainer[2];
             }
-            else if (attackTimer >= 0.3 && attackTimer < 0.4)
+            else if (attackTimer >= 0.15 && attackTimer < 0.2)
             {
                 currentFrame = frameContainer[3];
             }
-            else if (attackTimer >= 0.4)
+            else if (attackTimer >= 0.2)
             {
                 currentFrame = frameContainer[0];
                 attackTimer = 0.0;
