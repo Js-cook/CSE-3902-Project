@@ -85,6 +85,11 @@ public class MovingAquamentusState : IEnemyState
         }
     }
 
+    public void OnWallCollision()
+    {
+        velocity = -velocity; // Reverse direction upon wall collision
+    }
+
 
 
 }

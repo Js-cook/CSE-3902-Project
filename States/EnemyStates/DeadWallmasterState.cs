@@ -32,4 +32,9 @@ public class DeadWallmasterState : IEnemyState
     {
         // No need for this
     }
+
+    public void OnWallCollision()
+    {
+        // No movement when dead, so no wall collision logic needed.
+    }
 }

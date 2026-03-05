@@ -51,4 +51,10 @@ public class Wallmaster : IEnemy
         wallmasterState = newState;
     }
 
+    public void OnWallCollision()
+    {
+        // Implement logic for what happens when Wallmaster collides with a wall, if necessary
+        wallmasterState.OnWallCollision();
+    }
+
 }

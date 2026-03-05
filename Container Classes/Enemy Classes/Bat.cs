@@ -66,4 +66,10 @@ public class Bat : IEnemy
     {
         batState = newState;
     }
+
+    public void OnWallCollision()
+    {
+        // Implement logic for what happens when Bat collides with a wall, if necessary
+        batState.OnWallCollision();
+    }
 }

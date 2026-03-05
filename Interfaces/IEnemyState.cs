@@ -11,6 +11,8 @@ public interface IEnemyState
     void ChangeDirection();
     void BeDead();
 
+    void OnWallCollision();
+
     void Update(GameTime gameTime);
 
 }

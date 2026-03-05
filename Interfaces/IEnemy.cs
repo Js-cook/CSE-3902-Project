@@ -18,5 +18,7 @@ public interface IEnemy : ICollidable
 
     public void ChangeState(IEnemyState newState);
 
+    public void OnWallCollision();
+
 
 }

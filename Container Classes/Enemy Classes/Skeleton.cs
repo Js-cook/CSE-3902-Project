@@ -51,4 +51,10 @@ public class Skeleton : IEnemy
         skeletonState = newState;
     }
 
+    public void OnWallCollision()
+    {
+        // Implement logic for what happens when Skeleton collides with a wall, if necessary
+        skeletonState.OnWallCollision();
+    }
+
 }

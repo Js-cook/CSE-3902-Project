@@ -58,5 +58,10 @@ public class MovingBatState : IEnemyState
         }
     }
 
+    public void OnWallCollision()
+    {
+        velocity = -velocity; // Reverse direction upon wall collision
+    }
+
 
 }

@@ -79,5 +79,10 @@ public class AttackingAquamentusState : IEnemyState
 
     }
 
+    public void OnWallCollision()
+    {
+               velocity = -velocity;
+    }
+
 
 }

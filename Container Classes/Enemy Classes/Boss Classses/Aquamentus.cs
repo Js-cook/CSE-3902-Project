@@ -85,4 +85,10 @@ public class Aquamentus : IEnemy
         aquamentusState = newState;
     }
 
+    public void OnWallCollision()
+    {
+        // Implement logic for what happens when Aquamentus collides with a wall, if necessary
+        aquamentusState.OnWallCollision();
+    }
+
 }

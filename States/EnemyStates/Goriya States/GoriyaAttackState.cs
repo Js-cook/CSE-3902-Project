@@ -90,4 +90,9 @@ public class GoriyaAttackState : IEnemyState
                 break;
         }
     }
+
+    public void OnWallCollision()
+    {
+        // No movement during attack, so no wall collision logic needed.
+    }
 }

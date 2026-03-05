@@ -32,4 +32,9 @@ public class DeadAquamentusState : IEnemyState
     {
         // No need for this
     }
+
+    public void OnWallCollision()
+    {
+        // No need for this
+    }
 }

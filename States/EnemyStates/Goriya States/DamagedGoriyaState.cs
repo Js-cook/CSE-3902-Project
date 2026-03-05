@@ -78,4 +78,8 @@ public class DamagedGoriyaState : IEnemyState
         // No need for this, as Goriya is already in a damaged state. If we wanted to implement a knockback effect, we could modify the velocity here.
     }
 
+    public void OnWallCollision()
+    {
+        // No movement when damaged, so no wall collision logic needed.
+    }
 }

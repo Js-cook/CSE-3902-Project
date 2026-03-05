@@ -57,5 +57,10 @@ public class Gel : IEnemy {
     {
         gelState = newState;
     }
+    public void OnWallCollision()
+    {
+        // Implement logic for what happens when Gel collides with a wall, if necessary
+        gelState.OnWallCollision();
+    }
 
 }
