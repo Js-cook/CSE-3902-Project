@@ -73,10 +73,10 @@ public class Goriya : IEnemy
         goriyaState = newState;
     }
 
-    public void OnWallCollision()
+    public void OnWallCollision(Direction newDir)
     {
         // Implement logic for what happens when Goriya collides with a wall, if necessary
-        goriyaState.OnWallCollision();
+        goriyaState.OnWallCollision(newDir);
     }
 
 }

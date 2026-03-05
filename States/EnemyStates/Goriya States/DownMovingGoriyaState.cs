@@ -114,4 +114,20 @@ public class DownMovingGoriyaState : IEnemyState
     {
         velocity = -velocity; // Reverse direction upon wall collision
     }
+
+    public void OnWallCollision(Direction newDir)
+    {
+        switch (newDir)
+        {
+            case Direction.UP:
+                goriya.ChangeState(new UpMovingGoriyaState(goriya, spriteFactory, _graphics));
+                break;
+            case Direction.LEFT:
+                goriya.ChangeState(new LeftMovingGoriyaState(goriya, spriteFactory, _graphics));
+                break;
+            case Direction.RIGHT:
+                goriya.ChangeState(new RightMovingGoriyaState(goriya, spriteFactory, _graphics));
+                break;
+        }
+    }
 }

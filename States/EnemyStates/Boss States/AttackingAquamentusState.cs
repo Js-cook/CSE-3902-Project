@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using System;
 
 public class AttackingAquamentusState : IEnemyState
@@ -79,9 +80,9 @@ public class AttackingAquamentusState : IEnemyState
 
     }
 
-    public void OnWallCollision()
+    public void OnWallCollision(Direction newDir)
     {
-               velocity = -velocity;
+          velocity = -velocity;
     }
 
 

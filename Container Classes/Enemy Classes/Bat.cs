@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -67,9 +68,9 @@ public class Bat : IEnemy
         batState = newState;
     }
 
-    public void OnWallCollision()
+    public void OnWallCollision(Direction newDir)
     {
         // Implement logic for what happens when Bat collides with a wall, if necessary
-        batState.OnWallCollision();
+        batState.OnWallCollision(newDir);
     }
 }

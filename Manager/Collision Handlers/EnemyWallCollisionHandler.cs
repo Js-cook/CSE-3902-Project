@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 
 public class EnemyWallCollisionHandler : ICollisionHandler
 {
@@ -35,18 +36,13 @@ public class EnemyWallCollisionHandler : ICollisionHandler
             if (enemy.Hitbox.Center.X < tileHitbox.Center.X)
             {
                 // Player is to the left of tile - push left with buffer
-                enemy.position = new Vector2(
-                    tileHitbox.Left - enemy.Hitbox.Width - wallBuffer,
-                    enemy.position.Y
-                );
+                enemy.OnWallCollision(Direction.LEFT);
             }
             else
             {
                 // Player is to the right of tile - push right with buffer
-                enemy.position = new Vector2(
-                    tileHitbox.Right + wallBuffer,
-                    enemy.position.Y
-                );
+                enemy.OnWallCollision(Direction.RIGHT)
+;
             }
         }
         else
@@ -54,19 +50,12 @@ public class EnemyWallCollisionHandler : ICollisionHandler
             // Vertical collision - push up or down
             if (enemy.Hitbox.Center.Y < tileHitbox.Center.Y)
             {
-                // Player is above tile - push up with buffer
-                enemy.position = new Vector2(
-                    enemy.position.X,
-                    tileHitbox.Top - enemy.Hitbox.Height - wallBuffer
-                );
+                enemy.OnWallCollision(Direction.UP);
+
             }
             else
             {
-                // Player is below tile - push down with buffer
-                enemy.position = new Vector2(
-                        enemy.position.X,
-                    tileHitbox.Bottom + wallBuffer
-                );
+                enemy.OnWallCollision(Direction.DOWN);
             }
         }
     }

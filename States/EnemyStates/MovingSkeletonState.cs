@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using System;
 
 
@@ -81,7 +82,7 @@ public class MovingSkeletonState : IEnemyState
         }
     }
 
-    public void OnWallCollision()
+    public void OnWallCollision(Direction newDir)
     {
         velocity = -velocity; // Reverse direction upon wall collision
     }
