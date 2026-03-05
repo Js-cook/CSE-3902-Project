@@ -34,7 +34,7 @@ public class GoriyaBoomerang : IProjectile
 
     // new properties
     public ICollidable owner { get; set; }
-    public bool isPlayerProjectile { get; set; }
+    public bool isPlayerProjectile { get; set; } = false;
 
     public GoriyaBoomerang(Vector2 position, Direction direction, EnemyProjectileSpriteFactory spriteFactory)
     {
@@ -43,8 +43,6 @@ public class GoriyaBoomerang : IProjectile
         sprite = spriteFactory.CreateGoriyaBoomerangSprite(position);
         Active = false;
 
-        // mark as enemy projectile
-        isPlayerProjectile = false;
     }
     public void Draw()
     {

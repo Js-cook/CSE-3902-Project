@@ -65,7 +65,6 @@ public class AttackingAquamentusState : IEnemyState
             aquamentus.ChangeState(new MovingAquamentusState(aquamentus, spriteFactory, _graphics));
         }
 
-        EnemyHelper.CheckBounds(ref velocity, aquamentus.position, _graphics);
 
     }
 

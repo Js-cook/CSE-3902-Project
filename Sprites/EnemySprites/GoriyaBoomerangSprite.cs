@@ -34,7 +34,7 @@ public class GoriyaBoomerangSprite : ISprite
     }
     public void Update(GameTime gametime)
     {
-        Debug.WriteLine("UPDATE BOOMERANG");
+       
         animationTimer += gametime.ElapsedGameTime.TotalSeconds;
         if (animationTimer >= animationInterval)
         {
