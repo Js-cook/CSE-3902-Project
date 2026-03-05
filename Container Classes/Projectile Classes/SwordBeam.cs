@@ -23,7 +23,7 @@ public class SwordBeam : IProjectile
     private Direction direction;
 
     // new property implementation
-    public bool isPlayerProjectile { get; set; }
+    public bool isPlayerProjectile { get; set; } = true; // sword beams are always player projectiles
 
     public SwordBeam(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory)
     {
@@ -33,8 +33,7 @@ public class SwordBeam : IProjectile
         this.direction = direction;
         sprite = spriteFactory.CreateSwordBeamSprite(position, direction);
 
-        // mark as player projectile
-        isPlayerProjectile = true;
+        
     }
 
     public void Draw()
