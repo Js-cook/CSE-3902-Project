@@ -48,7 +48,7 @@ public class DamagedGoriyaState : IEnemyState
         timer += gameTime.ElapsedGameTime.TotalSeconds;
         if (timer >= timerMax)
         {
-            
+
             switch (currDirection)
             {
                 case Direction.UP:
