@@ -11,17 +11,17 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
 
 
     private Link player;
-    private FactoryStorage factoryStorage;
+    private PlayerSpriteFactory spriteFactory;
     private double startClock = 0.0;
     private double animationDuration = 0.2;
 
     private bool animationDone = false;
     private ProjectileController projectileController;
     
-    public UpAttackingPlayerState(Link player, FactoryStorage factoryStorage, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
+    public UpAttackingPlayerState(Link player, PlayerSpriteFactory spriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
     {
         this.player = player;
-        this.factoryStorage = factoryStorage;
+        this.spriteFactory = spriteFactory;
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
     }
@@ -62,8 +62,8 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
         if (animationDone)
         {
             //animationDone = false;
-            player.playerState = new UpIdlePlayerState(player, factoryStorage, projectileController, soundEffect);
-            player.Sprite = factoryStorage.playerSpriteFactory.CreateUpIdlePlayerSprite(player.position);
+            player.playerState = new UpIdlePlayerState(player, spriteFactory, projectileController, soundEffect);
+            player.Sprite = spriteFactory.CreateUpIdlePlayerSprite(player.position);
         }
     }
     public void Update(GameTime gametime)
