@@ -91,7 +91,7 @@ public class GoriyaAttackState : IEnemyState
         }
     }
 
-    public void OnWallCollision()
+    public void OnWallCollision(Direction newDir)
     {
         // No movement during attack, so no wall collision logic needed.
     }

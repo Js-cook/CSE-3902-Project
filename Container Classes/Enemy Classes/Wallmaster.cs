@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 
 public class Wallmaster : IEnemy
 {
@@ -51,10 +52,10 @@ public class Wallmaster : IEnemy
         wallmasterState = newState;
     }
 
-    public void OnWallCollision()
+    public void OnWallCollision(Direction newDir)
     {
         // Implement logic for what happens when Wallmaster collides with a wall, if necessary
-        wallmasterState.OnWallCollision();
+        wallmasterState.OnWallCollision(newDir);
     }
 
 }

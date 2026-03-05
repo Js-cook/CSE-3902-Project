@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ public interface IEnemy : ICollidable
 
     public void ChangeState(IEnemyState newState);
 
-    public void OnWallCollision();
+    public void OnWallCollision(Direction newDir);
 
 
 }

@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Enums;
+using Interfaces;
 using Microsoft.Xna.Framework;
 using Sprites;
 using System;
@@ -57,10 +58,10 @@ public class Gel : IEnemy {
     {
         gelState = newState;
     }
-    public void OnWallCollision()
+    public void OnWallCollision(Direction newDir)
     {
         // Implement logic for what happens when Gel collides with a wall, if necessary
-        gelState.OnWallCollision();
+        gelState.OnWallCollision(newDir);
     }
 
 }

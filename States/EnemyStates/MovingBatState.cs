@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -58,7 +59,7 @@ public class MovingBatState : IEnemyState
         }
     }
 
-    public void OnWallCollision()
+    public void OnWallCollision(Direction newDir)
     {
         velocity = -velocity; // Reverse direction upon wall collision
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 
 public class Aquamentus : IEnemy
 {
@@ -85,10 +86,10 @@ public class Aquamentus : IEnemy
         aquamentusState = newState;
     }
 
-    public void OnWallCollision()
+    public void OnWallCollision(Direction newDir)
     {
         // Implement logic for what happens when Aquamentus collides with a wall, if necessary
-        aquamentusState.OnWallCollision();
+        aquamentusState.OnWallCollision(newDir);
     }
 
 }

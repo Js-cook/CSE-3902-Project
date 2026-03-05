@@ -40,11 +40,7 @@ public class Spiketrap //TODO: Trap Interface
         spiketrapState = newState;
     }
 
-    public void OnWallCollision()
-    {
-        // Implement logic for what happens when Spiketrap collides with a wall, if necessary
-        spiketrapState.OnWallCollision();
-    }
+    
 
     // No take damage function
 }

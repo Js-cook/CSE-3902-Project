@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -78,7 +79,7 @@ public class MovingWallmasterState : IEnemyState
         }
     }
 
-    public void OnWallCollision()
+    public void OnWallCollision(Direction newDir)
     {
         velocity = -velocity; // Reverse direction upon wall collision
     }

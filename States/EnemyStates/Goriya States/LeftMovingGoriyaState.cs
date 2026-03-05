@@ -110,8 +110,19 @@ public class LeftMovingGoriyaState : IEnemyState
         }
     }
 
-    public void OnWallCollision()
+    public void OnWallCollision(Direction newDir)
     {
-        velocity = -velocity; // Reverse direction upon wall collision
+        switch (newDir)
+        {
+            case Direction.UP:
+                goriya.ChangeState(new UpMovingGoriyaState(goriya, spriteFactory, _graphics));
+                break;
+            case Direction.DOWN:
+                goriya.ChangeState(new DownMovingGoriyaState(goriya, spriteFactory, _graphics));
+                break;
+            case Direction.RIGHT:
+                goriya.ChangeState(new RightMovingGoriyaState(goriya, spriteFactory, _graphics));
+                break;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using System.Threading;
 
 public class DeadAquamentusState : IEnemyState
@@ -33,7 +34,7 @@ public class DeadAquamentusState : IEnemyState
         // No need for this
     }
 
-    public void OnWallCollision()
+    public void OnWallCollision(Direction newDir)
     {
         // No need for this
     }
