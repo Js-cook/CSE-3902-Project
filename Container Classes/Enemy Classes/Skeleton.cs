@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 
 public class Skeleton : IEnemy
 {
@@ -22,10 +23,10 @@ public class Skeleton : IEnemy
 
 
 
-    public Skeleton(SkeletonSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
+    public Skeleton(SkeletonSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, Vector2 startPosition)
     {
-        position = new Vector2(40, 30); // arbitrary starting position - change later
-        skeletonState = new MovingSkeletonState(this, spriteFactory, _graphics);
+        position = startPosition; // arbitrary starting position - change later
+        skeletonState = new MovingSkeletonState(this, spriteFactory);
         Sprite = spriteFactory.CreateMovingSkeletonSprite(position);
     }
 
@@ -44,6 +45,17 @@ public class Skeleton : IEnemy
     {
         Health -= damage;
         skeletonState.TakeDamage();
+    }
+
+    public void ChangeState(IEnemyState newState)
+    {
+        skeletonState = newState;
+    }
+
+    public void OnWallCollision(Direction newDir)
+    {
+        // Implement logic for what happens when Skeleton collides with a wall, if necessary
+        skeletonState.OnWallCollision(newDir);
     }
 
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,9 @@ public interface IEnemyState
     void TakeDamage();
     void ChangeDirection();
     void BeDead();
+
+    void OnWallCollision(Direction newDir);
+
 
     void Update(GameTime gameTime);
 

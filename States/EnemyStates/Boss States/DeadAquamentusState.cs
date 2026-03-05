@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using System.Threading;
 
 public class DeadAquamentusState : IEnemyState
@@ -13,6 +14,7 @@ public class DeadAquamentusState : IEnemyState
         this.aquamentus = aquamentus;
         this.spriteFactory = spriteFactory;
         aquamentus.isDead = true;
+            aquamentus.HitboxActive = false;
     }
     public void ChangeDirection()
     {
@@ -28,6 +30,11 @@ public class DeadAquamentusState : IEnemyState
     }
 
     public void TakeDamage()
+    {
+        // No need for this
+    }
+
+    public void OnWallCollision(Direction newDir)
     {
         // No need for this
     }

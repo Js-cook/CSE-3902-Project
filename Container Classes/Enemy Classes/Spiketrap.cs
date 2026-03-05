@@ -16,9 +16,9 @@ public class Spiketrap //TODO: Trap Interface
     public bool HitboxActive { get; set; } = true;
 
 
-    public Spiketrap(SpiketrapSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
+    public Spiketrap(SpiketrapSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, Vector2 startPosition)
     {
-        position = new Vector2(40, 30); // arbitrary starting position - change later
+        position = startPosition; // arbitrary starting position - change later
         spiketrapState = (IEnemyState)new MovingSpiketrapState(this, spriteFactory, _graphics);
         Sprite = spriteFactory.CreateMovingSpiketrapSprite(position);
   
@@ -34,6 +34,13 @@ public class Spiketrap //TODO: Trap Interface
     {
         Sprite.SpriteDraw(position);
     }
+
+    public void ChangeState(IEnemyState newState)
+    {
+        spiketrapState = newState;
+    }
+
+    
 
     // No take damage function
 }

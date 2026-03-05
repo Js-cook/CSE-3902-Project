@@ -20,6 +20,10 @@ public class SilverArrow : IProjectile
     private ISprite sprite;
     private ProjectileSpriteFactory spriteFactory;
 
+    // IProjectile members
+    public ICollidable owner { get; set; }
+    public bool isPlayerProjectile { get; set; }
+
     public SilverArrow(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory)
     {
         this.Position = position;
@@ -28,6 +32,9 @@ public class SilverArrow : IProjectile
         sprite = spriteFactory.CreateSilverArrowSprite(position, direction);
         Active = true;
         HitboxActive = true;
+
+        // mark as player projectile
+        isPlayerProjectile = true;
     }
     public void Draw()
     {

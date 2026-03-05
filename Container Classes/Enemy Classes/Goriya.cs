@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Enums;
 using Microsoft.Xna.Framework;
 
 public class Goriya : IEnemy
@@ -30,14 +31,15 @@ public class Goriya : IEnemy
 
 
 
-    public Goriya(GoriyaSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, EnemyProjectileSpriteFactory enemyProjectileSpriteFactory)
+    public Goriya(GoriyaSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, EnemyProjectileSpriteFactory enemyProjectileSpriteFactory, Vector2 startPosition)
     {
-        position = new Vector2(40, 30); // arbitrary starting position - change later
+        position = startPosition; // arbitrary starting position - change later
         goriyaState = new LeftMovingGoriyaState(this, spriteFactory, _graphics);
 
         // Give Goriya a boomerang to throw
-        goriyaBoomerang = new GoriyaBoomerang(this.position, "left", enemyProjectileSpriteFactory);
-       
+        goriyaBoomerang = new GoriyaBoomerang(this.position, Direction.LEFT, enemyProjectileSpriteFactory);
+        HitboxActive = false;
+
 
     }
 
@@ -64,6 +66,17 @@ public class Goriya : IEnemy
     {
         Health -= damage;
         goriyaState.TakeDamage();
+    }
+
+    public void ChangeState(IEnemyState newState)
+    {
+        goriyaState = newState;
+    }
+
+    public void OnWallCollision(Direction newDir)
+    {
+        // Implement logic for what happens when Goriya collides with a wall, if necessary
+        goriyaState.OnWallCollision(newDir);
     }
 
 }

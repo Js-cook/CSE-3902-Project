@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using System.Threading;
 
 public class DeadSkeletonState : IEnemyState
@@ -13,6 +14,7 @@ public class DeadSkeletonState : IEnemyState
         this.skeleton = skeleton;
         this.spriteFactory = spriteFactory;
         skeleton.isDead = true;
+            skeleton.HitboxActive = false;
     }
     public void ChangeDirection()
     {
@@ -30,5 +32,10 @@ public class DeadSkeletonState : IEnemyState
     public void TakeDamage()
     {
         // No need for this
+    }
+
+    public void OnWallCollision(Direction newDir)
+    {
+        // No movement when dead, so no wall collision logic needed.
     }
 }

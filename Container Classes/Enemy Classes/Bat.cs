@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -33,12 +34,13 @@ public class Bat : IEnemy
 
 
 
-    public Bat(BatSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
+    public Bat(BatSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, Vector2 startPosition)
     {
-        position = new Vector2(60, 30); // arbitrary starting position - change later
-        batState = new MovingBatState(this, spriteFactory, _graphics);
+        position = startPosition; // arbitrary starting position - change later
+        batState = new MovingBatState(this, spriteFactory);
         this.spriteFactory = spriteFactory;
         Sprite = spriteFactory.CreateBatMovingSprite(position);
+
     }
 
     public void Update(GameTime gametime)
@@ -59,5 +61,16 @@ public class Bat : IEnemy
 
         batState.TakeDamage();
         // change to batState.TakeDamage() to have a death animation
+    }
+
+    public void ChangeState(IEnemyState newState)
+    {
+        batState = newState;
+    }
+
+    public void OnWallCollision(Direction newDir)
+    {
+        // Implement logic for what happens when Bat collides with a wall, if necessary
+        batState.OnWallCollision(newDir);
     }
 }

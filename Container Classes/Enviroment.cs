@@ -98,4 +98,79 @@ public class Environment
             kvp.Value.SpriteDraw(GetDoorPosition(kvp.Key));
         }
     }
+
+    public List<Tile> GetCollidableTiles()
+    {
+        List<Tile> collidableTiles = new List<Tile>();
+
+        Vector2 gridOffset = new Vector2(32 * (800 / 255.0f), 32 * (480 / 175.0f));
+        int tileSize = 32;
+
+        for (int row = 0; row < tiles.Count; row++)
+        {
+            for (int col = 0; col < tiles[row].Length; col++)
+            {
+                ISprite sprite = tiles[row][col];
+                Vector2 tilePosition = new Vector2(
+                    gridOffset.X + (col * tileSize),
+                    gridOffset.Y + (row * tileSize)
+                );
+
+                // Determine if tile is solid (blocks player movement)
+                bool isSolid = sprite is WallSprite ||
+                              sprite is SquareBlockSprite ||
+                              sprite is PushSquareBlockSprite ||
+                              sprite is WhiteBrickSprite ||
+                              sprite is StatueSprite ||
+                              sprite is KeyLockedDoorSprite ||
+                              sprite is DiamondLockedDoorSprite;
+
+                collidableTiles.Add(new Tile(sprite, tilePosition, isSolid));
+            }
+        }
+
+        // Add boundary walls to contain player within the floor tile area
+        // The floor tiles start at gridOffset and form the playable area
+        // Calculate boundaries based on actual tile grid dimensions
+
+        if (tiles.Count == 0)
+            return collidableTiles; // No tiles loaded yet
+
+        int numCols = tiles[0].Length;
+        int numRows = tiles.Count;
+
+        // Calculate the actual floor area boundaries
+        int floorLeft = (int)gridOffset.X;
+        int floorTop = (int)gridOffset.Y;
+        int floorRight = floorLeft + (numCols * tileSize);
+        int floorBottom = floorTop + (numRows * tileSize);
+
+        int wallThickness = 32;
+
+        // Top boundary - just above the floor area
+        for (int x = floorLeft - wallThickness; x <= floorRight + wallThickness; x += tileSize)
+        {
+            collidableTiles.Add(new Tile(null, new Vector2(x, floorTop - wallThickness), true));
+        }
+
+        // Bottom boundary - just below the floor area
+        for (int x = floorLeft - wallThickness; x <= floorRight + wallThickness; x += tileSize)
+        {
+            collidableTiles.Add(new Tile(null, new Vector2(x, floorBottom), true));
+        }
+
+        // Left boundary - along the left side of floor area
+        for (int y = floorTop - wallThickness; y <= floorBottom + wallThickness; y += tileSize)
+        {
+            collidableTiles.Add(new Tile(null, new Vector2(floorLeft - wallThickness, y), true));
+        }
+
+        // Right boundary - along the right side of floor area
+        for (int y = floorTop - wallThickness; y <= floorBottom + wallThickness; y += tileSize)
+        {
+            collidableTiles.Add(new Tile(null, new Vector2(floorRight, y), true));
+        }
+
+        return collidableTiles;
+    }
 }

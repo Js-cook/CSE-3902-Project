@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -23,7 +24,7 @@ public class GoriyaBoomerang : IProjectile
     }
     public bool HitboxActive { get; set; }
     public Vector2 Position { get; set; }
-    string direction;
+    Direction direction;
     private double startTime = 0.0;
     private double endTime = 3;
     private int directionSign = 1;
@@ -31,12 +32,19 @@ public class GoriyaBoomerang : IProjectile
 
     private ISprite sprite;
 
-    public GoriyaBoomerang(Vector2 position, string direction, EnemyProjectileSpriteFactory spriteFactory)
+    // new properties
+    public ICollidable owner { get; set; }
+    public bool isPlayerProjectile { get; set; }
+
+    public GoriyaBoomerang(Vector2 position, Direction direction, EnemyProjectileSpriteFactory spriteFactory)
     {
         this.Position = position;
         this.direction = direction;
         sprite = spriteFactory.CreateGoriyaBoomerangSprite(position);
         Active = false;
+
+        // mark as enemy projectile
+        isPlayerProjectile = false;
     }
     public void Draw()
     {
@@ -50,16 +58,16 @@ public class GoriyaBoomerang : IProjectile
         Vector2 positionNew = new Vector2(Position.X, Position.Y);
         switch (direction)
         {
-            case "up":
+            case Direction.UP:
                 positionNew.Y -= (3 * directionSign);
                 break;
-            case "down":
+            case Direction.DOWN:
                 positionNew.Y += (3 * directionSign);
                 break;
-            case "left":
+            case Direction.LEFT:
                 positionNew.X -= (3 * directionSign);
                 break;
-            case "right":
+            case Direction.RIGHT:
                 positionNew.X += (3 * directionSign);
                 break;
         }
@@ -76,7 +84,7 @@ public class GoriyaBoomerang : IProjectile
         }
     }
 
-    public void ResetBoomerang(Vector2 position, string direction)
+    public void ResetBoomerang(Vector2 position, Direction direction)
     {
         this.Position = position;
         this.direction = direction;

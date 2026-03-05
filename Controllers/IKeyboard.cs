@@ -32,7 +32,6 @@ namespace Controllers
         {
             this.player = player;
             this.item = item;
-            this.enemyController = enemyController;
             this.gameInstance = gameInstance;
             this.audioController = audioController;
             this.soundEffects = soundEffect;
@@ -157,27 +156,6 @@ namespace Controllers
             }
 
 
-            //Enemy Controls
-            if (keyState.IsKeyDown(Keys.O) && !previousKeyboardState.IsKeyDown(Keys.O))
-            {
-                enemyController.PreviousEnemy();
-            }
-            if (keyState.IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P))
-            {
-                enemyController.NextEnemy();
-            }
-
-            if (keyState.IsKeyDown(Keys.R))
-            {
-                // reset
-                enemyController.ResetEnemy();
-                item.CycleReset();
-                enemyController.CurrentEnemy().position = new Vector2(40, 30);
-                player.position = new Vector2(10, 10);
-                player.playerState.ChangeDirection(Direction.RIGHT);
-                player.Hurt = false;
-
-            }
             if (keyState.IsKeyDown(Keys.Q))
             {
                 gameInstance.Exit();

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 
 public class Aquamentus : IEnemy
 {
@@ -32,9 +33,9 @@ public class Aquamentus : IEnemy
 
 
 
-    public Aquamentus(AquamentusSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, BossProjectileSpriteFactory enemyProjectileSpriteFactory)
+    public Aquamentus(AquamentusSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, BossProjectileSpriteFactory enemyProjectileSpriteFactory, Vector2 startPosition)
     {
-        position = new Vector2(80, 70); // arbitrary starting position - change later
+        position = startPosition; // arbitrary starting position - change later
         aquamentusState = new MovingAquamentusState(this, spriteFactory, _graphics);
         Sprite = spriteFactory.CreateMovingAquamentusSprite(position);
 
@@ -78,6 +79,17 @@ public class Aquamentus : IEnemy
         aquamentusState.TakeDamage();
 
 
+    }
+
+    public void ChangeState(IEnemyState newState)
+    {
+        aquamentusState = newState;
+    }
+
+    public void OnWallCollision(Direction newDir)
+    {
+        // Implement logic for what happens when Aquamentus collides with a wall, if necessary
+        aquamentusState.OnWallCollision(newDir);
     }
 
 }

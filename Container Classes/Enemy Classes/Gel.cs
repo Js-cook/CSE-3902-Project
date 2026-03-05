@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Enums;
+using Interfaces;
 using Microsoft.Xna.Framework;
 using Sprites;
 using System;
@@ -28,10 +29,10 @@ public class Gel : IEnemy {
     
 
 
-    public Gel(GelSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
+    public Gel(GelSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, Vector2 startPosition)
     {
-        position = new Vector2(40, 30); // arbitrary starting position - change later
-        gelState = new MovingGelState(this, spriteFactory, _graphics);
+        position = startPosition; // arbitrary starting position - change later
+        gelState = new MovingGelState(this, spriteFactory);
         Sprite = spriteFactory.CreateMovingGelSprite(position);
     }
 
@@ -53,5 +54,14 @@ public class Gel : IEnemy {
         gelState.TakeDamage();
     }
 
+    public void ChangeState(IEnemyState newState)
+    {
+        gelState = newState;
+    }
+    public void OnWallCollision(Direction newDir)
+    {
+        // Implement logic for what happens when Gel collides with a wall, if necessary
+        gelState.OnWallCollision(newDir);
+    }
 
 }

@@ -14,6 +14,10 @@ public interface IProjectile : ICollidable
     void Draw();
     void Update(GameTime gametime);
 
+   
     void OnCollision();
+
+    // New flag: indicates projectile type per request
+    bool isPlayerProjectile { get; set; }
 }
 

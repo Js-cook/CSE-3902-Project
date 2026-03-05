@@ -9,6 +9,9 @@ public class BombParticle : IProjectile
             return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
         }
     }
+
+    public bool isPlayerProjectile { get; set; } = true;
+
     public bool HitboxActive { get; set; }
     public int DamageValue { get; set; } = 1; public bool Active { get; set; }
     public Vector2 Position { get; set; }

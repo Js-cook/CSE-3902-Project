@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-public class EnemyProjectileCollisionHandler : ICollisionHandler
+public class EnemyPlayerProjectileCollisionHandler : ICollisionHandler
 {
-    public EnemyProjectileCollisionHandler()
+    public EnemyPlayerProjectileCollisionHandler()
     {
     }
     public void HandleCollision(ICollidable obj1, ICollidable obj2, Rectangle intersection)
@@ -11,10 +11,13 @@ public class EnemyProjectileCollisionHandler : ICollisionHandler
         IProjectile projectile = obj1 as IProjectile ?? obj2 as IProjectile;
         if (projectile != null && enemy != null)
         {
-           
+            // If the projectile is not a player projectile, ignore it (don't damage enemies)
+            if (!projectile.isPlayerProjectile)
+                return;
+
             projectile.OnCollision();
             enemy.TakeDamage(projectile.DamageValue);
-            
+
         }
 
     }

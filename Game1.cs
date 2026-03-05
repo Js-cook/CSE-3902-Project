@@ -24,7 +24,12 @@ namespace _3902_Project
 
         private ProjectileController projectileController;
 
+        private EnemyMasterSpriteFactory enemyMasterSpriteFactory;
+        private EnemyFactory enemyFactory;
         private EnemyController enemyController;
+        private EnemyLoader enemyLoader;
+
+
 
         private IController keyboardController;
 
@@ -55,24 +60,33 @@ namespace _3902_Project
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            base.Initialize();
-            audioController = new();
+           
+            audioController = new AudioController();
             enemyController = new EnemyController();
             collisionManager = new CollisionManager();
             CollisionRegistry.Initialize(collisionManager);
+            
+            base.Initialize();
         }
 
         // This method needs to be cleaned up bad
         protected override void LoadContent()
         {
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             playerTexture = Content.Load<Texture2D>("LinkSprites");
             tileTexture = Content.Load<Texture2D>("DungeonTileSprites");
             itemTexture = Content.Load<Texture2D>("ItemSprites");
             dungeonSong = Content.Load<Song>("BackgroundMusic");
-            enemyController.LoadContent(Content, _spriteBatch, _graphics);
             Dictionary<string, SoundEffect> sfx = ContentLoaderHelper.LoadPlayerSFX(Content);
+
+            //Enemy loading
+            enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
+            enemyMasterSpriteFactory.LoadContent(Content, _spriteBatch, _graphics); // Load all the enemy sprite factories' content
+            enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory); // Pass the master factory to the enemy factory so it can use the individual factories to create enemies
+            enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Pass the enemy factory and controller to the loader so it can create enemies and add them to the controller
+            enemyLoader.LoadFakeLevel(); // Load a fake level with some enemies for testing
+
 
             factoryStorage = new FactoryStorage(playerTexture, tileTexture, itemTexture, _spriteBatch);
 
@@ -115,12 +129,15 @@ namespace _3902_Project
             projectileController.Update(gameTime);
 
             // 1. Create the empty master list
-            List<ICollidable> collidables =
+            List<ICollidable> collidables = 
             [
                 // 2. Add all collidable objects to the master list
                 player,
                 .. enemyController.enemyArray,
                 .. projectileController.projectiles,
+                .. enemyController.GetAllEnemyProjectiles(), // Enemy projectiles (Goriya boomerang, Aquamentus fireballs)
+                .. environment.GetCollidableTiles(), //Added collidable tiles from environment since environment is not a collidable class, dk
+                
             ];
 
             collisionManager.Update(gameTime, collidables);
@@ -152,4 +169,10 @@ namespace _3902_Project
             base.Draw(gameTime);
         }
     }
+
+
+
 }
+
+
+

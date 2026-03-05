@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using System.Threading;
 
 public class DeadGelState : IEnemyState
@@ -13,6 +14,7 @@ public class DeadGelState : IEnemyState
         this.gel = gel;
         this.spriteFactory = spriteFactory;
         gel.isDead = true;
+            gel.HitboxActive = false;
 
     }
     public void ChangeDirection()
@@ -31,5 +33,10 @@ public class DeadGelState : IEnemyState
     public void TakeDamage()
     {
         // No need for this
+    }
+
+    public void OnWallCollision(Direction newDir)
+    {
+        // No movement when dead, so no wall collision logic needed.
     }
 }
