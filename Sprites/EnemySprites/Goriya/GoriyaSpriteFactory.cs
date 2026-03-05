@@ -41,9 +41,21 @@ public class GoriyaSpriteFactory
         return new DownMovingGoriyaSprite(goriyaTexture, position, spriteBatch);
     }
 
-    public ISprite CreateDamagedGoriyaSprite(Vector2 position)
+    public ISprite CreateDamagedGoriyaSprite(Vector2 position, Enums.Direction currDirection)
     {
-        return new DamagedGoriyaSprite(goriyaTexture, position, spriteBatch);
+       switch (currDirection)
+        {
+            case Enums.Direction.UP:
+                return new UpDamagedGoriyaSprite(goriyaTexture, position, spriteBatch, currDirection);
+            case Enums.Direction.DOWN:
+                return new DownDamagedGoriyaSprite(goriyaTexture, position, spriteBatch, currDirection);
+            case Enums.Direction.LEFT:
+                return new LeftDamagedGoriyaSprite(goriyaTexture, position, spriteBatch, currDirection);
+            case Enums.Direction.RIGHT:
+                return new RightDamagedGoriyaSprite(goriyaTexture, position, spriteBatch, currDirection);
+            default:
+                return null;
+        }
     }
 
 }

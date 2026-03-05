@@ -80,7 +80,7 @@ public class RightMovingGoriyaState : IEnemyState
     {
         if (goriya.Health > 0)
         {
-            goriya.goriyaState = new DamagedGoriyaState(goriya, spriteFactory, _graphics);
+            goriya.goriyaState = new DamagedGoriyaState(goriya, spriteFactory, _graphics, Direction.RIGHT);
         }
         else
         {
