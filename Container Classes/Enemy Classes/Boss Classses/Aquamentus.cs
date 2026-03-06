@@ -4,9 +4,10 @@ using Microsoft.Xna.Framework;
 public class Aquamentus : IEnemy
 {
 
-    public int Health { get; set; } = 9;
+    public int Health { get; set; } = 6;
     public bool isDead { get; set; } = false;
 
+    private IFrameManager iFrameManager = new(0.2); // 0.2 second of invincibility frames after taking damage
 
 
     public Vector2 position { get; set; }
@@ -46,6 +47,7 @@ public class Aquamentus : IEnemy
 
     public void Update(GameTime gametime)
     {
+        iFrameManager.Update(gametime);
         aquamentusState.Update(gametime);
         Sprite.Update(gametime);
 
@@ -73,9 +75,15 @@ public class Aquamentus : IEnemy
 
     public void TakeDamage(int damage)
     {
-        // Implement damage logic here, such as reducing health and changing state if health reaches zero
-        Health -= damage;
 
+        if (iFrameManager.IsInvincible)
+        {
+            return; // Ignore damage if currently invincible
+        }
+
+        // Implement damage logic here, such as reducing health and changing state if health reaches zero
+        iFrameManager.Trigger(); // Start invincibility frames
+        Health -= damage;
         aquamentusState.TakeDamage();
 
 
