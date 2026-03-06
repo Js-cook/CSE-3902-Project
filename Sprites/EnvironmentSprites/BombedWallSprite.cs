@@ -9,13 +9,18 @@ public class BombedWallSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
+    private int direction;
 
-    private Rectangle sourceRectangle = new Rectangle(947, 11, 32, 32);
+    private Rectangle sourceRectangleTop = new Rectangle(947, 11, 32, 32);
+    private Rectangle sourceRectangleBottom = new Rectangle(947, 110, 32, 32);
+    private Rectangle sourceRectangleLeft = new Rectangle(947, 44, 32, 32);
+    private Rectangle sourceRectangleRight = new Rectangle(947, 77, 32, 32);
 
-    public BombedWallSprite(Texture2D texture, SpriteBatch spriteBatch)
+    public BombedWallSprite(Texture2D texture, SpriteBatch spriteBatch, int direction)
     {
         this.texture = texture;
         this.spriteBatch = spriteBatch;
+        this.direction = direction;
     }
 
     public override void Update(GameTime gameTime)
@@ -24,7 +29,24 @@ public class BombedWallSprite : BaseTile
 
     public override void SpriteDraw(Vector2 position)
     {
-        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 32, 32);
-        spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+        switch (direction)
+        {
+            case 0:
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangleTop, Color.White);
+                break;
+            case 1:
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangleRight, Color.White);
+                break;
+            case 2:
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangleBottom, Color.White);
+                break;
+            case 3:
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangleLeft, Color.White);
+                break;
+            default:
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangleTop, Color.White);
+                break;
+        }
     }
 }

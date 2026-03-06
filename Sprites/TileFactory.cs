@@ -17,9 +17,13 @@ public class TileFactory
         this.spriteBatch = spriteBatch;
     }
 
-    public ISprite CreateStatueSprite()
+    public ISprite CreateLeftStatueSprite()
     {
-        return new StatueSprite(tileTexture, spriteBatch);
+        return new LeftStatueSprite(tileTexture, spriteBatch);
+    }
+    public ISprite CreateRightStatueSprite()
+    {
+        return new RightStatueSprite(tileTexture, spriteBatch);
     }
 
     public ISprite CreateSquareBlockSprite()
@@ -65,33 +69,29 @@ public class TileFactory
         return new BlueSandSprite(tileTexture, spriteBatch);
     }
 
-    public ISprite CreateWallSprite()
-    {
-        return new WallSprite(tileTexture, spriteBatch);
-    }
-
-    public ISprite CreateBombedWallSprite()
-    {
-        return new BombedWallSprite(tileTexture, spriteBatch);
-    }
-
-    public ISprite CreateOpenDoorSprite()
-    {
-        return new OpenDoorSprite(tileTexture, spriteBatch);
-    }
-
-    public ISprite CreateKeyLockedDoorSprite()
-    {
-        return new KeyLockedDoorSprite(tileTexture, spriteBatch);
-    }
-
-    public ISprite CreateDiamondLockedDoorSprite()
-    {
-        return new DiamondLockedDoorSprite(tileTexture, spriteBatch);
-    }
-
     public ISprite CreateRoomExteriorSprite()
     {
         return new RoomExteriorSprite(tileTexture, spriteBatch);
+    }
+
+    public ISprite CreateWallSprite(int direction) 
+    { 
+        return new WallSprite(tileTexture, spriteBatch, direction); 
+    }
+    public ISprite CreateBombedWallSprite(int direction)
+    { 
+        return new BombedWallSprite(tileTexture, spriteBatch, direction); 
+    }
+    public ISprite CreateDiamondLockedDoorSprite(int direction) 
+    { 
+        return new DiamondLockedDoorSprite(tileTexture, spriteBatch, direction); 
+    }
+    public ISprite CreateKeyLockedDoorSprite(int direction) 
+    { 
+        return new KeyLockedDoorSprite(tileTexture, spriteBatch, direction); 
+    }
+    public ISprite CreateOpenDoorSprite(int direction) 
+    { 
+        return new OpenDoorSprite(tileTexture, spriteBatch, direction); 
     }
 }

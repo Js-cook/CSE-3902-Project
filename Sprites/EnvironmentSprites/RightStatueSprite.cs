@@ -1,19 +1,18 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-public class RoomExteriorSprite : BaseTile
+public class RightStatueSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
 
-    private Rectangle sourceRectangle = new Rectangle(521, 11, 256, 176);
+    private Rectangle sourceRectangle = new Rectangle(339, 91, 16, 16);
 
-    public RoomExteriorSprite(Texture2D texture, SpriteBatch spriteBatch)
+    public RightStatueSprite(Texture2D texture, SpriteBatch spriteBatch)
     {
         this.texture = texture;
         this.spriteBatch = spriteBatch;
@@ -25,7 +24,7 @@ public class RoomExteriorSprite : BaseTile
 
     public override void SpriteDraw(Vector2 position)
     {
-        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 512, 352);
+        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 32, 32);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }

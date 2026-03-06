@@ -1,0 +1,344 @@
+﻿<Game1>
+	<Room row="99" col="99">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="Wall" />
+			<Right type="Wall" />
+			<Bottom type="Wall" />
+			<Left type="Wall" />
+		</Doors>
+	</Room>
+	
+	<Room row="0" col="1">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,Stair,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="Wall" />
+			<Right type="KeyLockedDoor" />
+			<Bottom type="Wall" />
+			<Left type="Wall" />
+		</Doors>
+	</Room>
+
+	<Room row="0" col="2">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueGap,BlueGap,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueGap,BlueGap,BlueFloor</row>
+			<row>BlueFloor,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueFloor</row>
+			<row>BlueFloor,BlueGap,BlueFloor,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueFloor,BlueGap,BlueFloor</row>
+			<row>BlueFloor,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueFloor</row>
+			<row>BlueFloor,BlueGap,BlueGap,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueGap,BlueGap,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="Wall" />
+			<Right type="Wall" />
+			<Bottom type="KeyLockedDoor" />
+			<Left type="KeyLockedDoor" />
+		</Doors>
+	</Room>
+
+	<Room row="1" col="2">
+		<Tiles>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueFloor,BlueFloor,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueFloor,BlueGap</row>
+			<row>BlueGap,BlueFloor,BlueGap,BlueFloor,BlueGap,BlueFloor,BlueGap,BlueGap,BlueFloor,BlueGap,BlueFloor,BlueGap</row>
+			<row>BlueFloor,BlueFloor,BlueGap,BlueFloor,BlueGap,BlueFloor,BlueFloor,BlueGap,BlueFloor,BlueGap,BlueFloor,BlueFloor</row>
+			<row>BlueGap,BlueFloor,BlueGap,BlueFloor,BlueGap,BlueGap,BlueFloor,BlueGap,BlueFloor,BlueGap,BlueFloor,BlueGap</row>
+			<row>BlueGap,BlueFloor,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueFloor,BlueFloor,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="KeyLockedDoor" />
+			<Right type="Wall" />
+			<Bottom type="OpenDoor" />
+			<Left type="Wall" />
+		</Doors>
+	</Room>
+
+	<Room row="2" col="2">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="OpenDoor" />
+			<Right type="KeyLockedDoor" />
+			<Bottom type="BombedWall" />
+			<Left type="OpenDoor" />
+		</Doors>
+	</Room>
+
+	<Room row="2" col="1">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="Wall" />
+			<Right type="OpenDoor" />
+			<Bottom type="KeyLockedDoor" />
+			<Left type="DiamondLockedDoor" />
+		</Doors>
+	</Room>
+
+	<Room row="2" col="0">
+		<Tiles>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="Wall" />
+			<Right type="OpenDoor" />
+			<Bottom type="Wall" />
+			<Left type="Wall" />
+		</Doors>
+	</Room>
+
+	<Room row="3" col="1">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="KeyLockedDoor" />
+			<Right type="DiamondLockedDoor" />
+			<Bottom type="Wall" />
+			<Left type="Wall" />
+		</Doors>
+	</Room>
+
+	<Room row="3" col="2">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="BombedWall" />
+			<Right type="OpenDoor" />
+			<Bottom type="OpenDoor" />
+			<Left type="OpenDoor" />
+		</Doors>
+	</Room>
+
+	<Room row="4" col="2">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="OpenDoor" />
+			<Right type="Wall" />
+			<Bottom type="KeyLockedDoor" />
+			<Left type="Wall" />
+		</Doors>
+	</Room>
+
+	<Room row="5" col="1">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="Wall" />
+			<Right type="OpenDoor" />
+			<Bottom type="Wall" />
+			<Left type="Wall" />
+		</Doors>
+	</Room>
+
+	<Room row="5" col="2">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,LeftStatue,BlueFloor,BlueFloor,LeftStatue,BlueFloor,BlueFloor,RightStatue,BlueFloor,BlueFloor,RightStatue,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,LeftStatue,BlueFloor,BlueFloor,LeftStatue,BlueFloor,BlueFloor,RightStatue,BlueFloor,BlueFloor,RightStatue,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueSand,BlueSand,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,LeftStatue,BlueFloor,BlueSand,LeftStatue,BlueSand,BlueSand,RightStatue,BlueSand,BlueFloor,RightStatue,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueSand,BlueSand,BlueSand,BlueSand,BlueSand,BlueSand,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="KeyLockedDoor" />
+			<Right type="OpenDoor" />
+			<Bottom type="OpenDoor" />
+			<Left type="OpenDoor" />
+		</Doors>
+	</Room>
+
+	<Room row="2" col="3">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="Wall" />
+			<Right type="OpenDoor" />
+			<Bottom type="BombedWall" />
+			<Left type="KeyLockedDoor" />
+		</Doors>
+	</Room>
+
+	<Room row="3" col="3">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="BombedWall" />
+			<Right type="Wall" />
+			<Bottom type="Wall" />
+			<Left type="OpenDoor" />
+		</Doors>
+	</Room>
+
+	<Room row="5" col="3">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="Wall" />
+			<Right type="Wall" />
+			<Bottom type="Wall" />
+			<Left type="OpenDoor" />
+		</Doors>
+	</Room>
+
+	<Room row="1" col="4">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,SquareBlock</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,SquareBlock</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="Wall" />
+			<Right type="DiamondLockedDoor" />
+			<Bottom type="KeyLockedDoor" />
+			<Left type="Wall" />
+		</Doors>
+	</Room>
+
+	<Room row="2" col="4">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,SquareBlock,SquareBlock,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,SquareBlock,SquareBlock,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,SquareBlock,SquareBlock,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="KeyLockedDoor" />
+			<Right type="Wall" />
+			<Bottom type="Wall" />
+			<Left type="OpenDoor" />
+		</Doors>
+	</Room>
+
+	<Room row="1" col="5">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,BlueFloor,BlueFloor,LeftStatue,BlueFloor,BlueFloor,RightStatue,BlueFloor,BlueFloor,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,BlueFloor,LeftStatue,BlueFloor,BlueFloor,BlueFloor,BlueFloor,RightStatue,BlueFloor,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,SquareBlock,SquareBlock,SquareBlock,BlueFloor,BlueFloor,SquareBlock,SquareBlock,SquareBlock,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+
+		<Doors>
+			<Top type="Wall" />
+			<Right type="Wall" />
+			<Bottom type="Wall" />
+			<Left type="OpenDoor" />
+		</Doors>
+	</Room>
+
+</Game1>

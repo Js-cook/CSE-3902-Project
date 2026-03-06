@@ -41,6 +41,7 @@ namespace _3902_Project
         private TileFactory tileFactory;
         private Environment environment;
         private LevelFileReader levelFileReader;
+        private RoomManager roomManager;
 
         private Song dungeonSong;
 
@@ -53,6 +54,10 @@ namespace _3902_Project
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            _graphics.PreferredBackBufferWidth = 512;
+            _graphics.PreferredBackBufferHeight = 464;
+            _graphics.ApplyChanges();
         }
 
         protected override void Initialize()
@@ -111,28 +116,27 @@ namespace _3902_Project
             effectController = new EffectController(effectFactory);
 
 
-
-
-
-            tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), Content.Load<Texture2D>("LinkSprites"), _spriteBatch);
-            environment = new Environment(tileFactory);
+            //room manager
             levelFileReader = new LevelFileReader(environment);
-
-            levelFileReader.LoadLevel(Path.Combine(Content.RootDirectory, "Room1.csv"));
+            string fullPath = Path.Combine(Content.RootDirectory, "rooms.xml");
+            roomManager = new RoomManager(levelFileReader, fullPath, 0, 1);
 
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
             item = new Item(itemFactory);
 
-            keyboardController = new Controllers.IKeyboard(player, environment, item, this, audioController, LoadPlayerSFX(Content));
+            keyboardController = new Controllers.IKeyboard(player, roomManager, item, enemyController, this, audioController, LoadPlayerSFX(Content));
 
-            // Initialize collision manager and register handlers using CollisionRegistry
+            // Add additional collision handlers here as needed
             collisionManager = new CollisionManager();
+
             CollisionRegistry.Initialize(collisionManager);
+
+
         }
 
         protected override void Update(GameTime gameTime)
         {
-            
+
             keyboardController.Update(); // first check input
 
             // then update all entities based on that input
@@ -172,7 +176,7 @@ namespace _3902_Project
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             environment.Draw();
             player.Draw();
             item.Draw();

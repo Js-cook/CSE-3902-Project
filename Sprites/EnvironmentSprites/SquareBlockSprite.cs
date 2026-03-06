@@ -10,7 +10,7 @@ public class SquareBlockSprite : BaseTile
     private Texture2D texture;
     private SpriteBatch spriteBatch;
 
-    private Rectangle sourceRectangle = new Rectangle(323, 90, 16, 16);
+    private Rectangle sourceRectangle = new Rectangle(323, 91, 16, 16);
 
     public SquareBlockSprite(Texture2D texture, SpriteBatch spriteBatch)
     {

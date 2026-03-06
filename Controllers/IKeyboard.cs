@@ -12,9 +12,6 @@ namespace Controllers
 
         private Link player;
 
-        private Environment environment;
-        private int envSwitchLimiter = 0;
-
         private Item item;
         private int itemSwitchLimiter = 0;
 
@@ -28,14 +25,17 @@ namespace Controllers
         private AudioController audioController;
         private Dictionary<string, SoundEffect> soundEffects;
 
-        public IKeyboard(Link player, Environment env, Item item, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect)
+        private RoomManager roomManager;
+        private int roomSwitchLimiter = 0;
+
+        public IKeyboard(Link player, RoomManager roomManager, Item item, EnemyController enemyController, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect)
         {
             this.player = player;
-            this.environment = env;
             this.item = item;
             this.gameInstance = gameInstance;
             this.audioController = audioController;
             this.soundEffects = soundEffect;
+            this.roomManager = roomManager;
         }
 
         public void Update()
@@ -43,10 +43,6 @@ namespace Controllers
             KeyboardState keyState = Keyboard.GetState();
             bool movementKeyActive = false;
 
-            if (envSwitchLimiter > 0)
-            {
-                envSwitchLimiter--;
-            }
             if (itemSwitchLimiter > 0)
             {
                 itemSwitchLimiter--;
@@ -55,7 +51,18 @@ namespace Controllers
             {
                 projectileInputLimiter--;
             }
+            if (roomSwitchLimiter > 0)
+            {
+                roomSwitchLimiter--;
+            }
 
+            //room management
+            if (keyState.IsKeyDown(Keys.Y) && roomSwitchLimiter == 0) { roomManager.MoveUp(); roomSwitchLimiter = 10; }
+            if (keyState.IsKeyDown(Keys.H) && roomSwitchLimiter == 0) { roomManager.MoveDown(); roomSwitchLimiter = 10; }
+            if (keyState.IsKeyDown(Keys.G) && roomSwitchLimiter == 0) { roomManager.MoveLeft(); roomSwitchLimiter = 10; }
+            if (keyState.IsKeyDown(Keys.J) && roomSwitchLimiter == 0) { roomManager.MoveRight(); roomSwitchLimiter = 10; }
+
+            //other inputs
             if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && !movementKeyActive)
             {
                 player.playerState.ChangeDirection(Direction.UP);
@@ -138,18 +145,6 @@ namespace Controllers
             if (!movementKeyActive)
             {
                 player.playerState.BeIdle();
-            }
-
-            //for tile cycling
-            if (keyState.IsKeyDown(Keys.T) && envSwitchLimiter == 0)
-            {
-                environment.CycleLeft();
-                envSwitchLimiter = 20;
-            }
-            if (keyState.IsKeyDown(Keys.Y) && envSwitchLimiter == 0)
-            {
-                environment.CycleRight();
-                envSwitchLimiter = 20;
             }
 
             //for item cycling
