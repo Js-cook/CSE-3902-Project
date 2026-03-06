@@ -64,12 +64,18 @@ public class Goriya : IEnemy
 
     public void TakeDamage(int damage)
     {
-        if ((goriyaState is not DamagedGoriyaState))
+        if ((goriyaState is DamagedGoriyaState))
         {
-            Health -= damage;
+            return; // If already in damaged state, ignore additional damage
+
         }
 
-        goriyaState.TakeDamage();
+        else
+        {
+            Health -= damage;
+            goriyaState.TakeDamage();
+        }
+
     }
 
     public void ChangeState(IEnemyState newState)

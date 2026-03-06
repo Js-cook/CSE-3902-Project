@@ -23,6 +23,10 @@ public class ProjectileWallCollisionHandler : ICollisionHandler
 
         if (projectile != null && tile != null)
         { 
+            if (projectile is Fireball fireball)
+            {
+                fireball.HitWall = true;
+            }
 
             projectile.OnCollision();
             
