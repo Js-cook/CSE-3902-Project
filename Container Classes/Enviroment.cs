@@ -103,7 +103,7 @@ public class Environment
     {
         List<Tile> collidableTiles = new List<Tile>();
 
-        Vector2 gridOffset = new Vector2(32 * (800 / 255.0f), 32 * (480 / 175.0f));
+        Vector2 gridOffset = new Vector2(wallOffset, hudHeight + wallOffset); // Match Draw() calculation
         int tileSize = 32;
 
         for (int row = 0; row < tiles.Count; row++)
