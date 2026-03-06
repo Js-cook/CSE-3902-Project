@@ -71,9 +71,8 @@ public class SilverArrow : IProjectile
 
     public void OnCollision()
     {
-        // Play an animation: TODO
-            Active = false;
         HitboxActive = false;
+            Active = false;
 
     }
 }

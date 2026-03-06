@@ -13,7 +13,7 @@ public class ArrowParticle : IProjectile
     public bool isPlayerProjectile { get; set; } = true;
 
     public bool HitboxActive { get; set; }
-    public int DamageValue { get; set; } = 1; public Vector2 Position { get; set; }
+    public int DamageValue { get; set; } = 0; public Vector2 Position { get; set; }
     private double startTime = 0.0;
     private double endTime = 0.2;
     public bool Active { get; set; }

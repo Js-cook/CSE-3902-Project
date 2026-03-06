@@ -10,10 +10,10 @@ public class DamagedGoriyaState : IEnemyState
     private Goriya goriya;
     private GoriyaSpriteFactory spriteFactory;
 
-    double timerMax = 5;
+    double timerMax = 1;
     double timer;
 
-    private Vector2 velocity;
+    
 
     Direction currDirection;
 
@@ -27,6 +27,9 @@ public class DamagedGoriyaState : IEnemyState
         goriya.Sprite = spriteFactory.CreateDamagedGoriyaSprite(goriya.position, currDirection);
         this._graphics = _graphics;
         this.currDirection = currDirection;
+        
+
+
 
     }
 

@@ -13,6 +13,7 @@ public class DeadGoriyaState : IEnemyState
         this.spriteFactory = spriteFactory;
         goriya.isDead = true; // This is the reason for this state, to set the isDead flag to true when the Goriya dies
         goriya.HitboxActive = false; // Deactivate hitbox when dead
+        EffectController.Instance.SpawnDeathCloud(goriya.position); // Spawn death cloud effect at Goriya's position
     }
     public void ChangeDirection()
     {

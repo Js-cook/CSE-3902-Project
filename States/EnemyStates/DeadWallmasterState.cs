@@ -15,6 +15,8 @@ public class DeadWallmasterState : IEnemyState
         this.spriteFactory = spriteFactory;
         wallmaster.isDead = true;
             wallmaster.HitboxActive = false;
+
+            EffectController.Instance.SpawnDeathCloud(wallmaster.position);
     }
     public void ChangeDirection()
     {

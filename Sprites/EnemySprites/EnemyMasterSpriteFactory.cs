@@ -21,6 +21,8 @@ public class EnemyMasterSpriteFactory
 
     public BossProjectileSpriteFactory bossProjectileSpriteFactory { get; private set; }
 
+    public EffectSpriteFactory effectSpriteFactory { get; private set; }
+
     public EnemyMasterSpriteFactory()
     {
         // Empty constructor
@@ -31,10 +33,11 @@ public class EnemyMasterSpriteFactory
         Texture2D bossTexture = content.Load<Texture2D>("BossSprites");
         Texture2D npcTexture = content.Load<Texture2D>("NPCSprites");
         
+
         gelSpriteFactory = new GelSpriteFactory(enemyTexture, _spriteBatch);
 
         batSpriteFactory = new BatSpriteFactory(enemyTexture, _spriteBatch);
-        
+            
         goriyaSpriteFactory = new GoriyaSpriteFactory(enemyTexture, _spriteBatch);
        
         skeletonSpriteFactory = new SkeletonSpriteFactory(enemyTexture, _spriteBatch);
@@ -44,6 +47,8 @@ public class EnemyMasterSpriteFactory
         aquamentusSpriteFactory = new AquamentusSpriteFactory(bossTexture, _spriteBatch);
         bossProjectileSpriteFactory = new BossProjectileSpriteFactory(bossTexture, _spriteBatch);
         enemyProjectileSpriteFactory = new EnemyProjectileSpriteFactory(enemyTexture, _spriteBatch);
+        
+
 
 
 

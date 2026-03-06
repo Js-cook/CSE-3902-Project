@@ -28,6 +28,12 @@ namespace _3902_Project
         private EnemyController enemyController;
         private EnemyLoader enemyLoader;
 
+        private EffectSpriteFactory effectSpriteFactory;
+        private EffectFactory effectFactory;
+        private EffectController effectController;
+        
+
+
 
 
         private IController keyboardController;
@@ -54,6 +60,7 @@ namespace _3902_Project
             // TODO: Add your initialization logic here
             //AudioController audioController = new AudioController();
             enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
+            
             base.Initialize();
         }
 
@@ -98,6 +105,13 @@ namespace _3902_Project
             //Load the enmies into the scene
             enemyLoader.LoadFakeLevel(); //Load a fake level whihc loads all the enmies
 
+            // Effect Factory and Effect Controller Initialization
+            effectSpriteFactory = new EffectSpriteFactory(playerTexture, _spriteBatch); // Uses player texture spritesheet for the death cloud effect
+            effectFactory = new EffectFactory(effectSpriteFactory);
+            effectController = new EffectController(effectFactory);
+
+
+
 
 
             tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"), Content.Load<Texture2D>("LinkSprites"), _spriteBatch);
@@ -141,6 +155,7 @@ namespace _3902_Project
             ];
 
             collisionManager.Update(gameTime, collidables);
+            effectController.Update(gameTime); 
 
 
 
@@ -163,6 +178,7 @@ namespace _3902_Project
             item.Draw();
             enemyController.Draw();
             projectileController.Draw();
+            effectController.Draw();
             _spriteBatch.End();
             // TODO: Add your drawing code here
 

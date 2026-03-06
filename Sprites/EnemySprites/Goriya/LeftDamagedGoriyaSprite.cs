@@ -23,7 +23,7 @@ public class LeftDamagedGoriyaSprite : ISprite
     {
         //Flashing animation
         frameCounter++;
-        if (frameCounter >= 10)
+        if (frameCounter >= 7)
         {
             currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
             frameCounter = 0;
