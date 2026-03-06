@@ -16,7 +16,7 @@ public class Goriya : IEnemy
                 }
     }
     public bool HitboxActive { get; set; }
-    public int Health { get; set; }
+    public int Health { get; set; } = 2;
     public bool isDead { get; set; }
 
     public Vector2 position { get; set; }
@@ -64,7 +64,11 @@ public class Goriya : IEnemy
 
     public void TakeDamage(int damage)
     {
-        Health -= damage;
+        if ((goriyaState is not DamagedGoriyaState))
+        {
+            Health -= damage;
+        }
+
         goriyaState.TakeDamage();
     }
 

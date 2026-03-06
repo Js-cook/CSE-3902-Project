@@ -15,6 +15,7 @@ public class DeadSkeletonState : IEnemyState
         this.spriteFactory = spriteFactory;
         skeleton.isDead = true;
             skeleton.HitboxActive = false;
+        EffectController.Instance.SpawnDeathCloud(skeleton.position);
     }
     public void ChangeDirection()
     {

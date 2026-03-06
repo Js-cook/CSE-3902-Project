@@ -15,6 +15,7 @@ public class DeadAquamentusState : IEnemyState
         this.spriteFactory = spriteFactory;
         aquamentus.isDead = true;
             aquamentus.HitboxActive = false;
+            SpawnAquamentusDeathCloud();
     }
     public void ChangeDirection()
     {
@@ -37,5 +38,15 @@ public class DeadAquamentusState : IEnemyState
     public void OnWallCollision(Direction newDir)
     {
         // No need for this
+    }
+
+    private void SpawnAquamentusDeathCloud()
+    {
+        EffectController.Instance.SpawnDeathCloud(new Vector2(aquamentus.position.X + 5, aquamentus.position.Y + 5));
+        EffectController.Instance.SpawnDeathCloud(new Vector2(aquamentus.position.X - 5, aquamentus.position.Y + 5));
+        EffectController.Instance.SpawnDeathCloud(new Vector2(aquamentus.position.X + 5, aquamentus.position.Y - 5));
+        EffectController.Instance.SpawnDeathCloud(new Vector2(aquamentus.position.X - 5, aquamentus.position.Y - 5));
+
+
     }
 }

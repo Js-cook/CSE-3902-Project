@@ -1,18 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-public class DamagedGoriyaSprite : ISprite
+public class RightDamagedGoriyaSprite : ISprite
 {
 
     private Texture2D texture;
     //private Vector2 position;
     private SpriteBatch spriteBatch;
     private Rectangle currentFrame;
-    private Rectangle sourceRectangle1 = new Rectangle(273, 28, 16, 16);
-    private Rectangle sourceRectangle2 = new Rectangle(290, 28, 16, 16);
+    private Rectangle sourceRectangle1 = new Rectangle(256, 11, 16, 16);
+    private Rectangle sourceRectangle2 = new Rectangle(256, 28, 16, 16);
     private int frameCounter = 0;
 
-    public DamagedGoriyaSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
+    public RightDamagedGoriyaSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch, Enums.Direction currDirection)
     {
         this.texture = texture;
         //this.position = position;
@@ -23,7 +23,7 @@ public class DamagedGoriyaSprite : ISprite
     {
         //Flashing animation
         frameCounter++;
-        if (frameCounter >= 2)
+        if (frameCounter >= 7)
         {
             currentFrame = currentFrame.Equals(sourceRectangle1) ? sourceRectangle2 : sourceRectangle1;
             frameCounter = 0;

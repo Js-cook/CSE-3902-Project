@@ -11,9 +11,9 @@ namespace Controllers
         private Dictionary<string, SoundEffect> soundEffect;
         private AudioController audioController = new();
 
-        public ProjectileController(FactoryStorage factoryStorage, Dictionary<string, SoundEffect> soundEffect)
+        public ProjectileController(ProjectileSpriteFactory projectileSpriteFactory, Dictionary<string, SoundEffect> soundEffect)
         {
-            this.projectileSpriteFactory = factoryStorage.projectileSpriteFactory;
+            this.projectileSpriteFactory = projectileSpriteFactory;
             this.soundEffect = soundEffect;
         }
 

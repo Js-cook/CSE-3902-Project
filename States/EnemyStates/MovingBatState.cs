@@ -61,7 +61,26 @@ public class MovingBatState : IEnemyState
 
     public void OnWallCollision(Direction newDir)
     {
-        velocity = -velocity; // Reverse direction upon wall collision
+        
+        switch (newDir)
+        {
+            case Direction.UP:
+                
+                velocity = new Vector2(velocity.X, -Math.Abs(velocity.Y)); // Move down
+
+                break;
+            case Direction.DOWN:
+                velocity = new Vector2(velocity.X, Math.Abs(velocity.Y)); // Move up
+                break;
+            case Direction.LEFT:
+                velocity = new Vector2(-Math.Abs(velocity.X), velocity.Y); // Move right
+
+                break;
+            case Direction.RIGHT:
+                velocity = new Vector2(Math.Abs(velocity.X), velocity.Y); // Move left
+                break;
+        }
+        timer = 0; // Reset timer to change direction sooner after collision
     }
 
 

@@ -15,7 +15,7 @@ public class DeadGelState : IEnemyState
         this.spriteFactory = spriteFactory;
         gel.isDead = true;
             gel.HitboxActive = false;
-
+        EffectController.Instance.SpawnDeathCloud(gel.position);
     }
     public void ChangeDirection()
     {

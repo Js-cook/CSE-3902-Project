@@ -15,6 +15,7 @@ public class DeadBatState : IEnemyState
         this.spriteFactory = spriteFactory;
         bat.isDead = true;
         bat.HitboxActive = false;
+                EffectController.Instance.SpawnDeathCloud(bat.position);
 
     }
     public void ChangeDirection()

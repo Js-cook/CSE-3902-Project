@@ -19,15 +19,20 @@ namespace _3902_Project
 
         private Link player;
         private Texture2D playerTexture;
-        private Texture2D tileTexture;
-        private Texture2D itemTexture;
-
+        private PlayerSpriteFactory spriteFactory;
+        private ProjectileSpriteFactory projectileSpriteFactory;
         private ProjectileController projectileController;
 
         private EnemyMasterSpriteFactory enemyMasterSpriteFactory;
         private EnemyFactory enemyFactory;
         private EnemyController enemyController;
         private EnemyLoader enemyLoader;
+
+        private EffectSpriteFactory effectSpriteFactory;
+        private EffectFactory effectFactory;
+        private EffectController effectController;
+        
+
 
 
 
@@ -38,15 +43,12 @@ namespace _3902_Project
         private LevelFileReader levelFileReader;
         private RoomManager roomManager;
 
-        private AudioController audioController;
         private Song dungeonSong;
 
+        private ItemFactory itemFactory;
         private Item item;
 
         private CollisionManager collisionManager;
-
-        private FactoryStorage factoryStorage;
-
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -60,51 +62,67 @@ namespace _3902_Project
 
         protected override void Initialize()
         {
-           
-            audioController = new AudioController();
-            enemyController = new EnemyController();
-            collisionManager = new CollisionManager();
-            CollisionRegistry.Initialize(collisionManager);
+            // TODO: Add your initialization logic here
+            //AudioController audioController = new AudioController();
+            enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
             
             base.Initialize();
+        }
+
+        private Dictionary<string, SoundEffect> LoadPlayerSFX(ContentManager content)
+        {
+            Dictionary<string, SoundEffect> res = new()
+            {
+                { "ArrowBoomerang", content.Load<SoundEffect>("SFX/ArrowBoomerang") },
+                { "BombDrop", content.Load<SoundEffect>("SFX/BombDrop") },
+                { "BombExplode", content.Load<SoundEffect>("SFX/BombExplode") },
+                { "SwordSlash", content.Load<SoundEffect>("SFX/SwordSlash") }
+            };
+
+            return res;
         }
 
         // This method needs to be cleaned up bad
         protected override void LoadContent()
         {
-
+            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            playerTexture = Content.Load<Texture2D>("LinkSprites");
-            tileTexture = Content.Load<Texture2D>("DungeonTileSprites");
-            itemTexture = Content.Load<Texture2D>("ItemSprites");
+            Dictionary<string, SoundEffect> sfx = LoadPlayerSFX(Content);
+
+            AudioController audioController = new AudioController();
             dungeonSong = Content.Load<Song>("BackgroundMusic");
-            Dictionary<string, SoundEffect> sfx = ContentLoaderHelper.LoadPlayerSFX(Content);
-
-            //Enemy loading
-            enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
-            enemyMasterSpriteFactory.LoadContent(Content, _spriteBatch, _graphics); // Load all the enemy sprite factories' content
-            enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory); // Pass the master factory to the enemy factory so it can use the individual factories to create enemies
-            enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Pass the enemy factory and controller to the loader so it can create enemies and add them to the controller
-            enemyLoader.LoadFakeLevel(); // Load a fake level with some enemies for testing
-
-
-            factoryStorage = new FactoryStorage(playerTexture, tileTexture, itemTexture, _spriteBatch);
-
             audioController.PlaySong(dungeonSong);
 
-            projectileController = new ProjectileController(factoryStorage, sfx);
+            playerTexture = Content.Load<Texture2D>("LinkSprites");
+            spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
+            projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
+            projectileController = new ProjectileController(projectileSpriteFactory, sfx);
 
-            player = new Link(factoryStorage, projectileController, sfx);
+            player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx);
 
-            tileFactory = new TileFactory(tileTexture, playerTexture, _spriteBatch);
-            environment = new Environment(tileFactory);
+
+            // EnemySpriteFactory, Enemy Actor Factory Enemy Controller, and EnemyLoader Initialization
+            enemyMasterSpriteFactory.LoadContent(Content, _spriteBatch, _graphics);
+            enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory);
+            enemyController = new EnemyController();
+            enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Handles laoding enemies into the enemyCotnroller which then updates each of them
+
+            //Load the enmies into the scene
+            enemyLoader.LoadFakeLevel(); //Load a fake level whihc loads all the enmies
+
+            // Effect Factory and Effect Controller Initialization
+            effectSpriteFactory = new EffectSpriteFactory(playerTexture, _spriteBatch); // Uses player texture spritesheet for the death cloud effect
+            effectFactory = new EffectFactory(effectSpriteFactory);
+            effectController = new EffectController(effectFactory);
+
 
             //room manager
             levelFileReader = new LevelFileReader(environment);
             string fullPath = Path.Combine(Content.RootDirectory, "rooms.xml");
             roomManager = new RoomManager(levelFileReader, fullPath, 0, 1);
 
-            item = new Item(factoryStorage);
+            itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
+            item = new Item(itemFactory);
 
             keyboardController = new Controllers.IKeyboard(player, roomManager, item, enemyController, this, audioController, LoadPlayerSFX(Content));
 
@@ -141,6 +159,7 @@ namespace _3902_Project
             ];
 
             collisionManager.Update(gameTime, collidables);
+            effectController.Update(gameTime); 
 
 
 
@@ -163,6 +182,7 @@ namespace _3902_Project
             item.Draw();
             enemyController.Draw();
             projectileController.Draw();
+            effectController.Draw();
             _spriteBatch.End();
             // TODO: Add your drawing code here
 
@@ -170,9 +190,6 @@ namespace _3902_Project
         }
     }
 
-
-
+    
+    
 }
-
-
-

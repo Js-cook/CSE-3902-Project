@@ -1,6 +1,7 @@
 ﻿using Enums;
 using Microsoft.Xna.Framework;
 using System;
+using System.Runtime.CompilerServices;
 
 public class DamagedGoriyaState : IEnemyState
 {
@@ -9,20 +10,26 @@ public class DamagedGoriyaState : IEnemyState
     private Goriya goriya;
     private GoriyaSpriteFactory spriteFactory;
 
-    double timerMax = 5;
+    double timerMax = 1;
     double timer;
 
-    private Vector2 velocity;
-   
+    
+
+    Direction currDirection;
+
 
 
     private GraphicsDeviceManager _graphics;
-    public DamagedGoriyaState(Goriya goriya, GoriyaSpriteFactory goriyaSpriteFactory, GraphicsDeviceManager _graphics)
+    public DamagedGoriyaState(Goriya goriya, GoriyaSpriteFactory goriyaSpriteFactory, GraphicsDeviceManager _graphics, Direction currDirection)
     {
         this.goriya = goriya;
         this.spriteFactory = goriyaSpriteFactory;
-        goriya.Sprite = spriteFactory.CreateDamagedGoriyaSprite(goriya.position);
+        goriya.Sprite = spriteFactory.CreateDamagedGoriyaSprite(goriya.position, currDirection);
         this._graphics = _graphics;
+        this.currDirection = currDirection;
+        
+
+
 
     }
 
@@ -44,8 +51,8 @@ public class DamagedGoriyaState : IEnemyState
         timer += gameTime.ElapsedGameTime.TotalSeconds;
         if (timer >= timerMax)
         {
-            Direction dir = EnemyHelper.GetDirection(velocity);
-            switch (dir)
+
+            switch (currDirection)
             {
                 case Direction.UP:
                     goriya.ChangeState(new UpMovingGoriyaState(goriya, spriteFactory, _graphics));

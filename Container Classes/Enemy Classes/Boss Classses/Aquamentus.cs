@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 public class Aquamentus : IEnemy
 {
 
-    public int Health { get; set; } = 90;
+    public int Health { get; set; } = 9;
     public bool isDead { get; set; } = false;
 
 
