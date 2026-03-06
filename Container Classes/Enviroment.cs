@@ -121,7 +121,8 @@ public class Environment
                               sprite is SquareBlockSprite ||
                               sprite is PushSquareBlockSprite ||
                               sprite is WhiteBrickSprite ||
-                              sprite is StatueSprite ||
+                              sprite is LeftStatueSprite ||
+                              sprite is RightStatueSprite ||
                               sprite is KeyLockedDoorSprite ||
                               sprite is DiamondLockedDoorSprite;
 

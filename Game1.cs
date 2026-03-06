@@ -117,6 +117,8 @@ namespace _3902_Project
 
 
             //room manager
+            tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"),Content.Load<Texture2D>("LinkSprites"), _spriteBatch);
+            environment = new Environment(tileFactory);
             levelFileReader = new LevelFileReader(environment);
             string fullPath = Path.Combine(Content.RootDirectory, "rooms.xml");
             roomManager = new RoomManager(levelFileReader, fullPath, 0, 1);
