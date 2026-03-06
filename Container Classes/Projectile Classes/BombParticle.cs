@@ -12,8 +12,8 @@ public class BombParticle : IProjectile
 
     public bool isPlayerProjectile { get; set; } = true;
 
-    public bool HitboxActive { get; set; }
-    public int DamageValue { get; set; } = 1; public bool Active { get; set; }
+    public bool HitboxActive { get; set; } = false;
+    public int DamageValue { get; set; } = 0; public bool Active { get; set; }
     public Vector2 Position { get; set; }
 
     private double startTime = 0.0;
@@ -25,7 +25,7 @@ public class BombParticle : IProjectile
         Position = position;
         sprite = spriteFactory.CreateBombParticleSprite(position);
         Active = true;
-        HitboxActive = true;
+        
     }
 
     public void Draw()
@@ -42,7 +42,7 @@ public class BombParticle : IProjectile
         {
             // do something to delete particle
             Active = false;
-            HitboxActive = false;
+           
         }
     }
 

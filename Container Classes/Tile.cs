@@ -7,11 +7,13 @@ public class Tile : ICollidable
     public bool IsSolid { get; set; }
     public bool HitboxActive { get; set; } = true; // Tiles are always active
 
+    
+
     public Rectangle Hitbox
     {
         get 
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 32, 32);
+            return new Rectangle((int)Position.X, (int)Position.Y, 32 , 32);
         }
     }
 

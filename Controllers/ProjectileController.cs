@@ -40,12 +40,13 @@ namespace Controllers
                 }
                 if (projectile is Bomb)
                 {
-                    audioController.PlaySoundEffect(soundEffect["BombExplode"], 0.75f);
+                    
                     //projectiles.Add(new BombParticle(projectile.Position, projectileSpriteFactory));
                     projectiles.Add(new BombParticle(new Vector2(projectile.Position.X + 5, projectile.Position.Y + 5), projectileSpriteFactory));
                     projectiles.Add(new BombParticle(new Vector2(projectile.Position.X - 5, projectile.Position.Y + 5), projectileSpriteFactory));
                     projectiles.Add(new BombParticle(new Vector2(projectile.Position.X + 5, projectile.Position.Y - 5), projectileSpriteFactory));
                     projectiles.Add(new BombParticle(new Vector2(projectile.Position.X - 5, projectile.Position.Y - 5), projectileSpriteFactory));
+                    audioController.PlaySoundEffect(soundEffect["BombExplode"], 0.75f);
                 }
             }
         }

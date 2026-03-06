@@ -109,6 +109,12 @@
 /processorParam:Quality=Best
 /build:SFX/LOZ_Bomb_Drop.wav;SFX/BombDrop.wav
 
+#begin SFX/LOZ_Enemy_Die.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/LOZ_Enemy_Die.wav;SFX/EnemyDie.wav
+
 #begin SFX/LOZ_Sword_Slash.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
