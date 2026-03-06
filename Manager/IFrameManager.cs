@@ -28,5 +28,13 @@ public class IFrameManager
         timer = maxDuration;
     }
 
-   
+    // A bonus helper to easily make the boss flash red and white!
+    public Color GetFlashColor()
+    {
+        if (!IsInvincible)
+            return Color.White; // Normal color
+
+        // Math to make it flash rapidly every 0.1 seconds
+        return (timer % 0.2 < 0.1) ? Color.Red : Color.White;
+    }
 }
