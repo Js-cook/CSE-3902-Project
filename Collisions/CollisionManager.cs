@@ -1,13 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
 public class CollisionManager
 {
     private Dictionary<(Type, Type), ICollisionHandler> collisionHandlers;
-    public CollisionManager()
+    private List<ICollidable> collidables;
+    private Texture2D hitboxTexture; 
+    public CollisionManager(GraphicsDevice graphicsDevice)
     {
         collisionHandlers = new Dictionary<(Type, Type), ICollisionHandler>();
+        hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
+        hitboxTexture.SetData(new[] { Color.White }); // Fill that 1 pixel with White
+
     }
 
     public void RegisterHandler(Type type1, Type type2, ICollisionHandler handler)
@@ -32,6 +38,7 @@ public class CollisionManager
 
     public void Update(GameTime gameTime, List<ICollidable> collidables)
     {
+        this.collidables = collidables;
         for (int i = 0; i < collidables.Count; i++)
         {
             for (int j = i + 1; j < collidables.Count; j++)
@@ -56,6 +63,16 @@ public class CollisionManager
                 
             }
         }
+    }
+
+    public void Draw(SpriteBatch sb)
+    {
+        // Debug: Draw hitboxes in the collidable array
+        foreach (ICollidable collidable in collidables)
+        {
+            sb.Draw(hitboxTexture, collidable.Hitbox, Color.Red * 0.5f);
+        }
+
     }
 
 

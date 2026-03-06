@@ -129,7 +129,7 @@ namespace _3902_Project
             keyboardController = new Controllers.IKeyboard(player, roomManager, item, enemyController, this, audioController, LoadPlayerSFX(Content));
 
             // Add additional collision handlers here as needed
-            collisionManager = new CollisionManager();
+            collisionManager = new CollisionManager(GraphicsDevice);
 
             CollisionRegistry.Initialize(collisionManager);
 
@@ -184,6 +184,7 @@ namespace _3902_Project
             item.Draw();
             enemyController.Draw();
             projectileController.Draw();
+            collisionManager.Draw(_spriteBatch);
             effectController.Draw();
             _spriteBatch.End();
             // TODO: Add your drawing code here
