@@ -37,6 +37,8 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.*" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CodeReviews\Sprint 3\Maintainability\" />
+    <Folder Include="CodeReviews\Sprint 3\Readability\" />
     <Folder Include="Content\Levels\" />
   </ItemGroup>
 </Project>
