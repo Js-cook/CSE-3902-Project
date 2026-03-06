@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -10,11 +11,14 @@ public class EnemyController
 {
 
     public List<IEnemy> enemyArray { get; set; } = new List<IEnemy>();
+    
+    private Dictionary<string, SoundEffect> sfx;
+    private AudioController audioController = new();
 
-    public EnemyController()
+    public EnemyController(Dictionary<string, SoundEffect> sfx)
     {
         enemyArray = new List<IEnemy>();
-
+        this.sfx = sfx;
 
     }
 
@@ -27,27 +31,26 @@ public class EnemyController
 
     public void Update(GameTime gameTime)
     {
-        foreach (var enemy in enemyArray)
+        for (int i = enemyArray.Count - 1; i >= 0; i--)
         {
+            var enemy = enemyArray[i];
             if (enemy.isDead)
             {
-                enemyArray.Remove(enemy);
-                break; // Exit the loop to avoid modifying the collection while iterating
+                audioController.PlaySoundEffect(sfx["EnemyDie"], 0.75f);
+                enemyArray.RemoveAt(i); // Remove after playing sound
             }
-            enemy.Update(gameTime);
+            else
+            {
+                enemy.Update(gameTime);
+            }
         }
-
-
     }
 
     public void Draw()
     {
         foreach (var enemy in enemyArray)
         {
-            if (enemy.isDead)
-            { enemyArray.Remove(enemy);
-                break; // Exit the loop to avoid modifying the collection while iterating
-            }
+
             enemy.Draw();
         }
     }

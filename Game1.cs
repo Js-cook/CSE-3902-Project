@@ -76,7 +76,8 @@ namespace _3902_Project
                 { "ArrowBoomerang", content.Load<SoundEffect>("SFX/ArrowBoomerang") },
                 { "BombDrop", content.Load<SoundEffect>("SFX/BombDrop") },
                 { "BombExplode", content.Load<SoundEffect>("SFX/BombExplode") },
-                { "SwordSlash", content.Load<SoundEffect>("SFX/SwordSlash") }
+                { "SwordSlash", content.Load<SoundEffect>("SFX/SwordSlash") },
+                { "EnemyDie", content.Load<SoundEffect>("SFX/EnemyDie") }
             };
 
             return res;
@@ -91,7 +92,7 @@ namespace _3902_Project
 
             AudioController audioController = new AudioController();
             dungeonSong = Content.Load<Song>("BackgroundMusic");
-            audioController.PlaySong(dungeonSong);
+          //  audioController.PlaySong(dungeonSong);
 
             playerTexture = Content.Load<Texture2D>("LinkSprites");
             spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
@@ -104,7 +105,7 @@ namespace _3902_Project
             // EnemySpriteFactory, Enemy Actor Factory Enemy Controller, and EnemyLoader Initialization
             enemyMasterSpriteFactory.LoadContent(Content, _spriteBatch, _graphics);
             enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory);
-            enemyController = new EnemyController();
+            enemyController = new EnemyController(sfx);
             enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Handles laoding enemies into the enemyCotnroller which then updates each of them
 
             //Load the enmies into the scene

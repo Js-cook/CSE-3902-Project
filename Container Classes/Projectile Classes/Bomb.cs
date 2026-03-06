@@ -12,12 +12,16 @@ public class Bomb : IProjectile
 
     }
 
+
     public bool isPlayerProjectile { get; set; } = true;
 
     public bool HitboxActive { get; set; }
     public int DamageValue { get; set; } = 1; public bool Active { get; set; }
     private double startTime = 0.0;
     private double endTime = 0.75;
+
+    private double damageWindow = 0.25; // Time in seconds during which the bomb can deal damage
+    private double damageStartTime = 0.0;
 
     ISprite sprite;
     private ProjectileSpriteFactory spriteFactory;
@@ -44,24 +48,35 @@ public class Bomb : IProjectile
         this.spriteFactory = spriteFactory;
         this.sprite = spriteFactory.CreateBombSprite(position);
         Active = true;
-        HitboxActive = true;
+        
     }
     public void Draw()
     {
         sprite.SpriteDraw(Position);
     }
-    public void Update(GameTime gametime)
+    public void Update(GameTime gameTime)
     {
-        startTime += gametime.ElapsedGameTime.TotalSeconds;
+        startTime += gameTime.ElapsedGameTime.TotalSeconds;
         if (startTime >= endTime)
         {
-            Active = false;
-            HitboxActive = false;
+            DamageWindow(gameTime);
         }
+
     }
 
     public void OnCollision()
     {
         // do nothing, bomb should not interact with anything
+    }
+
+    private void DamageWindow(GameTime gameTime)
+    {
+        damageStartTime += gameTime.ElapsedGameTime.TotalSeconds;
+        if (damageStartTime >= damageWindow)
+        {
+            HitboxActive = false; // Bomb can no longer deal damage after the damage window has passed
+            Active = false; // Bomb should be removed from the game after the damage window has passed
+            
+        }
     }
 }
