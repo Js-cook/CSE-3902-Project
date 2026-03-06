@@ -123,6 +123,7 @@ public class Environment
                               sprite is WhiteBrickSprite ||
                               sprite is StatueSprite ||
                               sprite is KeyLockedDoorSprite ||
+                              sprite is BlueGapSprite ||
                               sprite is DiamondLockedDoorSprite;
 
                 collidableTiles.Add(new Tile(sprite, tilePosition, isSolid));
