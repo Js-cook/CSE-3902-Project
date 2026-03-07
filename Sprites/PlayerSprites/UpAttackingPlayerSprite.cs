@@ -69,10 +69,10 @@ namespace Sprites
             }
             if (Hurt)
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, origin, 2.0f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, origin, 3.0f, SpriteEffects.None, 0.0f);
             } else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, 2.0f, SpriteEffects.None, 0.0f); // put origin on same x but lower the y
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, 3.0f, SpriteEffects.None, 0.0f); // put origin on same x but lower the y
             }
         }
     }

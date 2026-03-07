@@ -14,8 +14,8 @@ public class Environment
     public Dictionary<string, ISprite> tileMap { get; set; }
     private TileFactory factory;
 
-    private const int tileSize = 32;
-    private const int hudHeight = 112;
+    private const int tileSize = 32*2;
+    private const int hudHeight = 112*2;
     private const int wallOffset = 64;
 
     public Environment(TileFactory factory)
@@ -57,10 +57,10 @@ public class Environment
     {
         return direction switch
         {
-            0 => new Vector2(224, 112),
-            1 => new Vector2(448, 256),
-            2 => new Vector2(224, 400),
-            3 => new Vector2(0, 256),
+            0 => new Vector2(224*2, 112 * 2),
+            1 => new Vector2(448 * 2, 256 * 2),
+            2 => new Vector2(224 * 2, 400 * 2),
+            3 => new Vector2(0, 256 * 2),
             _ => Vector2.Zero
         };
     }
@@ -78,7 +78,7 @@ public class Environment
     public void Draw()
     {
 
-        Vector2 currentPos = new Vector2(wallOffset, hudHeight + wallOffset);
+        Vector2 currentPos = new Vector2(wallOffset*2, (hudHeight + wallOffset*2));
         foreach (ISprite[] tileRow in tiles)
         {
             float rowStartX = currentPos.X;
@@ -103,7 +103,7 @@ public class Environment
     {
         List<Tile> collidableTiles = new List<Tile>();
 
-        Vector2 gridOffset = new Vector2(wallOffset, hudHeight + wallOffset); // Match Draw() calculation
+        Vector2 gridOffset = new Vector2(wallOffset*2, hudHeight + wallOffset*2); // Match Draw() calculation
         int tileSize = 32;
 
         for (int row = 0; row < tiles.Count; row++)
@@ -112,8 +112,8 @@ public class Environment
             {
                 ISprite sprite = tiles[row][col];
                 Vector2 tilePosition = new Vector2(
-                    gridOffset.X + (col * tileSize),
-                    gridOffset.Y + (row * tileSize)
+                    gridOffset.X + (col * tileSize*2),
+                    gridOffset.Y + (row * tileSize*2)
                 );
 
                 // Determine if tile is solid (blocks player movement)
@@ -143,8 +143,8 @@ public class Environment
         // Calculate the actual floor area boundaries
         int floorLeft = (int)gridOffset.X;
         int floorTop = (int)gridOffset.Y;
-        int floorRight = floorLeft + (numCols * tileSize);
-        int floorBottom = floorTop + (numRows * tileSize);
+        int floorRight = floorLeft + (numCols * tileSize*2);
+        int floorBottom = floorTop + (numRows * tileSize*2);
 
         int wallThickness = 32;
 

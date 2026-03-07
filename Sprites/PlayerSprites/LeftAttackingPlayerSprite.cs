@@ -72,11 +72,11 @@ namespace Sprites
 
             if (Hurt)
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, origin, new Vector2(2.0f, 2.0f), SpriteEffects.FlipHorizontally, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, origin, new Vector2(3.0f, 3.0f), SpriteEffects.FlipHorizontally, 0.0f);
             }
             else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, new Vector2(2.0f, 2.0f), SpriteEffects.FlipHorizontally, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, new Vector2(3.0f, 3.0f), SpriteEffects.FlipHorizontally, 0.0f);
             }
         }
 

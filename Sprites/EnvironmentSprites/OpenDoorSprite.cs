@@ -29,7 +29,7 @@ public class OpenDoorSprite : BaseTile
 
     public override void SpriteDraw(Vector2 position)
     {
-        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64 * 2, 64 * 2);
         switch (direction)
         {
             case 0:

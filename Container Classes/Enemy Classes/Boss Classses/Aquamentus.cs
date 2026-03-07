@@ -25,7 +25,7 @@ public class Aquamentus : IEnemy
     {
         get
         {
-            return new Rectangle((int)position.X, (int)position.Y, 32, 32);
+            return new Rectangle((int)position.X, (int)position.Y, 64*2, 64*2);
         }
     }
     public bool HitboxActive { get; set; }
