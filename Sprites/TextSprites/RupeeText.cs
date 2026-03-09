@@ -13,10 +13,11 @@ public class RupeeText : IText
     public string Text { get; set; }
     public Color TextColor { get; set; }
 
-    public RupeeText(SpriteFont font, Vector2 position)
+    public RupeeText(SpriteFont font, Vector2 position, SpriteBatch spriteBatch)
     {
         this.font = font;
         this.position = position;
+        this.spriteBatch = spriteBatch;
     }
     
     public void Update()

@@ -55,6 +55,13 @@
 /processorParam:TextureFormat=Color
 /build:EnemySprites.png
 
+#begin Fonts/the-legend-of-zelda-nes.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/the-legend-of-zelda-nes.spritefont
+
 #begin ItemSprites.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -6,13 +6,15 @@ using System.Collections.Generic;
 public class TextFactory
 {
     private SpriteFont spriteFont;
-    public TextFactory(SpriteFont font)
+    private SpriteBatch spriteBatch;
+    public TextFactory(SpriteFont font, SpriteBatch spriteBatch)
     { 
         spriteFont = font;
+        this.spriteBatch = spriteBatch;
     }
 
     public RupeeText CreateRupeeText(Vector2 position)
     {
-        return new RupeeText(spriteFont, position);
+        return new RupeeText(spriteFont, position, spriteBatch);
     }
 }

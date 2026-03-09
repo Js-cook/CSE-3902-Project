@@ -32,7 +32,9 @@ namespace _3902_Project
         private EffectFactory effectFactory;
         private EffectController effectController;
 
-        //private HUDBackgroundSprite hudBackgroundSprite;
+        private HUDBackgroundSprite hudBackgroundSprite;
+        private HUD hud;
+        private TextFactory textFactory;
 
         private IController keyboardController;
 
@@ -91,7 +93,9 @@ namespace _3902_Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Dictionary<string, SoundEffect> sfx = LoadPlayerSFX(Content);
 
-            //hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch);
+            hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch);
+            textFactory = new TextFactory(Content.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch);
+            hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite);
 
             AudioController audioController = new AudioController();
             dungeonSong = Content.Load<Song>("BackgroundMusic");
@@ -167,16 +171,11 @@ namespace _3902_Project
             ];
 
             collisionManager.Update(gameTime, collidables);
-            effectController.Update(gameTime); 
+            effectController.Update(gameTime);
 
-
-
-
-
+            hud.Update(gameTime);
 
             // 5. Finally, run the physics!
-
-
             base.Update(gameTime);
         }
 
@@ -186,6 +185,7 @@ namespace _3902_Project
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             environment.Draw();
+            hud.Draw();
             //hudBackgroundSprite.SpriteDraw(Vector2.Zero);
             player.Draw();
             item.Draw();
