@@ -18,6 +18,7 @@ namespace _3902_Project
         private SpriteBatch _spriteBatch;
 
         private Link player;
+        private LinkInventory playerInventory;
         private Texture2D playerTexture;
         private PlayerSpriteFactory spriteFactory;
         private ProjectileSpriteFactory projectileSpriteFactory;
@@ -68,7 +69,8 @@ namespace _3902_Project
             // TODO: Add your initialization logic here
             //AudioController audioController = new AudioController();
             enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
-            
+            playerInventory = new LinkInventory();
+
             base.Initialize();
         }
 
@@ -95,7 +97,7 @@ namespace _3902_Project
 
             hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch);
             textFactory = new TextFactory(Content.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch);
-            hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite);
+            hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite, playerInventory);
 
             AudioController audioController = new AudioController();
             dungeonSong = Content.Load<Song>("BackgroundMusic");
@@ -106,7 +108,7 @@ namespace _3902_Project
             projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
             projectileController = new ProjectileController(projectileSpriteFactory, sfx);
 
-            player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx);
+            player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx, playerInventory);
 
 
             // EnemySpriteFactory, Enemy Actor Factory Enemy Controller, and EnemyLoader Initialization

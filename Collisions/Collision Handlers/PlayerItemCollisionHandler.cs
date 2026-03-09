@@ -14,23 +14,23 @@ public class PlayerItemCollisionHandler : ICollisionHandler
         switch (pickup.ItemType)
         {
             case ItemType.Heart:
-                player.CurrentHealth = Math.Min(player.CurrentHealth + 2, player.MaxHealth);
+                player.playerInventory.currentHearts = Math.Min(player.playerInventory.currentHearts + 2, player.playerInventory.maxHearts);
                 break;
             case ItemType.Rupee:
-                player.RupeeCount++;
+                player.playerInventory.rupees++;
                 break;
             case ItemType.Key:
-                player.KeyCount++;
+                player.playerInventory.keys++;
                 break;
             case ItemType.Bomb:
-                player.BombCount++;
+                player.playerInventory.items++;
                 break;
             case ItemType.HeartContainer:
-                player.MaxHealth += 2;
-                player.CurrentHealth = player.MaxHealth;
+                player.playerInventory.maxHearts += 2;
+                player.playerInventory.currentHearts = player.playerInventory.maxHearts;
                 break;
             case ItemType.Fairy:
-                player.CurrentHealth = player.MaxHealth;
+                player.playerInventory.currentHearts = player.playerInventory.maxHearts;
                 break;
             default:
                 break;
