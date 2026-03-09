@@ -35,4 +35,6 @@ public class EnemyLoader
             enemy.HitboxActive = true;
         }
     }
+
+
 }

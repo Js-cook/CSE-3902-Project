@@ -12,7 +12,7 @@ public class Link : ICollidable
     {
         get
         {
-            return new Rectangle((int)position.X, (int)position.Y, 28, 28);
+            return new Rectangle((int)position.X, (int)position.Y, Sprite.Width, Sprite.Height);
         }
     }
     public bool HitboxActive { get; set; } //not sure if this is necessary for Link, but it is for enemies and projectiles so I added it here for consistency and to implement ICollidable correctly

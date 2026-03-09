@@ -10,6 +10,11 @@ namespace Sprites
         public bool Hurt { get; set; }
         private Rectangle currentFrame = new Rectangle(124, 11, 15, 15);
 
+        private int scale = 3;
+
+        public int Height => currentFrame.Height * scale;
+        public int Width => currentFrame.Width * scale;
+
         public LeftUsingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
             this.texture = texture;
@@ -21,11 +26,11 @@ namespace Sprites
             //throw new NotImplementedException();
             if (Hurt)
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, new Vector2(0, 0), new Vector2(3.0f, 3.0f), SpriteEffects.FlipHorizontally, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, new Vector2(0, 0), scale, SpriteEffects.FlipHorizontally, 0.0f);
             }
             else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(3.0f, 3.0f), SpriteEffects.FlipHorizontally, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), scale, SpriteEffects.FlipHorizontally, 0.0f);
             }
         }
         public void Update(GameTime gameTime)
