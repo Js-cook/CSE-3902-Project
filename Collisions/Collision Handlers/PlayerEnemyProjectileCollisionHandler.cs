@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 
-public class PlayerProjectileCollisionHandler : ICollisionHandler
+public class PlayerEnemyProjectileCollisionHandler : ICollisionHandler
 {
     public void HandleCollision(ICollidable obj1, ICollidable obj2, Rectangle intersection)
     {

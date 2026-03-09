@@ -45,6 +45,7 @@ namespace _3902_Project
 
         private ItemFactory itemFactory;
         private Item item;
+        private ItemController itemController;
 
         private CollisionManager collisionManager;
         public Game1()
@@ -128,8 +129,9 @@ namespace _3902_Project
 
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
             item = new Item(itemFactory);
+            itemController = new ItemController(itemFactory, sfx);
 
-            keyboardController = new Controllers.IKeyboard(player, roomManager, item, enemyController, this, audioController, LoadPlayerSFX(Content));
+            keyboardController = new Controllers.IKeyboard(player, roomManager, item, enemyController, this, audioController, LoadPlayerSFX(Content), itemController);
 
             // Add additional collision handlers here as needed
             collisionManager = new CollisionManager();
@@ -148,6 +150,7 @@ namespace _3902_Project
             player.Update(gameTime);
             environment.Update(gameTime);
             item.Update(gameTime);
+            itemController.Update(gameTime);
             enemyController.Update(gameTime);
             projectileController.Update(gameTime);
 
@@ -160,7 +163,7 @@ namespace _3902_Project
                 .. projectileController.projectiles,
                 .. enemyController.GetAllEnemyProjectiles(), // Enemy projectiles (Goriya boomerang, Aquamentus fireballs)
                 .. environment.GetCollidableTiles(), //Added collidable tiles from environment since environment is not a collidable class, dk
-                
+                .. itemController.itemArray, // Pickup items
             ];
 
             collisionManager.Update(gameTime, collidables);
@@ -186,6 +189,7 @@ namespace _3902_Project
             //hudBackgroundSprite.SpriteDraw(Vector2.Zero);
             player.Draw();
             item.Draw();
+            itemController.Draw();
             enemyController.Draw();
             projectileController.Draw();
             effectController.Draw();

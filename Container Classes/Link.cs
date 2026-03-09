@@ -27,6 +27,13 @@ public class Link : ICollidable
 
     public List<IProjectile> projectiles { get; set; } = new List<IProjectile>();
 
+    // Inventory/Stats
+    public int CurrentHealth { get; set; }
+    public int MaxHealth { get; set; }
+    public int RupeeCount { get; set; }
+    public int KeyCount { get; set; }
+    public int BombCount { get; set; }
+
     public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
     {
         // Spawn player in center of floor area
@@ -37,6 +44,13 @@ public class Link : ICollidable
         playerState = new RightIdlePlayerState(this, spriteFactory, projectileController, soundEffect);
         this.projectileSpriteFactory = projectileSpriteFactory;
         Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
+
+        //Adds Stats to Link, starting with 3 hearts (6 health) and no rupees, keys, or bombs
+        CurrentHealth = 6; 
+        MaxHealth = 6;
+        RupeeCount = 0;
+        KeyCount = 0;
+        BombCount = 0;
     }
 
     public void MoveUp() 
