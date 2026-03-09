@@ -31,10 +31,8 @@ namespace _3902_Project
         private EffectSpriteFactory effectSpriteFactory;
         private EffectFactory effectFactory;
         private EffectController effectController;
-        
 
-
-
+        //private HUDBackgroundSprite hudBackgroundSprite;
 
         private IController keyboardController;
 
@@ -91,6 +89,8 @@ namespace _3902_Project
             
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Dictionary<string, SoundEffect> sfx = LoadPlayerSFX(Content);
+
+            //hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch);
 
             AudioController audioController = new AudioController();
             dungeonSong = Content.Load<Song>("BackgroundMusic");
@@ -183,6 +183,7 @@ namespace _3902_Project
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             environment.Draw();
+            //hudBackgroundSprite.SpriteDraw(Vector2.Zero);
             player.Draw();
             item.Draw();
             enemyController.Draw();
