@@ -7,7 +7,7 @@ public class Bomb : IProjectile
     {
         get
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 32, 32);
+            return new Rectangle((int)Position.X, (int)Position.Y, 32*3, 32*3);
         }
 
     }
@@ -33,16 +33,16 @@ public class Bomb : IProjectile
         switch (direction)
         {
             case Direction.LEFT:
-                this.Position = new Vector2(position.X - 20, position.Y);
+                this.Position = new Vector2(position.X - 20*3, position.Y);
                 break;
             case Direction.RIGHT:
-                this.Position = new Vector2(position.X + 20, position.Y);
+                this.Position = new Vector2(position.X + 20*3, position.Y);
                 break;
             case Direction.DOWN:
-                this.Position = new Vector2(position.X, position.Y + 20);
+                this.Position = new Vector2(position.X, position.Y + 20*3);
                 break;
             case Direction.UP:
-                this.Position = new Vector2(position.X, position.Y - 20);
+                this.Position = new Vector2(position.X, position.Y - 20*3);
                 break;
         }
         this.spriteFactory = spriteFactory;

@@ -9,7 +9,7 @@ public class Fireball : IProjectile
     {
         get
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 22, 22);
+            return new Rectangle((int)Position.X, (int)Position.Y, 22*3, 22*3);
         }
     }
     public bool HitboxActive { get; set; }
@@ -47,16 +47,16 @@ public class Fireball : IProjectile
         switch (direction)
         {
             case Direction.UP:
-                positionNew.Y -= (3 * stopper);
+                positionNew.Y -= (6 * stopper);
                 break;
             case Direction.DOWN:
-                positionNew.Y += (3 * stopper);
+                positionNew.Y += (6 * stopper);
                 break;
             case Direction.LEFT:
-                positionNew.X -= (3 * stopper);
+                positionNew.X -= (6 * stopper);
                 break;
             case Direction.RIGHT:
-                positionNew.X += (3 * stopper);
+                positionNew.X += (6 * stopper);
                 break;
         }
         Position = positionNew;

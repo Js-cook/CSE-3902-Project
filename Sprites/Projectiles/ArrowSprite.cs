@@ -25,16 +25,16 @@ public class ArrowSprite : ISprite
         switch (direction)
         {
             case Direction.UP:
-                spriteBatch.Draw(texture, position, sourceRectangleVertical, Color.White, 0.0f, Vector2.Zero, 1.5f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(texture, position, sourceRectangleVertical, Color.White, 0.0f, Vector2.Zero, 3f, SpriteEffects.None, 0.0f);
                 break;
             case Direction.DOWN:
-                spriteBatch.Draw(texture, position, sourceRectangleVertical, Color.White, 0.0f, new Vector2(0, 0), 1.5f, SpriteEffects.FlipVertically, 0.0f);
+                spriteBatch.Draw(texture, position, sourceRectangleVertical, Color.White, 0.0f, new Vector2(0, 0), 3f, SpriteEffects.FlipVertically, 0.0f);
                 break;
             case Direction.LEFT:
-                spriteBatch.Draw(texture, position, sourceRectangleHorizontal, Color.White, 0.0f, new Vector2(0, 0), 1.5f, SpriteEffects.FlipHorizontally, 0.0f);
+                spriteBatch.Draw(texture, position, sourceRectangleHorizontal, Color.White, 0.0f, new Vector2(0, 0), 3f, SpriteEffects.FlipHorizontally, 0.0f);
                 break;
             case Direction.RIGHT:
-                spriteBatch.Draw(texture, position, sourceRectangleHorizontal, Color.White, 0.0f, Vector2.Zero, 1.5f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(texture, position, sourceRectangleHorizontal, Color.White, 0.0f, Vector2.Zero, 3f, SpriteEffects.None, 0.0f);
                 break;
         }
     }

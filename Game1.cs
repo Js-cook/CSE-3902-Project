@@ -55,8 +55,10 @@ namespace _3902_Project
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            _graphics.PreferredBackBufferWidth = 512;
-            _graphics.PreferredBackBufferHeight = 464;
+            //_graphics.PreferredBackBufferWidth = 512 * 1.5;
+            //_graphics.PreferredBackBufferHeight = 464 * 1.5;
+            _graphics.PreferredBackBufferWidth = 1025;
+            _graphics.PreferredBackBufferHeight = 928;
             _graphics.ApplyChanges();
         }
 

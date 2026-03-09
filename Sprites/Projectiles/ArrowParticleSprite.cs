@@ -18,7 +18,7 @@ public class ArrowParticleSprite : ISprite
     }
     public void SpriteDraw(Vector2 position)
     {
-        spriteBatch.Draw(texture, position, sourceRectangle, Color.White, 0.0f, Vector2.Zero, 1.5f, SpriteEffects.None, 0.0f);
+        spriteBatch.Draw(texture, position, sourceRectangle, Color.White, 0.0f, Vector2.Zero, 3f, SpriteEffects.None, 0.0f);
     }
     public void Update(GameTime gametime)
     {
