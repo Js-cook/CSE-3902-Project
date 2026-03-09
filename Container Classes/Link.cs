@@ -12,7 +12,7 @@ public class Link : ICollidable
     {
         get
         {
-            return new Rectangle((int)position.X, (int)position.Y, 32, 32);
+            return new Rectangle((int)position.X, (int)position.Y, 28, 28);
         }
     }
     public bool HitboxActive { get; set; } //not sure if this is necessary for Link, but it is for enemies and projectiles so I added it here for consistency and to implement ICollidable correctly
@@ -39,7 +39,7 @@ public class Link : ICollidable
         // Spawn player in center of floor area
         // Floor grid starts at ~(100, 88) and is 19x10 tiles of 32px each
         // Center position: (100 + (19*32)/2, 88 + (10*32)/2) ≈ (404, 248)
-        position = new Vector2(400, 250);
+        position = new Vector2(400*2, 250*2);
         HitboxActive = true; // Enable collision detection for player
         playerState = new RightIdlePlayerState(this, spriteFactory, projectileController, soundEffect);
         this.projectileSpriteFactory = projectileSpriteFactory;

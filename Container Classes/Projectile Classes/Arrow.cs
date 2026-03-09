@@ -8,7 +8,7 @@ public class Arrow : IProjectile
     {
         get
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+            return new Rectangle((int)Position.X, (int)Position.Y, 8*3, 8*3);
         }
     }
 
@@ -48,16 +48,16 @@ public class Arrow : IProjectile
         switch (direction)
         {
             case Direction.UP:
-                positionNew.Y -= 5;
+                positionNew.Y -= 8;
                 break;
             case Direction.DOWN:
-                positionNew.Y += 5;
+                positionNew.Y += 8;
                 break;
             case Direction.LEFT:
-                positionNew.X -= 5;
+                positionNew.X -= 8;
                 break;
             case Direction.RIGHT:
-                positionNew.X += 5;
+                positionNew.X += 8;
                 break;
         }
         Position = positionNew;

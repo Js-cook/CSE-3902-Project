@@ -31,10 +31,10 @@ public class AquamentusFireballSprite : ISprite
     private SpriteBatch spriteBatch;
     private Vector2 position;
     private int frameCounter;
-    private Rectangle sourceRectangle1 = new Rectangle(101, 11, 8, 16);
-    private Rectangle sourceRectangle2 = new Rectangle(110, 11, 8, 16);
-    private Rectangle sourceRectangle3 = new Rectangle(119, 11, 8, 16);
-    private Rectangle sourceRectangle4 = new Rectangle(128, 11, 8, 16);
+    private Rectangle sourceRectangle1 = new Rectangle(101, 14, 8, 10);
+    private Rectangle sourceRectangle2 = new Rectangle(110, 14, 8, 10);
+    private Rectangle sourceRectangle3 = new Rectangle(119, 14, 8, 10);
+    private Rectangle sourceRectangle4 = new Rectangle(128, 14, 8, 10);
     private Rectangle currentFrame;
     public AquamentusFireballSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
     {
@@ -45,7 +45,8 @@ public class AquamentusFireballSprite : ISprite
     }
     public void SpriteDraw(Vector2 position)
     {
-        spriteBatch.Draw(texture, position, currentFrame, Color.White);
+        //spriteBatch.Draw(texture, position, currentFrame, Color.White);
+        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero, 1.5f, SpriteEffects.None, 0.0f);
     }
     public void Update(GameTime gametime)
     {

@@ -13,7 +13,7 @@ public class Tile : ICollidable
     {
         get 
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 32 , 32);
+            return new Rectangle((int)Position.X, (int)Position.Y, 32*2 , 32*2);
         }
     }
 

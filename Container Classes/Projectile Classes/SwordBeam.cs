@@ -9,7 +9,7 @@ public class SwordBeam : IProjectile
     {
         get
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+            return new Rectangle((int)Position.X, (int)Position.Y, 8*3, 8*3);
         }
     }
     public bool HitboxActive { get; set; }
