@@ -25,7 +25,7 @@ public class RoomExteriorSprite : BaseTile
 
     public override void SpriteDraw(Vector2 position)
     {
-        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 512, 352);
+        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 512*2, 352*2);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }

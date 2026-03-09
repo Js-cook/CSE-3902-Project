@@ -9,10 +9,12 @@ public class Fireball : IProjectile
     {
         get
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+            return new Rectangle((int)Position.X, (int)Position.Y, 22*3, 22*3);
         }
     }
     public bool HitboxActive { get; set; }
+
+    public bool HitWall { get; set; }
     public bool isPlayerProjectile { get; set; } = true;
     public Vector2 Position { get; set; }
     private Direction direction;
@@ -45,16 +47,16 @@ public class Fireball : IProjectile
         switch (direction)
         {
             case Direction.UP:
-                positionNew.Y -= (3 * stopper);
+                positionNew.Y -= (6 * stopper);
                 break;
             case Direction.DOWN:
-                positionNew.Y += (3 * stopper);
+                positionNew.Y += (6 * stopper);
                 break;
             case Direction.LEFT:
-                positionNew.X -= (3 * stopper);
+                positionNew.X -= (6 * stopper);
                 break;
             case Direction.RIGHT:
-                positionNew.X += (3 * stopper);
+                positionNew.X += (6 * stopper);
                 break;
         }
         Position = positionNew;
@@ -74,7 +76,11 @@ public class Fireball : IProjectile
 
     public void OnCollision()
     {
-        // do nothing, fireball should not interact with anything, it passes through but doesn't damage again
-        HitboxActive = false;
+        if (!HitWall)
+            Active = false;
+        else
+        {
+            stopper = 0;
+        }
     }
 }

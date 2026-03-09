@@ -24,7 +24,7 @@ public class LeftStatueSprite : BaseTile
 
     public override void SpriteDraw(Vector2 position)
     {
-        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 32, 32);
+        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 32 * 2, 32 * 2);
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
 }

@@ -24,11 +24,11 @@ public class FireballSprite : ISprite
     {
         if (flipped)
         {
-            spriteBatch.Draw(texture, position, frame, Color.White, 0.0f, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(texture, position, frame, Color.White, 0.0f, new Vector2(0, 0), 3f, SpriteEffects.None, 0.0f);
         }
         else
         {
-            spriteBatch.Draw(texture, position, frame, Color.White, 0.0f, new Vector2(0, 0), 1.5f, SpriteEffects.FlipHorizontally, 0.0f);
+            spriteBatch.Draw(texture, position, frame, Color.White, 0.0f, new Vector2(0, 0), 3f, SpriteEffects.FlipHorizontally, 0.0f);
         }
     }
     public void Update(GameTime gametime)

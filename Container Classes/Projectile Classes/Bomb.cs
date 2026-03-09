@@ -7,7 +7,7 @@ public class Bomb : IProjectile
     {
         get
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+            return new Rectangle((int)Position.X, (int)Position.Y, 32*3, 32*3);
         }
 
     }
@@ -16,11 +16,11 @@ public class Bomb : IProjectile
     public bool isPlayerProjectile { get; set; } = true;
 
     public bool HitboxActive { get; set; }
-    public int DamageValue { get; set; } = 1; public bool Active { get; set; }
+    public int DamageValue { get; set; } = 4; public bool Active { get; set; }
     private double startTime = 0.0;
     private double endTime = 0.75;
 
-    private double damageWindow = 0.25; // Time in seconds during which the bomb can deal damage
+    private double damageWindow = 0.10; // Time in seconds during which the bomb can deal damage
     private double damageStartTime = 0.0;
 
     ISprite sprite;
@@ -33,16 +33,16 @@ public class Bomb : IProjectile
         switch (direction)
         {
             case Direction.LEFT:
-                this.Position = new Vector2(position.X - 20, position.Y);
+                this.Position = new Vector2(position.X - 20*3, position.Y);
                 break;
             case Direction.RIGHT:
-                this.Position = new Vector2(position.X + 20, position.Y);
+                this.Position = new Vector2(position.X + 20*3, position.Y);
                 break;
             case Direction.DOWN:
-                this.Position = new Vector2(position.X, position.Y + 20);
+                this.Position = new Vector2(position.X, position.Y + 20*3);
                 break;
             case Direction.UP:
-                this.Position = new Vector2(position.X, position.Y - 20);
+                this.Position = new Vector2(position.X, position.Y - 20*3);
                 break;
         }
         this.spriteFactory = spriteFactory;
@@ -71,6 +71,7 @@ public class Bomb : IProjectile
 
     private void DamageWindow(GameTime gameTime)
     {
+        HitboxActive = true; // Bomb can deal damage during the damage window
         damageStartTime += gameTime.ElapsedGameTime.TotalSeconds;
         if (damageStartTime >= damageWindow)
         {

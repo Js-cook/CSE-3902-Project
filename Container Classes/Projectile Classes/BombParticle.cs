@@ -6,13 +6,13 @@ public class BombParticle : IProjectile
     {
         get
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+            return new Rectangle((int)Position.X, (int)Position.Y, 8*3, 8*3);
         }
     }
 
     public bool isPlayerProjectile { get; set; } = true;
 
-    public bool HitboxActive { get; set; }
+    public bool HitboxActive { get; set; } = false;
     public int DamageValue { get; set; } = 0; public bool Active { get; set; }
     public Vector2 Position { get; set; }
 
@@ -25,7 +25,7 @@ public class BombParticle : IProjectile
         Position = position;
         sprite = spriteFactory.CreateBombParticleSprite(position);
         Active = true;
-        HitboxActive = true;
+        
     }
 
     public void Draw()
@@ -42,7 +42,7 @@ public class BombParticle : IProjectile
         {
             // do something to delete particle
             Active = false;
-            HitboxActive = false;
+           
         }
     }
 

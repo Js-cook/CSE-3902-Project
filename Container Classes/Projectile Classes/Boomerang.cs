@@ -22,7 +22,7 @@ public class Boomerang : IProjectile
     {
         get
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 8, 8);
+            return new Rectangle((int)Position.X, (int)Position.Y, 8 * 3, 8 * 3);
         }
     }
     public bool HitboxActive { get; set; } = true;
@@ -50,16 +50,16 @@ public class Boomerang : IProjectile
         switch (direction)
         {
             case Direction.UP:
-                positionNew.Y -= (3 * directionSign);
+                positionNew.Y -= (6 * directionSign);
                 break;
             case Direction.DOWN:
-                positionNew.Y += (3 * directionSign);
+                positionNew.Y += (6 * directionSign);
                 break;
             case Direction.LEFT:
-                positionNew.X -= (3 * directionSign);
+                positionNew.X -= (6 * directionSign);
                 break;
             case Direction.RIGHT:
-                positionNew.X += (3 * directionSign);
+                positionNew.X += (6 * directionSign);
                 break;
         }
         Position = positionNew;
