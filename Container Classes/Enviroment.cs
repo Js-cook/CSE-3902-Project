@@ -124,6 +124,7 @@ public class Environment
                               sprite is LeftStatueSprite ||
                               sprite is RightStatueSprite ||
                               sprite is KeyLockedDoorSprite ||
+                              sprite is BlueGapSprite ||
                               sprite is DiamondLockedDoorSprite;
 
                 collidableTiles.Add(new Tile(sprite, tilePosition, isSolid));
