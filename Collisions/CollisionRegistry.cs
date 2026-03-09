@@ -57,7 +57,7 @@ public static class CollisionRegistry
     {
         // Create shared handler instances
         PlayerEnemyCollisionHandler playerEnemyHandler = new PlayerEnemyCollisionHandler();
-        PlayerProjectileCollisionHandler playerProjectileHandler = new PlayerProjectileCollisionHandler();
+        PlayerEnemyProjectileCollisionHandler playerProjectileHandler = new PlayerEnemyProjectileCollisionHandler();
         PlayerWallCollisionHandler playerWallHandler = new PlayerWallCollisionHandler();
 
         // Register Player vs Enemy collisions for all enemy types
