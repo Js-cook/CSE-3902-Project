@@ -28,7 +28,9 @@ namespace Controllers
         private RoomManager roomManager;
         private int roomSwitchLimiter = 0;
 
-        public IKeyboard(Link player, RoomManager roomManager, Item item, EnemyController enemyController, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect)
+        private ItemController itemController;
+
+        public IKeyboard(Link player, RoomManager roomManager, Item item, EnemyController enemyController, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect, ItemController itemController)
         {
             this.player = player;
             this.item = item;
@@ -36,6 +38,7 @@ namespace Controllers
             this.audioController = audioController;
             this.soundEffects = soundEffect;
             this.roomManager = roomManager;
+            this.itemController = itemController;
         }
 
         public void Update()
@@ -157,6 +160,20 @@ namespace Controllers
             {
                 item.CycleRight();
                 itemSwitchLimiter = 20;
+            }
+
+            // TEST: Spawn pickup items for collision testing (press once to spawn near player)
+            if (keyState.IsKeyDown(Keys.T) && previousKeyboardState.IsKeyUp(Keys.T))
+            {
+                itemController.SpawnItem(ItemType.Heart, player.position + new Vector2(50, 0));
+            }
+            if (keyState.IsKeyDown(Keys.R) && previousKeyboardState.IsKeyUp(Keys.R))
+            {
+                itemController.SpawnItem(ItemType.Rupee, player.position + new Vector2(50, 0));
+            }
+            if (keyState.IsKeyDown(Keys.K) && previousKeyboardState.IsKeyUp(Keys.K))
+            {
+                itemController.SpawnItem(ItemType.Key, player.position + new Vector2(50, 0));
             }
 
 

@@ -11,6 +11,7 @@ public static class CollisionRegistry
         RegisterEnemyPlayerProjectileCollisions(collisionManager);
         RegisterEnemyWallCollisions(collisionManager);
         RegisterPlayerCollisions(collisionManager);
+        RegisterPlayerItemCollisions(collisionManager);
 
         RegisterProjectileWallCollisions(collisionManager);
 
@@ -77,6 +78,12 @@ public static class CollisionRegistry
         collisionManager.RegisterHandler(typeof(Link), typeof(Tile), playerWallHandler);
 
 
+    }
+
+    // Register Player and Items Collisions
+    private static void RegisterPlayerItemCollisions(CollisionManager collisionManager)
+    {
+        collisionManager.RegisterHandler(typeof(Link), typeof(PickupItem), new PlayerItemCollisionHandler());
     }
 
 }
