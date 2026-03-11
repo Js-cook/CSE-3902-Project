@@ -95,7 +95,7 @@ namespace _3902_Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Dictionary<string, SoundEffect> sfx = LoadPlayerSFX(Content);
 
-            hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch);
+            hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch, Content.Load<Texture2D>("HUD"));
             textFactory = new TextFactory(Content.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch);
             hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite, playerInventory);
 

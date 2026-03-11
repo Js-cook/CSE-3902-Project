@@ -9,7 +9,12 @@ public class HUD
     private ISprite hudBackground;
     private LinkInventory playerInventory;
 
-    public RupeeText rupeeText { get; set; }
+    public HUDText rupeeText { get; set; }
+    public HUDText keyText { get; set; }
+    public HUDText itemText { get; set; }
+    public HUDText healthHeader { get; set; }
+
+    
 
     public HUD(Rectangle hudPositioning, TextFactory textFactory, HUDBackgroundSprite hudBackground, LinkInventory playerInventory)
     {
@@ -18,20 +23,31 @@ public class HUD
         this.playerInventory = playerInventory;
         this.hudBackground = hudBackground;
 
-        rupeeText = textFactory.CreateRupeeText(new Vector2(hudPositioning.X + 100, hudPositioning.Y + 100));
-        rupeeText.Text = "Keys: " + playerInventory.keys;
+        rupeeText = textFactory.CreateHUDText(new Vector2(hudPositioning.X + 390, hudPositioning.Y + 67));
+        rupeeText.Text = "" + playerInventory.rupees;
         rupeeText.TextColor = Color.White;
 
+        keyText = textFactory.CreateHUDText(new Vector2(hudPositioning.X + 390, hudPositioning.Y + 130));
+        keyText.Text = "" + playerInventory.keys;
+        keyText.TextColor = Color.White;
 
+        itemText = textFactory.CreateHUDText(new Vector2(hudPositioning.X + 390, hudPositioning.Y + 165));
+        itemText.Text = "" + playerInventory.items;
+        itemText.TextColor = Color.White;
     }
 
     public void Update(GameTime gameTime)
     {
-        rupeeText.Text = "Keys: " + playerInventory.keys;
+        rupeeText.Text = "" + playerInventory.rupees;
+        keyText.Text = "" + playerInventory.keys;
+        itemText.Text = "" + playerInventory.items;
     }
     public void Draw()
     {
         hudBackground.SpriteDraw(new Vector2(hudPositioning.X, hudPositioning.Y));
+
         rupeeText.Draw();
+        keyText.Draw();
+        itemText.Draw();
     }
 }

@@ -13,8 +13,8 @@ public class TextFactory
         this.spriteBatch = spriteBatch;
     }
 
-    public RupeeText CreateRupeeText(Vector2 position)
+    public HUDText CreateHUDText(Vector2 position)
     {
-        return new RupeeText(spriteFont, position, spriteBatch);
+        return new HUDText(spriteFont, position, spriteBatch);
     }
 }

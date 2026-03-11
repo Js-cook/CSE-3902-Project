@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Enums;
 
-public class RupeeText : IText
+public class HUDText : IText
 {
     private SpriteFont font;
     private Vector2 position;
@@ -13,7 +13,7 @@ public class RupeeText : IText
     public string Text { get; set; }
     public Color TextColor { get; set; }
 
-    public RupeeText(SpriteFont font, Vector2 position, SpriteBatch spriteBatch)
+    public HUDText(SpriteFont font, Vector2 position, SpriteBatch spriteBatch)
     {
         this.font = font;
         this.position = position;
