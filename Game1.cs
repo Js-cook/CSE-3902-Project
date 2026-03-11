@@ -20,6 +20,8 @@ namespace _3902_Project
         private Link player;
         private LinkInventory playerInventory;
         private Texture2D playerTexture;
+        private Texture2D enemyTexture;
+        private Texture2D treasureChestTexture;
         private PlayerSpriteFactory spriteFactory;
         private ProjectileSpriteFactory projectileSpriteFactory;
         private ProjectileController projectileController;
@@ -104,6 +106,8 @@ namespace _3902_Project
           //  audioController.PlaySong(dungeonSong);
 
             playerTexture = Content.Load<Texture2D>("LinkSprites");
+            enemyTexture = Content.Load<Texture2D>("EnemySprites");
+            treasureChestTexture = Content.Load<Texture2D>("TreasureChestSprite");
             spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
             projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
             projectileController = new ProjectileController(projectileSpriteFactory, sfx);
@@ -127,7 +131,7 @@ namespace _3902_Project
 
 
             //room manager
-            tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"),Content.Load<Texture2D>("LinkSprites"), _spriteBatch);
+            tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"),playerTexture,enemyTexture, treasureChestTexture, _spriteBatch);
             environment = new Environment(tileFactory);
             levelFileReader = new LevelFileReader(environment);
             string fullPath = Path.Combine(Content.RootDirectory, "rooms.xml");

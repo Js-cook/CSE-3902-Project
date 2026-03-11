@@ -10,6 +10,8 @@ using System.Diagnostics;
 public class Environment
 {
     public List<ISprite[]> tiles { get; set; }
+    public List<SpikeTile> spikeTiles { get; set; }
+    public List<TreasureChest> treasureChests { get; set; }
     public Dictionary<int, ISprite> doorMap = new Dictionary<int, ISprite>();
     public Dictionary<string, ISprite> tileMap { get; set; }
     private TileFactory factory;
@@ -22,6 +24,8 @@ public class Environment
     {
         this.factory = factory;
         tiles = new List<ISprite[]>();
+        spikeTiles = new List<SpikeTile>();
+        treasureChests = new List<TreasureChest>();
 
 
         tileMap = new Dictionary<string, ISprite> 
@@ -64,6 +68,15 @@ public class Environment
             _ => Vector2.Zero
         };
     }
+    public void AddSpike(Vector2 position)
+    {
+        spikeTiles.Add(new SpikeTile(factory.CreateSpikeSprite(), position));
+    }
+
+    public void AddTreasureChest(Vector2 position)
+    {
+        treasureChests.Add(new TreasureChest(factory.CreateTreasureChestSprite(), position));
+    }
 
     public void Update(GameTime gameTime)
     {
@@ -92,6 +105,15 @@ public class Environment
         }
 
         tileMap["RoomExterior"].SpriteDraw(new Vector2(0, hudHeight));
+        
+        foreach (SpikeTile spike in spikeTiles)
+        {
+            spike.Sprite.SpriteDraw(spike.Position);
+        }
+        foreach (TreasureChest chest in treasureChests)
+        {
+            chest.Sprite.SpriteDraw(chest.Position);
+        }
 
         foreach (var kvp in doorMap)
         {
@@ -99,9 +121,9 @@ public class Environment
         }
     }
 
-    public List<Tile> GetCollidableTiles()
+    public List<ICollidable> GetCollidableTiles()
     {
-        List<Tile> collidableTiles = new List<Tile>();
+        List<ICollidable> collidableTiles = new List<ICollidable>();
 
         Vector2 gridOffset = new Vector2(wallOffset*2, hudHeight + wallOffset*2); // Match Draw() calculation
         int scaledTileSize = tileSize; // Use the constant which is already scaled (32*2 = 64)
@@ -172,7 +194,14 @@ public class Environment
         {
             collidableTiles.Add(new Tile(null, new Vector2(floorRight, y), true));
         }
-
+        foreach (SpikeTile spike in spikeTiles)
+        {
+            collidableTiles.Add(spike);
+        }
+        foreach (TreasureChest chest in treasureChests)
+        {
+            collidableTiles.Add(chest);
+        }
         return collidableTiles;
     }
 }
