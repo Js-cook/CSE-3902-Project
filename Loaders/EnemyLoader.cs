@@ -25,8 +25,8 @@ public class EnemyLoader
         //Here, you would call the enmyFactory to load whatever enemies you wnat to load
         //And then you would add those enemies to the EnemyController's enemy array
 
-        enemyController.AddEnemy(enemyFactory.CreateGel(new Vector2(100 * 2, 100 * 2)));
-        enemyController.AddEnemy(enemyFactory.CreateAquamentus(new Vector2(200 * 2, 188 * 2)));
+        enemyController.AddEnemy(enemyFactory.CreateGel(new Vector2(50 * 2, 350)));
+        enemyController.AddEnemy(enemyFactory.CreateAquamentus(new Vector2(120 * 2, 188 * 2)));
         enemyController.AddEnemy(enemyFactory.CreateGel(new Vector2(200 * 2, 300 * 2)));
         enemyController.AddEnemy(enemyFactory.CreateGoriya(new Vector2(300 * 2, 300 * 2)));
 
