@@ -12,6 +12,7 @@ public class Environment
     public List<ISprite[]> tiles { get; set; }
     public List<SpikeTile> spikeTiles { get; set; }
     public List<TreasureChest> treasureChests { get; set; }
+    public List<Doorway> doorways { get; set; }
     public Dictionary<int, ISprite> doorMap = new Dictionary<int, ISprite>();
     public Dictionary<string, ISprite> tileMap { get; set; }
     private TileFactory factory;
@@ -26,6 +27,7 @@ public class Environment
         tiles = new List<ISprite[]>();
         spikeTiles = new List<SpikeTile>();
         treasureChests = new List<TreasureChest>();
+        doorways = new List<Doorway>();
 
 
         tileMap = new Dictionary<string, ISprite> 
@@ -47,7 +49,7 @@ public class Environment
 
     public void AssignDoor(int direction, string type)
     {
-        doorMap[direction] = type switch
+        ISprite sprite = type switch
         {
             "BombedWall" => factory.CreateBombedWallSprite(direction),
             "DiamondLockedDoor" => factory.CreateDiamondLockedDoorSprite(direction),
@@ -55,6 +57,12 @@ public class Environment
             "OpenDoor" => factory.CreateOpenDoorSprite(direction),
             _ => factory.CreateWallSprite(direction)
         };
+        doorMap[direction] = sprite;
+
+        bool isLocked = type != "OpenDoor";
+        Vector2 pos = GetDoorPosition(direction);
+
+        doorways.Add(new Doorway(sprite, pos, direction, isLocked));
     }
 
     private Vector2 GetDoorPosition(int direction)
@@ -76,6 +84,10 @@ public class Environment
     public void AddTreasureChest(Vector2 position)
     {
         treasureChests.Add(new TreasureChest(factory.CreateTreasureChestSprite(), position));
+    }
+    private bool IsOpenDoor(int direction)
+    {
+        return doorways.Exists(d => d.Direction == direction && !d.IsLocked);
     }
 
     public void Update(GameTime gameTime)
@@ -171,28 +183,68 @@ public class Environment
 
         int wallThickness = 64; // Use scaled wall thickness
 
-        // Top boundary - just above the floor area
+        // Top boundary - leave gap if top door is open
         for (int x = floorLeft - wallThickness; x <= floorRight + wallThickness; x += scaledTileSize)
         {
-            collidableTiles.Add(new Tile(null, new Vector2(x, floorTop - wallThickness), true));
+            bool inTopDoorGap = false;
+
+            if (IsOpenDoor(0))
+            {
+                Vector2 topDoorPos = GetDoorPosition(0);
+
+                int gapLeft = (int)topDoorPos.X;
+                int gapRight = gapLeft + 2 * scaledTileSize;
+
+                inTopDoorGap = x >= gapLeft && x < gapRight;
+            }
+
+            if (!inTopDoorGap)
+            {
+                collidableTiles.Add(new Tile(null, new Vector2(x, floorTop - wallThickness), true));
+            }
         }
 
-        // Bottom boundary - just below the floor area
+       
+        // Bottom boundary - leave gap if bottom door is open
         for (int x = floorLeft - wallThickness; x <= floorRight + wallThickness; x += scaledTileSize)
         {
-            collidableTiles.Add(new Tile(null, new Vector2(x, floorBottom), true));
-        }
+            bool inBottomDoorGap = false;
 
-        // Left boundary - along the left side of floor area
+            if (IsOpenDoor(2))
+            {
+                Vector2 bottomDoorPos = GetDoorPosition(2);
+
+                int gapLeft = (int)bottomDoorPos.X;
+                int gapRight = gapLeft + 2 * scaledTileSize;
+
+                inBottomDoorGap = x >= gapLeft && x < gapRight;
+            }
+
+            if (!inBottomDoorGap)
+            {
+                collidableTiles.Add(new Tile(null, new Vector2(x, floorBottom), true));
+            }
+        }
+        // Left boundary - leave gap if left door is open
         for (int y = floorTop - wallThickness; y <= floorBottom + wallThickness; y += scaledTileSize)
         {
-            collidableTiles.Add(new Tile(null, new Vector2(floorLeft - wallThickness, y), true));
+            bool inLeftDoorGap = IsOpenDoor(3) && y >= floorTop + 2 * scaledTileSize && y <= floorTop + 3 * scaledTileSize;
+
+            if (!inLeftDoorGap)
+            {
+                collidableTiles.Add(new Tile(null, new Vector2(floorLeft - wallThickness, y), true));
+            }
         }
 
-        // Right boundary - along the right side of floor area
+        // Right boundary - leave gap if right door is open
         for (int y = floorTop - wallThickness; y <= floorBottom + wallThickness; y += scaledTileSize)
         {
-            collidableTiles.Add(new Tile(null, new Vector2(floorRight, y), true));
+            bool inRightDoorGap = IsOpenDoor(1) && y >= floorTop + 2 * scaledTileSize && y <= floorTop + 3 * scaledTileSize;
+
+            if (!inRightDoorGap)
+            {
+                collidableTiles.Add(new Tile(null, new Vector2(floorRight, y), true));
+            }
         }
         foreach (SpikeTile spike in spikeTiles)
         {
@@ -201,6 +253,10 @@ public class Environment
         foreach (TreasureChest chest in treasureChests)
         {
             collidableTiles.Add(chest);
+        }
+        foreach (Doorway doorway in doorways)
+        {
+            collidableTiles.Add(doorway);
         }
         return collidableTiles;
     }

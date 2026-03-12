@@ -1,40 +1,50 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
-/// <summary>
-/// Temporary fix to load enemies in a hardcoded way
-/// </summary>
-/// 
 public class EnemyLoader
 {
     private EnemyFactory enemyFactory;
     private EnemyController enemyController;
+    private Dictionary<string, Func<Vector2, IEnemy>> enemyMap;
 
     public EnemyLoader(EnemyFactory enemyFactory, EnemyController enemyController)
     {
         this.enemyFactory = enemyFactory;
         this.enemyController = enemyController;
+
+        enemyMap = new Dictionary<string, Func<Vector2, IEnemy>>()
+        {
+            { "Gel", enemyFactory.CreateGel },
+            { "Goriya", enemyFactory.CreateGoriya },
+            { "Aquamentus", enemyFactory.CreateAquamentus }
+            
+        };
     }
 
-
-
-    /// <summary>
-    /// Loads in the enemies and adds them to Enemy Controller's enemy array. Also activates the hitboxes for the loaded enemies
-    /// </summary>
-    public void LoadFakeLevel()
+    public void LoadEnemiesFromRoom(XElement roomNode)
     {
-        //Here, you would call the enmyFactory to load whatever enemies you wnat to load
-        //And then you would add those enemies to the EnemyController's enemy array
+        enemyController.enemyArray.Clear();
 
-        enemyController.AddEnemy(enemyFactory.CreateGel(new Vector2(50 * 2, 350)));
-        enemyController.AddEnemy(enemyFactory.CreateAquamentus(new Vector2(120 * 2, 188 * 2)));
-        enemyController.AddEnemy(enemyFactory.CreateGel(new Vector2(200 * 2, 300 * 2)));
-        enemyController.AddEnemy(enemyFactory.CreateGoriya(new Vector2(300 * 2, 300 * 2)));
+        var enemiesNode = roomNode.Element("Enemies");
+        if (enemiesNode == null)
+            return;
 
-        foreach (var enemy in enemyController.enemyArray)
+        foreach (var enemyElement in enemiesNode.Elements("Enemy"))
         {
-            enemy.HitboxActive = true;
+            string type = enemyElement.Attribute("type")?.Value;
+            float x = float.Parse(enemyElement.Attribute("x")?.Value ?? "0");
+            float y = float.Parse(enemyElement.Attribute("y")?.Value ?? "0");
+
+            Vector2 position = new Vector2(x, y);
+
+            if (type != null && enemyMap.ContainsKey(type))
+            {
+                IEnemy enemy = enemyMap[type](position);
+                enemy.HitboxActive = true;
+                enemyController.AddEnemy(enemy);
+            }
         }
     }
-
-
 }

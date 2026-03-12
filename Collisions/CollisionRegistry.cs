@@ -6,11 +6,11 @@ using System.Reflection;
 
 public static class CollisionRegistry
 {
-    public static void Initialize(CollisionManager collisionManager)
+    public static void Initialize(CollisionManager collisionManager, RoomManager roomManager)
     {
         RegisterEnemyPlayerProjectileCollisions(collisionManager);
         RegisterEnemyWallCollisions(collisionManager);
-        RegisterPlayerCollisions(collisionManager);
+        RegisterPlayerCollisions(collisionManager, roomManager);
         RegisterPlayerItemCollisions(collisionManager);
 
         RegisterProjectileWallCollisions(collisionManager);
@@ -55,7 +55,7 @@ public static class CollisionRegistry
         }
     }
 
-    private static void RegisterPlayerCollisions(CollisionManager collisionManager)
+    private static void RegisterPlayerCollisions(CollisionManager collisionManager, RoomManager roomManager)
     {
         // Create shared handler instances
         PlayerEnemyCollisionHandler playerEnemyHandler = new PlayerEnemyCollisionHandler();
@@ -63,6 +63,7 @@ public static class CollisionRegistry
         PlayerWallCollisionHandler playerWallHandler = new PlayerWallCollisionHandler();
         PlayerSpikeCollisionHandler playerSpikeHandler = new PlayerSpikeCollisionHandler();
         PlayerTreasureChestCollisionHandler playerChestHandler = new PlayerTreasureChestCollisionHandler();
+        PlayerDoorwayCollisionHandler playerDoorwayHandler = new PlayerDoorwayCollisionHandler(roomManager);
         // Register Player vs Enemy collisions for all enemy types
         collisionManager.RegisterHandler(typeof(Link), typeof(Bat), playerEnemyHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(Gel), playerEnemyHandler);
@@ -80,6 +81,7 @@ public static class CollisionRegistry
         collisionManager.RegisterHandler(typeof(Link), typeof(Tile), playerWallHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(SpikeTile), playerSpikeHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(TreasureChest), playerChestHandler);
+        collisionManager.RegisterHandler(typeof(Link), typeof(Doorway), playerDoorwayHandler);
 
     }
 

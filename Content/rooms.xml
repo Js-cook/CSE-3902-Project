@@ -35,6 +35,11 @@
 			<Bottom type="Wall" />
 			<Left type="Wall" />
 		</Doors>
+		
+		<Enemies>
+			<Enemy type="Gel" x="220" y="420" />
+			<Enemy type="Goriya" x="400" y="370" />
+		</Enemies>
 	</Room>
 
 	<Room row="0" col="2">
@@ -54,6 +59,10 @@
 			<Bottom type="KeyLockedDoor" />
 			<Left type="KeyLockedDoor" />
 		</Doors>
+
+		<Enemies>
+			<Enemy type="Aquamentus" x="400" y="376" />
+		</Enemies>
 	</Room>
 
 	<Room row="1" col="2">
