@@ -10,10 +10,12 @@ using System.Linq;
 public class LevelFileReader
 {
     private Environment gameEnv;
+    private EnemyLoader enemyLoader;
 
-    public LevelFileReader(Environment gameEnv)
+    public LevelFileReader(Environment gameEnv, EnemyLoader enemyLoader)
     {
         this.gameEnv = gameEnv;
+        this.enemyLoader = enemyLoader;
     }
 
     public bool LoadLevel(string filePath, int row, int col)
@@ -95,7 +97,7 @@ public class LevelFileReader
                 string type = door.Attribute("type").Value;
                 gameEnv.AssignDoor(direction, type);
             }
-
+            enemyLoader.LoadEnemiesFromRoom(roomNode);
             return true;
         }
     }

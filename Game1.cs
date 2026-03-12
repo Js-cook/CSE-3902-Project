@@ -121,8 +121,7 @@ namespace _3902_Project
             enemyController = new EnemyController(sfx);
             enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Handles laoding enemies into the enemyCotnroller which then updates each of them
 
-            //Load the enmies into the scene
-            enemyLoader.LoadFakeLevel(); //Load a fake level whihc loads all the enmies
+            
 
             // Effect Factory and Effect Controller Initialization
             effectSpriteFactory = new EffectSpriteFactory(playerTexture, _spriteBatch); // Uses player texture spritesheet for the death cloud effect
@@ -133,7 +132,7 @@ namespace _3902_Project
             //room manager
             tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"),playerTexture,enemyTexture, treasureChestTexture, _spriteBatch);
             environment = new Environment(tileFactory);
-            levelFileReader = new LevelFileReader(environment);
+            levelFileReader = new LevelFileReader(environment, enemyLoader);
             string fullPath = Path.Combine(Content.RootDirectory, "rooms.xml");
             roomManager = new RoomManager(levelFileReader, fullPath, 0, 1);
 
