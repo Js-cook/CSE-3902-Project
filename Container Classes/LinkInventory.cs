@@ -12,8 +12,8 @@ public class LinkInventory
     public LinkInventory()
     {
         keys = 0;
-        maxHearts = 3;
-        currentHearts = 3;
+        maxHearts = 3; // maxHearts here refers to the number of whole hearts
+        currentHearts = 6; // currentHearts refers to the number of heart halves
         rupees = 0;
         items = 0;
     }

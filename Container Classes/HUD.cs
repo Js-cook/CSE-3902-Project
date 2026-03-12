@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class HUD
 {
     private Rectangle hudPositioning;
-    private TextFactory textFactory;
+    private HUDSpriteFactory textFactory;
     private ISprite hudBackground;
     private LinkInventory playerInventory;
 
@@ -14,9 +14,10 @@ public class HUD
     public HUDText itemText { get; set; }
     public HUDText healthHeader { get; set; }
 
+    //private List<HUDHeart> heartDisplay = new();
+    private Vector2 hudHeartStartPosition;
     
-
-    public HUD(Rectangle hudPositioning, TextFactory textFactory, HUDBackgroundSprite hudBackground, LinkInventory playerInventory)
+    public HUD(Rectangle hudPositioning, HUDSpriteFactory textFactory, HUDBackgroundSprite hudBackground, LinkInventory playerInventory)
     {
         this.hudPositioning = hudPositioning;
         this.textFactory = textFactory;
@@ -34,6 +35,8 @@ public class HUD
         itemText = textFactory.CreateHUDText(new Vector2(hudPositioning.X + 390, hudPositioning.Y + 165));
         itemText.Text = "" + playerInventory.items;
         itemText.TextColor = Color.White;
+
+        hudHeartStartPosition = new Vector2(hudPositioning.X + 705, hudPositioning.Y + 130);
     }
 
     public void Update(GameTime gameTime)
@@ -45,6 +48,29 @@ public class HUD
     public void Draw()
     {
         hudBackground.SpriteDraw(new Vector2(hudPositioning.X, hudPositioning.Y));
+
+        int totalHearts = playerInventory.currentHearts;
+        string type;
+
+        for (int i = 0; i < playerInventory.maxHearts; i++)
+        {
+            if(totalHearts == 1)
+            {
+                type = "half";
+                totalHearts--;
+            } else if (totalHearts > 0)
+            {
+                type = "full";
+                totalHearts -= 2;
+            } else
+            {
+                type = "empty";
+            }
+
+            Vector2 pos = new Vector2(hudHeartStartPosition.X + (i % 8) * 30, hudHeartStartPosition.Y + (i / 8) * 30);
+            ISprite heart = textFactory.CreateHUDHeart(type);
+            heart.SpriteDraw(pos);
+        }
 
         rupeeText.Draw();
         keyText.Draw();
