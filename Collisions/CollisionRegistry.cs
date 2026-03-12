@@ -51,6 +51,7 @@ public static class CollisionRegistry
         foreach (var eType in enemyTypes)
         {
             collisionManager.RegisterHandler(eType, typeof(Tile), new EnemyWallCollisionHandler());
+            collisionManager.RegisterHandler(eType, typeof(SpikeTile), new EnemySpikeCollisionHandler());
         }
     }
 
@@ -60,7 +61,8 @@ public static class CollisionRegistry
         PlayerEnemyCollisionHandler playerEnemyHandler = new PlayerEnemyCollisionHandler();
         PlayerEnemyProjectileCollisionHandler playerProjectileHandler = new PlayerEnemyProjectileCollisionHandler();
         PlayerWallCollisionHandler playerWallHandler = new PlayerWallCollisionHandler();
-
+        PlayerSpikeCollisionHandler playerSpikeHandler = new PlayerSpikeCollisionHandler();
+        PlayerTreasureChestCollisionHandler playerChestHandler = new PlayerTreasureChestCollisionHandler();
         // Register Player vs Enemy collisions for all enemy types
         collisionManager.RegisterHandler(typeof(Link), typeof(Bat), playerEnemyHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(Gel), playerEnemyHandler);
@@ -76,7 +78,8 @@ public static class CollisionRegistry
 
         // Register Player vs Tiles (walls, blocks, etc.)  // ← ADD THIS SECTION
         collisionManager.RegisterHandler(typeof(Link), typeof(Tile), playerWallHandler);
-
+        collisionManager.RegisterHandler(typeof(Link), typeof(SpikeTile), playerSpikeHandler);
+        collisionManager.RegisterHandler(typeof(Link), typeof(TreasureChest), playerChestHandler);
 
     }
 
