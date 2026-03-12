@@ -37,7 +37,7 @@ namespace _3902_Project
 
         private HUDBackgroundSprite hudBackgroundSprite;
         private HUD hud;
-        private TextFactory textFactory;
+        private HUDSpriteFactory textFactory;
 
         private IController keyboardController;
 
@@ -97,8 +97,8 @@ namespace _3902_Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Dictionary<string, SoundEffect> sfx = LoadPlayerSFX(Content);
 
-            hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch);
-            textFactory = new TextFactory(Content.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch);
+            hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch, Content.Load<Texture2D>("HUD"));
+            textFactory = new HUDSpriteFactory(Content.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch, Content.Load<Texture2D>("HUD"));
             hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite, playerInventory);
 
             AudioController audioController = new AudioController();
