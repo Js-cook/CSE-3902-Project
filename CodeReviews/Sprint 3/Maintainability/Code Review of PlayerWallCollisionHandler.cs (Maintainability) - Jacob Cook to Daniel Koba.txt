@@ -1,0 +1,9 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 3/12/2026
+Sprint number: Sprint 3
+Name of the .cs file being reviewed: PlayerWallCollisionHandler.cs
+Author of the .cs file being reviewed: Daniel Koba
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality:
+In general I think this class is very well organized from a maintainability standpoint, however there does seem to be a lot of shared logic between this collision handler and others with the only major difference being the types of entities involved. Encorporating some global helper classes could help to reduce some of this repeated code and could make bug fixing in collisions easier.

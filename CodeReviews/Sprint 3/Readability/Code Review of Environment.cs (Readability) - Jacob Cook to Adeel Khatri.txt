@@ -1,0 +1,9 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 3/12/2026
+Sprint number: Sprint 3
+Name of the .cs file being reviewed: Environment.cs
+Author of the .cs file being reviewed: Adeel Khatri
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality: 
+Besides the separation of concerns that I mentioned in my review on this class for maintainability, there are some minor portions that pose readability issues. I see that direction is represented as an integer, which can be a bit ambiguous if another class is interfacing with those methods so using the direction enum might be preferrable. Another thing is that it might be nice to try to avoid super long boolean expressions like you see for the isSolid variable. Some sort of wrapper type or attribute for the types checked there could possibly be a solution. I will say that the boundary calculations are done very cleanly with respect to readability. The variable names are descriptive and the expressions communicate their meaning well. 
