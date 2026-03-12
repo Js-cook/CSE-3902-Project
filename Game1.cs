@@ -145,7 +145,7 @@ namespace _3902_Project
             // Add additional collision handlers here as needed
             collisionManager = new CollisionManager();
 
-            CollisionRegistry.Initialize(collisionManager);
+            CollisionRegistry.Initialize(collisionManager, roomManager);
 
 
         }

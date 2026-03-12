@@ -38,6 +38,7 @@ public class LevelFileReader
             gameEnv.doorMap.Clear();
             gameEnv.spikeTiles.Clear();
             gameEnv.treasureChests.Clear();
+            gameEnv.doorways.Clear();
 
             var tileRows = roomNode.Descendants("Tiles").Descendants("row");
             foreach (var rowElement in tileRows)
