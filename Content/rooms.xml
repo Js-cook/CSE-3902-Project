@@ -20,13 +20,13 @@
 	
 	<Room row="0" col="1">
 		<Tiles>
-			<row>BlueFloor,Spike,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>Spike,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,Spike</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
-			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,Stair,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,Stair,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,TreasureChest,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
-			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>Spike,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,Spike</row>
 		</Tiles>
 
 		<Doors>
@@ -37,8 +37,8 @@
 		</Doors>
 		
 		<Enemies>
-			<Enemy type="Gel" x="220" y="420" />
-			<Enemy type="Goriya" x="400" y="370" />
+			<Enemy type="Gel" x="0" y="3" />
+			<Enemy type="Goriya" x="4" y="0" />
 		</Enemies>
 	</Room>
 
@@ -61,7 +61,7 @@
 		</Doors>
 
 		<Enemies>
-			<Enemy type="Aquamentus" x="400" y="376" />
+			<Enemy type="Aquamentus" x="6" y="1" />
 		</Enemies>
 	</Room>
 
@@ -108,7 +108,7 @@
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
-			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
