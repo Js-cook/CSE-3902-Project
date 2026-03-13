@@ -22,6 +22,10 @@ public class EnemyLoader
             
         };
     }
+    public void ClearEnemies()
+    {
+        enemyController.enemyArray.Clear();
+    }
 
     public void LoadEnemiesFromRoom(XElement roomNode)
     {

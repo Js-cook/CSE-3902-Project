@@ -18,7 +18,7 @@ public class LevelFileReader
         this.enemyLoader = enemyLoader;
     }
 
-    public bool LoadLevel(string filePath, int row, int col)
+    public bool LoadLevel(string filePath, int row, int col, bool spawnEnemies = true)
     {
         using (Stream stream = TitleContainer.OpenStream(filePath))
         {
@@ -98,7 +98,14 @@ public class LevelFileReader
                 string type = door.Attribute("type").Value;
                 gameEnv.AssignDoor(direction, type);
             }
-            enemyLoader.LoadEnemiesFromRoom(roomNode);
+            if (spawnEnemies)
+            {
+                enemyLoader.LoadEnemiesFromRoom(roomNode);
+            }
+            else
+            {
+                enemyLoader.ClearEnemies();
+            }
             return true;
         }
     }

@@ -134,7 +134,7 @@ namespace _3902_Project
             environment = new Environment(tileFactory);
             levelFileReader = new LevelFileReader(environment, enemyLoader);
             string fullPath = Path.Combine(Content.RootDirectory, "rooms.xml");
-            roomManager = new RoomManager(levelFileReader, fullPath, 0, 1);
+            roomManager = new RoomManager(levelFileReader, fullPath, 0, 1, enemyController);
 
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
             item = new Item(itemFactory);
