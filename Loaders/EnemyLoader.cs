@@ -18,7 +18,9 @@ public class EnemyLoader
         {
             { "Gel", enemyFactory.CreateGel },
             { "Goriya", enemyFactory.CreateGoriya },
-            { "Aquamentus", enemyFactory.CreateAquamentus }
+            { "Aquamentus", enemyFactory.CreateAquamentus },
+            { "Skeleton", enemyFactory.CreateSkeleton },
+            { "Bat", enemyFactory.CreateBat }
             
         };
     }

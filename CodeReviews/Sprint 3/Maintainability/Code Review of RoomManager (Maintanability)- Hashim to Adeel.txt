@@ -1,0 +1,3 @@
+RoomManager is very readable in its current implementation. Varibales are aptly named, with one line comments explaining complex systems or loops.
+The only concern is the coupling with EnemyController makes it a bit hard to follow wwhat's going on and a comment to explain that without having
+to trace the logic through would be nice. 
