@@ -5,4 +5,4 @@ Name of the .cs file being reviewed: Environment.cs
 Author of the .cs file being reviewed: Adeel Khatri
 Number of minutes taken to complete the review: 30 minutes
 
-Specific comments on code quality: 
+Specific comments on code quality: The factory pattern is used to create the environment objects, which is a good design choice for maintainability and there is separation of different environment element types. However, there are still some code smells here. I think what I would do is make the getCollidableTiles method into a global helper method to keep the class shorter. This would make the class follow the single responsibility principle. I would also refactor the class to eliminate duplicate code in the Draw method and change the bool isSolid method to become an ICollidable property instead. (This would make added new types of tiles easier in the future)

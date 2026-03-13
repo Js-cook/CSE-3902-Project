@@ -73,11 +73,11 @@ public static class CollisionRegistry
         collisionManager.RegisterHandler(typeof(Link), typeof(Spiketrap), playerEnemyHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(Aquamentus), playerEnemyHandler);
 
-        // Register Player vs Enemy Projectiles  // ← ADD THIS SECTION
+        // Register Player vs Enemy Projectiles
         collisionManager.RegisterHandler(typeof(Link), typeof(GoriyaBoomerang), playerProjectileHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(AquamentusFireball), playerProjectileHandler);
 
-        // Register Player vs Tiles (walls, blocks, etc.)  // ← ADD THIS SECTION
+        // Register Player vs Tiles (walls, blocks, etc.)
         collisionManager.RegisterHandler(typeof(Link), typeof(Tile), playerWallHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(SpikeTile), playerSpikeHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(TreasureChest), playerChestHandler);
