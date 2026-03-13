@@ -1,0 +1,14 @@
+Author of the code review: Emeril Esquivel
+Date of the code review: 3/13/2026
+Sprint number: Sprint 3
+Name of the .cs file being reviewed: PlayerItemCollisionHandler.cs
+Author of the .cs file being reviewed: Daniel Koba
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality: The code is maintainable in the sense that the collision 
+handling logic is contained in one place, and the use of the switch statement makes it 
+straightforward to extend with additional item types in the future. However, the class 
+currently has too much direct knowledge of how each pickup changes the player’s inventory. 
+For example, it directly modifies values such as currentHearts, maxHearts, rupees, keys, and 
+items, which creates tight coupling between this collision handler and the internals of 
+LinkInventory.
