@@ -38,8 +38,17 @@ public class EnemyLoader
         foreach (var enemyElement in enemiesNode.Elements("Enemy"))
         {
             string type = enemyElement.Attribute("type")?.Value;
-            float x = float.Parse(enemyElement.Attribute("x")?.Value ?? "0");
-            float y = float.Parse(enemyElement.Attribute("y")?.Value ?? "0");
+
+            string xSrc = enemyElement.Attribute("x")?.Value;
+            string ySrc = enemyElement.Attribute("y")?.Value;
+
+            const int tileSize = 32 * 2;
+            const int hudHeight = 112 * 2;
+            const int wallOffset = 64;
+            Vector2 gridOffset = new Vector2(wallOffset * 2, hudHeight + wallOffset * 2);
+
+            float x = gridOffset.X + (int.Parse(xSrc) * tileSize);
+            float y = gridOffset.Y + (int.Parse(ySrc) * tileSize);
 
             Vector2 position = new Vector2(x, y);
 
