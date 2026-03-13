@@ -9,6 +9,12 @@ namespace Sprites
         private SpriteBatch spriteBatch;
         public bool Hurt { get; set; }
         private Rectangle currentFrame = new Rectangle(107, 11, 15, 15);
+        private int scale = 3;
+
+        public int Height => currentFrame.Height;
+        public int Width => currentFrame.Width;
+
+
 
         public DownUsingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
@@ -21,11 +27,11 @@ namespace Sprites
             //throw new NotImplementedException();
             if (Hurt)
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.0f);
             }
             else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero,  scale, SpriteEffects.None, 0.0f);
             }
         }
         public void Update(GameTime gameTime)

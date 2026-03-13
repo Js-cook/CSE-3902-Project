@@ -17,6 +17,11 @@ namespace Sprites
                 new Rectangle(46, 77, 22, 15),
                 new Rectangle(18, 77, 26, 15)
             };
+
+        private int scale = 3;
+
+        public int Height => currentFrame.Height * scale;
+        public int Width => currentFrame.Width * scale;
         public RightAttackingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
             this.texture = texture;
@@ -52,11 +57,11 @@ namespace Sprites
         {
             if (Hurt)
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.0f);
             }
             else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.0f);
             }
         }
     }

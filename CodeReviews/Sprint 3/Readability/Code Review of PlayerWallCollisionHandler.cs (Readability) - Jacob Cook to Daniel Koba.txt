@@ -1,0 +1,9 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 3/12/2026
+Sprint number: Sprint 3
+Name of the .cs file being reviewed: PlayerWallCollisionHandler.cs
+Author of the .cs file being reviewed: Daniel Koba
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality:
+I find this class to be very readable and understandable with only a few minor points. Firstly, the double ?? syntax in the first 2 lines of the HandleCollision() method can be somewhat ambiguous at first glance. While some of the comments are a bit unnecessary, I think the labeling of the conditionals in the ResolveCollision() method is quite helpful for understanding what is going on at each place. In general, this method is quite readable and well-designed.

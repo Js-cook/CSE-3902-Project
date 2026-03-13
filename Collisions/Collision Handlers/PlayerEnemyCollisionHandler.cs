@@ -37,7 +37,7 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
         // Direction from enemy to player
         Vector2 direction = playerCenter - enemyCenter;
 
-        // Determine primary collision axis based on intersection dimensions
+        // This if block finds the collision axis (Horizontal or Veritcal)
         if (intersection.Width < intersection.Height)
         {
             // Horizontal collision - push left or right
@@ -49,7 +49,7 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
             direction.X = 0;
         }
 
-        // Normalize and return
+        // Normalize and return (Sets the vector to 1 in the direction of the collision)
         if (direction != Vector2.Zero)
         {
             direction.Normalize();

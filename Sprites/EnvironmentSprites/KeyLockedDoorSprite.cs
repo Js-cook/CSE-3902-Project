@@ -29,7 +29,7 @@ public class KeyLockedDoorSprite : BaseTile
 
     public override void SpriteDraw(Vector2 position)
     {
-        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 64 * 2, 64 * 2);
+        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 32 * Settings.Instance.scale, 32 * Settings.Instance.scale);
         switch (direction)
         {
             case 0:

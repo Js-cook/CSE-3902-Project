@@ -1,0 +1,8 @@
+﻿Author of the code review: Daniel Koba
+Date of the code review: 3/11/2026
+Sprint number: Sprint 3
+Name of the .cs file being reviewed: Environment.cs
+Author of the .cs file being reviewed: Adeel Khatri
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality: Naming conventions are good in this class, comments are helpful in understanding the code, but the length of the class makes it difficult to understadn everything that is happening quickly. There are a few missing comments about magic numbers like 0,1,2,3 translate to North, South, East, West etc. But in summary, the class should be shortened and global helper methods should be introduced to follow the logic more easily.

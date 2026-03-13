@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
-/// <summary>
-/// Temporary fix to load enemies in a hardcoded way
-/// </summary>
-/// 
 public class EnemyLoader
 {
     private EnemyFactory enemyFactory;
     private EnemyController enemyController;
+    private Dictionary<string, Func<Vector2, IEnemy>> enemyMap;
 
     public EnemyLoader(EnemyFactory enemyFactory, EnemyController enemyController)
     {
@@ -20,30 +20,46 @@ public class EnemyLoader
             { "Goriya", enemyFactory.CreateGoriya },
             { "Aquamentus", enemyFactory.CreateAquamentus },
             { "Skeleton", enemyFactory.CreateSkeleton },
-            { "Bat", enemyFactory .CreateBat },
-            { "Wallmaster", enemyFactory.CreateWallmaster }
+            { "Bat", enemyFactory.CreateBat }
             
         };
     }
-
-
-
-    /// <summary>
-    /// Loads in the enemies and adds them to Enemy Controller's enemy array. Also activates the hitboxes for the loaded enemies
-    /// </summary>
-    public void LoadFakeLevel()
+    public void ClearEnemies()
     {
-        //Here, you would call the enmyFactory to load whatever enemies you wnat to load
-        //And then you would add those enemies to the EnemyController's enemy array
+        enemyController.enemyArray.Clear();
+    }
 
-        enemyController.AddEnemy(enemyFactory.CreateGel(new Vector2(100 * 2, 100 * 2)));
-        enemyController.AddEnemy(enemyFactory.CreateAquamentus(new Vector2(200 * 2, 188 * 2)));
-        enemyController.AddEnemy(enemyFactory.CreateGel(new Vector2(200 * 2, 300 * 2)));
-        enemyController.AddEnemy(enemyFactory.CreateGoriya(new Vector2(300 * 2, 300 * 2)));
+    public void LoadEnemiesFromRoom(XElement roomNode)
+    {
+        enemyController.enemyArray.Clear();
 
-        foreach (var enemy in enemyController.enemyArray)
+        var enemiesNode = roomNode.Element("Enemies");
+        if (enemiesNode == null)
+            return;
+
+        foreach (var enemyElement in enemiesNode.Elements("Enemy"))
         {
-            enemy.HitboxActive = true;
+            string type = enemyElement.Attribute("type")?.Value;
+
+            string xSrc = enemyElement.Attribute("x")?.Value;
+            string ySrc = enemyElement.Attribute("y")?.Value;
+
+            const int tileSize = 32 * 2;
+            const int hudHeight = 112 * 2;
+            const int wallOffset = 64;
+            Vector2 gridOffset = new Vector2(wallOffset * 2, hudHeight + wallOffset * 2);
+
+            float x = gridOffset.X + (int.Parse(xSrc) * tileSize);
+            float y = gridOffset.Y + (int.Parse(ySrc) * tileSize);
+
+            Vector2 position = new Vector2(x, y);
+
+            if (type != null && enemyMap.ContainsKey(type))
+            {
+                IEnemy enemy = enemyMap[type](position);
+                enemy.HitboxActive = true;
+                enemyController.AddEnemy(enemy);
+            }
         }
     }
 }

@@ -20,6 +20,11 @@ namespace Sprites
                 new Rectangle(18, 97, 15, 27)
             };
 
+
+        private int scale = 3;
+
+        public int Height => currentFrame.Height * scale;
+        public int Width => currentFrame.Width * scale;
         public UpAttackingPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
             this.texture = texture;
@@ -69,10 +74,10 @@ namespace Sprites
             }
             if (Hurt)
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, origin, 3.0f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, origin,scale, SpriteEffects.None, 0.0f);
             } else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, 3.0f, SpriteEffects.None, 0.0f); // put origin on same x but lower the y
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, scale, SpriteEffects.None, 0.0f); // put origin on same x but lower the y
             }
         }
     }

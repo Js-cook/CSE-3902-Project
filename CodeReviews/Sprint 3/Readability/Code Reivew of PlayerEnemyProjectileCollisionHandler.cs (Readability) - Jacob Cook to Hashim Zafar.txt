@@ -1,0 +1,9 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 3/12/2026
+Sprint number: Sprint 3
+Name of the .cs file being reviewed: PlayerEnemyProjectileCollisionHandler.cs
+Author of the .cs file being reviewed: Hashim Zafar
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality: 
+In general this class makes very good use of descriptive variable names and methods that make things very approachable and readable. If I were to point out something I would say that the first line of HandleCollision with the ?? notation might not be immediately obvious in its purpose which can harm readibility. Additionally, the comments in this class seem somewhat superfluous. The code is already pretty readable, so I'm not sure if comments on every single line is particularly helpful in obtaining any information that isn't communicated by the code itself.

@@ -9,7 +9,12 @@ namespace Sprites
     private SpriteBatch spriteBatch;
     private Rectangle currentFrame;
 
-    public bool Hurt { get; set; }
+        private int scale = 3;
+
+        public int Height => currentFrame.Height * scale;
+        public int Width => currentFrame.Width * scale;
+
+        public bool Hurt { get; set; }
 
     private Rectangle sourceRectangle1 = new Rectangle(35, 11, 16, 16);
 
@@ -28,11 +33,11 @@ namespace Sprites
     {
         if (Hurt)
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, new Vector2(0, 0), new Vector2(3.0f, 3.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, new Vector2(0, 0), scale, SpriteEffects.FlipHorizontally, 0.0f);
         }
         else
         {
-            spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), new Vector2(3.0f, 3.0f), SpriteEffects.FlipHorizontally, 0.0f);
+            spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), scale, SpriteEffects.FlipHorizontally, 0.0f);
         }
     }
 }

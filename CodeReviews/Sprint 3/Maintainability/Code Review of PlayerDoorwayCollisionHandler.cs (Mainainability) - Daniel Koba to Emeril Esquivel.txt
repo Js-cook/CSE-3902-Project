@@ -1,0 +1,9 @@
+﻿Author of the code review: Daniel Koba
+Date of the code review: 3/12/2026
+Sprint number: Sprint 3
+Name of the .cs file being reviewed: PlayerDoorwayCollisionHandler.cs
+Author of the .cs file being reviewed: Emeril Esquivel
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality: The class properly implements the ICollisionHandler interface and maintains a concise, focused structure that makes its core functionality clear. However, there are several maintainability concerns with the current implementation. The primary issue is the switch statement (lines 30-47) which relies on magic numbers (0, 1, 2, 3) to represent door directions. This approach becomes problematic when extending the system to support doors in varying positions, doors requiring different transition animations, or additional door types such as diagonal or one-way passages. Implementing an enum for door directions would make the code self-documenting and significantly easier to maintain and extend. Another concern is that the collision handler directly modifies player state by setting player.position in each case of the switch statement. This violates the Single Responsibility Principle, as the handler should focus solely on detecting and validating the collision, not managing player spawning logic. If this responsibility remains in the collision handler, future features such as spawn animations, variable spawn points based on room type, or fade transitions will cause 
+this class to accumulate additional responsibilities and become increasingly difficult to maintain. Player repositioning should be delegated to a dedicated spawn manager or transition controller to keep each class focused on a single, well-defined responsibility.

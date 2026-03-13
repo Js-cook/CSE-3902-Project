@@ -1,0 +1,9 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 3/12/2026
+Sprint number: Sprint 3
+Name of the .cs file being reviewed: Environment.cs
+Author of the .cs file being reviewed: Adeel Khatri
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality: 
+In terms of maintainability the primary issue that I see is the GetCollidableTiles() method seems to have a lot of responsibilities. It seems like the first double loop is the primary purpose of the method (registering all the tiles as collidables), but then the other half involves creating wall boundaries and even spike tiles and chest tiles. In the long-term I think this could cause issues especially if adjustments need to be made to how tile collisions are registered/handled. To resolve this I would say this method could be split up into 3 method with GetCollidableTiles keeping the first half, a helper method handling the wall boundaries, and finally a third helper method to deal with spike and chest tiles. Besides that one method, Environment.cs seems very maintainable and well-organied thus far.

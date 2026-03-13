@@ -18,7 +18,10 @@ namespace _3902_Project
         private SpriteBatch _spriteBatch;
 
         private Link player;
+        private LinkInventory playerInventory;
         private Texture2D playerTexture;
+        private Texture2D enemyTexture;
+        private Texture2D treasureChestTexture;
         private PlayerSpriteFactory spriteFactory;
         private ProjectileSpriteFactory projectileSpriteFactory;
         private ProjectileController projectileController;
@@ -31,10 +34,10 @@ namespace _3902_Project
         private EffectSpriteFactory effectSpriteFactory;
         private EffectFactory effectFactory;
         private EffectController effectController;
-        
 
-
-
+        private HUDBackgroundSprite hudBackgroundSprite;
+        private HUD hud;
+        private HUDSpriteFactory textFactory;
 
         private IController keyboardController;
 
@@ -47,6 +50,7 @@ namespace _3902_Project
 
         private ItemFactory itemFactory;
         private Item item;
+        private ItemController itemController;
 
         private CollisionManager collisionManager;
         public Game1()
@@ -67,7 +71,8 @@ namespace _3902_Project
             // TODO: Add your initialization logic here
             //AudioController audioController = new AudioController();
             enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
-            
+            playerInventory = new LinkInventory();
+
             base.Initialize();
         }
 
@@ -92,16 +97,22 @@ namespace _3902_Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Dictionary<string, SoundEffect> sfx = LoadPlayerSFX(Content);
 
+            hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch, Content.Load<Texture2D>("HUD"));
+            textFactory = new HUDSpriteFactory(Content.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch, Content.Load<Texture2D>("HUD"));
+            hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite, playerInventory);
+
             AudioController audioController = new AudioController();
             dungeonSong = Content.Load<Song>("BackgroundMusic");
           //  audioController.PlaySong(dungeonSong);
 
             playerTexture = Content.Load<Texture2D>("LinkSprites");
+            enemyTexture = Content.Load<Texture2D>("EnemySprites");
+            treasureChestTexture = Content.Load<Texture2D>("TreasureChestSprite");
             spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
             projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
             projectileController = new ProjectileController(projectileSpriteFactory, sfx);
 
-            player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx);
+            player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx, playerInventory);
 
 
             // EnemySpriteFactory, Enemy Actor Factory Enemy Controller, and EnemyLoader Initialization
@@ -110,8 +121,7 @@ namespace _3902_Project
             enemyController = new EnemyController(sfx);
             enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Handles laoding enemies into the enemyCotnroller which then updates each of them
 
-            //Load the enmies into the scene
-            enemyLoader.LoadFakeLevel(); //Load a fake level whihc loads all the enmies
+            
 
             // Effect Factory and Effect Controller Initialization
             effectSpriteFactory = new EffectSpriteFactory(playerTexture, _spriteBatch); // Uses player texture spritesheet for the death cloud effect
@@ -120,21 +130,22 @@ namespace _3902_Project
 
 
             //room manager
-            tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"),Content.Load<Texture2D>("LinkSprites"), _spriteBatch);
+            tileFactory = new TileFactory(Content.Load<Texture2D>("DungeonTileSprites"),playerTexture,enemyTexture, treasureChestTexture, _spriteBatch);
             environment = new Environment(tileFactory);
-            levelFileReader = new LevelFileReader(environment);
+            levelFileReader = new LevelFileReader(environment, enemyLoader);
             string fullPath = Path.Combine(Content.RootDirectory, "rooms.xml");
-            roomManager = new RoomManager(levelFileReader, fullPath, 0, 1);
+            roomManager = new RoomManager(levelFileReader, fullPath, 0, 1, enemyController);
 
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
             item = new Item(itemFactory);
+            itemController = new ItemController(itemFactory, sfx);
 
-            keyboardController = new Controllers.IKeyboard(player, roomManager, item, enemyController, this, audioController, LoadPlayerSFX(Content));
+            keyboardController = new Controllers.IKeyboard(player, roomManager, item, enemyController, this, audioController, LoadPlayerSFX(Content), itemController);
 
             // Add additional collision handlers here as needed
             collisionManager = new CollisionManager(GraphicsDevice);
 
-            CollisionRegistry.Initialize(collisionManager);
+            CollisionRegistry.Initialize(collisionManager, roomManager);
 
 
         }
@@ -148,6 +159,7 @@ namespace _3902_Project
             player.Update(gameTime);
             environment.Update(gameTime);
             item.Update(gameTime);
+            itemController.Update(gameTime);
             enemyController.Update(gameTime);
             projectileController.Update(gameTime);
 
@@ -160,20 +172,15 @@ namespace _3902_Project
                 .. projectileController.projectiles,
                 .. enemyController.GetAllEnemyProjectiles(), // Enemy projectiles (Goriya boomerang, Aquamentus fireballs)
                 .. environment.GetCollidableTiles(), //Added collidable tiles from environment since environment is not a collidable class, dk
-                
+                .. itemController.itemArray, // Pickup items
             ];
 
             collisionManager.Update(gameTime, collidables);
-            effectController.Update(gameTime); 
+            effectController.Update(gameTime);
 
-
-
-
-
+            hud.Update(gameTime);
 
             // 5. Finally, run the physics!
-
-
             base.Update(gameTime);
         }
 
@@ -183,8 +190,11 @@ namespace _3902_Project
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             environment.Draw();
+            hud.Draw();
+            //hudBackgroundSprite.SpriteDraw(Vector2.Zero);
             player.Draw();
             item.Draw();
+            itemController.Draw();
             enemyController.Draw();
             projectileController.Draw();
             collisionManager.Draw(_spriteBatch);

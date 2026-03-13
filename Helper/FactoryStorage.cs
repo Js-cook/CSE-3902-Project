@@ -1,25 +1,36 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Sprites;
-using System.Collections.Generic;
 
 public class FactoryStorage
 {
     private Texture2D playerTexture;
+    private Texture2D enemyTexture;
     private Texture2D tileTexture;
     private Texture2D itemTexture;
+    private Texture2D treasureChestTexture;
 
     public PlayerSpriteFactory playerSpriteFactory { get; }
     public ProjectileSpriteFactory projectileSpriteFactory { get; }
     public TileFactory tileFactory { get; }
     public ItemFactory itemFactory { get; }
 
-    public FactoryStorage(Texture2D playerTexture, Texture2D tileTextures, Texture2D itemTextures, SpriteBatch sb)
+    public FactoryStorage(
+        Texture2D playerTexture,
+        Texture2D enemyTexture,
+        Texture2D tileTexture,
+        Texture2D itemTexture,
+        Texture2D treasureChestTexture,
+        SpriteBatch sb)
     {
         this.playerTexture = playerTexture;
+        this.enemyTexture = enemyTexture;
+        this.tileTexture = tileTexture;
+        this.itemTexture = itemTexture;
+        this.treasureChestTexture = treasureChestTexture;
+
         playerSpriteFactory = new PlayerSpriteFactory(playerTexture, sb);
         projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, sb);
-        tileFactory = new TileFactory(tileTextures, playerTexture, sb);
-        itemFactory = new ItemFactory(itemTextures, sb);
+        tileFactory = new TileFactory(tileTexture, playerTexture, enemyTexture, treasureChestTexture, sb);
+        itemFactory = new ItemFactory(itemTexture, sb);
     }
-    
 }

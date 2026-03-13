@@ -55,6 +55,25 @@
 /processorParam:TextureFormat=Color
 /build:EnemySprites.png
 
+#begin Fonts/the-legend-of-zelda-nes.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/the-legend-of-zelda-nes.spritefont
+
+#begin HUD.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HUD.png
+
 #begin ItemSprites.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -120,4 +139,16 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SFX/LOZ_Sword_Slash.wav;SFX/SwordSlash.wav
+
+#begin TreasureChestSprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TreasureChestSprite.png
 

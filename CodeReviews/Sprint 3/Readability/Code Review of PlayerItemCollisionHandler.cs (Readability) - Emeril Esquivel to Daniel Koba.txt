@@ -1,0 +1,18 @@
+﻿Author of the code review: Emeril Esquivel
+Date of the code review: 3/13/2026
+Sprint number: Sprint 3
+Name of the .cs file being reviewed: PlayerItemCollisionHandler.cs
+Author of the .cs file being reviewed: Daniel Kobda
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality: The code is readable overall because it is short, 
+logically organized, and uses a good early return at the beginning to handle invalid cases. 
+The pattern matching in the if statement is also clear and makes it easy to see that the 
+method requires a Link, a PickupItem, and an active hitbox before continuing. The switch on 
+pickup.ItemType is also easy to follow because each item effect is grouped into its own case. 
+However, readability could still be improved by making the inventory field names more 
+descriptive and by avoiding direct chained access like player.playerInventory.currentHearts, 
+which is repetitive. I think it would read more clearly if the code used helper methods or 
+local variables, such as storing player.playerInventory in a temporary variable. Overall, 
+the code is understandable, but a small amount of refactoring would make it even easier 
+to read quickly.

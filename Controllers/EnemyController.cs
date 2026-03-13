@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// Loads in the enemies (hardcoded for now) and manages active enemies
@@ -14,6 +15,7 @@ public class EnemyController
     
     private Dictionary<string, SoundEffect> sfx;
     private AudioController audioController = new();
+    public event Action AllEnemiesKilled;
 
     public EnemyController(Dictionary<string, SoundEffect> sfx)
     {
@@ -31,6 +33,7 @@ public class EnemyController
 
     public void Update(GameTime gameTime)
     {
+        bool removedDead = false;
         for (int i = enemyArray.Count - 1; i >= 0; i--)
         {
             var enemy = enemyArray[i];
@@ -38,11 +41,17 @@ public class EnemyController
             {
                 audioController.PlaySoundEffect(sfx["EnemyDie"], 0.75f);
                 enemyArray.RemoveAt(i); // Remove after playing sound
+                removedDead = true;
             }
             else
             {
                 enemy.Update(gameTime);
             }
+        }
+
+        if (removedDead && enemyArray.Count == 0)
+        {
+            AllEnemiesKilled?.Invoke();
         }
     }
 

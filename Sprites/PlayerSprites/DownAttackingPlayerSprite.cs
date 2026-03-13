@@ -8,7 +8,12 @@ namespace Sprites
         private Texture2D texture;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
+        private int scale = 3;
         private double attackTimer = 0.0;
+
+        public int Width => currentFrame.Width * scale;
+        public int Height => currentFrame.Height * scale;
+
         public bool Hurt { get; set; }
         private Rectangle[] frameContainer =
         {
@@ -52,11 +57,11 @@ namespace Sprites
         {
             if (Hurt)
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.0f);
             }
             else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.0f);
             }
         }
     }

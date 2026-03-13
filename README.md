@@ -15,9 +15,14 @@
 ### Enemies
 - O or P will cycle which enemy or npc is being shown (O goes to previous enemy and P goes to next enemy sequentially)
 ### Items
-- U or I will cycle between which item is being shown (U goes to previous item and I goes to the next item sequentially)
-### Environment/Tiles
-- T and Y will cycle between which block is being shown (T switches to previous block and Y switches to the next block)
+- T will spawn a heart near the player
+- R will spawn a rupee near the player
+- K will a key near the player
+### Environment/Rooms
+- Y will change room to the room above
+- H will change room to the room below
+- G will change room to the room on the left
+- J will change room to the room on the right
 ### Other
 - Q will quit the game
 - R will reset the game to the initial state
@@ -44,3 +49,22 @@ Metrics calculated using the "Code Metrics" tool
 | ---- | --------------------- | --------------------- | -------------------- | -------------- | -------------------- | ------------------------ |  
 | 2/22 | 84                    | 1156                  | 2                    | 158            | 6152                 | 1500                     |  
 | 2/28 | 83                    | 1229                  | 2                    | 191            | 6857                 | 1697                     |
+| 3/8  | 84                    | 2013                  | 2                    | 255            | 9988                 | 2465                     |
+
+### Areas for refactoring (methods and classes with the worst maintainability index)
+| Maintainability Index | Class | Method |
+| --------------------- | ----- | ------ |
+| 25                    | IKeyboard | Update() : void |
+| 45                    | Environment | GetCollidableTiles() : List\<Tile\> | 
+| 47                    | LevelFileReader | LoadLevel(string, int, int) : bool |
+| 48                    | IKeyboard       | |
+| 54                    | ProjectileController | Update(GameTime) : void |
+| 55                    | Item                 | Item(ItemFactory) |
+| 56                    | LevelFileReader      | |
+| 57                    | CollisionManager | Update(GameTime, List\<ICollidable\>) : void |
+| 58                    | AudioController  | PlaySoundEffect(SoundEffect, float, float, float, bool) : SoundEffectInstance |
+| 59                    | Boomerang        | Update(GameTime) : void |
+
+
+
+ 

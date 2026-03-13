@@ -1,0 +1,8 @@
+﻿Author of the code review: Daniel Koba
+Date of the code review: 3/12/2026
+Sprint number: Sprint 3
+Name of the .cs file being reviewed: PlayerDoorwayCollisionHandler.cs
+Author of the .cs file being reviewed: Emeril Esquivel
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality: This class is concise, easy to read, and follows solid naming conventions. The if statements starting on line 19 are easy to understand as the variables are named properly.There are some minor readability issues I see in the switch statement regarding the magic number cardinal directions. Instead of using magic numbers, I would create a constant variable to represent those numbers. For example: private const int DIRECTION_NORTH = 0; I also think the vector positions in the player spawning method are too ambiguous. I would implement something like this instead: private const float SPAWN_X_FROM_LEFT = 180f; This way the reader doesn't have to guess where 180f is on the screen. Adding comments to this class would help with debugging and future implementation.

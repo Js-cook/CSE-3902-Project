@@ -6,11 +6,12 @@ using System.Reflection;
 
 public static class CollisionRegistry
 {
-    public static void Initialize(CollisionManager collisionManager)
+    public static void Initialize(CollisionManager collisionManager, RoomManager roomManager)
     {
         RegisterEnemyPlayerProjectileCollisions(collisionManager);
         RegisterEnemyWallCollisions(collisionManager);
-        RegisterPlayerCollisions(collisionManager);
+        RegisterPlayerCollisions(collisionManager, roomManager);
+        RegisterPlayerItemCollisions(collisionManager);
 
         RegisterProjectileWallCollisions(collisionManager);
 
@@ -50,16 +51,19 @@ public static class CollisionRegistry
         foreach (var eType in enemyTypes)
         {
             collisionManager.RegisterHandler(eType, typeof(Tile), new EnemyWallCollisionHandler());
+            collisionManager.RegisterHandler(eType, typeof(SpikeTile), new EnemySpikeCollisionHandler());
         }
     }
 
-    private static void RegisterPlayerCollisions(CollisionManager collisionManager)
+    private static void RegisterPlayerCollisions(CollisionManager collisionManager, RoomManager roomManager)
     {
         // Create shared handler instances
         PlayerEnemyCollisionHandler playerEnemyHandler = new PlayerEnemyCollisionHandler();
-        PlayerProjectileCollisionHandler playerProjectileHandler = new PlayerProjectileCollisionHandler();
+        PlayerEnemyProjectileCollisionHandler playerProjectileHandler = new PlayerEnemyProjectileCollisionHandler();
         PlayerWallCollisionHandler playerWallHandler = new PlayerWallCollisionHandler();
-
+        PlayerSpikeCollisionHandler playerSpikeHandler = new PlayerSpikeCollisionHandler();
+        PlayerTreasureChestCollisionHandler playerChestHandler = new PlayerTreasureChestCollisionHandler();
+        PlayerDoorwayCollisionHandler playerDoorwayHandler = new PlayerDoorwayCollisionHandler(roomManager);
         // Register Player vs Enemy collisions for all enemy types
         collisionManager.RegisterHandler(typeof(Link), typeof(Bat), playerEnemyHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(Gel), playerEnemyHandler);
@@ -69,14 +73,22 @@ public static class CollisionRegistry
         collisionManager.RegisterHandler(typeof(Link), typeof(Spiketrap), playerEnemyHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(Aquamentus), playerEnemyHandler);
 
-        // Register Player vs Enemy Projectiles  // ← ADD THIS SECTION
+        // Register Player vs Enemy Projectiles
         collisionManager.RegisterHandler(typeof(Link), typeof(GoriyaBoomerang), playerProjectileHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(AquamentusFireball), playerProjectileHandler);
 
-        // Register Player vs Tiles (walls, blocks, etc.)  // ← ADD THIS SECTION
+        // Register Player vs Tiles (walls, blocks, etc.)
         collisionManager.RegisterHandler(typeof(Link), typeof(Tile), playerWallHandler);
+        collisionManager.RegisterHandler(typeof(Link), typeof(SpikeTile), playerSpikeHandler);
+        collisionManager.RegisterHandler(typeof(Link), typeof(TreasureChest), playerChestHandler);
+        collisionManager.RegisterHandler(typeof(Link), typeof(Doorway), playerDoorwayHandler);
 
+    }
 
+    // Register Player and Items Collisions
+    private static void RegisterPlayerItemCollisions(CollisionManager collisionManager)
+    {
+        collisionManager.RegisterHandler(typeof(Link), typeof(PickupItem), new PlayerItemCollisionHandler());
     }
 
 }

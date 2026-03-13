@@ -1,0 +1,9 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 3/12/2026
+Sprint number: Sprint 3
+Name of the .cs file being reviewed: PlayerEnemyProjectileCollisionHandler.cs
+Author of the .cs file being reviewed: Hashim Zafar
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality:
+In general this class is very well put together and organized. If I were to offer some maintainability suggestions, I would say that it might be better to export a lot of the pseudo-physics calculations to a dedicated helper class. For example, things like GetKnockBackDirection could probably be moved to a separate helper class and could possibly be reused in other collision classes. This might also make fine-tuning the physics calculations a bit easier also. Besides this minor point, this class is very well structured.

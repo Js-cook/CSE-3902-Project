@@ -12,7 +12,7 @@ public class Link : ICollidable
     {
         get
         {
-            return new Rectangle((int)position.X, (int)position.Y, 28, 28);
+            return new Rectangle((int)position.X, (int)position.Y, Sprite.Width, Sprite.Height);
         }
     }
     public bool HitboxActive { get; set; } //not sure if this is necessary for Link, but it is for enemies and projectiles so I added it here for consistency and to implement ICollidable correctly
@@ -27,7 +27,16 @@ public class Link : ICollidable
 
     public List<IProjectile> projectiles { get; set; } = new List<IProjectile>();
 
-    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect)
+    public LinkInventory playerInventory { get; set; }
+
+    // Inventory/Stats
+    //public int CurrentHealth { get; set; }
+    //public int MaxHealth { get; set; }
+    //public int RupeeCount { get; set; }
+    //public int KeyCount { get; set; }
+    //public int BombCount { get; set; }
+
+    public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect, LinkInventory playerInventory)
     {
         // Spawn player in center of floor area
         // Floor grid starts at ~(100, 88) and is 19x10 tiles of 32px each
@@ -37,6 +46,14 @@ public class Link : ICollidable
         playerState = new RightIdlePlayerState(this, spriteFactory, projectileController, soundEffect);
         this.projectileSpriteFactory = projectileSpriteFactory;
         Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
+        this.playerInventory = playerInventory;
+
+        //Adds Stats to Link, starting with 3 hearts (6 health) and no rupees, keys, or bombs
+        //CurrentHealth = 6; 
+        //MaxHealth = 6;
+        //RupeeCount = 0;
+        //KeyCount = 0;
+        //BombCount = 0;
     }
 
     public void MoveUp() 

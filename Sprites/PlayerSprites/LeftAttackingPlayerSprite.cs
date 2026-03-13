@@ -9,6 +9,11 @@ namespace Sprites
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
 
+        private int scale = 3;
+
+        public int Height => currentFrame.Height * scale;
+        public int Width => currentFrame.Width * scale;
+
         public bool Hurt { get; set; }
 
         private double attackTimer = 0.0;
@@ -72,11 +77,11 @@ namespace Sprites
 
             if (Hurt)
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, origin, new Vector2(3.0f, 3.0f), SpriteEffects.FlipHorizontally, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, origin, scale, SpriteEffects.FlipHorizontally, 0.0f);
             }
             else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, new Vector2(3.0f, 3.0f), SpriteEffects.FlipHorizontally, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, scale, SpriteEffects.FlipHorizontally, 0.0f);
             }
         }
 
