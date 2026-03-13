@@ -13,6 +13,17 @@ public class EnemyLoader
     {
         this.enemyFactory = enemyFactory;
         this.enemyController = enemyController;
+
+        enemyMap = new Dictionary<string, Func<Vector2, IEnemy>>()
+        {
+            { "Gel", enemyFactory.CreateGel },
+            { "Goriya", enemyFactory.CreateGoriya },
+            { "Aquamentus", enemyFactory.CreateAquamentus },
+            { "Skeleton", enemyFactory.CreateSkeleton },
+            { "Bat", enemyFactory .CreateBat },
+            { "Wallmaster", enemyFactory.CreateWallmaster }
+            
+        };
     }
 
 
