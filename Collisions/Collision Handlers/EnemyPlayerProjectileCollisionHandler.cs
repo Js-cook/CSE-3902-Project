@@ -20,8 +20,7 @@ public class EnemyPlayerProjectileCollisionHandler : ICollisionHandler
             projectile.OnCollision();
             enemy.TakeDamage(projectile.DamageValue);
 
-            Debug.WriteLine($"Enemy hit! Enemy: {enemy.ToString()} health: {enemy.Health}");
-            System.Diagnostics.Debug.WriteLine("Enemy Hit at: " + DateTime.Now.Ticks);
+            
 
         }
 
