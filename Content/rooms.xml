@@ -39,6 +39,9 @@
 		<Enemies>
 			<Enemy type="Gel" x="0" y="3" />
 			<Enemy type="Goriya" x="4" y="0" />
+			<Enemy type="Skeleton" x="2" y="6"/>
+			<Enemy type="Bat" x="4" y="2"/>
+			
 		</Enemies>
 	</Room>
 
