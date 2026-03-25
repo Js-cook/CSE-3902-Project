@@ -49,7 +49,6 @@ namespace _3902_Project
         private Song dungeonSong;
 
         private ItemFactory itemFactory;
-        private Item item;
         private ItemController itemController;
 
         private CollisionManager collisionManager;
@@ -76,26 +75,26 @@ namespace _3902_Project
             base.Initialize();
         }
 
-        private Dictionary<string, SoundEffect> LoadPlayerSFX(ContentManager content)
-        {
-            Dictionary<string, SoundEffect> res = new()
-            {
-                { "ArrowBoomerang", content.Load<SoundEffect>("SFX/ArrowBoomerang") },
-                { "BombDrop", content.Load<SoundEffect>("SFX/BombDrop") },
-                { "BombExplode", content.Load<SoundEffect>("SFX/BombExplode") },
-                { "SwordSlash", content.Load<SoundEffect>("SFX/SwordSlash") },
-                { "EnemyDie", content.Load<SoundEffect>("SFX/EnemyDie") }
-            };
+        //private Dictionary<string, SoundEffect> LoadPlayerSFX(ContentManager content)
+        //{
+        //    Dictionary<string, SoundEffect> res = new()
+        //    {
+        //        { "ArrowBoomerang", content.Load<SoundEffect>("SFX/ArrowBoomerang") },
+        //        { "BombDrop", content.Load<SoundEffect>("SFX/BombDrop") },
+        //        { "BombExplode", content.Load<SoundEffect>("SFX/BombExplode") },
+        //        { "SwordSlash", content.Load<SoundEffect>("SFX/SwordSlash") },
+        //        { "EnemyDie", content.Load<SoundEffect>("SFX/EnemyDie") }
+        //    };
 
-            return res;
-        }
+        //    return res;
+        //}
 
         // This method needs to be cleaned up bad
         protected override void LoadContent()
         {
             
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            Dictionary<string, SoundEffect> sfx = LoadPlayerSFX(Content);
+            Dictionary<string, SoundEffect> sfx = SFXLoader.LoadPlayerSFX(Content);
 
             hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch, Content.Load<Texture2D>("HUD"));
             textFactory = new HUDSpriteFactory(Content.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch, Content.Load<Texture2D>("HUD"));
@@ -137,10 +136,9 @@ namespace _3902_Project
             roomManager = new RoomManager(levelFileReader, fullPath, 0, 1, enemyController);
 
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
-            item = new Item(itemFactory);
             itemController = new ItemController(itemFactory, sfx);
 
-            keyboardController = new Controllers.IKeyboard(player, roomManager, item, enemyController, this, audioController, LoadPlayerSFX(Content), itemController);
+            keyboardController = new KeyboardController(player, roomManager, enemyController, this, itemController);
 
             // Add additional collision handlers here as needed
             collisionManager = new CollisionManager();
@@ -158,7 +156,7 @@ namespace _3902_Project
             // then update all entities based on that input
             player.Update(gameTime);
             environment.Update(gameTime);
-            item.Update(gameTime);
+            //item.Update(gameTime);
             itemController.Update(gameTime);
             enemyController.Update(gameTime);
             projectileController.Update(gameTime);
@@ -191,9 +189,7 @@ namespace _3902_Project
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             environment.Draw();
             hud.Draw();
-            //hudBackgroundSprite.SpriteDraw(Vector2.Zero);
             player.Draw();
-            item.Draw();
             itemController.Draw();
             enemyController.Draw();
             projectileController.Draw();

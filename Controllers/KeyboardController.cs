@@ -7,12 +7,11 @@ using System.Collections.Generic;
 
 namespace Controllers
 {
-    public class IKeyboard : Interfaces.IController
+    public class KeyboardController : Interfaces.IController
     {
 
         private Link player;
 
-        private Item item;
         private int itemSwitchLimiter = 0;
 
         private EnemyController enemyController;
@@ -22,21 +21,15 @@ namespace Controllers
 
         private Game gameInstance;
 
-        private AudioController audioController;
-        private Dictionary<string, SoundEffect> soundEffects;
-
         private RoomManager roomManager;
         private int roomSwitchLimiter = 0;
 
         private ItemController itemController;
 
-        public IKeyboard(Link player, RoomManager roomManager, Item item, EnemyController enemyController, Game gameInstance, AudioController audioController, Dictionary<string, SoundEffect> soundEffect, ItemController itemController)
+        public KeyboardController(Link player, RoomManager roomManager, EnemyController enemyController, Game gameInstance, ItemController itemController)
         {
             this.player = player;
-            this.item = item;
             this.gameInstance = gameInstance;
-            this.audioController = audioController;
-            this.soundEffects = soundEffect;
             this.roomManager = roomManager;
             this.itemController = itemController;
         }
@@ -97,21 +90,18 @@ namespace Controllers
             if ((keyState.IsKeyDown(Keys.N) || keyState.IsKeyDown(Keys.Z)) && projectileInputLimiter == 0)
             {
                 player.playerState.BeAttacking();
-                audioController.PlaySoundEffect(soundEffects["SwordSlash"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 10;
             }
 
             if ((keyState.IsKeyDown(Keys.D1) || keyState.IsKeyDown(Keys.NumPad1)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireArrow();
-                audioController.PlaySoundEffect(soundEffects["ArrowBoomerang"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 20;
             }
 
             if ((keyState.IsKeyDown(Keys.D2) || keyState.IsKeyDown(Keys.NumPad2)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireSilverArrow();
-                audioController.PlaySoundEffect(soundEffects["ArrowBoomerang"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 20;
             }
 
@@ -136,7 +126,6 @@ namespace Controllers
             if ((keyState.IsKeyDown(Keys.D6) || keyState.IsKeyDown(Keys.NumPad6)) && projectileInputLimiter == 0)
             {
                 player.playerState.FireBomb();
-                audioController.PlaySoundEffect(soundEffects["BombDrop"], 0.5f, 1.0f, 0.0f, false);
                 projectileInputLimiter = 20;
             }
 
@@ -148,18 +137,6 @@ namespace Controllers
             if (!movementKeyActive)
             {
                 player.playerState.BeIdle();
-            }
-
-            //for item cycling
-            if (keyState.IsKeyDown(Keys.U) && itemSwitchLimiter == 0)
-            {
-                item.CycleLeft();
-                itemSwitchLimiter = 20;
-            }
-            if (keyState.IsKeyDown(Keys.I) && itemSwitchLimiter == 0)
-            {
-                item.CycleRight();
-                itemSwitchLimiter = 20;
             }
 
             // TEST: Spawn pickup items for collision testing (press once to spawn near player)
