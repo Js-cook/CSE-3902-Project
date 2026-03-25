@@ -5,9 +5,9 @@ using Sprites;
 using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
 
-public class DownMovingPlayerState : Interfaces.IPlayerState
+public class DownMovingPlayerState : AbstractMovingPlayer
 {
-    public Dictionary<string, SoundEffect> soundEffect { get; set; }
+    //public Dictionary<string, SoundEffect> soundEffect { get; set; }
 
     private Link player;
     private PlayerSpriteFactory spriteFactory;
@@ -21,7 +21,7 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
         this.soundEffect = soundEffect;
     }
 
-    public void ChangeDirection(Direction Direction)
+    public override void ChangeDirection(Direction Direction)
     {
         switch (Direction)
         {
@@ -40,44 +40,44 @@ public class DownMovingPlayerState : Interfaces.IPlayerState
         }
     }
 
-    public void BeDead()
-    {
+    //public void BeDead()
+    //{
 
-    }
+    //}
 
-    public void BeDamaged()
+    public override void BeDamaged()
     {
         player.Hurt = true;
     }
 
-    public void FireArrow()
-    {
-    }
-    public void FireSilverArrow()
-    {
-    }
-    public void BeAttacking()
-    {
-    }
-    public void FireBoomerang()
-    {
-    }
-    public void FireMagicBoomerang()
-    {
-    }
-    public void FireFireball()
-    {
-    }
-    public void FireBomb()
-    {
-    }
-    public void BeIdle()
+    //public void FireArrow()
+    //{
+    //}
+    //public void FireSilverArrow()
+    //{
+    //}
+    //public void BeAttacking()
+    //{
+    //}
+    //public void FireBoomerang()
+    //{
+    //}
+    //public void FireMagicBoomerang()
+    //{
+    //}
+    //public void FireFireball()
+    //{
+    //}
+    //public void FireBomb()
+    //{
+    //}
+    public override void BeIdle()
     {
         player.playerState = new DownIdlePlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateDownIdlePlayerSprite(player.position);
     }
 
-    public void Update(GameTime gametime)
-    {
-    }
+    //public void Update(GameTime gametime)
+    //{
+    //}
 }

@@ -46,8 +46,6 @@ namespace _3902_Project
         private LevelFileReader levelFileReader;
         private RoomManager roomManager;
 
-        private Song dungeonSong;
-
         private ItemFactory itemFactory;
         private ItemController itemController;
 
@@ -58,8 +56,6 @@ namespace _3902_Project
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            //_graphics.PreferredBackBufferWidth = 512 * 1.5;
-            //_graphics.PreferredBackBufferHeight = 464 * 1.5;
             _graphics.PreferredBackBufferWidth = 1025;
             _graphics.PreferredBackBufferHeight = 928;
             _graphics.ApplyChanges();
@@ -68,26 +64,11 @@ namespace _3902_Project
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            //AudioController audioController = new AudioController();
             enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
             playerInventory = new LinkInventory();
 
             base.Initialize();
         }
-
-        //private Dictionary<string, SoundEffect> LoadPlayerSFX(ContentManager content)
-        //{
-        //    Dictionary<string, SoundEffect> res = new()
-        //    {
-        //        { "ArrowBoomerang", content.Load<SoundEffect>("SFX/ArrowBoomerang") },
-        //        { "BombDrop", content.Load<SoundEffect>("SFX/BombDrop") },
-        //        { "BombExplode", content.Load<SoundEffect>("SFX/BombExplode") },
-        //        { "SwordSlash", content.Load<SoundEffect>("SFX/SwordSlash") },
-        //        { "EnemyDie", content.Load<SoundEffect>("SFX/EnemyDie") }
-        //    };
-
-        //    return res;
-        //}
 
         // This method needs to be cleaned up bad
         protected override void LoadContent()
@@ -101,8 +82,7 @@ namespace _3902_Project
             hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite, playerInventory);
 
             AudioController audioController = new AudioController();
-            dungeonSong = Content.Load<Song>("BackgroundMusic");
-          //  audioController.PlaySong(dungeonSong);
+            audioController.PlaySong(Content.Load<Song>("BackgroundMusic"));
 
             playerTexture = Content.Load<Texture2D>("LinkSprites");
             enemyTexture = Content.Load<Texture2D>("EnemySprites");
@@ -119,8 +99,6 @@ namespace _3902_Project
             enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory);
             enemyController = new EnemyController(sfx);
             enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Handles laoding enemies into the enemyCotnroller which then updates each of them
-
-            
 
             // Effect Factory and Effect Controller Initialization
             effectSpriteFactory = new EffectSpriteFactory(playerTexture, _spriteBatch); // Uses player texture spritesheet for the death cloud effect
