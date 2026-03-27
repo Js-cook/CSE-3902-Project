@@ -5,11 +5,8 @@ using Microsoft.Xna.Framework.Audio;
 using Sprites;
 using System.Collections.Generic;
 
-public class UpAttackingPlayerState : Interfaces.IPlayerState
+public class UpAttackingPlayerState : AbstractAttackingPlayer
 {
-    public Dictionary<string, SoundEffect> soundEffect { get; set; }
-
-
     private Link player;
     private PlayerSpriteFactory spriteFactory;
     private double startClock = 0.0;
@@ -25,39 +22,13 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
     }
-    public void ChangeDirection(Direction Direction)
-    {
-        // do nothing - can't change direction while attacking
-    }
-    public void BeDead()
-    {
-    }
-    public void BeDamaged()
+
+    public override void BeDamaged()
     {
         player.Hurt = true;
     }
-    public void BeAttacking()
-    {
-    }
-    public void FireArrow()
-    {
-    }
-    public void FireSilverArrow()
-    {
-    }
-    public void FireBoomerang()
-    {
-    }
-    public void FireMagicBoomerang()
-    {
-    }
-    public void FireFireball()
-    {
-    }
-    public void FireBomb()
-    {
-    }
-    public void BeIdle()
+
+    public override void BeIdle()
     {
         if (animationDone)
         {
@@ -66,7 +37,7 @@ public class UpAttackingPlayerState : Interfaces.IPlayerState
             player.Sprite = spriteFactory.CreateUpIdlePlayerSprite(player.position);
         }
     }
-    public void Update(GameTime gametime)
+    public override void Update(GameTime gametime)
     {
         startClock += gametime.ElapsedGameTime.TotalSeconds;
         if (startClock >= animationDuration)
