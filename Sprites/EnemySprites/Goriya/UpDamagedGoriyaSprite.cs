@@ -32,6 +32,6 @@ public class UpDamagedGoriyaSprite : ISprite
     }
     public void SpriteDraw(Vector2 position)
     {
-        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), 2f, SpriteEffects.FlipHorizontally, 0.0f);
+        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), Settings.Instance.scale, SpriteEffects.FlipHorizontally, 0.0f);
     }
 }

@@ -7,7 +7,7 @@ public class Bomb : IProjectile
     {
         get
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 32*3, 32*3);
+            return new Rectangle((int)Position.X, (int)Position.Y, 32*2, 32*2);
         }
 
     }

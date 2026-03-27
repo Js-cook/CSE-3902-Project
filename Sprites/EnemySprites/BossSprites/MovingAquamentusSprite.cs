@@ -56,6 +56,6 @@ public class MovingAquamentusSprite : ISprite
     public void SpriteDraw(Vector2 position)
     {
         //spriteBatch.Draw(texture, position, currentFrame, Color.White);
-        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero, 4f, SpriteEffects.None, 0.0f);
+        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero, Settings.Instance.scale, SpriteEffects.None, 0.0f);
     }
 }

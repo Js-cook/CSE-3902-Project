@@ -8,7 +8,7 @@ public class AquamentusFireball : IProjectile
     {
         get
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 16, 16);
+            return new Rectangle((int)Position.X, (int)Position.Y, 16*2, 16*2);
         }
     }
     public bool HitboxActive { get; set; }

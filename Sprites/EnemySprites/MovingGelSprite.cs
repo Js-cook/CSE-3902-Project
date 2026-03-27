@@ -35,6 +35,6 @@ public class MovingGelSprite : ISprite
 
     public void SpriteDraw(Vector2 position)
     {
-        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), 3f, SpriteEffects.None, 0.0f);
+        spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), Settings.Instance.scale, SpriteEffects.None, 0.0f);
     }
 }
