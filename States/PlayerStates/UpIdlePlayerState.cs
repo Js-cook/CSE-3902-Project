@@ -5,11 +5,8 @@ using Sprites;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
 
-
-public class UpIdlePlayerState : Interfaces.IPlayerState
+public class UpIdlePlayerState : AbstractIdlePlayer
 {
-    public Dictionary<string, SoundEffect> soundEffect { get; set; }
-
     private Link player;
     private PlayerSpriteFactory spriteFactory;
     public readonly Direction Direction = Direction.UP;
@@ -25,7 +22,7 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
         this.audioController = new AudioController();
     }
 
-    public void ChangeDirection(Direction Direction)
+    public override void ChangeDirection(Direction Direction)
     {
         switch (Direction)
         {
@@ -48,17 +45,12 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
         }
     }
 
-    public void BeDead()
-    {
-
-    }
-
-    public void BeDamaged()
+    public override void BeDamaged()
     {
         player.Hurt = true;
     }
 
-    public void BeAttacking()
+    public override void BeAttacking()
     {
         audioController.PlaySoundEffect(soundEffect["SwordSlash"]);
 
@@ -69,7 +61,7 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
         player.Sprite = spriteFactory.CreateUpAttackingPlayerSprite(player.position);
     }
 
-    public void FireSilverArrow()
+    public override void FireSilverArrow()
     {
         audioController.PlaySoundEffect(soundEffect["ArrowBoomerang"]);
         player.playerState = new UpUsingPlayerState(player, spriteFactory, projectileController, soundEffect);
@@ -77,7 +69,7 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
         IProjectile silverArrow = new SilverArrow(player.position, Direction.UP, player.projectileSpriteFactory);
         projectileController.projectiles.Add(silverArrow);
     }
-    public void FireArrow()
+    public override void FireArrow()
     {
         audioController.PlaySoundEffect(soundEffect["ArrowBoomerang"]);
         player.playerState = new UpUsingPlayerState(player, spriteFactory, projectileController, soundEffect);
@@ -85,7 +77,7 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
         IProjectile arrow = new Arrow(player.position, Direction.UP, player.projectileSpriteFactory);
         projectileController.projectiles.Add(arrow);
     }
-    public void FireBoomerang()
+    public override void FireBoomerang()
     {
         audioController.PlaySoundEffect(soundEffect["ArrowBoomerang"]);
         player.playerState = new UpUsingPlayerState(player, spriteFactory, projectileController, soundEffect);
@@ -93,7 +85,7 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
         IProjectile boomerang = new Boomerang(player.position, Direction.UP, player.projectileSpriteFactory);
         projectileController.projectiles.Add(boomerang);
     }
-    public void FireMagicBoomerang()
+    public override void FireMagicBoomerang()
     {
         audioController.PlaySoundEffect(soundEffect["ArrowBoomerang"]);
         player.playerState = new UpUsingPlayerState(player, spriteFactory, projectileController, soundEffect);
@@ -101,28 +93,20 @@ public class UpIdlePlayerState : Interfaces.IPlayerState
         IProjectile magicBoomerang = new MagicBoomerang(player.position, Direction.UP, player.projectileSpriteFactory);
         projectileController.projectiles.Add(magicBoomerang);
     }
-    public void FireFireball()
+    public override void FireFireball()
     {
         player.playerState = new UpUsingPlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateUpUsingPlayerSprite(player.position);
         IProjectile fireball = new Fireball(player.position, Direction.UP, player.projectileSpriteFactory);
         projectileController.projectiles.Add(fireball);
     }
-    public void FireBomb()
+    public override void FireBomb()
     {
         audioController.PlaySoundEffect(soundEffect["BombDrop"]);
         player.playerState = new UpUsingPlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateUpUsingPlayerSprite(player.position);
         IProjectile bomb = new Bomb(player.position, Direction.UP, player.projectileSpriteFactory);
         projectileController.projectiles.Add(bomb);
-    }
-    public void BeIdle()
-    {
-
-    }
-
-    public void Update(GameTime gametime)
-    {
     }
 }
 
