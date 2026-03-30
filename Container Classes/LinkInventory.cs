@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Enums;
 
 public class LinkInventory
 {
@@ -10,6 +11,8 @@ public class LinkInventory
     public int items { get; set; }
     public bool hasCompass { get; set; }
     public bool hasMap { get; set; }
+    public Weapon primaryItem { get; set; }
+    public Weapon secondaryItem { get; set; }
 
     public LinkInventory()
     {
@@ -20,6 +23,8 @@ public class LinkInventory
         items = 0;
         hasCompass = false;
         hasMap = false;
+        primaryItem = Weapon.WOOD_SWORD;
+        secondaryItem = Weapon.BOMB;
     }
 
 }
