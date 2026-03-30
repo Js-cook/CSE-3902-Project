@@ -19,8 +19,25 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
         if (player == null || doorway == null)
             return;
 
-        if (!doorway.HitboxActive || doorway.IsLocked)
+        if (!doorway.HitboxActive)
             return;
+
+        // Handles Locked Doors - checks if the door is locked and if the player has a key to unlock it
+        if (doorway.IsLocked)
+        {
+            if (player.playerInventory.keys > 0)
+            {
+                // Player has a key - unlock the door
+                doorway.IsLocked = false;
+                player.playerInventory.keys--;
+                // TODO: Add audio for unlocking the door
+            }
+            else
+            {
+                // TODO: Play locked sound & show message
+                return;
+            }
+        }
 
         if (transitioning)
             return;

@@ -59,7 +59,8 @@ public class Environment
         };
         doorMap[direction] = sprite;
 
-        bool isLocked = type != "OpenDoor";
+        // Only actual door types should be unlockable, not walls
+        bool isLocked = type == "KeyLockedDoor" || type == "DiamondLockedDoor";
         Vector2 pos = GetDoorPosition(direction);
 
         doorways.Add(new Doorway(sprite, pos, direction, isLocked));
