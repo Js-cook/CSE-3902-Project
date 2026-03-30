@@ -73,16 +73,8 @@ namespace _3902_Project
         // This method needs to be cleaned up bad
         protected override void LoadContent()
         {
-            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Dictionary<string, SoundEffect> sfx = SFXLoader.LoadPlayerSFX(Content);
-
-            hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch, Content.Load<Texture2D>("HUD"));
-            textFactory = new HUDSpriteFactory(Content.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch, Content.Load<Texture2D>("HUD"));
-            hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite, playerInventory);
-
-            AudioController audioController = new AudioController();
-            audioController.PlaySong(Content.Load<Song>("BackgroundMusic"));
 
             playerTexture = Content.Load<Texture2D>("LinkSprites");
             enemyTexture = Content.Load<Texture2D>("EnemySprites");
@@ -90,6 +82,15 @@ namespace _3902_Project
             spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
             projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
             projectileController = new ProjectileController(projectileSpriteFactory, sfx);
+            
+
+            hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch, Content.Load<Texture2D>("HUD"));
+            textFactory = new HUDSpriteFactory(Content.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch, Content.Load<Texture2D>("HUD"), playerTexture);
+            hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite, playerInventory);
+
+            AudioController audioController = new AudioController();
+            audioController.PlaySong(Content.Load<Song>("BackgroundMusic"));
+
 
             player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx, playerInventory);
 
