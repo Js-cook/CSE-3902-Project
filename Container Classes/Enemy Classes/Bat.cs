@@ -14,7 +14,7 @@ public class Bat : IEnemy
     {
         get
         {
-            return new Rectangle((int)position.X, (int)position.Y, 16, 16);
+            return new Rectangle((int)position.X, (int)position.Y, 16*4, 16*4);
         }
     }
     public bool HitboxActive { get; set; }
