@@ -22,6 +22,8 @@ public static class CollisionRegistry
     {
         // Get all types in your project assembly. Citation: GEMINI AI
         var allTypes = Assembly.GetExecutingAssembly().GetTypes();
+
+        //TODO - Explain this!!
         var enemyTypes = allTypes.Where(t => typeof(IEnemy).IsAssignableFrom(t) && !t.IsInterface);
         var projectileTypes = allTypes.Where(t => typeof(IProjectile).IsAssignableFrom(t) && !t.IsInterface);
         foreach (var eType in enemyTypes)

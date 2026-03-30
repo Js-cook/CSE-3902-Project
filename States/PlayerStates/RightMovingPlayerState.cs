@@ -5,9 +5,8 @@ using Microsoft.Xna.Framework.Audio;
 using Sprites;
 using System.Collections.Generic;
 
-public class RightMovingPlayerState : Interfaces.IPlayerState
+public class RightMovingPlayerState : AbstractMovingPlayer
 {
-    public Dictionary<string, SoundEffect> soundEffect { get; set; }
 
     private Link player;
     private PlayerSpriteFactory spriteFactory;
@@ -20,7 +19,7 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
     }
-    public void ChangeDirection(Direction Direction)
+    public override void ChangeDirection(Direction Direction)
     {
         switch (Direction)
         {
@@ -39,46 +38,14 @@ public class RightMovingPlayerState : Interfaces.IPlayerState
         }
     }
 
-    public void BeDead()
-    {
-
-    }
-
-    public void BeDamaged()
+    public override void BeDamaged()
     {
         player.Hurt = true;
     }
 
-    public void FireArrow()
-    {
-    }
-    public void FireSilverArrow()
-    {
-    }
-    public void FireBoomerang()
-    {
-    }
-    public void FireMagicBoomerang()
-    {
-    }
-    public void FireFireball()
-    {
-    }
-    public void FireBomb()
-    {
-    }
-    public void BeAttacking()
-    {
-
-    }
-
-    public void BeIdle()
+    public override void BeIdle()
     {
         player.playerState = new RightIdlePlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateRightIdlePlayerSprite(player.position);
-    }
-
-    public void Update(GameTime gametime)
-    {
     }
 }

@@ -46,10 +46,7 @@ namespace _3902_Project
         private LevelFileReader levelFileReader;
         private RoomManager roomManager;
 
-        private Song dungeonSong;
-
         private ItemFactory itemFactory;
-        private Item item;
         private ItemController itemController;
 
         private CollisionManager collisionManager;
@@ -59,8 +56,6 @@ namespace _3902_Project
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            //_graphics.PreferredBackBufferWidth = 512 * 1.5;
-            //_graphics.PreferredBackBufferHeight = 464 * 1.5;
             _graphics.PreferredBackBufferWidth = 1025;
             _graphics.PreferredBackBufferHeight = 928;
             _graphics.ApplyChanges();
@@ -69,25 +64,10 @@ namespace _3902_Project
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            //AudioController audioController = new AudioController();
             enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
             playerInventory = new LinkInventory();
 
             base.Initialize();
-        }
-
-        private Dictionary<string, SoundEffect> LoadPlayerSFX(ContentManager content)
-        {
-            Dictionary<string, SoundEffect> res = new()
-            {
-                { "ArrowBoomerang", content.Load<SoundEffect>("SFX/ArrowBoomerang") },
-                { "BombDrop", content.Load<SoundEffect>("SFX/BombDrop") },
-                { "BombExplode", content.Load<SoundEffect>("SFX/BombExplode") },
-                { "SwordSlash", content.Load<SoundEffect>("SFX/SwordSlash") },
-                { "EnemyDie", content.Load<SoundEffect>("SFX/EnemyDie") }
-            };
-
-            return res;
         }
 
         // This method needs to be cleaned up bad
@@ -95,15 +75,14 @@ namespace _3902_Project
         {
             
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            Dictionary<string, SoundEffect> sfx = LoadPlayerSFX(Content);
+            Dictionary<string, SoundEffect> sfx = SFXLoader.LoadPlayerSFX(Content);
 
             hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch, Content.Load<Texture2D>("HUD"));
             textFactory = new HUDSpriteFactory(Content.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch, Content.Load<Texture2D>("HUD"));
             hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite, playerInventory);
 
             AudioController audioController = new AudioController();
-            dungeonSong = Content.Load<Song>("BackgroundMusic");
-          //  audioController.PlaySong(dungeonSong);
+            audioController.PlaySong(Content.Load<Song>("BackgroundMusic"));
 
             playerTexture = Content.Load<Texture2D>("LinkSprites");
             enemyTexture = Content.Load<Texture2D>("EnemySprites");
@@ -121,8 +100,6 @@ namespace _3902_Project
             enemyController = new EnemyController(sfx);
             enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Handles laoding enemies into the enemyCotnroller which then updates each of them
 
-            
-
             // Effect Factory and Effect Controller Initialization
             effectSpriteFactory = new EffectSpriteFactory(playerTexture, _spriteBatch); // Uses player texture spritesheet for the death cloud effect
             effectFactory = new EffectFactory(effectSpriteFactory);
@@ -137,10 +114,9 @@ namespace _3902_Project
             roomManager = new RoomManager(levelFileReader, fullPath, 0, 1, enemyController);
 
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
-            item = new Item(itemFactory);
             itemController = new ItemController(itemFactory, sfx);
 
-            keyboardController = new Controllers.IKeyboard(player, roomManager, item, enemyController, this, audioController, LoadPlayerSFX(Content), itemController);
+            keyboardController = new KeyboardController(player, roomManager, enemyController, this, itemController);
 
             // Add additional collision handlers here as needed
             collisionManager = new CollisionManager(GraphicsDevice);
@@ -158,7 +134,7 @@ namespace _3902_Project
             // then update all entities based on that input
             player.Update(gameTime);
             environment.Update(gameTime);
-            item.Update(gameTime);
+            //item.Update(gameTime);
             itemController.Update(gameTime);
             enemyController.Update(gameTime);
             projectileController.Update(gameTime);
@@ -191,9 +167,7 @@ namespace _3902_Project
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             environment.Draw();
             hud.Draw();
-            //hudBackgroundSprite.SpriteDraw(Vector2.Zero);
             player.Draw();
-            item.Draw();
             itemController.Draw();
             enemyController.Draw();
             projectileController.Draw();

@@ -8,6 +8,8 @@ public class LinkInventory
     public int currentHearts { get; set; }
     public int rupees { get; set; }
     public int items { get; set; }
+    public bool hasCompass { get; set; }
+    public bool hasMap { get; set; }
 
     public LinkInventory()
     {
@@ -16,6 +18,8 @@ public class LinkInventory
         currentHearts = 6; // currentHearts refers to the number of heart halves
         rupees = 0;
         items = 0;
+        hasCompass = false;
+        hasMap = false;
     }
 
 }

@@ -25,7 +25,7 @@ public class Aquamentus : IEnemy
     {
         get
         {
-            return new Rectangle((int)position.X, (int)position.Y, 64*2, 64*2);
+            return new Rectangle((int)position.X, (int)position.Y, 32, 32);
         }
     }
     public bool HitboxActive { get; set; }
@@ -40,9 +40,9 @@ public class Aquamentus : IEnemy
         aquamentusState = new MovingAquamentusState(this, spriteFactory, _graphics);
         Sprite = spriteFactory.CreateMovingAquamentusSprite(position);
 
-            topFireball = new AquamentusFireball(this.position, enemyProjectileSpriteFactory, new Vector2(-1, -1));
-            middleFireball = new AquamentusFireball(this.position, enemyProjectileSpriteFactory, new Vector2(-1, 0));
-            bottomFireball = new AquamentusFireball(this.position, enemyProjectileSpriteFactory, new Vector2(-1, 1));
+            topFireball = new AquamentusFireball(this.position, enemyProjectileSpriteFactory, new Vector2(-1, -1) * 2);
+            middleFireball = new AquamentusFireball(this.position, enemyProjectileSpriteFactory, new Vector2(-1, 0) * 2);
+            bottomFireball = new AquamentusFireball(this.position, enemyProjectileSpriteFactory, new Vector2(-1, 1) * 2);
     }
 
     public void Update(GameTime gametime)
@@ -84,7 +84,8 @@ public class Aquamentus : IEnemy
 
         // Implement damage logic here, such as reducing health and changing state if health reaches zero
         iFrameManager.Trigger(); // Start invincibility frames
-        Health -= damage;
+        Health -= damage
+            ;
         aquamentusState.TakeDamage();
 
 

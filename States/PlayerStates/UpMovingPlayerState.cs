@@ -9,10 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class UpMovingPlayerState : Interfaces.IPlayerState
+public class UpMovingPlayerState : AbstractMovingPlayer
 {
-    public Dictionary<string, SoundEffect> soundEffect { get; set; }
-
     private Link player;
     private PlayerSpriteFactory spriteFactory;
     private ProjectileController projectileController;
@@ -24,7 +22,7 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
     }
-    public void ChangeDirection(Direction Direction)
+    public override void ChangeDirection(Direction Direction)
     {
         switch (Direction)
         {
@@ -43,45 +41,13 @@ public class UpMovingPlayerState : Interfaces.IPlayerState
         }
     }
 
-    public void BeDead()
-    {
-
-    }
-
-    public void BeDamaged()
+    public override void BeDamaged()
     {
         player.Hurt = true;
     }
-
-    public void BeAttacking()
-    {
-
-    }
-    public void FireArrow()
-    {
-    }
-    public void FireSilverArrow()
-    {
-    }
-    public void FireBoomerang()
-    {
-    }
-    public void FireMagicBoomerang()
-    {
-    }
-    public void FireFireball()
-    {
-    }
-    public void FireBomb()
-    {
-    }
-    public void BeIdle()
+    public override void BeIdle()
     {
         player.playerState = new UpIdlePlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateUpIdlePlayerSprite(player.position);
-    }
-
-    public void Update(GameTime gametime)
-    {
     }
 }

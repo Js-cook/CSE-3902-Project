@@ -18,7 +18,7 @@ public class Gel : IEnemy {
         {
             get
             {
-                return new Rectangle((int)position.X, (int)position.Y, 16*2, 16*2);
+                return new Rectangle((int)position.X, (int)position.Y, 34, 52);
             }
     }   
     public bool HitboxActive { get; set; }
