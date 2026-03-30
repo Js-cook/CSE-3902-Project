@@ -45,6 +45,17 @@ public abstract class AbstractAttackingPlayer : IPlayerState
     {
 
     }
+
+    public void usePrimaryItem()
+    {
+
+    }
+
+    public void useSecondaryItem()
+    {
+
+    }
+
     public void FireBomb()
     {
 

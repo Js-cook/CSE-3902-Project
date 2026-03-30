@@ -58,6 +58,18 @@ namespace Controllers
             if (keyState.IsKeyDown(Keys.G) && roomSwitchLimiter == 0) { roomManager.MoveLeft(); roomSwitchLimiter = 10; }
             if (keyState.IsKeyDown(Keys.J) && roomSwitchLimiter == 0) { roomManager.MoveRight(); roomSwitchLimiter = 10; }
 
+            if(keyState.IsKeyDown(Keys.Z) && projectileInputLimiter == 0)
+            {
+                player.playerState.usePrimaryItem();
+                projectileInputLimiter = 20;
+            }
+
+            if(keyState.IsKeyDown(Keys.X) && projectileInputLimiter == 0)
+            {
+                player.playerState.useSecondaryItem();
+                projectileInputLimiter = 20;
+            }
+
             //other inputs
             if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && !movementKeyActive)
             {
@@ -87,7 +99,7 @@ namespace Controllers
                 movementKeyActive = true;
             }
 
-            if ((keyState.IsKeyDown(Keys.N) || keyState.IsKeyDown(Keys.Z)) && projectileInputLimiter == 0)
+            if (keyState.IsKeyDown(Keys.N) && projectileInputLimiter == 0)
             {
                 player.playerState.BeAttacking();
                 projectileInputLimiter = 10;
