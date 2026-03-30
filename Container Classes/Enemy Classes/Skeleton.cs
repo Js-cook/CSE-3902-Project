@@ -14,7 +14,7 @@ public class Skeleton : IEnemy
         }
     }
     public bool HitboxActive { get; set; }
-    public int Health { get; set; }
+    public int Health { get; set; } = 2;
     public bool isDead { get; set; }
 
     public ISprite Sprite { get; set; }

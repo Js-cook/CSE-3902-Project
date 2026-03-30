@@ -9,7 +9,7 @@ public class Boomerang : IProjectile
     private double endTime = 0.75;
     private int directionSign = 1;
 
-    public int DamageValue { get; } = 1;
+    public int DamageValue { get; } = 0;
     public bool Active { get; set; }
 
     private ISprite sprite;

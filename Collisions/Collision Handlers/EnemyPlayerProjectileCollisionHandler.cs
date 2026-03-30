@@ -13,12 +13,20 @@ public class EnemyPlayerProjectileCollisionHandler : ICollisionHandler
         IProjectile projectile = obj1 as IProjectile ?? obj2 as IProjectile;
         if (projectile != null && enemy != null)
         {
+
+            int damageToApply = projectile.DamageValue;
             // If the projectile is not a player projectile, ignore it (don't damage enemies)
             if (!projectile.isPlayerProjectile)
                 return;
+            
+            // Handle Bat, and Gel collision with boomerang
+            if ((enemy is Bat || enemy is Gel) && (projectile is Boomerang || projectile is MagicBoomerang))
+            {
+                damageToApply = 1; // Boomerang does 1 damage to Bats and Gels but 0 to other enemies
+            }
 
             projectile.OnCollision();
-            enemy.TakeDamage(projectile.DamageValue);
+            enemy.TakeDamage(damageToApply);
 
             
 

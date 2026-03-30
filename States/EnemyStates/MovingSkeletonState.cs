@@ -20,7 +20,7 @@ public class MovingSkeletonState : IEnemyState
         spriteFactory = skeletonSpriteFactory;
         timer = 0;
 
-        velocity = new Vector2(1, 0);
+        velocity = new Vector2(1, 0) * Settings.Instance.SkeletonSpeed;
         randInt = new Random();
        
 

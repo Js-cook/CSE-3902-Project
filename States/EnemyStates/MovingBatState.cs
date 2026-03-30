@@ -21,7 +21,7 @@ public class MovingBatState : IEnemyState
         this.bat = bat;
         this.spriteFactory = spriteFactory;
         timer = 0;
-        velocity = new Vector2(1, 0);
+        velocity = new Vector2(1, 0) * Settings.Instance.BatSpeed;
         randInt = new Random();
         
 
