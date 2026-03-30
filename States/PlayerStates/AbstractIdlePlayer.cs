@@ -28,6 +28,8 @@ public abstract class AbstractIdlePlayer : IPlayerState
     public abstract void FireMagicBoomerang();
     public abstract void FireFireball();
     public abstract void FireBomb();
+    public abstract void usePrimaryItem();
+    public abstract void useSecondaryItem();
     public void Update(GameTime gametime)
     {
 

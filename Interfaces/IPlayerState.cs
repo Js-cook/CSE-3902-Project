@@ -21,6 +21,8 @@ namespace Interfaces
         void FireMagicBoomerang();
         void FireFireball();
         void FireBomb();
+        void usePrimaryItem();
+        void useSecondaryItem();
         void Update(GameTime gametime);
     
     }
