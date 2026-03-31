@@ -16,7 +16,7 @@ public class Goriya : IEnemy
                 }
     }
     public bool HitboxActive { get; set; }
-    public int Health { get; set; } = 2;
+    public int Health { get; set; } = 3;
     public bool isDead { get; set; }
 
     public Vector2 position { get; set; }

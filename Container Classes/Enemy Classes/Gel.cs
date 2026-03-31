@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 public class Gel : IEnemy {
 
-    public int Health { get; set; }
+    public int Health { get; set; } = 1;
     public bool isDead { get; set; }
 
 

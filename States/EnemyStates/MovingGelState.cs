@@ -25,7 +25,7 @@ public class MovingGelState : IEnemyState
         this.spriteFactory = gelSpriteFactory;
         timer = 0;
 
-        velocity = new Vector2(1, 0);
+        velocity = new Vector2(1, 0) * Settings.Instance.GelSpeed;
         randInt = new Random();
     
 

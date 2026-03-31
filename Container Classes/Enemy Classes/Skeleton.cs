@@ -10,11 +10,11 @@ public class Skeleton : IEnemy
     {
         get
         {
-            return new Rectangle((int)position.X, (int)position.Y, 65, 70);
+            return new Rectangle((int)position.X, (int)position.Y, 65, 65);
         }
     }
     public bool HitboxActive { get; set; }
-    public int Health { get; set; }
+    public int Health { get; set; } = 2;
     public bool isDead { get; set; }
 
     public ISprite Sprite { get; set; }

@@ -18,7 +18,7 @@ public class Bat : IEnemy
         }
     }
     public bool HitboxActive { get; set; }
-    public int Health { get; set; } 
+    public int Health { get; set; } = 1;
     public bool isDead { get; set; } = false;
     public Vector2 position { get; set; }
     public ISprite Sprite { get; set; }
@@ -58,9 +58,11 @@ public class Bat : IEnemy
 
     public void TakeDamage(int damage)
     {
+        Health -= damage;
+
 
         batState.TakeDamage();
-        // change to batState.TakeDamage() to have a death animation
+        
     }
 
     public void ChangeState(IEnemyState newState)

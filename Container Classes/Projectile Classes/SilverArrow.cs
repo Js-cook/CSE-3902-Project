@@ -11,7 +11,7 @@ public class SilverArrow : IProjectile
         }
     }
     public bool HitboxActive { get; set; }
-    public int DamageValue { get; set; } = 1; public Vector2 Position { get; set; }
+    public int DamageValue { get; set; } = 4; public Vector2 Position { get; set; }
     private Direction direction;
     private double startTime = 0.0;
     private double endTime = 1;
