@@ -25,6 +25,7 @@ public class RightMovingGoriyaState : IEnemyState
         this.goriya = goriya;
         this.spriteFactory = goriyaSpriteFactory;
         goriya.Sprite = spriteFactory.CreateRightMovingGoriyaSprite(goriya.position);
+        goriya.currentDirection = Direction.RIGHT;
         directionTimer = 0;
         shootTimer = 0;
 

@@ -58,21 +58,21 @@ public class Link : ICollidable
 
     public void MoveUp() 
     {
-        position = new Vector2(position.X, position.Y - 2);
+        position = new Vector2(position.X, position.Y - (2 * Settings.Instance.PlayerSpeed));
     }
 
     public void MoveDown()
     {
-        position = new Vector2(position.X, position.Y + 2);
+        position = new Vector2(position.X, position.Y + (2  * Settings.Instance.PlayerSpeed));
     }
 
     public void MoveLeft()
     {
-        position = new Vector2(position.X - 2, position.Y);
+        position = new Vector2(position.X - (2 * Settings.Instance.PlayerSpeed), position.Y);
     }
     public void MoveRight()
     {
-        position = new Vector2(position.X + 2, position.Y);
+        position = new Vector2(position.X + (2 * Settings.Instance.PlayerSpeed), position.Y);
     }
 
     public void Update(GameTime gametime)

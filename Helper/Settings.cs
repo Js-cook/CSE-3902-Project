@@ -9,9 +9,13 @@ using System.Threading.Tasks;
 
     public float SkeletonSpeed = 3f;
     public float GoriyaSpeed = 2f;
-    public float BatSpeed = 5f;
+    public float BatSpeed = 4f;
     public float AquamentusSpeed = 1.5f;
     public float GelSpeed = 3f;
+    public float PlayerSpeed = 1.5f;
+
+    public float GoriyaKnockbackSpeed = 6f;
+    public float GoriyaKnockbackDuration = 0.4f;
 
     public static Settings Instance { get; private set; } = new Settings();
 }
