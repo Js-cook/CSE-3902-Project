@@ -11,7 +11,7 @@ public class MovingBatState : IEnemyState
 {
     private Bat bat;
     private BatSpriteFactory spriteFactory;
-    double directionTimerMax = 2;
+    double directionTimerMax = .5;
     double timer;
     private Vector2 velocity;
     private Random randInt;
@@ -21,7 +21,7 @@ public class MovingBatState : IEnemyState
         this.bat = bat;
         this.spriteFactory = spriteFactory;
         timer = 0;
-        velocity = new Vector2(1, 0) * Settings.Instance.BatSpeed;
+        SetVelocity(new Vector2(1, 0));
         randInt = new Random();
         
 
@@ -29,6 +29,11 @@ public class MovingBatState : IEnemyState
     public void ChangeDirection()
     {
         // No need for this 
+    }
+
+    public void SetVelocity(Vector2 newVelocity)
+    {
+        velocity = newVelocity * Settings.Instance.BatSpeed;
     }
     public void BeDead()
     {
@@ -54,7 +59,8 @@ public class MovingBatState : IEnemyState
         timer += gameTime.ElapsedGameTime.TotalSeconds;
         if (timer >= directionTimerMax)
         {
-            velocity = new Vector2(randInt.Next(0, 2), randInt.Next(0, 2));
+            SetVelocity(new Vector2(randInt.Next(0, 2), randInt.Next(0, 2))); // Randomly change direction but cannot be (0,0)
+
             timer = 0;
         }
     }
