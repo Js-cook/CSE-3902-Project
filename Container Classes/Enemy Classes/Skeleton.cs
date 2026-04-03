@@ -58,4 +58,9 @@ public class Skeleton : IEnemy
         skeletonState.OnWallCollision(newDir);
     }
 
+    public void DropHearts (int numHearts)
+    {
+        // Implement logic for dropping hearts when Skeleton is defeated, if necessary
+    }
+
 }

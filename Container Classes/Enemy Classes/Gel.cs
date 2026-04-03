@@ -64,4 +64,9 @@ public class Gel : IEnemy {
         gelState.OnWallCollision(newDir);
     }
 
+    public void DropHearts(int numHearts)
+    {
+        // Implement logic for dropping hearts when Gel is defeated, if necessary
+    }
+
 }
