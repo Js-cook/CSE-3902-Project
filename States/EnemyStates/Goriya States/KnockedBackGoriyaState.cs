@@ -105,6 +105,7 @@ public class KnockedBackGoriyaState : IEnemyState
 
     public void OnWallCollision(Direction newDir)
     {
-        // No wall collision logic needed during knockback
+        // Stop knockback and return to previous state when hitting a wall
+        ReturnToPreviousState();
     }
 }
