@@ -116,6 +116,7 @@ public class PlayingState : IGameState
 
         // Add additional collision handlers here as needed
         collisionManager = new CollisionManager();
+        collisionManager.Initialize(_graphics.GraphicsDevice);
 
         CollisionRegistry.Initialize(collisionManager, roomManager);
     }
@@ -134,6 +135,12 @@ public class PlayingState : IGameState
         if (roomSwitchLimiter > 0)
         {
             roomSwitchLimiter--;
+        }
+
+        // Toggle hitbox debug mode
+        if (keyState.IsKeyDown(Keys.F1) && previousKeyboardState.IsKeyUp(Keys.F1))
+        {
+            collisionManager.DebugMode = !collisionManager.DebugMode;
         }
 
         //room management
@@ -249,13 +256,6 @@ public class PlayingState : IGameState
             itemController.SpawnItem(ItemType.Key, player.position + new Vector2(50, 0));
         }
 
-
-        //if (keyState.IsKeyDown(Keys.Q))
-        //{
-        //    gameInstance.Exit();
-        //}
-
-
         previousKeyboardState = keyState;
     }
 
@@ -292,5 +292,8 @@ public class PlayingState : IGameState
         enemyController.Draw();
         projectileController.Draw();
         effectController.Draw();
+        
+        // Draw debug hitboxes
+        collisionManager.DrawHitboxes(_spriteBatch);
     }
 }
