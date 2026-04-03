@@ -21,5 +21,7 @@ public interface IEnemy : ICollidable
 
     public void OnWallCollision(Direction newDir);
 
+    public void DropHearts(int numHearts);
+
 
 }

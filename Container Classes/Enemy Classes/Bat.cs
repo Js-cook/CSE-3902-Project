@@ -75,4 +75,9 @@ public class Bat : IEnemy
         // Implement logic for what happens when Bat collides with a wall, if necessary
         batState.OnWallCollision(newDir);
     }
+
+    public void DropHearts(int numHearts)
+    {
+        // Implement logic for dropping hearts when the Bat is defeated, if necessary
+    }
 }

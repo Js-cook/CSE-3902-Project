@@ -107,4 +107,9 @@ public class Goriya : IEnemy
         goriyaState.OnWallCollision(newDir);
     }
 
+    public void DropHearts(int numHearts)
+    {
+        // Implement logic for dropping hearts when Goriya is defeated, if necessary
+    }
+
 }

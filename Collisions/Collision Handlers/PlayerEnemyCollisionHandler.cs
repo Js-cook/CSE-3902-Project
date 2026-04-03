@@ -25,7 +25,7 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
         ApplyKnockback(player, knockbackDirection);
 
         // Damage the player
-        player.playerState.BeDamaged();
+        player.TakeDamage(1); // Each collision with any enemy causes 1 damage, adjust as needed
     }
 
     private Vector2 GetKnockbackDirection(Link player, IEnemy enemy, Rectangle intersection)
