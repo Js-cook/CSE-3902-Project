@@ -109,4 +109,54 @@ public class RightIdlePlayerState : AbstractIdlePlayer
         IProjectile bomb = new Bomb(player.position, Direction.RIGHT, player.projectileSpriteFactory);
         projectileController.projectiles.Add(bomb);
     }
+
+    public override void usePrimaryItem()
+    {
+        switch (player.playerInventory.primaryItem)
+        {
+            case Weapon.WOOD_SWORD:
+                BeAttacking();
+                break;
+            case Weapon.ARROW:
+                FireArrow();
+                break;
+            case Weapon.SILVER_ARROW:
+                FireSilverArrow();
+                break;
+            case Weapon.BOMB:
+                FireBomb();
+                break;
+            case Weapon.BOOMERANG:
+                FireBoomerang();
+                break;
+            case Weapon.MAGIC_BOOMERANG:
+                FireMagicBoomerang();
+                break;
+        }
+    }
+
+    public override void useSecondaryItem()
+    {
+        switch (player.playerInventory.secondaryItem)
+        {
+            case Weapon.WOOD_SWORD:
+                BeAttacking();
+                break;
+            case Weapon.ARROW:
+                FireArrow();
+                break;
+            case Weapon.SILVER_ARROW:
+                FireSilverArrow();
+                break;
+            case Weapon.BOMB:
+                FireBomb();
+                break;
+            case Weapon.BOOMERANG:
+                FireBoomerang();
+                break;
+            case Weapon.MAGIC_BOOMERANG:
+                FireMagicBoomerang();
+                break;
+        }
+    }
 }

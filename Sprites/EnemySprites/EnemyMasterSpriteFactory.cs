@@ -27,7 +27,7 @@ public class EnemyMasterSpriteFactory
     {
         // Empty constructor
     }
-    public void LoadContent(ContentManager content, SpriteBatch _spriteBatch, GraphicsDeviceManager _graphics)
+    public void LoadContent(ContentManager content, SpriteBatch _spriteBatch)
     {
         Texture2D enemyTexture = content.Load<Texture2D>("EnemySprites");
         Texture2D bossTexture = content.Load<Texture2D>("BossSprites");

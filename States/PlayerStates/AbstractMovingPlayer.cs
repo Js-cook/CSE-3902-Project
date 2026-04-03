@@ -46,6 +46,16 @@ public abstract class AbstractMovingPlayer : IPlayerState
     {
 
     }
+
+    public void usePrimaryItem()
+    {
+
+    }
+
+    public void useSecondaryItem()
+    {
+
+    }
     public void Update(GameTime gametime)
     {
 

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 public class Fireball : IProjectile
 {
 
-    public int DamageValue { get; set; } = 1;
+    public int DamageValue { get; set; } = 4;
     public Rectangle Hitbox
     {
         get

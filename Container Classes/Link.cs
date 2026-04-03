@@ -17,6 +17,8 @@ public class Link : ICollidable
     }
     public bool HitboxActive { get; set; } //not sure if this is necessary for Link, but it is for enemies and projectiles so I added it here for consistency and to implement ICollidable correctly
     public Vector2 position { get; set; }
+
+    private float health = 6; // Health is measured in hearts. Each heart is 1 health point.
     public IPlayerSprite Sprite { get; set; }
     public IPlayerState playerState { get; set; }
     public ProjectileSpriteFactory projectileSpriteFactory { get; set; }
@@ -58,21 +60,21 @@ public class Link : ICollidable
 
     public void MoveUp() 
     {
-        position = new Vector2(position.X, position.Y - 2);
+        position = new Vector2(position.X, position.Y - (2 * Settings.Instance.PlayerSpeed));
     }
 
     public void MoveDown()
     {
-        position = new Vector2(position.X, position.Y + 2);
+        position = new Vector2(position.X, position.Y + (2  * Settings.Instance.PlayerSpeed));
     }
 
     public void MoveLeft()
     {
-        position = new Vector2(position.X - 2, position.Y);
+        position = new Vector2(position.X - (2 * Settings.Instance.PlayerSpeed), position.Y);
     }
     public void MoveRight()
     {
-        position = new Vector2(position.X + 2, position.Y);
+        position = new Vector2(position.X + (2 * Settings.Instance.PlayerSpeed), position.Y);
     }
 
     public void Update(GameTime gametime)
@@ -80,6 +82,7 @@ public class Link : ICollidable
         playerState.Update(gametime);
         Sprite.Update(gametime);
         //List<IProjectile> markedForDeletion = new List<IProjectile>();
+        playerInventory.currentHearts = (int)health;
 
         if (Hurt)
         {
@@ -96,6 +99,20 @@ public class Link : ICollidable
     {
         Sprite.Hurt = Hurt;
         Sprite.SpriteDraw(position);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (!Hurt)
+        {
+            health -= damage;
+            Hurt = true;
+            if (health <= 0)
+            {
+                // Handle player death (e.g., reset level, show game over screen, etc.)
+                health = 0; // Ensure health doesn't go negative
+            }
+        }
     }
 }
 

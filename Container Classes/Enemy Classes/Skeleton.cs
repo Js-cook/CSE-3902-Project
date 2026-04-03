@@ -10,11 +10,11 @@ public class Skeleton : IEnemy
     {
         get
         {
-            return new Rectangle((int)position.X, (int)position.Y, 65, 70);
+            return new Rectangle((int)position.X, (int)position.Y, 65, 65);
         }
     }
     public bool HitboxActive { get; set; }
-    public int Health { get; set; }
+    public int Health { get; set; } = 2;
     public bool isDead { get; set; }
 
     public ISprite Sprite { get; set; }
@@ -56,6 +56,11 @@ public class Skeleton : IEnemy
     {
         // Implement logic for what happens when Skeleton collides with a wall, if necessary
         skeletonState.OnWallCollision(newDir);
+    }
+
+    public void DropHearts (int numHearts)
+    {
+        // Implement logic for dropping hearts when Skeleton is defeated, if necessary
     }
 
 }

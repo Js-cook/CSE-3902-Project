@@ -51,18 +51,19 @@ Metrics calculated using the "Code Metrics" tool
 | 2/28 | 83                    | 1229                  | 2                    | 191            | 6857                 | 1697                     |
 | 3/8  | 84                    | 2013                  | 2                    | 255            | 9988                 | 2465                     |
 | 3/23 | 83                    | 2151                  | 2                    | 266            | 10588                | 2666                     |
+| 3/29 | 83                    | 2165                  | 2                    | 277            | 10853                | 2720                     |
 
 ### Areas for refactoring (methods and classes with the worst maintainability index)
 | Maintainability Index | Class | Method |
 | --------------------- | ----- | ------ |
-| 25                    | IKeyboard | Update() : void |
-| 45                    | Environment | GetCollidableTiles() : List\<Tile\> | 
-| 47                    | LevelFileReader | LoadLevel(string, int, int) : bool |
-| 48                    | IKeyboard       | |
+| 25 -> 27 (as of 3/29)                    | KeyboardController | Update() : void |
+| 45 -> 35 (as of 3/29)                   | Environment | GetCollidableTiles() : List\<Tile\> | 
+| 47 -> 39 (as of 3/29)                   | LevelFileReader | LoadLevel(string, int, int) : bool |
+| 48 -> 49 (as of 3/29)                    | IKeyboard       | |
 | 54                    | ProjectileController | Update(GameTime) : void |
 | 55                    | Item                 | Item(ItemFactory) |
-| 56                    | LevelFileReader      | |
-| 57                    | CollisionManager | Update(GameTime, List\<ICollidable\>) : void |
+| 56 -> 48 (as of 3/29)                   | LevelFileReader      | |
+| 57                     | CollisionManager | Update(GameTime, List\<ICollidable\>) : void |
 | 58                    | AudioController  | PlaySoundEffect(SoundEffect, float, float, float, bool) : SoundEffectInstance |
 | 59                    | Boomerang        | Update(GameTime) : void |
 
