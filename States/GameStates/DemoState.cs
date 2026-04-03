@@ -2,18 +2,19 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Enums;
 
 public class DemoState : IGameState
 {
     private HUDText text;
     private SpriteBatch _spriteBatch;
 
-    public bool IsDone { get; private set; }
+    public GameStateSignal Signal { get; private set; }
 
     public DemoState(SpriteBatch spriteBatch)
     {
         _spriteBatch = spriteBatch;
-        IsDone = false;
+        Signal = GameStateSignal.NONE;
     }
 
     public void LoadContent(ContentManager contentLoader)
@@ -30,7 +31,7 @@ public class DemoState : IGameState
         // No key handling for this demo state
         if (keyState.IsKeyDown(Keys.LeftControl))
         {
-            IsDone = true;
+            Signal = GameStateSignal.TO_PLAYING;
         }
     }
 
