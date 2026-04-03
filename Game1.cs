@@ -48,7 +48,7 @@ namespace _3902_Project
             playingState = new PlayingState(_spriteBatch, sfx, _graphics);
             playingState.LoadContent(Content);
 
-            demoState = new DemoState(_spriteBatch);
+            demoState = new StartScreenState(_spriteBatch);
             demoState.LoadContent(Content);
 
             gameState = demoState;

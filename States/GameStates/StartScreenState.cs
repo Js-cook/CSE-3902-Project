@@ -4,14 +4,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Enums;
 
-public class DemoState : IGameState
+public class StartScreenState : IGameState
 {
     private HUDText text;
     private SpriteBatch _spriteBatch;
+    private ISprite startScreenSprite;
 
     public GameStateSignal Signal { get; private set; }
 
-    public DemoState(SpriteBatch spriteBatch)
+    public StartScreenState(SpriteBatch spriteBatch)
     {
         _spriteBatch = spriteBatch;
         Signal = GameStateSignal.NONE;
@@ -21,8 +22,9 @@ public class DemoState : IGameState
     {
         //contentLoader.Load<Texture2D>("HUD");
         contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes");
-        text = new HUDText(contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), new Vector2(100, 100), _spriteBatch);
-        text.Text = "Press left control to start";
+        startScreenSprite = new StartScreenSprite(contentLoader.Load<Texture2D>("zelda-start-screen"), _spriteBatch);
+        text = new HUDText(contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), new Vector2(250, 600), _spriteBatch);
+        text.Text = "Press left control";
         text.TextColor = Color.White;
     }
 
@@ -41,6 +43,7 @@ public class DemoState : IGameState
     }
     public void Draw()
     {
+        startScreenSprite.SpriteDraw(Vector2.Zero);
         text.Draw();
     }
 }
