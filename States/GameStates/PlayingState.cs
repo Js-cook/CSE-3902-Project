@@ -55,7 +55,7 @@ public class PlayingState : IGameState
     private int roomSwitchLimiter = 0;
     private int itemSwitchLimiter = 0;
 
-    public bool IsDone { get; private set; }
+    public GameStateSignal Signal { get; private set; }
 
     private KeyboardState previousKeyboardState;
 
@@ -66,7 +66,7 @@ public class PlayingState : IGameState
         enemyMasterSpriteFactory = new EnemyMasterSpriteFactory();
         this.sfx = sfx;
         _graphics = graphics;
-        IsDone = false;
+        Signal = GameStateSignal.NONE;
     }
 
     public void LoadContent(ContentManager contentLoader)

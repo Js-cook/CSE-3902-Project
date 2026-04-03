@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using System.IO;
+using Enums;
 
 namespace _3902_Project
 {
@@ -179,7 +180,7 @@ namespace _3902_Project
             gameState.Update(gameTime);
             keyboardController.Update();
 
-            if (gameState.IsDone)
+            if (gameState.Signal == GameStateSignal.TO_PLAYING)
             {
                 gameState = playingState;
                 keyboardController.gameState = gameState;
