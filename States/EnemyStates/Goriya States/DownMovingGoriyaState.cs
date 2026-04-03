@@ -28,7 +28,7 @@ public class DownMovingGoriyaState : IEnemyState
 
         directionTimer = 0;
         shootTimer = 0;
-
+        
         velocity = new Vector2(0, 1) * Settings.Instance.GoriyaSpeed;
         randInt = new Random();
         this._graphics = _graphics;

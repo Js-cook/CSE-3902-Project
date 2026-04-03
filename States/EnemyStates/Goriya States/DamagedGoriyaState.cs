@@ -27,8 +27,6 @@ public class DamagedGoriyaState : IEnemyState
         goriya.Sprite = spriteFactory.CreateDamagedGoriyaSprite(goriya.position, currDirection);
         this._graphics = _graphics;
         this.currDirection = currDirection;
-        
-
 
 
     }
@@ -80,6 +78,8 @@ public class DamagedGoriyaState : IEnemyState
         goriya.goriyaBoomerang.Active = true; // Activate the boomerang when fired
     }
 
+
+
     public void TakeDamage()
     {
         // No need for this, as Goriya is already in a damaged state. If we wanted to implement a knockback effect, we could modify the velocity here.
@@ -89,4 +89,6 @@ public class DamagedGoriyaState : IEnemyState
     {
         // No movement when damaged, so no wall collision logic needed.
     }
+
+
 }
