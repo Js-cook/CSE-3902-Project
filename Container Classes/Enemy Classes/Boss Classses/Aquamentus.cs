@@ -102,4 +102,10 @@ public class Aquamentus : IEnemy
         aquamentusState.OnWallCollision(newDir);
     }
 
+    public void DropHearts(int numHearts)
+    {
+        // Implement logic for dropping hearts when Aquamentus is defeated, if necessary
+
+    }
+
 }
