@@ -25,6 +25,7 @@ public class UpMovingGoriyaState : IEnemyState
         this.goriya = goriya;
         this.spriteFactory = goriyaSpriteFactory;
         goriya.Sprite = spriteFactory.CreateUpMovingGoriyaSprite(goriya.position);
+        goriya.currentDirection = Direction.UP;
         directionTimer = 0;
         shootTimer = 0;
 

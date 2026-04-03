@@ -26,6 +26,7 @@ public class LeftMovingGoriyaState : IEnemyState
         this.goriya = goriya;
         this.spriteFactory = goriyaSpriteFactory;
         goriya.Sprite = spriteFactory.CreateLeftMovingGoriyaSprite(goriya.position);
+        goriya.currentDirection = Direction.LEFT;
 
         directionTimer = 0;
         shootTimer = 0;

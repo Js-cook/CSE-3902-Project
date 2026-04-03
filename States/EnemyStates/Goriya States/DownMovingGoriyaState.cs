@@ -25,6 +25,7 @@ public class DownMovingGoriyaState : IEnemyState
         this.goriya = goriya;
         this.spriteFactory = goriyaSpriteFactory;
         goriya.Sprite = spriteFactory.CreateDownMovingGoriyaSprite(goriya.position);
+        goriya.currentDirection = Direction.DOWN;
 
         directionTimer = 0;
         shootTimer = 0;
