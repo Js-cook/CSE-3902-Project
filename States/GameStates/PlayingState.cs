@@ -44,7 +44,6 @@ public class PlayingState : IGameState
     private Environment environment;
     private LevelFileReader levelFileReader;
     private RoomManager roomManager;
-    private string levelFilePath;
 
     private ItemFactory itemFactory;
     private ItemController itemController;
@@ -118,8 +117,7 @@ public class PlayingState : IGameState
         tileFactory = new TileFactory(contentLoader.Load<Texture2D>("DungeonTileSprites"), playerTexture, enemyTexture, treasureChestTexture, _spriteBatch);
         environment = new Environment(tileFactory);
         levelFileReader = new LevelFileReader(environment, enemyLoader);
-        levelFilePath = Path.Combine(contentLoader.RootDirectory, "rooms.xml");
-        roomManager = new RoomManager(levelFileReader, levelFilePath, 0, 1, enemyController);
+        roomManager = new RoomManager(levelFileReader, 0, 1, enemyController);
 
 
         //keyboardController = new KeyboardController(player, roomManager, enemyController, this, itemController);
@@ -353,10 +351,10 @@ public class PlayingState : IGameState
         playerInventory.primaryItem = Weapon.WOOD_SWORD;
         playerInventory.secondaryItem = Weapon.BOMB;
 
-     
 
 
-        levelFileReader.LoadLevel(levelFilePath, 0, 1, true); // Force load initial room
+
+        levelFileReader.LoadLevel(0, 1, true); // Force load initial room
 
        
 
