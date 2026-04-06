@@ -18,95 +18,86 @@ public class LevelFileReader
         this.enemyLoader = enemyLoader;
     }
 
-    public bool LoadLevel(string filePath, int row, int col, bool spawnEnemies = true)
+    public bool LoadLevel(int row, int col, bool spawnEnemies = true)
     {
-        using (Stream stream = TitleContainer.OpenStream(filePath))
+        RoomDefinition roomDef = RoomsRepository.GetRoom(row, col);
+
+        if (roomDef == null)
         {
-            XDocument doc = XDocument.Load(stream);
+            Debug.WriteLine($"Room {row},{col} not found");
+            return false;
+        }
 
-            var roomNode = doc.Descendants("Room")
-            .FirstOrDefault(r => (int)r.Attribute("row") == row &&
-                                 (int)r.Attribute("col") == col);
+        gameEnv.tiles.Clear();
+        gameEnv.doorMap.Clear();
+        gameEnv.spikeTiles.Clear();
+        gameEnv.treasureChests.Clear();
+        gameEnv.doorways.Clear();
 
-            if (roomNode == null)
+        // Load tiles from room definition
+        foreach (var tileRow in roomDef.Tiles)
+        {
+            ISprite[] spriteRow = new ISprite[tileRow.Length];
+            for (int i = 0; i < tileRow.Length; i++)
             {
-                Debug.WriteLine($"Room {row},{col} not found in {filePath}");
-                return false;
-            }
-
-            gameEnv.tiles.Clear();
-            gameEnv.doorMap.Clear();
-            gameEnv.spikeTiles.Clear();
-            gameEnv.treasureChests.Clear();
-            gameEnv.doorways.Clear();
-
-            var tileRows = roomNode.Descendants("Tiles").Descendants("row");
-            foreach (var rowElement in tileRows)
-            {
-                string[] cols = rowElement.Value.Trim().Split(',');
-                if (cols.Length > 0 && !string.IsNullOrWhiteSpace(cols[0]))
+                string key = tileRow[i];
+                if (key == "Spike")
                 {
-                    ISprite[] tileRow = new ISprite[cols.Length];
-                    for (int i = 0; i < cols.Length; i++)
-                    {
-                        string key = cols[i].Trim();
-                        if (key == "Spike")
-                        {
-                            tileRow[i] = gameEnv.tileMap["BlueFloor"];
-                            // Add spike as a separate overlay
-                            Vector2 spikePosition = new Vector2(
-                                64 * 2 + (i * (32 * 2)),
-                                112 * 2 + 64 * 2 + ((gameEnv.tiles.Count) * (32 * 2)));
-                            gameEnv.AddSpike(spikePosition);
-                        }
-                        else if(key == "TreasureChest")
-                        {
-                            tileRow[i] = gameEnv.tileMap["BlueFloor"];
+                    spriteRow[i] = gameEnv.tileMap["BlueFloor"];
+                    // Add spike as a separate overlay
+                    Vector2 spikePosition = new Vector2(
+                        64 * 2 + (i * (32 * 2)),
+                        112 * 2 + 64 * 2 + ((gameEnv.tiles.Count) * (32 * 2)));
+                    gameEnv.AddSpike(spikePosition);
+                }
+                else if (key == "TreasureChest")
+                {
+                    spriteRow[i] = gameEnv.tileMap["BlueFloor"];
 
-                            const int tileSize = 32 * 2;
-                            const int hudHeight = 112 * 2;
-                            const int wallOffset = 64;
+                    const int tileSize = 32 * 2;
+                    const int hudHeight = 112 * 2;
+                    const int wallOffset = 64;
 
-                            Vector2 chestPosition = new Vector2(
-                                wallOffset * 2 + (i * tileSize),
-                                hudHeight + wallOffset * 2 + (gameEnv.tiles.Count * tileSize)
-                            );
+                    Vector2 chestPosition = new Vector2(
+                        wallOffset * 2 + (i * tileSize),
+                        hudHeight + wallOffset * 2 + (gameEnv.tiles.Count * tileSize)
+                    );
 
-                            gameEnv.AddTreasureChest(chestPosition);
-
-                        }
-                        else if (gameEnv.tileMap.ContainsKey(key))
-                        {
-                            tileRow[i] = gameEnv.tileMap[key];
-                        }
-                    }
-                    gameEnv.tiles.Add(tileRow);
+                    gameEnv.AddTreasureChest(chestPosition);
+                }
+                else if (gameEnv.tileMap.ContainsKey(key))
+                {
+                    spriteRow[i] = gameEnv.tileMap[key];
                 }
             }
-
-            var doors = roomNode.Descendants("Doors").Elements();
-            foreach (var door in doors)
-            {
-                int direction = door.Name.LocalName switch
-                {
-                    "Top" => 0,
-                    "Right" => 1,
-                    "Bottom" => 2,
-                    "Left" => 3,
-                    _ => 0
-                };
-                string type = door.Attribute("type").Value;
-                gameEnv.AssignDoor(direction, type);
-            }
-            if (spawnEnemies)
-            {
-                enemyLoader.LoadEnemiesFromRoom(roomNode);
-            }
-            else
-            {
-                enemyLoader.ClearEnemies();
-            }
-            return true;
+            gameEnv.tiles.Add(spriteRow);
         }
+
+        // Load doors from room definition
+        var directionMap = new Dictionary<string, int>
+        {
+            { "Top", 0 },
+            { "Right", 1 },
+            { "Bottom", 2 },
+            { "Left", 3 }
+        };
+
+        foreach (var doorEntry in roomDef.Doors)
+        {
+            int direction = directionMap[doorEntry.Key];
+            string type = doorEntry.Value;
+            gameEnv.AssignDoor(direction, type);
+        }
+
+        // Load enemies
+        if (spawnEnemies)
+        {
+            enemyLoader.LoadEnemiesFromRoom(roomDef.Enemies);
+        }
+        else
+        {
+            enemyLoader.ClearEnemies();
+        }
+        return true;
     }
 }
