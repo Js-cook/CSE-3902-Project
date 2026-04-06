@@ -14,7 +14,7 @@ public class MagicBoomerang : IProjectile
     public bool HitboxActive { get; set; }
 
     public bool isPlayerProjectile { get; set; } = true;
-    public int DamageValue { get; set; } = 1; public Vector2 Position { get; set; }
+    public int DamageValue { get; set; } = 0; public Vector2 Position { get; set; }
     private Direction direction;
     private double startTime = 0.0;
     private double endTime = 1.5;

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 public class Gel : IEnemy {
 
-    public int Health { get; set; }
+    public int Health { get; set; } = 1;
     public bool isDead { get; set; }
 
 
@@ -62,6 +62,11 @@ public class Gel : IEnemy {
     {
         // Implement logic for what happens when Gel collides with a wall, if necessary
         gelState.OnWallCollision(newDir);
+    }
+
+    public void DropHearts(int numHearts)
+    {
+        // Implement logic for dropping hearts when Gel is defeated, if necessary
     }
 
 }

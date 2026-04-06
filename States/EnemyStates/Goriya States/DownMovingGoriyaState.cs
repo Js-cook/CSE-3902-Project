@@ -11,7 +11,6 @@ public class DownMovingGoriyaState : IEnemyState
 
     double changeDirectionTimerMax = 5;
     double directionTimer;
-    int speed = 2;
 
     double shootTimerMax = 3;
     double shootTimer;
@@ -26,11 +25,12 @@ public class DownMovingGoriyaState : IEnemyState
         this.goriya = goriya;
         this.spriteFactory = goriyaSpriteFactory;
         goriya.Sprite = spriteFactory.CreateDownMovingGoriyaSprite(goriya.position);
+        goriya.currentDirection = Direction.DOWN;
 
         directionTimer = 0;
         shootTimer = 0;
-
-        velocity = new Vector2(0, 1) * speed;
+        
+        velocity = new Vector2(0, 1) * Settings.Instance.GoriyaSpeed;
         randInt = new Random();
         this._graphics = _graphics;
 

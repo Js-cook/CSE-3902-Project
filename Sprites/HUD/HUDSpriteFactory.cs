@@ -7,12 +7,14 @@ public class HUDSpriteFactory
 {
     private SpriteFont spriteFont;
     private Texture2D texture;
+    private Texture2D itemTexture;
     private SpriteBatch spriteBatch;
-    public HUDSpriteFactory(SpriteFont font, SpriteBatch spriteBatch, Texture2D texture)
+    public HUDSpriteFactory(SpriteFont font, SpriteBatch spriteBatch, Texture2D texture, Texture2D itemTexture)
     { 
         spriteFont = font;
         this.spriteBatch = spriteBatch;
         this.texture = texture;
+        this.itemTexture = itemTexture;
     }
 
     public HUDText CreateHUDText(Vector2 position)
@@ -23,5 +25,34 @@ public class HUDSpriteFactory
     public HUDHeart CreateHUDHeart(string state)
     {
         return new HUDHeart(texture, spriteBatch, state);
+    }
+
+    public HUDArrowSprite CreateHUDArrowSprite(Vector2 position) {
+        return new HUDArrowSprite(itemTexture, spriteBatch);
+    }
+
+    public HUDBombSprite CreateHUDBombSprite(Vector2 position)
+    {
+        return new HUDBombSprite(itemTexture, spriteBatch);
+    }
+
+    public HUDBoomerangSprite CreateHUDBoomerangSprite(Vector2 position)
+    {
+        return new HUDBoomerangSprite(itemTexture, spriteBatch);
+    }
+
+    public HUDMagicBoomerangSprite CreateHUDMagicBoomerangSprite(Vector2 position)
+    {
+        return new HUDMagicBoomerangSprite(itemTexture, spriteBatch);
+    }
+
+    public HUDSilverArrowSprite CreateHUDSilverArrowSprite(Vector2 position)
+    {
+        return new HUDSilverArrowSprite(itemTexture, spriteBatch);
+    }
+
+    public HUDWoodSwordSprite CreateHUDWoodSwordSprite(Vector2 position)
+    {
+        return new HUDWoodSwordSprite(itemTexture, spriteBatch);
     }
 }

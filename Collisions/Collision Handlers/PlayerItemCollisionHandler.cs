@@ -14,7 +14,7 @@ public class PlayerItemCollisionHandler : ICollisionHandler
         switch (pickup.ItemType)
         {
             case ItemType.Heart:
-                player.playerInventory.currentHearts = Math.Min(player.playerInventory.currentHearts + 2, player.playerInventory.maxHearts);
+                player.OnHeartPickup();
                 break;
             case ItemType.Rupee:
                 player.playerInventory.rupees++;
@@ -26,11 +26,10 @@ public class PlayerItemCollisionHandler : ICollisionHandler
                 player.playerInventory.items++;
                 break;
             case ItemType.HeartContainer:
-                player.playerInventory.maxHearts += 2;
-                player.playerInventory.currentHearts = player.playerInventory.maxHearts;
+                player.OnHeartContainerPickup();
                 break;
             case ItemType.Fairy:
-                player.playerInventory.currentHearts = player.playerInventory.maxHearts;
+                player.OnFairyPickup();
                 break;
             default:
                 break;

@@ -21,7 +21,7 @@ public class EnemyLoader
             { "Aquamentus", enemyFactory.CreateAquamentus },
             { "Skeleton", enemyFactory.CreateSkeleton },
             { "Bat", enemyFactory.CreateBat }
-            
+
         };
     }
     public void ClearEnemies()
@@ -29,34 +29,28 @@ public class EnemyLoader
         enemyController.enemyArray.Clear();
     }
 
-    public void LoadEnemiesFromRoom(XElement roomNode)
+    public void LoadEnemiesFromRoom(List<EnemyDefinition> enemies)
     {
         enemyController.enemyArray.Clear();
 
-        var enemiesNode = roomNode.Element("Enemies");
-        if (enemiesNode == null)
+        if (enemies == null || enemies.Count == 0)
             return;
 
-        foreach (var enemyElement in enemiesNode.Elements("Enemy"))
+        const int tileSize = 32 * 2;
+        const int hudHeight = 112 * 2;
+        const int wallOffset = 64;
+        Vector2 gridOffset = new Vector2(wallOffset * 2, hudHeight + wallOffset * 2);
+
+        foreach (var enemyDef in enemies)
         {
-            string type = enemyElement.Attribute("type")?.Value;
-
-            string xSrc = enemyElement.Attribute("x")?.Value;
-            string ySrc = enemyElement.Attribute("y")?.Value;
-
-            const int tileSize = 32 * 2;
-            const int hudHeight = 112 * 2;
-            const int wallOffset = 64;
-            Vector2 gridOffset = new Vector2(wallOffset * 2, hudHeight + wallOffset * 2);
-
-            float x = gridOffset.X + (int.Parse(xSrc) * tileSize);
-            float y = gridOffset.Y + (int.Parse(ySrc) * tileSize);
+            float x = gridOffset.X + (enemyDef.X * tileSize);
+            float y = gridOffset.Y + (enemyDef.Y * tileSize);
 
             Vector2 position = new Vector2(x, y);
 
-            if (type != null && enemyMap.ContainsKey(type))
+            if (enemyDef.Type != null && enemyMap.ContainsKey(enemyDef.Type))
             {
-                IEnemy enemy = enemyMap[type](position);
+                IEnemy enemy = enemyMap[enemyDef.Type](position);
                 enemy.HitboxActive = true;
                 enemyController.AddEnemy(enemy);
             }

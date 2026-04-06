@@ -11,7 +11,6 @@ public class RightMovingGoriyaState : IEnemyState
 
     double changeDirectionTimerMax = 5;
     double directionTimer;
-    int speed = 2;
 
     double shootTimerMax = 3;
     double shootTimer;
@@ -26,10 +25,11 @@ public class RightMovingGoriyaState : IEnemyState
         this.goriya = goriya;
         this.spriteFactory = goriyaSpriteFactory;
         goriya.Sprite = spriteFactory.CreateRightMovingGoriyaSprite(goriya.position);
+        goriya.currentDirection = Direction.RIGHT;
         directionTimer = 0;
         shootTimer = 0;
 
-        velocity = new Vector2(1, 0) * speed;
+        velocity = new Vector2(1, 0) * Settings.Instance.GoriyaSpeed;
         randInt = new Random();
         this._graphics = _graphics;
 

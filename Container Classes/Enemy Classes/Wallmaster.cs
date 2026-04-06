@@ -58,4 +58,9 @@ public class Wallmaster : IEnemy
         wallmasterState.OnWallCollision(newDir);
     }
 
+    public void DropHearts(int numHearts)
+    {
+        // Implement logic for dropping hearts when Wallmaster is defeated, if necessary
+    }
+
 }

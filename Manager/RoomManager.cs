@@ -9,7 +9,6 @@ using System.IO;
 public class RoomManager
 {
     private LevelFileReader reader;
-    private string xmlPath;
     private EnemyController enemyController;
     private HashSet<(int row, int col)> clearedRooms = new HashSet<(int row, int col)>();
     private HashSet<(int row, int col, int direction)> unlockedDoors = new HashSet<(int row, int col, int direction)>();
@@ -17,10 +16,9 @@ public class RoomManager
     public int CurrentRow { get; private set; }
     public int CurrentCol { get; private set; }
 
-    public RoomManager(LevelFileReader reader, string xmlPath, int startRow, int startCol, EnemyController enemyController)
+    public RoomManager(LevelFileReader reader, int startRow, int startCol, EnemyController enemyController)
     {
         this.reader = reader;
-        this.xmlPath = xmlPath;
         this.enemyController = enemyController;
         if (this.enemyController != null)
         {
@@ -30,7 +28,7 @@ public class RoomManager
         // Load initial room
         this.CurrentRow = startRow;
         this.CurrentCol = startCol;
-        reader.LoadLevel(xmlPath, CurrentRow, CurrentCol, !IsRoomCleared(CurrentRow, CurrentCol));
+        reader.LoadLevel(CurrentRow, CurrentCol, !IsRoomCleared(CurrentRow, CurrentCol));
     }
 
     public void MoveUp() { TryTransition(CurrentRow - 1, CurrentCol); }
@@ -41,7 +39,7 @@ public class RoomManager
     private void TryTransition(int nextRow, int nextCol)
     {
         // Only update row/col if the load actually succeeds
-        if (reader.LoadLevel(xmlPath, nextRow, nextCol, !IsRoomCleared(nextRow, nextCol)))
+        if (reader.LoadLevel(nextRow, nextCol, !IsRoomCleared(nextRow, nextCol)))
         {
             CurrentRow = nextRow;
             CurrentCol = nextCol;

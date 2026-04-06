@@ -21,10 +21,8 @@ public class EnemyWallCollisionHandler : ICollisionHandler
 
     private void ResolveCollision(IEnemy enemy, Rectangle tileHitbox, Rectangle intersection)
     {
-        //TODO: THIS WORKS FOR NOW BUT NEED TO CHNAGE STATE OF ENEMY
-
-
-        // Push player out based on smallest overlap dimension. T
+        
+        // Push player out based on smallest overlap dimensions. T
 
         // This prevents player from getting stuck in corners
         // Add a small buffer (1-2 pixels)  to create separation from walls 

@@ -20,7 +20,7 @@ public class MovingSkeletonState : IEnemyState
         spriteFactory = skeletonSpriteFactory;
         timer = 0;
 
-        velocity = new Vector2(1, 0);
+        velocity = new Vector2(1, 0) * Settings.Instance.SkeletonSpeed;
         randInt = new Random();
        
 
@@ -87,16 +87,16 @@ public class MovingSkeletonState : IEnemyState
         switch (newDir)
         {
             case Direction.UP:
-                velocity = new Vector2(velocity.X, Math.Abs(velocity.Y)); // Move up
+                velocity = new Vector2(velocity.X, -Math.Abs(velocity.Y)); // Move down (away from UP wall)
                 break;
             case Direction.DOWN:
-                velocity = new Vector2(velocity.X, -Math.Abs(velocity.Y)); // Move down
+                velocity = new Vector2(velocity.X, Math.Abs(velocity.Y)); // Move up (away from DOWN wall)
                 break;
             case Direction.LEFT:
-                velocity = new Vector2(Math.Abs(velocity.X), velocity.Y); // Move left
+                velocity = new Vector2(-Math.Abs(velocity.X), velocity.Y); // Move right (away from LEFT wall)
                 break;
             case Direction.RIGHT:
-                velocity = new Vector2(-Math.Abs(velocity.X), velocity.Y); // Move right
+                velocity = new Vector2(Math.Abs(velocity.X), velocity.Y); // Move left (away from RIGHT wall)
                 break;
         }
 
