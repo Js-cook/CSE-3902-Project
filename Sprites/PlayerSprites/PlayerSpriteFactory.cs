@@ -78,5 +78,10 @@ namespace Sprites
         {
             return new DownUsingPlayerSprite(playerTexture, position, spriteBatch);
         }
+
+        public IPlayerSprite CreateDyingPlayerSprite(Vector2 position)
+        {
+            return new DyingPlayerSprite(playerTexture, position, spriteBatch);
+        }
     }
 }

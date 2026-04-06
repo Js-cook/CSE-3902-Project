@@ -13,7 +13,9 @@ public class SFXLoader
             { "BombDrop", content.Load<SoundEffect>("SFX/BombDrop") },
             { "BombExplode", content.Load<SoundEffect>("SFX/BombExplode") },
             { "SwordSlash", content.Load<SoundEffect>("SFX/SwordSlash") },
-            { "EnemyDie", content.Load<SoundEffect>("SFX/EnemyDie") }
+            { "EnemyDie", content.Load<SoundEffect>("SFX/EnemyDie") },
+            { "PlayerDying", content.Load<SoundEffect>("SFX/DyingPlayerSound") },
+            { "PlayerDeath", content.Load<SoundEffect>("SFX/DeadPlayerSound")  },
         };
 
         return res;

@@ -17,5 +17,7 @@ using System.Threading.Tasks;
     public float GoriyaKnockbackSpeed = 6f;
     public float GoriyaKnockbackDuration = 0.4f;
 
+    public float StartingPlayerHealth = 1f;
+
     public static Settings Instance { get; private set; } = new Settings();
 }

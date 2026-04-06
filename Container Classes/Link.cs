@@ -18,7 +18,7 @@ public class Link : ICollidable
     public bool HitboxActive { get; set; } //not sure if this is necessary for Link, but it is for enemies and projectiles so I added it here for consistency and to implement ICollidable correctly
     public Vector2 position { get; set; }
 
-    private float health = 6; // Health is measured in hearts. Each heart is 1 health point.
+    public float health = Settings.Instance.StartingPlayerHealth; // Health is measured in hearts. Each heart is 1 health point.
     public IPlayerSprite Sprite { get; set; }
     public IPlayerState playerState { get; set; }
     public ProjectileSpriteFactory projectileSpriteFactory { get; set; }
@@ -79,8 +79,11 @@ public class Link : ICollidable
 
     public void Update(GameTime gametime)
     {
+        
         playerState.Update(gametime);
-        Sprite.Update(gametime);
+       
+            Sprite.Update(gametime);
+        
         //List<IProjectile> markedForDeletion = new List<IProjectile>();
         playerInventory.currentHearts = (int)health;
 

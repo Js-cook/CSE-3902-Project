@@ -18,10 +18,8 @@ namespace _3902_Project
 
         private KeyboardController keyboardController;
 
-        private IGameState gameState;
-
-        private IGameState demoState;
-        private IGameState playingState;
+        private GameStateManager gameStateManager;
+        private GameLoader gameLoader;
 
         public Game1()
         {
@@ -32,6 +30,16 @@ namespace _3902_Project
             _graphics.PreferredBackBufferWidth = 1025;
             _graphics.PreferredBackBufferHeight = 928;
             _graphics.ApplyChanges();
+
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            keyboardController = new KeyboardController(this);
+            gameStateManager = new GameStateManager(keyboardController);
+            gameLoader = new GameLoader(GraphicsDevice, Content, _graphics, gameStateManager, _spriteBatch);
+            
+
+
+
         }
 
         protected override void Initialize()
@@ -42,30 +50,14 @@ namespace _3902_Project
         // This method needs to be cleaned up bad
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            Dictionary<string, SoundEffect> sfx = SFXLoader.LoadPlayerSFX(Content);
 
-            playingState = new PlayingState(_spriteBatch, sfx, _graphics);
-            playingState.LoadContent(Content);
+            gameLoader.LoadContent(); // Loads all content and gameStates in the GameState Manager and initializes the first game state
 
-            demoState = new StartScreenState(_spriteBatch);
-            demoState.LoadContent(Content);
-
-            gameState = demoState;
-
-            keyboardController = new KeyboardController(this, gameState);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            gameState.Update(gameTime);
-            keyboardController.Update();
-
-            if (gameState.Signal == GameStateSignal.TO_PLAYING)
-            {
-                gameState = playingState;
-                keyboardController.gameState = gameState;
-            }
+            gameStateManager.Update(gameTime); // Updates currentGame state and keyboard controller
         }
 
         protected override void Draw(GameTime gameTime)
@@ -73,7 +65,7 @@ namespace _3902_Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            gameState.Draw();
+            gameStateManager.Draw();
             _spriteBatch.End();
 
             base.Draw(gameTime);

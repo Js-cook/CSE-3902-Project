@@ -45,6 +45,14 @@ public class AudioController
         MediaPlayer.IsRepeating = isRepeating;
     }
 
+    public void StopSong()
+    {
+        if(MediaPlayer.State == MediaState.Playing)
+        {
+            MediaPlayer.Stop();
+        }
+    }
+
     public void Update()
     {
         for (int i = ActiveSoundEffectInstances.Count - 1; i >= 0; i--)

@@ -13,14 +13,17 @@ namespace Controllers
 
         public IGameState gameState { get; set; }
 
-        public KeyboardController(Game gameInstance, IGameState gameState)
+        public KeyboardController(Game gameInstance)
         {
             this.gameInstance = gameInstance;
-            this.gameState = gameState;
         }
 
         public void Update()
         {
+
+            if (gameState == null)
+                return;
+
             KeyboardState keyState = Keyboard.GetState();
 
             gameState.ResolveKey(keyState);

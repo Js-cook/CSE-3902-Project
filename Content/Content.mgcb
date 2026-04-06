@@ -110,6 +110,18 @@
 /processorParam:TextureFormat=Color
 /build:NPCSprites.png
 
+#begin SFX/DeadPlayerSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/DeadPlayerSound.wav
+
+#begin SFX/DyingPlayerSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/DyingPlayerSound.wav
+
 #begin SFX/LOZ_Arrow_Boomerang.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

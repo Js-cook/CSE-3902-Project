@@ -1,4 +1,5 @@
-﻿using Controllers;
+﻿using _3902_Project;
+using Controllers;
 using Enums;
 using Interfaces;
 using Microsoft.Xna.Framework;
@@ -13,7 +14,8 @@ using System.IO;
 
 public class PlayingState : IGameState
 {
-    private Link player;
+    public Link player { get; private set; }
+    private bool playerDead = false;
     private LinkInventory playerInventory;
     private Texture2D playerTexture;
     private Texture2D enemyTexture;
@@ -31,6 +33,9 @@ public class PlayingState : IGameState
     private EffectFactory effectFactory;
     private EffectController effectController;
 
+    private AudioController audioController;
+    private Song backgroundMusic;
+
     private HUDBackgroundSprite hudBackgroundSprite;
     private HUD hud;
     private HUDSpriteFactory textFactory;
@@ -39,6 +44,7 @@ public class PlayingState : IGameState
     private Environment environment;
     private LevelFileReader levelFileReader;
     private RoomManager roomManager;
+    private string levelFilePath;
 
     private ItemFactory itemFactory;
     private ItemController itemController;
@@ -55,9 +61,10 @@ public class PlayingState : IGameState
     private int roomSwitchLimiter = 0;
     private int itemSwitchLimiter = 0;
 
-    public GameStateSignal Signal { get; private set; }
+    public GameStateSignal Signal { get; set; }
 
     private KeyboardState previousKeyboardState;
+
 
     public PlayingState(SpriteBatch spriteBatch, Dictionary<string, SoundEffect> sfx, GraphicsDeviceManager graphics)
     {
@@ -71,6 +78,7 @@ public class PlayingState : IGameState
 
     public void LoadContent(ContentManager contentLoader)
     {
+        
         playerTexture = contentLoader.Load<Texture2D>("LinkSprites");
         enemyTexture = contentLoader.Load<Texture2D>("EnemySprites");
         treasureChestTexture = contentLoader.Load<Texture2D>("TreasureChestSprite");
@@ -83,9 +91,7 @@ public class PlayingState : IGameState
         textFactory = new HUDSpriteFactory(contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch, contentLoader.Load<Texture2D>("HUD"), playerTexture);
         hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite, playerInventory);
 
-        AudioController audioController = new AudioController();
-        audioController.PlaySong(contentLoader.Load<Song>("BackgroundMusic"));
-
+        audioController = new AudioController();
 
         player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx, playerInventory);
 
@@ -106,8 +112,8 @@ public class PlayingState : IGameState
         tileFactory = new TileFactory(contentLoader.Load<Texture2D>("DungeonTileSprites"), playerTexture, enemyTexture, treasureChestTexture, _spriteBatch);
         environment = new Environment(tileFactory);
         levelFileReader = new LevelFileReader(environment, enemyLoader);
-        string fullPath = Path.Combine(contentLoader.RootDirectory, "rooms.xml");
-        roomManager = new RoomManager(levelFileReader, fullPath, 0, 1, enemyController);
+        levelFilePath = Path.Combine(contentLoader.RootDirectory, "rooms.xml");
+        roomManager = new RoomManager(levelFileReader, levelFilePath, 0, 1, enemyController);
 
         itemFactory = new ItemFactory(contentLoader.Load<Texture2D>("ItemSprites"), _spriteBatch);
         itemController = new ItemController(itemFactory, sfx);
@@ -262,7 +268,12 @@ public class PlayingState : IGameState
     public void Update(GameTime gameTime)
     {
         // then update all entities based on that input
-        player.Update(gameTime);
+
+        // Only update player logic if no state transition signal is set otherwise,
+        // it'll update with a null player sprite in case player is dead
+        if (Signal == GameStateSignal.NONE) 
+            player.Update(gameTime);
+
         environment.Update(gameTime);
         itemController.Update(gameTime);
         enemyController.Update(gameTime);
@@ -279,18 +290,78 @@ public class PlayingState : IGameState
             ];
 
         collisionManager.Update(gameTime, collidables);
+
+        if (player.health <= 0 && !playerDead)
+        {
+            playerDead = true;
+            Signal = GameStateSignal.TO_GAMEOVER;
+            player.playerState = new DyingPlayerState(player, spriteFactory, projectileController, sfx);
+            return;
+        }
+
         effectController.Update(gameTime);
 
         hud.Update(gameTime);
+
+        
     }
     public void Draw()
     {
         environment.Draw();
         hud.Draw();
-        player.Draw();
+
+        if (Signal == GameStateSignal.NONE)
+            player.Draw();
         itemController.Draw();
         enemyController.Draw();
         projectileController.Draw();
         effectController.Draw();
+    }
+
+    public void ResetState()
+    {
+        Signal = GameStateSignal.NONE;
+
+       
+
+        // Controllers
+        enemyController.enemyArray.Clear();
+        projectileController.projectiles.Clear();
+        effectController.ClearEffects();
+        itemController.itemArray.Clear();
+        
+
+        // Player
+        playerDead = false;
+        player.HitboxActive = true;
+        player.position = new Vector2(400 * 2, 250 * 2); // Spawn center position
+        player.health = Settings.Instance.StartingPlayerHealth; // 3 hearts
+        player.Hurt = false;
+        player.playerState = new RightIdlePlayerState(player, spriteFactory, projectileController, sfx);
+        player.projectiles.Clear();
+
+        // Inventory
+        playerInventory.keys = 0;
+        playerInventory.currentHearts = 6;
+        playerInventory.rupees = 0;
+        playerInventory.hasCompass = false;
+        playerInventory.hasMap = false;
+        playerInventory.primaryItem = Weapon.WOOD_SWORD;
+        playerInventory.secondaryItem = Weapon.BOMB;
+
+     
+
+
+        levelFileReader.LoadLevel(levelFilePath, 0, 1, true); // Force load initial room
+
+       
+
+        // Input limiters
+        projectileInputLimiter = 0;
+        roomSwitchLimiter = 0;
+        itemSwitchLimiter = 0;
+
+
+
     }
 }
