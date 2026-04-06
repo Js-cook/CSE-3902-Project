@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
+using Enums;
 
 /// <summary>
 /// Loads in the enemies (hardcoded for now) and manages active enemies
@@ -16,11 +17,15 @@ public class EnemyController
     private Dictionary<string, SoundEffect> sfx;
     private AudioController audioController = new();
     public event Action AllEnemiesKilled;
+    private ItemController itemController;
+    private Random random;
 
-    public EnemyController(Dictionary<string, SoundEffect> sfx)
+    public EnemyController(Dictionary<string, SoundEffect> sfx, ItemController itemController)
     {
         enemyArray = new List<IEnemy>();
         this.sfx = sfx;
+        this.itemController = itemController;
+        random = new Random();
 
     }
 
@@ -42,6 +47,8 @@ public class EnemyController
                 audioController.PlaySoundEffect(sfx["EnemyDie"], 0.75f);
                 enemyArray.RemoveAt(i); // Remove after playing sound
                 removedDead = true;
+                SpawnRandomItem(enemy.position);
+                
             }
             else
             {
@@ -93,7 +100,30 @@ public class EnemyController
 
         return projectiles;
     }
+
+    private void SpawnRandomItem(Vector2 position)
+    {
+        int roll = random.Next(0, 101);
+
+        if (roll < 50)
+        {
+            itemController.SpawnItem(ItemType.Heart, position); // Example position
+        }
+        else if (roll < 75)
+        {
+            itemController.SpawnItem(ItemType.Rupee, position); // Example position
+        }
+        else if (roll < 90)
+        {
+            itemController.SpawnItem(ItemType.Key, position); // Example position
+        }
+        else if (roll < 95)
+        {
+            itemController.SpawnItem(ItemType.Fairy, position); // Example position
+        }
+    }
 }
+
 
 
 

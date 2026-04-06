@@ -1,9 +1,11 @@
-﻿using Interfaces;
+﻿using Controllers;
+using Interfaces;
 using Microsoft.Xna.Framework;
-using Sprites;
-using System.Collections.Generic;
-using Controllers;
 using Microsoft.Xna.Framework.Audio;
+using Sprites;
+using System;
+using System.Collections.Generic;
+
 
 public class Link : ICollidable
 {
@@ -18,7 +20,7 @@ public class Link : ICollidable
     public bool HitboxActive { get; set; } //not sure if this is necessary for Link, but it is for enemies and projectiles so I added it here for consistency and to implement ICollidable correctly
     public Vector2 position { get; set; }
 
-    public float health = Settings.Instance.StartingPlayerHealth; // Health is measured in hearts. Each heart is 1 health point.
+    public float health { get; set; } = Settings.Instance.StartingPlayerHealth; // Health is measured in hearts. Each heart is 1 health point.
     public IPlayerSprite Sprite { get; set; }
     public IPlayerState playerState { get; set; }
     public ProjectileSpriteFactory projectileSpriteFactory { get; set; }
@@ -116,6 +118,22 @@ public class Link : ICollidable
                 health = 0; // Ensure health doesn't go negative
             }
         }
+    }
+
+    public void OnHeartPickup()
+    {
+        health = Math.Min(health + Settings.Instance.HEALTH_PER_HEART, playerInventory.maxHearts * Settings.Instance.HEALTH_PER_HEART); // each heart is worth 2 health points
+    }
+
+    public void OnHeartContainerPickup()
+    {
+        playerInventory.maxHearts += 2;
+        health = playerInventory.maxHearts * Settings.Instance.HEALTH_PER_HEART;
+    }
+
+    public void OnFairyPickup()
+    {
+        health = playerInventory.maxHearts * Settings.Instance.HEALTH_PER_HEART;
     }
 }
 

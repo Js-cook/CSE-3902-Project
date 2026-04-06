@@ -96,10 +96,16 @@ public class PlayingState : IGameState
         player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx, playerInventory);
 
 
+
+        itemFactory = new ItemFactory(contentLoader.Load<Texture2D>("ItemSprites"), _spriteBatch);
+        itemController = new ItemController(itemFactory, sfx);
+
+
+
         // EnemySpriteFactory, Enemy Actor Factory Enemy Controller, and EnemyLoader Initialization
         enemyMasterSpriteFactory.LoadContent(contentLoader, _spriteBatch);
         enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory);
-        enemyController = new EnemyController(sfx);
+        enemyController = new EnemyController(sfx, itemController);
         enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Handles laoding enemies into the enemyCotnroller which then updates each of them
 
         // Effect Factory and Effect Controller Initialization
@@ -115,8 +121,6 @@ public class PlayingState : IGameState
         levelFilePath = Path.Combine(contentLoader.RootDirectory, "rooms.xml");
         roomManager = new RoomManager(levelFileReader, levelFilePath, 0, 1, enemyController);
 
-        itemFactory = new ItemFactory(contentLoader.Load<Texture2D>("ItemSprites"), _spriteBatch);
-        itemController = new ItemController(itemFactory, sfx);
 
         //keyboardController = new KeyboardController(player, roomManager, enemyController, this, itemController);
 

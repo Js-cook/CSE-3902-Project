@@ -12,8 +12,8 @@ public static class CollisionRegistry
         RegisterEnemyWallCollisions(collisionManager);
         RegisterPlayerCollisions(collisionManager, roomManager);
         RegisterPlayerItemCollisions(collisionManager);
-
         RegisterProjectileWallCollisions(collisionManager);
+        RegisterFairyWallCollision(collisionManager);
 
 
     }
@@ -91,6 +91,14 @@ public static class CollisionRegistry
     private static void RegisterPlayerItemCollisions(CollisionManager collisionManager)
     {
         collisionManager.RegisterHandler(typeof(Link), typeof(PickupItem), new PlayerItemCollisionHandler());
+
+    }
+
+    private static void RegisterFairyWallCollision(CollisionManager collisionManager)
+    {
+
+        collisionManager.RegisterHandler(typeof(PickupItem), typeof(Tile), new FairyWallCollisionHandler());
+
     }
 
 }
