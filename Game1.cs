@@ -112,6 +112,7 @@ namespace _3902_Project
             levelFileReader = new LevelFileReader(environment, enemyLoader);
             string fullPath = Path.Combine(Content.RootDirectory, "rooms.xml");
             roomManager = new RoomManager(levelFileReader, fullPath, 0, 1, enemyController);
+            levelFileReader.SetRoomManager(roomManager);
 
             itemFactory = new ItemFactory(Content.Load<Texture2D>("ItemSprites"), _spriteBatch);
             itemController = new ItemController(itemFactory, sfx);
@@ -121,7 +122,7 @@ namespace _3902_Project
             // Add additional collision handlers here as needed
             collisionManager = new CollisionManager();
 
-            CollisionRegistry.Initialize(collisionManager, roomManager);
+            CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory);
 
 
         }

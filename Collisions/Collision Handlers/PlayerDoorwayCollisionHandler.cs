@@ -3,11 +3,13 @@
 public class PlayerDoorwayCollisionHandler : ICollisionHandler
 {
     private RoomManager roomManager;
+    private TileFactory tileFactory;
     private bool transitioning;
 
-    public PlayerDoorwayCollisionHandler(RoomManager roomManager)
+    public PlayerDoorwayCollisionHandler(RoomManager roomManager, TileFactory tileFactory)
     {
         this.roomManager = roomManager;
+        this.tileFactory = tileFactory;
         this.transitioning = false;
     }
 
@@ -30,10 +32,38 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
                 // Player has a key - unlock the door
                 doorway.IsLocked = false;
                 player.playerInventory.keys--;
+
+                // Change sprite to open door
+                doorway.Sprite = tileFactory.CreateOpenDoorSprite(doorway.Direction);
+
+                // Track the unlocked door globally so it stays unlocked
+                roomManager.UnlockDoor(doorway.Direction);
+
                 // TODO: Add audio for unlocking the door
+
+                // Return to allow the door state to update; player will transition on next collision
+                return;
             }
             else
             {
+                // Player doesn't have a key - block them like a wall
+                // Push player back based on door direction
+                switch (doorway.Direction)
+                {
+                    case 0: // Top door - push player down
+                        player.position = new Vector2(player.position.X, player.position.Y + intersection.Height);
+                        break;
+                    case 1: // Right door - push player left
+                        player.position = new Vector2(player.position.X - intersection.Width, player.position.Y);
+                        break;
+                    case 2: // Bottom door - push player up
+                        player.position = new Vector2(player.position.X, player.position.Y - intersection.Height);
+                        break;
+                    case 3: // Left door - push player right
+                        player.position = new Vector2(player.position.X + intersection.Width, player.position.Y);
+                        break;
+                }
+
                 // TODO: Play locked sound & show message
                 return;
             }

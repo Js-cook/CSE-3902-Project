@@ -12,6 +12,7 @@ public class RoomManager
     private string xmlPath;
     private EnemyController enemyController;
     private HashSet<(int row, int col)> clearedRooms = new HashSet<(int row, int col)>();
+    private HashSet<(int row, int col, int direction)> unlockedDoors = new HashSet<(int row, int col, int direction)>();
 
     public int CurrentRow { get; private set; }
     public int CurrentCol { get; private set; }
@@ -55,5 +56,46 @@ public class RoomManager
     public bool IsRoomCleared(int row, int col)
     {
         return clearedRooms.Contains((row, col));
+    }
+
+    public void UnlockDoor(int direction)
+    {
+        // Unlock the door from the current room's perspective
+        unlockedDoors.Add((CurrentRow, CurrentCol, direction));
+
+        // Unlock the door from the adjacent room's perspective
+        // Direction mapping: 0=Top, 1=Right, 2=Bottom, 3=Left
+        // Opposite directions: 0<->2 (Top<->Bottom), 1<->3 (Right<->Left)
+        int adjacentRow = CurrentRow;
+        int adjacentCol = CurrentCol;
+        int oppositeDirection = direction;
+
+        switch (direction)
+        {
+            case 0: // Top door - adjacent room is above (row-1), opposite is Bottom (2)
+                adjacentRow = CurrentRow - 1;
+                oppositeDirection = 2;
+                break;
+            case 1: // Right door - adjacent room is to the right (col+1), opposite is Left (3)
+                adjacentCol = CurrentCol + 1;
+                oppositeDirection = 3;
+                break;
+            case 2: // Bottom door - adjacent room is below (row+1), opposite is Top (0)
+                adjacentRow = CurrentRow + 1;
+                oppositeDirection = 0;
+                break;
+            case 3: // Left door - adjacent room is to the left (col-1), opposite is Right (1)
+                adjacentCol = CurrentCol - 1;
+                oppositeDirection = 1;
+                break;
+        }
+
+        // Unlock the opposite side of the door in the adjacent room
+        unlockedDoors.Add((adjacentRow, adjacentCol, oppositeDirection));
+    }
+
+    public bool IsDoorUnlocked(int row, int col, int direction)
+    {
+        return unlockedDoors.Contains((row, col, direction));
     }
 }

@@ -47,8 +47,17 @@ public class Environment
         };
     }
 
-    public void AssignDoor(int direction, string type)
+    public void AssignDoor(int direction, string type, RoomManager roomManager, int row, int col)
     {
+        // Check if this door was previously unlocked
+        bool wasUnlocked = roomManager != null && roomManager.IsDoorUnlocked(row, col, direction);
+
+        // If the door was unlocked, treat it as an open door
+        if (wasUnlocked && (type == "KeyLockedDoor" || type == "DiamondLockedDoor"))
+        {
+            type = "OpenDoor";
+        }
+
         ISprite sprite = type switch
         {
             "BombedWall" => factory.CreateBombedWallSprite(direction),
@@ -89,6 +98,11 @@ public class Environment
     private bool IsOpenDoor(int direction)
     {
         return doorways.Exists(d => d.Direction == direction && !d.IsLocked);
+    }
+
+    private bool HasDoor(int direction)
+    {
+        return doorways.Exists(d => d.Direction == direction);
     }
 
     public void Update(GameTime gameTime)
@@ -152,15 +166,15 @@ public class Environment
                 );
 
                 // Determine if tile is solid (blocks player movement)
+                // Note: Door sprites are NOT checked here because doors are handled
+                // as Doorway objects with their own collision logic
                 bool isSolid = sprite is WallSprite ||
                               sprite is SquareBlockSprite ||
                               sprite is PushSquareBlockSprite ||
                               sprite is WhiteBrickSprite ||
                               sprite is LeftStatueSprite ||
                               sprite is RightStatueSprite ||
-                              sprite is KeyLockedDoorSprite ||
-                              sprite is BlueGapSprite ||
-                              sprite is DiamondLockedDoorSprite;
+                              sprite is BlueGapSprite;
 
                 collidableTiles.Add(new Tile(sprite, tilePosition, isSolid));
             }
@@ -205,13 +219,12 @@ public class Environment
             }
         }
 
-       
-        // Bottom boundary - leave gap if bottom door is open
+        // Bottom boundary - leave gap if bottom door exists (open or locked)
         for (int x = floorLeft - wallThickness; x <= floorRight + wallThickness; x += scaledTileSize)
         {
             bool inBottomDoorGap = false;
 
-            if (IsOpenDoor(2))
+            if (HasDoor(2))
             {
                 Vector2 bottomDoorPos = GetDoorPosition(2);
 
@@ -226,10 +239,10 @@ public class Environment
                 collidableTiles.Add(new Tile(null, new Vector2(x, floorBottom), true));
             }
         }
-        // Left boundary - leave gap if left door is open
+        // Left boundary - leave gap if left door exists (open or locked)
         for (int y = floorTop - wallThickness; y <= floorBottom + wallThickness; y += scaledTileSize)
         {
-            bool inLeftDoorGap = IsOpenDoor(3) && y >= floorTop + 2 * scaledTileSize && y <= floorTop + 3 * scaledTileSize;
+            bool inLeftDoorGap = HasDoor(3) && y >= floorTop + 2 * scaledTileSize && y <= floorTop + 3 * scaledTileSize;
 
             if (!inLeftDoorGap)
             {
@@ -237,10 +250,10 @@ public class Environment
             }
         }
 
-        // Right boundary - leave gap if right door is open
+        // Right boundary - leave gap if right door exists (open or locked)
         for (int y = floorTop - wallThickness; y <= floorBottom + wallThickness; y += scaledTileSize)
         {
-            bool inRightDoorGap = IsOpenDoor(1) && y >= floorTop + 2 * scaledTileSize && y <= floorTop + 3 * scaledTileSize;
+            bool inRightDoorGap = HasDoor(1) && y >= floorTop + 2 * scaledTileSize && y <= floorTop + 3 * scaledTileSize;
 
             if (!inRightDoorGap)
             {
