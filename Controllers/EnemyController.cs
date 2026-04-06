@@ -47,6 +47,11 @@ public class EnemyController
                 audioController.PlaySoundEffect(sfx["EnemyDie"], 0.75f);
                 enemyArray.RemoveAt(i); // Remove after playing sound
                 removedDead = true;
+
+                if (enemy is Aquamentus)
+                {
+                    SpawnAqauamentusLoot(enemy.position);
+                }
                 SpawnRandomItem(enemy.position);
                 
             }
@@ -121,6 +126,12 @@ public class EnemyController
         {
             itemController.SpawnItem(ItemType.Fairy, position); // Example position
         }
+    }
+
+    private void SpawnAqauamentusLoot(Vector2 position)
+    {
+        itemController.SpawnItem(ItemType.HeartContainer, position); 
+        itemController.SpawnItem(ItemType.TriForcePiece, position + new Vector2(10, 0));
     }
 }
 

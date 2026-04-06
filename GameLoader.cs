@@ -52,6 +52,7 @@ namespace _3902_Project
 
 
 
+
             // Add game states to the manager and set the initial state
             LoadGameStates();
 
@@ -63,6 +64,7 @@ namespace _3902_Project
             gameStateManager.AddGameState("Playing", playingState);
             gameStateManager.AddGameState("EndScreen", startScreenState);
             gameStateManager.AddGameState("DeathScreen", deathScreenState);
+            gameStateManager.AddGameState("WinScreen", startScreenState);
             gameStateManager.SetCurrentState("StartScreen");
         }
 

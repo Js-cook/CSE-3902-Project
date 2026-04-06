@@ -40,9 +40,9 @@ public class Aquamentus : IEnemy
         aquamentusState = new MovingAquamentusState(this, spriteFactory, _graphics);
         Sprite = spriteFactory.CreateMovingAquamentusSprite(position);
 
-            topFireball = new AquamentusFireball(this.position, enemyProjectileSpriteFactory, new Vector2(-1, -1) * 2);
-            middleFireball = new AquamentusFireball(this.position, enemyProjectileSpriteFactory, new Vector2(-1, 0) * 2);
-            bottomFireball = new AquamentusFireball(this.position, enemyProjectileSpriteFactory, new Vector2(-1, 1) * 2);
+            topFireball = new AquamentusFireball(this.position, enemyProjectileSpriteFactory, new Vector2(-1, -1) * Settings.Instance.AquamentusFireballSpeed);
+            middleFireball = new AquamentusFireball(this.position, enemyProjectileSpriteFactory, new Vector2(-1, 0) * Settings.Instance.AquamentusFireballSpeed);
+            bottomFireball = new AquamentusFireball(this.position, enemyProjectileSpriteFactory, new Vector2(-1, 1) * Settings.Instance.AquamentusFireballSpeed);
     }
 
     public void Update(GameTime gametime)

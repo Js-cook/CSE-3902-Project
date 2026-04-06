@@ -14,6 +14,8 @@ using System.Threading.Tasks;
     public float GelSpeed = 3f;
     public float PlayerSpeed = 1.5f;
 
+    public float AquamentusFireballSpeed = 4f;
+
     public float GoriyaKnockbackSpeed = 6f;
     public float GoriyaKnockbackDuration = 0.4f;
 

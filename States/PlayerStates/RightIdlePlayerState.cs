@@ -44,10 +44,6 @@ public class RightIdlePlayerState : AbstractIdlePlayer
         }
     }
 
-    public override void BeDamaged()
-    {
-        player.Hurt = true;
-    }
 
     public override void BeAttacking()
     {

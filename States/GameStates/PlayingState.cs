@@ -294,11 +294,15 @@ public class PlayingState : IGameState
             ];
 
         collisionManager.Update(gameTime, collidables);
+        if (CheckForWinCondition())
+        {
+            return; // If win condition is met, skip the rest of the update to prevent player from moving or doing other actions after picking up last Triforce piece
+        } 
 
         if (player.health <= 0 && !playerDead)
         {
             playerDead = true;
-            Signal = GameStateSignal.TO_GAMEOVER;
+            Signal = GameStateSignal.TO_DEATHSCREEN;
             player.playerState = new DyingPlayerState(player, spriteFactory, projectileController, sfx);
             return;
         }
@@ -306,8 +310,17 @@ public class PlayingState : IGameState
         effectController.Update(gameTime);
 
         hud.Update(gameTime);
+    }
 
-        
+    private bool CheckForWinCondition()
+    {
+        if (player.playerInventory.hasTriForcePiece)
+        {
+            Signal = GameStateSignal.TO_WINSCREEN;
+            return true;
+        }
+
+        return false;
     }
     public void Draw()
     {
@@ -344,17 +357,7 @@ public class PlayingState : IGameState
         player.playerState = new RightIdlePlayerState(player, spriteFactory, projectileController, sfx);
         player.projectiles.Clear();
 
-        // Inventory
-        playerInventory.keys = 0;
-        playerInventory.currentHearts = 6;
-        playerInventory.rupees = 0;
-        playerInventory.hasCompass = false;
-        playerInventory.hasMap = false;
-        playerInventory.primaryItem = Weapon.WOOD_SWORD;
-        playerInventory.secondaryItem = Weapon.BOMB;
-
-     
-
+        playerInventory.ResetInventory();
 
         levelFileReader.LoadLevel(levelFilePath, 0, 1, true); // Force load initial room
 

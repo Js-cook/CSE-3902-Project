@@ -24,10 +24,7 @@ public class LeftAttackingPlayerState : AbstractAttackingPlayer
         this.soundEffect = soundEffect;
     }
 
-    public override void BeDamaged()
-    {
-        player.Hurt = true;
-    }
+   
     public override void BeIdle()
     {
         if (animationDone)

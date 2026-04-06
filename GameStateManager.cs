@@ -57,12 +57,12 @@ namespace _3902_Project
             }
         }
 
-       public void GameOver()
+       public void ToDeathScreen()
        {
             SetCurrentState("DeathScreen");
        }
 
-       public void StartGame()
+       public void StartStateToPlayState()
        {
             SetCurrentState("Playing");
             currentState.ResetState();
@@ -74,23 +74,44 @@ namespace _3902_Project
             currentState.ResetState();
         }
 
+        public void ToWinScreen()
+        {
+            SetCurrentState("WinScreen");
+            currentState.ResetState();
+        }
+
         private void CheckForStateChange()
         {
             if (currentState.Signal == GameStateSignal.TO_PLAYING)
             {
-                StartGame(); // Transition to the Playing state
+                StartStateToPlayState(); // Transition to the Playing state from start screen state
             }
-            if (currentState.Signal == GameStateSignal.TO_GAMEOVER)
+
+
+            if (currentState.Signal == GameStateSignal.TO_DEATHSCREEN)
             {
-                GameOver(); // Transition to the Game Over state
+                ToDeathScreen(); // Transition to the Game Over state
             }
+
+
             if (currentState.Signal == GameStateSignal.TO_STARTSCREEN)
             {
-                ReturnToStartScreen(); // Transition to the Start Screen state
+                // Transition back to the Start Screen state. Can be from deathscreen, 
+                // main menu button, etc
+                ReturnToStartScreen(); 
+
             }
 
+            if (currentState.Signal == GameStateSignal.TO_WINSCREEN)
+            {
+                ToWinScreen();
+            }
 
         }
+
+
+
+        
 
 
 

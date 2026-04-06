@@ -16,7 +16,10 @@ public abstract class AbstractIdlePlayer : IPlayerState
     {
 
     }
-    public abstract void BeDamaged();
+    public void BeDamaged()
+    {
+
+    }
     public abstract void BeAttacking();
     public void BeIdle()
     {

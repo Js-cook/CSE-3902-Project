@@ -46,11 +46,7 @@ public class DownIdlePlayerState : AbstractIdlePlayer
         }
     }
 
-    public override void BeDamaged()
-    {
-        player.Hurt = true;
-    }
-
+   
     public override void BeAttacking()
     {
         audioController.PlaySoundEffect(soundEffect["SwordSlash"]);

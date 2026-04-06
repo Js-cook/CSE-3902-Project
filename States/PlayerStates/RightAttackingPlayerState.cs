@@ -23,11 +23,7 @@ public class RightAttackingPlayerState : AbstractAttackingPlayer
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
     }
-    
-    public override void BeDamaged()
-    {
-        player.Hurt = true;
-    }
+   
 
     public override void BeIdle()
     {

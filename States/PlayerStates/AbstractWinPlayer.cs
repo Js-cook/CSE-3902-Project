@@ -1,14 +1,16 @@
-﻿using Enums;
+﻿using Controllers;
+using Enums;
 using Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-public abstract class AbstractAttackingPlayer : IPlayerState
+public abstract class AbstractWinPlayer : IPlayerState
 {
     public Dictionary<string, SoundEffect> soundEffect { get; set; }
     public void ChangeDirection(Direction direction)
@@ -27,7 +29,10 @@ public abstract class AbstractAttackingPlayer : IPlayerState
     {
 
     }
-    public abstract void BeIdle();
+    public void BeIdle()
+    {
+
+    }
     public void FireArrow()
     {
 

@@ -23,11 +23,6 @@ public class UpAttackingPlayerState : AbstractAttackingPlayer
         this.soundEffect = soundEffect;
     }
 
-    public override void BeDamaged()
-    {
-        player.Hurt = true;
-    }
-
     public override void BeIdle()
     {
         if (animationDone)

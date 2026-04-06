@@ -27,7 +27,7 @@ public class PlayerEnemyProjectileCollisionHandler : ICollisionHandler
         ApplyKnockback(player, knockbackDirection);
 
         // Damage the player
-        player.playerState.BeDamaged();
+        player.TakeDamage(projectile.DamageValue);
 
         // Destroy the projectile (it hit the player)
         projectile.Active = false;

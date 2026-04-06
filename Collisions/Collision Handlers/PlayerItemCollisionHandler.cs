@@ -31,6 +31,9 @@ public class PlayerItemCollisionHandler : ICollisionHandler
             case ItemType.Fairy:
                 player.OnFairyPickup();
                 break;
+            case ItemType.TriForcePiece:
+                player.playerInventory.hasTriForcePiece = true;
+                break;
             default:
                 break;
         }
