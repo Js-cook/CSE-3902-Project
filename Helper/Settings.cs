@@ -12,7 +12,7 @@ using System.Threading.Tasks;
     public float BatSpeed = 4f;
     public float AquamentusSpeed = 1.5f;
     public float GelSpeed = 3f;
-    public float PlayerSpeed = 1.5f;
+    public float PlayerSpeed = 2f;
 
     public float AquamentusFireballSpeed = 4f;
 

@@ -1,3 +1,4 @@
+using Enums;
 using System;
 using System.Collections.Generic;
 public class EnemyDefinition
@@ -14,6 +15,19 @@ public class EnemyDefinition
     }
 }
 
+public class ItemDefinition
+{
+    public ItemType Type { get; set; }
+    public int X { get; set; }
+    public int Y { get; set; }
+    public ItemDefinition(ItemType type, int x, int y)
+    {
+        Type = type;
+        X = x;
+        Y = y;
+    }
+}
+
 public class RoomDefinition
 {
     public int Row { get; set; }
@@ -22,12 +36,15 @@ public class RoomDefinition
     public Dictionary<string, string> Doors { get; set; }
     public List<EnemyDefinition> Enemies { get; set; }
 
-    public RoomDefinition(int row, int col, string[][] tiles, Dictionary<string, string> doors, List<EnemyDefinition> enemies = null)
+    public List<ItemDefinition> PickupItems { get; set; }
+
+    public RoomDefinition(int row, int col, string[][] tiles, Dictionary<string, string> doors, List<EnemyDefinition> enemies = null, List<ItemDefinition> items = null)
     {
         Row = row;
         Col = col;
         Tiles = tiles;
         Doors = doors;
+        PickupItems = items ?? new List<ItemDefinition>();
         Enemies = enemies ?? new List<EnemyDefinition>();
     }
 }
@@ -95,14 +112,8 @@ public static class RoomsRepository
             new string[] { "Spike", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "Spike" },
         };
         var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "KeyLockedDoor" }, { "Bottom", "Wall" }, { "Left", "Wall" } };
-        var enemies = new List<EnemyDefinition>
-        {
-            new EnemyDefinition("Gel", 0, 3),
-            new EnemyDefinition("Goriya", 4, 3),
-            new EnemyDefinition("Skeleton", 2, 2),
-            new EnemyDefinition("Bat", 3, 3),
-        };
-        return new RoomDefinition(0, 1, tiles, doors, enemies);
+
+        return new RoomDefinition(0, 1, tiles, doors);
     }
 
     private static RoomDefinition CreateRoom0_2()
@@ -120,9 +131,17 @@ public static class RoomsRepository
         var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "Wall" }, { "Bottom", "KeyLockedDoor" }, { "Left", "KeyLockedDoor" } };
         var enemies = new List<EnemyDefinition>
         {
-            new EnemyDefinition("Aquamentus", 6, 1),
+            new EnemyDefinition("Goriya", 7, 0),
+            new EnemyDefinition("Goriya", 6, 2),
+            new EnemyDefinition("Goriya", 7, 4),
         };
-        return new RoomDefinition(0, 2, tiles, doors, enemies);
+
+        // TODO - Item logic is missing from other classes
+        var items = new List<ItemDefinition>
+        {
+            new ItemDefinition(ItemType.Key, 6, 1)
+        };
+        return new RoomDefinition(0, 2, tiles, doors, enemies, items);
     }
 
     private static RoomDefinition CreateRoom1_2()
@@ -138,7 +157,13 @@ public static class RoomsRepository
             new string[] { "BlueGap", "BlueGap", "BlueGap", "BlueGap", "BlueGap", "BlueFloor", "BlueFloor", "BlueGap", "BlueGap", "BlueGap", "BlueGap", "BlueGap" },
         };
         var doors = new Dictionary<string, string> { { "Top", "KeyLockedDoor" }, { "Right", "Wall" }, { "Bottom", "OpenDoor" }, { "Left", "Wall" } };
-        return new RoomDefinition(1, 2, tiles, doors);
+        var enemies = new List<EnemyDefinition>
+        {
+            new EnemyDefinition("Skeleton", 1, 1),
+            new EnemyDefinition("Skeleton", 3, 4),
+            new EnemyDefinition("Skeleton", 8, 1),
+        };
+        return new RoomDefinition(1, 2, tiles, doors, enemies);
     }
 
     private static RoomDefinition CreateRoom2_2()
@@ -154,7 +179,15 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
         var doors = new Dictionary<string, string> { { "Top", "OpenDoor" }, { "Right", "KeyLockedDoor" }, { "Bottom", "BombedWall" }, { "Left", "OpenDoor" } };
-        return new RoomDefinition(2, 2, tiles, doors);
+
+        var enemies = new List<EnemyDefinition>
+        {
+            new EnemyDefinition("Gel", 1, 0),
+            new EnemyDefinition("Gel", 9, 2),
+            new EnemyDefinition("Gel", 2, 4),
+            new EnemyDefinition("Gel", 9, 6),
+        };
+        return new RoomDefinition(2, 2, tiles, doors, enemies);
     }
 
     private static RoomDefinition CreateRoom2_1()
@@ -170,7 +203,14 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
         var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "OpenDoor" }, { "Bottom", "KeyLockedDoor" }, { "Left", "DiamondLockedDoor" } };
-        return new RoomDefinition(2, 1, tiles, doors);
+
+        var enemies = new List<EnemyDefinition>
+        {
+            new EnemyDefinition("Gel", 1, 3),
+            new EnemyDefinition("Gel", 5, 0),
+            new EnemyDefinition("Gel", 5, 5),
+        };
+        return new RoomDefinition(2, 1, tiles, doors, enemies);
     }
 
     private static RoomDefinition CreateRoom2_0()
@@ -202,7 +242,17 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
         var doors = new Dictionary<string, string> { { "Top", "KeyLockedDoor" }, { "Right", "DiamondLockedDoor" }, { "Bottom", "Wall" }, { "Left", "Wall" } };
-        return new RoomDefinition(3, 1, tiles, doors);
+
+        var enemies = new List<EnemyDefinition>
+        {
+            new EnemyDefinition("Bat", 1, 3),
+            new EnemyDefinition("Bat", 5, 9),
+            new EnemyDefinition("Bat", 5, 2),
+            new EnemyDefinition("Bat", 1, 3),
+            new EnemyDefinition("Bat", 5, 0),
+            new EnemyDefinition("Bat", 3, 5),
+        };
+        return new RoomDefinition(3, 1, tiles, doors, enemies);
     }
 
     private static RoomDefinition CreateRoom3_2()
@@ -218,7 +268,16 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
         var doors = new Dictionary<string, string> { { "Top", "BombedWall" }, { "Right", "OpenDoor" }, { "Bottom", "OpenDoor" }, { "Left", "OpenDoor" } };
-        return new RoomDefinition(3, 2, tiles, doors);
+        var enemies = new List<EnemyDefinition>
+        {
+            new EnemyDefinition("Skeleton", 1, 3),
+            new EnemyDefinition("Skeleton", 2, 4),
+            new EnemyDefinition("Skeleton", 5, 2),
+            new EnemyDefinition("Skeleton", 4, 3),
+            new EnemyDefinition("Skeleton", 5, 0),
+  
+        };
+        return new RoomDefinition(3, 2, tiles, doors, enemies);
     }
 
     private static RoomDefinition CreateRoom4_2()
@@ -234,7 +293,16 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
         var doors = new Dictionary<string, string> { { "Top", "OpenDoor" }, { "Right", "Wall" }, { "Bottom", "KeyLockedDoor" }, { "Left", "Wall" } };
-        return new RoomDefinition(4, 2, tiles, doors);
+
+        var enemies = new List<EnemyDefinition>
+        {
+            new EnemyDefinition("Skeleton", 1, 3),
+            new EnemyDefinition("Skeleton", 2, 4),
+            new EnemyDefinition("Skeleton", 5, 2),
+           
+
+        };
+        return new RoomDefinition(4, 2, tiles, doors, enemies);
     }
 
     private static RoomDefinition CreateRoom5_1()
@@ -250,7 +318,16 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
         var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "OpenDoor" }, { "Bottom", "Wall" }, { "Left", "Wall" } };
-        return new RoomDefinition(5, 1, tiles, doors);
+
+        var enemies = new List<EnemyDefinition>
+        {
+            new EnemyDefinition("Bat", 1, 3),
+            new EnemyDefinition("Bat", 2, 4),
+            new EnemyDefinition("Bat", 5, 2),
+
+
+        };
+        return new RoomDefinition(5, 1, tiles, doors, enemies);
     }
 
     private static RoomDefinition CreateRoom5_2()
@@ -282,7 +359,14 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
         var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "OpenDoor" }, { "Bottom", "BombedWall" }, { "Left", "KeyLockedDoor" } };
-        return new RoomDefinition(2, 3, tiles, doors);
+
+        var enemies = new List<EnemyDefinition>
+        {
+            new EnemyDefinition("Goriya", 1, 3),
+            new EnemyDefinition("Goriya", 5, 0),
+            new EnemyDefinition("Goriya", 5, 5),
+        };
+        return new RoomDefinition(2, 3, tiles, doors, enemies);
     }
 
     private static RoomDefinition CreateRoom3_3()
@@ -298,7 +382,17 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
         var doors = new Dictionary<string, string> { { "Top", "BombedWall" }, { "Right", "Wall" }, { "Bottom", "Wall" }, { "Left", "OpenDoor" } };
-        return new RoomDefinition(3, 3, tiles, doors);
+
+        var enemies = new List<EnemyDefinition>
+        {
+            new EnemyDefinition("Bat", 1, 3),
+            new EnemyDefinition("Bat", 5, 9),
+            new EnemyDefinition("Bat", 5, 2),
+            new EnemyDefinition("Bat", 3, 3),
+            new EnemyDefinition("Bat", 5, 0),
+            new EnemyDefinition("Bat", 3, 5),
+        };
+        return new RoomDefinition(3, 3, tiles, doors, enemies);
     }
 
     private static RoomDefinition CreateRoom5_3()
@@ -314,7 +408,19 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
         var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "Wall" }, { "Bottom", "Wall" }, { "Left", "OpenDoor" } };
-        return new RoomDefinition(5, 3, tiles, doors);
+       
+        var enemies = new List<EnemyDefinition>
+        {
+            new EnemyDefinition("Skeleton", 1, 3),
+            new EnemyDefinition("Skeleton", 5, 9),
+            new EnemyDefinition("Skeleton", 5, 2),
+             new EnemyDefinition("Skeleton", 3, 7),
+            new EnemyDefinition("Skeleton", 2, 5),
+
+
+        };
+
+        return new RoomDefinition(5, 3, tiles, doors, enemies);
     }
 
     private static RoomDefinition CreateRoom1_4()
@@ -330,7 +436,13 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "SquareBlock", "SquareBlock", "SquareBlock", "SquareBlock", "SquareBlock" },
         };
         var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "DiamondLockedDoor" }, { "Bottom", "KeyLockedDoor" }, { "Left", "Wall" } };
-        return new RoomDefinition(1, 4, tiles, doors);
+
+        var enemies = new List<EnemyDefinition>
+        {
+            new EnemyDefinition("Aquamentus", 6, 3),
+          
+        };
+        return new RoomDefinition(1, 4, tiles, doors, enemies);
     }
 
     private static RoomDefinition CreateRoom2_4()
@@ -346,7 +458,19 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
         var doors = new Dictionary<string, string> { { "Top", "KeyLockedDoor" }, { "Right", "Wall" }, { "Bottom", "Wall" }, { "Left", "OpenDoor" } };
-        return new RoomDefinition(2, 4, tiles, doors);
+
+        var enemies = new List<EnemyDefinition>
+        {
+            new EnemyDefinition("Skeleton", 7, 3),
+            new EnemyDefinition("Goriya", 2, 1),
+            new EnemyDefinition("Goriya", 2, 5),
+            new EnemyDefinition("Goriya", 4, 1),
+            new EnemyDefinition("Skeleton", 7, 5),
+            new EnemyDefinition("Gel", 11, 5),
+            new EnemyDefinition("Gel", 11, 1),
+            new EnemyDefinition("Skeleton", 0, 6)
+        };
+        return new RoomDefinition(2, 4, tiles, doors, enemies);
     }
 
     private static RoomDefinition CreateRoom1_5()
@@ -362,6 +486,8 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
         var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "Wall" }, { "Bottom", "Wall" }, { "Left", "OpenDoor" } };
+
+        // TODO_IMPORTANT: ADD TRIFORCE PIECE HERE
         return new RoomDefinition(1, 5, tiles, doors);
     }
 }

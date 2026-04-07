@@ -12,7 +12,7 @@ public class Goriya : IEnemy
             {
                 get
                 {
-                    return new Rectangle((int)position.X, (int)position.Y, 65, 70);
+                    return new Rectangle((int)position.X, (int)position.Y, 60, 60);
                 }
     }
     public bool HitboxActive { get; set; }
