@@ -9,7 +9,7 @@ public static class CollisionRegistry
     public static void Initialize(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory)
     {
         RegisterEnemyPlayerProjectileCollisions(collisionManager);
-        RegisterEnemyWallCollisions(collisionManager);
+        RegisterEnemyWallAndDoorwayCollisions(collisionManager);
         RegisterPlayerCollisions(collisionManager, roomManager, tileFactory);
         RegisterPlayerItemCollisions(collisionManager);
         RegisterProjectileWallCollisions(collisionManager);
@@ -23,7 +23,7 @@ public static class CollisionRegistry
         // Get all types in your project assembly. Citation: GEMINI AI
         var allTypes = Assembly.GetExecutingAssembly().GetTypes();
 
-        //TODO - Explain this!!
+        //TODO - Explanation needed
         var enemyTypes = allTypes.Where(t => typeof(IEnemy).IsAssignableFrom(t) && !t.IsInterface);
         var projectileTypes = allTypes.Where(t => typeof(IProjectile).IsAssignableFrom(t) && !t.IsInterface);
         foreach (var eType in enemyTypes)
@@ -45,7 +45,7 @@ public static class CollisionRegistry
         }
     }
 
-    private static void RegisterEnemyWallCollisions(CollisionManager collisionManager)
+    private static void RegisterEnemyWallAndDoorwayCollisions(CollisionManager collisionManager)
     {
         var allTypes = Assembly.GetExecutingAssembly().GetTypes();
         var enemyTypes = allTypes.Where(t => typeof(IEnemy).IsAssignableFrom(t) && !t.IsInterface);
@@ -54,7 +54,10 @@ public static class CollisionRegistry
         {
             collisionManager.RegisterHandler(eType, typeof(Tile), new EnemyWallCollisionHandler());
             collisionManager.RegisterHandler(eType, typeof(SpikeTile), new EnemySpikeCollisionHandler());
+            collisionManager.RegisterHandler(eType, typeof(Doorway), new EnemyDoorwayCollisionHandler());
         }
+
+
     }
 
     private static void RegisterPlayerCollisions(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory)
@@ -100,5 +103,8 @@ public static class CollisionRegistry
         collisionManager.RegisterHandler(typeof(PickupItem), typeof(Tile), new FairyWallCollisionHandler());
 
     }
+
+
+   
 
 }

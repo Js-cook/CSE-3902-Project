@@ -16,18 +16,33 @@ public class Doorway : ICollidable
             int width = 64;
             int height = 64;
 
-            if (Direction == 0 || Direction == 2)
+            int offsetX = 0;
+            int offsetY = 0;
+
+            if (Direction == 0 || Direction == 2) // top and bottom doors
             {
-                width = 96;
-                height = 40;
-            }
-            else
-            {
-                width = 40;
+                width = 126;
                 height = 96;
             }
+            else // left and right doors
+            {
+                width = 96;
+                height = 126;
 
-            return new Rectangle((int)Position.X, (int)Position.Y, width, height);
+
+                if (Direction == 3)
+                {
+                    offsetX = 10; // Shift right
+                }
+                else if (Direction == 1)
+                {
+                    offsetX = -10; // Shift left
+                }
+            
+                offsetY = -30;
+            }
+
+            return new Rectangle((int)Position.X + offsetX, (int)Position.Y + offsetY, width, height);
         }
     }
 
