@@ -83,5 +83,11 @@ namespace Sprites
         {
             return new DyingPlayerSprite(playerTexture, position, spriteBatch);
         }
+
+        public IPlayerSprite CreateWinPlayerSprite(Vector2 position) {
+
+            return new WinPlayerSprite(playerTexture, position, spriteBatch);
+
+        }
     }
 }

@@ -18,8 +18,8 @@ public class WinScreenState : IGameState
     private IGameState playingState; // Uses playing state to access player for death animation and other controllers to show the current room in the background
     public GameStateSignal Signal { get; set; }
 
-    private double deathScreenTimerMax = 1.0; // Duration of death screen in seconds
-    private double deathScreenTimer = 0.0; // Timer to track how long the death screen has been displayed
+    private double winScreenTimer = 1.0; // duration of win screen in seconds
+
 
     private bool started = false;
 
@@ -27,6 +27,7 @@ public class WinScreenState : IGameState
     {
         Signal = GameStateSignal.NONE;
         this.playingState = playingState;
+       
     }
 
     public void LoadContent(ContentManager contentLoader)
@@ -41,19 +42,16 @@ public class WinScreenState : IGameState
 
     public void Update(GameTime gameTime)
     {
-
-
-        Debug.WriteLine(((PlayingState)playingState).player.playerState.ToString());
-
+      
         // Wait for death animation to finish
-        if (((PlayingState)playingState).player.playerState is DeadPlayerState)
+        if (((WinPlayerState)((PlayingState)playingState).player.playerState).animationDone)
         {
             // once death aniamtion has finished, have a long enough timer to show the death screen before going to start screen
-            deathScreenTimer += gameTime.ElapsedGameTime.TotalSeconds;
-            if (deathScreenTimer > deathScreenTimerMax)
+            winScreenTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+            if (winScreenTimer <= 0)
 
             {
-                deathScreenTimer = 0.0; // reset timer for next time we enter death screen
+                winScreenTimer = 1.0; // reset timer for next time we enter death screen
 
                 if (Signal != GameStateSignal.TO_STARTSCREEN)
                 {

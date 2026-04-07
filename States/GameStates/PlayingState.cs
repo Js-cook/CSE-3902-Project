@@ -314,6 +314,7 @@ public class PlayingState : IGameState
     {
         if (player.playerInventory.hasTriForcePiece)
         {
+            player.playerState = new WinPlayerState(player, spriteFactory, projectileController, sfx);
             Signal = GameStateSignal.TO_WINSCREEN;
             return true;
         }
