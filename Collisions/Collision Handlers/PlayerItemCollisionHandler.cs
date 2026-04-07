@@ -33,6 +33,7 @@ public class PlayerItemCollisionHandler : ICollisionHandler
                 break;
             case ItemType.TriForcePiece:
                 player.playerInventory.hasTriForcePiece = true;
+                pickup.Position = player.position + new Vector2(0, -16); // Position the TriForce piece above the player
                 break;
             default:
                 break;

@@ -315,7 +315,7 @@ public class PlayingState : IGameState
 
         if (player.playerInventory.hasTriForcePiece)
         {
-            player.playerState = new WinPlayerState(player, spriteFactory, projectileController, sfx);
+            player.playerState = new WinPlayerState(player, spriteFactory, projectileController, sfx, itemController);
             Signal = GameStateSignal.TO_WINSCREEN;
         }
 
@@ -338,16 +338,18 @@ public class PlayingState : IGameState
     {
         Signal = GameStateSignal.NONE;
 
-       
-
-        // Controllers
+        
         enemyController.enemyArray.Clear();
         projectileController.projectiles.Clear();
         effectController.ClearEffects();
         itemController.itemArray.Clear();
-        
 
-        // Player
+        environment = new Environment(tileFactory);
+        levelFileReader = new LevelFileReader(environment, enemyLoader);
+        roomManager = new RoomManager(levelFileReader, 0, 1, enemyController);
+        levelFileReader.SetRoomManager(roomManager);
+
+      
         playerDead = false;
         player.HitboxActive = true;
         player.position = new Vector2(400 * 2, 250 * 2); // Spawn center position
@@ -355,19 +357,15 @@ public class PlayingState : IGameState
         player.Hurt = false;
         player.playerState = new RightIdlePlayerState(player, spriteFactory, projectileController, sfx);
         player.projectiles.Clear();
-
         playerInventory.ResetInventory();
 
-        levelFileReader.LoadLevel(0, 1, true); // Force load initial room
+       
+        collisionManager = new CollisionManager();
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory);
 
        
-
-        // Input limiters
         projectileInputLimiter = 0;
         roomSwitchLimiter = 0;
         itemSwitchLimiter = 0;
-
-
-
     }
 }

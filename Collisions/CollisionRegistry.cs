@@ -42,6 +42,7 @@ public static class CollisionRegistry
         foreach (var pType in projectileTypes)
         {
             collisionManager.RegisterHandler(pType, typeof(Tile), new ProjectileWallCollisionHandler());
+            collisionManager.RegisterHandler(pType, typeof(Doorway), new ProjectileDoorwayCollisionHandler());
         }
     }
 

@@ -25,7 +25,7 @@ public class StaticBombSprite : BaseItem
 
     public override void SpriteDraw(Vector2 position)
     {
-        int scale = 4;
+        int scale = Settings.Instance.scale;
 
         Rectangle destinationRectangle = new Rectangle(
             (int)position.X,
