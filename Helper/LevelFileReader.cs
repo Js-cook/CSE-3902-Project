@@ -11,11 +11,17 @@ public class LevelFileReader
 {
     private Environment gameEnv;
     private EnemyLoader enemyLoader;
+    private RoomManager roomManager;
 
     public LevelFileReader(Environment gameEnv, EnemyLoader enemyLoader)
     {
         this.gameEnv = gameEnv;
         this.enemyLoader = enemyLoader;
+    }
+
+    public void SetRoomManager(RoomManager roomManager)
+    {
+        this.roomManager = roomManager;
     }
 
     public bool LoadLevel(int row, int col, bool spawnEnemies = true)
@@ -86,7 +92,7 @@ public class LevelFileReader
         {
             int direction = directionMap[doorEntry.Key];
             string type = doorEntry.Value;
-            gameEnv.AssignDoor(direction, type);
+            gameEnv.AssignDoor(direction, type, roomManager, row, col);
         }
 
         // Load enemies

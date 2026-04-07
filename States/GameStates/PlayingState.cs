@@ -118,6 +118,7 @@ public class PlayingState : IGameState
         environment = new Environment(tileFactory);
         levelFileReader = new LevelFileReader(environment, enemyLoader);
         roomManager = new RoomManager(levelFileReader, 0, 1, enemyController);
+        levelFileReader.SetRoomManager(roomManager);
 
 
         //keyboardController = new KeyboardController(player, roomManager, enemyController, this, itemController);
@@ -125,7 +126,7 @@ public class PlayingState : IGameState
         // Add additional collision handlers here as needed
         collisionManager = new CollisionManager();
 
-        CollisionRegistry.Initialize(collisionManager, roomManager);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory);
     }
 
     public void ResolveKey(KeyboardState keyState)

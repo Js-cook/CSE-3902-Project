@@ -50,7 +50,6 @@ namespace _3902_Project
         // This method needs to be cleaned up bad
         protected override void LoadContent()
         {
-
             gameLoader.LoadContent(); // Loads all content and gameStates in the GameState Manager and initializes the first game state
 
         }
