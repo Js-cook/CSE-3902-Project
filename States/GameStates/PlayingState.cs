@@ -293,10 +293,7 @@ public class PlayingState : IGameState
             ];
 
         collisionManager.Update(gameTime, collidables);
-        if (CheckForWinCondition())
-        {
-            return; // If win condition is met, skip the rest of the update to prevent player from moving or doing other actions after picking up last Triforce piece
-        } 
+        CheckForWinCondition(); 
 
         if (player.health <= 0 && !playerDead)
         {
@@ -311,16 +308,18 @@ public class PlayingState : IGameState
         hud.Update(gameTime);
     }
 
-    private bool CheckForWinCondition()
+    private void CheckForWinCondition()
     {
+        if (player.playerState is WinPlayerState)
+            return;
+
         if (player.playerInventory.hasTriForcePiece)
         {
             player.playerState = new WinPlayerState(player, spriteFactory, projectileController, sfx);
             Signal = GameStateSignal.TO_WINSCREEN;
-            return true;
         }
 
-        return false;
+        
     }
     public void Draw()
     {

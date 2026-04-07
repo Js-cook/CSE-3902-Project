@@ -18,7 +18,7 @@ public class WinScreenState : IGameState
     private IGameState playingState; // Uses playing state to access player for death animation and other controllers to show the current room in the background
     public GameStateSignal Signal { get; set; }
 
-    private double winScreenTimer = 1.0; // duration of win screen in seconds
+    private double winScreenTimer = 5; // duration of win screen in seconds
 
 
     private bool started = false;
@@ -27,6 +27,7 @@ public class WinScreenState : IGameState
     {
         Signal = GameStateSignal.NONE;
         this.playingState = playingState;
+        
        
     }
 
@@ -42,6 +43,8 @@ public class WinScreenState : IGameState
 
     public void Update(GameTime gameTime)
     {
+
+  
       
         // Wait for death animation to finish
         if (((WinPlayerState)((PlayingState)playingState).player.playerState).animationDone)

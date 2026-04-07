@@ -14,7 +14,7 @@ public class WinPlayerState : AbstractWinPlayer
     private ProjectileController projectileController;
     private AudioController audioController;
 
-    private float animationTimerMax = 2f;
+    private float animationTimerMax = 1f;
     private float animationTimer = 0f;
     public bool animationDone { get; private set; } = false;
 
@@ -27,9 +27,7 @@ public class WinPlayerState : AbstractWinPlayer
         this.soundEffect = soundEffect;
         audioController = new AudioController();
         audioController.StopSong();
-
-        audioController.PlaySoundEffect(soundEffect["Win"]);
-
+        audioController.PlaySoundEffect(soundEffect["WinSoundEffect"]);
 
     }
 

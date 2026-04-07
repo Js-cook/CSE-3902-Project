@@ -16,6 +16,8 @@ public class SFXLoader
             { "EnemyDie", content.Load<SoundEffect>("SFX/EnemyDie") },
             { "PlayerDying", content.Load<SoundEffect>("SFX/DyingPlayerSound") },
             { "PlayerDeath", content.Load<SoundEffect>("SFX/DeadPlayerSound")  },
+            { "ItemPickup", content.Load<SoundEffect>("SFX/ItemPickupSound")   },
+            { "WinSoundEffect", content.Load<SoundEffect>("SFX/WinSoundEffect")  }
         };
 
         return res;

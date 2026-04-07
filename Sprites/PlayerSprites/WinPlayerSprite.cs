@@ -10,6 +10,7 @@ namespace Sprites
         private Texture2D texture;
         private SpriteBatch spriteBatch;
         private Rectangle currentFrame;
+        private float animationTimer = 0f;
 
         private int scale = 3;
 
@@ -18,7 +19,8 @@ namespace Sprites
 
         public bool Hurt { get; set; }
 
-        private Rectangle sourceRectangle1 = new Rectangle(230, 11, 16, 16);
+        private Rectangle sourceRectangle1 = new Rectangle(1, 11, 16, 16);
+        private Rectangle sourceRectangle2 = new Rectangle(230, 11, 16, 16);
 
         public WinPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {
@@ -29,13 +31,19 @@ namespace Sprites
 
         public void Update(GameTime gametime)
         {
+
+            animationTimer += (float)gametime.ElapsedGameTime.TotalSeconds;
+
+            if (animationTimer > 0.5f)
+            {
+                currentFrame = sourceRectangle2;
+            }
+            
         }
 
         public void SpriteDraw(Vector2 position)
         {
-
              spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.0f);
-            
         }
     }
 

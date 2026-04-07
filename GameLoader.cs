@@ -25,6 +25,7 @@ namespace _3902_Project
         private IGameState startScreenState;
         private IGameState playingState;
         private IGameState deathScreenState;
+        private IGameState winScreenState;
 
 
         public GameLoader(GraphicsDevice GraphicsDevice, ContentManager Content, GraphicsDeviceManager _graphics, GameStateManager gameStateManager, SpriteBatch spriteBatch)
@@ -50,6 +51,9 @@ namespace _3902_Project
 
             deathScreenState = new DeathScreenState(playingState);
 
+            winScreenState = new WinScreenState(playingState);
+
+
 
 
 
@@ -64,7 +68,7 @@ namespace _3902_Project
             gameStateManager.AddGameState("Playing", playingState);
             gameStateManager.AddGameState("EndScreen", startScreenState);
             gameStateManager.AddGameState("DeathScreen", deathScreenState);
-            gameStateManager.AddGameState("WinScreen", startScreenState);
+            gameStateManager.AddGameState("WinScreen", winScreenState);
             gameStateManager.SetCurrentState("StartScreen");
         }
 

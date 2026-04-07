@@ -150,13 +150,19 @@
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:SFX/LOZ_Get_Triforce.wav;SFX/GetTriforce.wav
+/build:SFX/LOZ_Get_Triforce.wav;SFX/ItemPickupSound.wav
 
 #begin SFX/LOZ_Sword_Slash.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SFX/LOZ_Sword_Slash.wav;SFX/SwordSlash.wav
+
+#begin SFX/WinSoundEffect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/WinSoundEffect.wav
 
 #begin TreasureChestSprite.png
 /importer:TextureImporter

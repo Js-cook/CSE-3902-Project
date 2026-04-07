@@ -38,6 +38,7 @@ public class PlayerItemCollisionHandler : ICollisionHandler
                 break;
         }
 
+
         pickup.HitboxActive = false;
     }
 }
