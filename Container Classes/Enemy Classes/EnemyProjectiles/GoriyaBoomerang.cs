@@ -24,6 +24,7 @@ public class GoriyaBoomerang : IProjectile
     }
     public bool HitboxActive { get; set; }
     public Vector2 Position { get; set; }
+    private Vector2 startPos;
     Direction direction;
     private double startTime = 0.0;
     private double endTime = 3;
@@ -39,6 +40,7 @@ public class GoriyaBoomerang : IProjectile
     public GoriyaBoomerang(Vector2 position, Direction direction, EnemyProjectileSpriteFactory spriteFactory)
     {
         this.Position = position;
+        startPos = position;
         this.direction = direction;
         sprite = spriteFactory.CreateGoriyaBoomerangSprite(position);
         Active = false;
@@ -69,6 +71,11 @@ public class GoriyaBoomerang : IProjectile
                 positionNew.X += (3 * directionSign);
                 break;
         }
+        if (positionNew.Equals(startPos))
+        {
+            Active = false;
+        }
+
         Position = positionNew;
 
         if (startTime >= (endTime / 2))
@@ -85,6 +92,7 @@ public class GoriyaBoomerang : IProjectile
     public void ResetBoomerang(Vector2 position, Direction direction)
     {
         this.Position = position;
+        startPos = position;
         this.direction = direction;
         directionSign = 1;
         startTime = 0.0;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class HUD
 {
-    private Rectangle hudPositioning;
+    public Rectangle hudPositioning { get; set; }
     private HUDSpriteFactory spriteFactory;
     private ISprite hudBackground;
     private LinkInventory playerInventory;

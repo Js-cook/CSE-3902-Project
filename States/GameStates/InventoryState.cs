@@ -5,13 +5,24 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
-
 public class InventoryState : IGameState
 {
     public GameStateSignal Signal { get; set; }
-    public InventoryState()
+    private IGameState savedPlayingState;
+
+    private HUD HUD;
+    private LinkInventory playerInventory;
+
+    private InventoryScreenSprite inventoryScreenSprite;
+
+    // TODO: add inventory background sprite 
+
+    public InventoryState(IGameState playingState, HUD hud, LinkInventory inventory)
     {
         Signal = GameStateSignal.NONE;
+        savedPlayingState = playingState;
+        HUD = hud;
+        playerInventory = inventory;
     }
     public void LoadContent(ContentManager contentLoader)
     {
