@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Xna.Framework.Audio;
 
 public static class CollisionRegistry
 {
-    public static void Initialize(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory)
+    public static void Initialize(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory, Dictionary<string, SoundEffect> sfx = null)
     {
         RegisterEnemyPlayerProjectileCollisions(collisionManager);
         RegisterEnemyWallAndDoorwayCollisions(collisionManager);
-        RegisterPlayerCollisions(collisionManager, roomManager, tileFactory);
+        RegisterPlayerCollisions(collisionManager, roomManager, tileFactory, sfx);
         RegisterPlayerItemCollisions(collisionManager);
         RegisterProjectileWallCollisions(collisionManager);
         RegisterFairyWallCollision(collisionManager);
@@ -61,7 +62,7 @@ public static class CollisionRegistry
 
     }
 
-    private static void RegisterPlayerCollisions(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory)
+    private static void RegisterPlayerCollisions(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory, Dictionary<string, SoundEffect> sfx)
     {
         // Create shared handler instances
         PlayerEnemyCollisionHandler playerEnemyHandler = new PlayerEnemyCollisionHandler();
@@ -69,7 +70,7 @@ public static class CollisionRegistry
         PlayerWallCollisionHandler playerWallHandler = new PlayerWallCollisionHandler();
         PlayerSpikeCollisionHandler playerSpikeHandler = new PlayerSpikeCollisionHandler();
         PlayerTreasureChestCollisionHandler playerChestHandler = new PlayerTreasureChestCollisionHandler();
-        PlayerDoorwayCollisionHandler playerDoorwayHandler = new PlayerDoorwayCollisionHandler(roomManager, tileFactory);
+        PlayerDoorwayCollisionHandler playerDoorwayHandler = new PlayerDoorwayCollisionHandler(roomManager, tileFactory, sfx);
         // Register Player vs Enemy collisions for all enemy types
         collisionManager.RegisterHandler(typeof(Link), typeof(Bat), playerEnemyHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(Gel), playerEnemyHandler);

@@ -17,7 +17,10 @@ public class SFXLoader
             { "PlayerDying", content.Load<SoundEffect>("SFX/DyingPlayerSound") },
             { "PlayerDeath", content.Load<SoundEffect>("SFX/DeadPlayerSound")  },
             { "ItemPickup", content.Load<SoundEffect>("SFX/ItemPickupSound")   },
-            { "WinSoundEffect", content.Load<SoundEffect>("SFX/WinSoundEffect")  }
+            { "WinSoundEffect", content.Load<SoundEffect>("SFX/WinSoundEffect")  },
+            // Door sounds - using placeholder sounds until actual door sounds are added
+            { "DoorUnlock", content.Load<SoundEffect>("SFX/ItemPickupSound") }, // TODO: Replace with actual door unlock sound
+            { "DoorLocked", content.Load<SoundEffect>("SFX/BombDrop") }, // TODO: Replace with actual locked door sound
         };
 
         return res;
