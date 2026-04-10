@@ -76,6 +76,11 @@ public class InventoryScreenSprite : ISprite
 
     public void Update(GameTime gametime)
     {
+        rupeeText.Text = "" + playerInventory.rupees;
+        keyText.Text = "" + playerInventory.keys;
+        itemText.Text = "" + playerInventory.items;
+        //primaryItemSprite = determineItemSprite(playerInventory.primaryItem, new Vector2(hudPositioning.X + 575, hudPositioning.Y + 100));
+        //secondaryItemSprite = determineItemSprite(playerInventory.secondaryItem, new Vector2(hudPositioning.X + 625, hudPositioning.Y + 130));
     }
 
     public void SpriteDraw(Vector2 position)

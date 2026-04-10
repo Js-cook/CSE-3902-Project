@@ -50,7 +50,7 @@ namespace _3902_Project
 
             winScreenState = new WinScreenState(playingState);
             // questionable syntax
-            inventoryState = new InventoryState(playingState, ((PlayingState)playingState).player.playerInventory, _spriteBatch);
+            inventoryState = new InventoryState(((PlayingState)playingState).player.playerInventory, _spriteBatch);
             inventoryState.LoadContent(Content);
 
             LoadGameStates();

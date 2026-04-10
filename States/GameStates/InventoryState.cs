@@ -9,19 +9,19 @@ using Microsoft.Xna.Framework.Graphics;
 public class InventoryState : IGameState
 {
     public GameStateSignal Signal { get; set; }
-    private IGameState savedPlayingState;
+    //private IGameState savedPlayingState;
 
-    private LinkInventory playerInventory;
+    public LinkInventory playerInventory { get; set; }
 
     private InventoryScreenSprite inventoryScreenSprite;
     private SpriteBatch spriteBatch;
 
     private HUDSpriteFactory textFactory;
 
-    public InventoryState(IGameState playingState, LinkInventory inventory, SpriteBatch spriteBatch)
+    public InventoryState(LinkInventory inventory, SpriteBatch spriteBatch)
     {
         Signal = GameStateSignal.NONE;
-        savedPlayingState = playingState;
+        //savedPlayingState = playingState;
         playerInventory = inventory;
         this.spriteBatch = spriteBatch;
     }
@@ -33,11 +33,15 @@ public class InventoryState : IGameState
     }
     public void ResolveKey(KeyboardState keyState)
     {
-        // Handle inventory key inputs here
+        if (keyState.IsKeyDown(Keys.LeftControl))
+        {
+            Signal = GameStateSignal.TO_SAVED_PLAYING;
+        }
     }
     public void Update(GameTime gameTime)
     {
         // Update inventory state here
+        inventoryScreenSprite.Update(gameTime);
     }
     public void Draw()
     {
