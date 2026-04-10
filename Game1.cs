@@ -36,10 +36,6 @@ namespace _3902_Project
             keyboardController = new KeyboardController(this);
             gameStateManager = new GameStateManager(keyboardController);
             gameLoader = new GameLoader(GraphicsDevice, Content, _graphics, gameStateManager, _spriteBatch);
-            
-
-
-
         }
 
         protected override void Initialize()

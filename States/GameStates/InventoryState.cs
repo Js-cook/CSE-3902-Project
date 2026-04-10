@@ -4,29 +4,32 @@ using Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 public class InventoryState : IGameState
 {
     public GameStateSignal Signal { get; set; }
     private IGameState savedPlayingState;
 
-    private HUD HUD;
     private LinkInventory playerInventory;
 
     private InventoryScreenSprite inventoryScreenSprite;
+    private SpriteBatch spriteBatch;
 
-    // TODO: add inventory background sprite 
+    private HUDSpriteFactory textFactory;
 
-    public InventoryState(IGameState playingState, HUD hud, LinkInventory inventory)
+    public InventoryState(IGameState playingState, LinkInventory inventory, SpriteBatch spriteBatch)
     {
         Signal = GameStateSignal.NONE;
         savedPlayingState = playingState;
-        HUD = hud;
         playerInventory = inventory;
+        this.spriteBatch = spriteBatch;
     }
     public void LoadContent(ContentManager contentLoader)
     {
         // Load inventory content here
+        textFactory = new HUDSpriteFactory(contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), spriteBatch, contentLoader.Load<Texture2D>("HUD"), contentLoader.Load<Texture2D>("LinkSprites"));
+        inventoryScreenSprite = new InventoryScreenSprite(contentLoader.Load<Texture2D>("HUD"), spriteBatch, textFactory, playerInventory);
     }
     public void ResolveKey(KeyboardState keyState)
     {
@@ -39,6 +42,7 @@ public class InventoryState : IGameState
     public void Draw()
     {
         // Draw inventory UI here
+        inventoryScreenSprite.SpriteDraw(Vector2.Zero);
     }
     public void ResetState()
     {

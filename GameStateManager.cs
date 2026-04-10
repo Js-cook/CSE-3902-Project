@@ -14,12 +14,9 @@ namespace _3902_Project
 {
     public class GameStateManager
     {
-
-
         private Dictionary<string, IGameState> gameStates = new Dictionary<string, IGameState>();
         public IGameState currentState { get; private set; }
         private KeyboardController keyboardController;
-
 
         public GameStateManager(KeyboardController keyboardController)
         {
@@ -80,6 +77,12 @@ namespace _3902_Project
             currentState.ResetState();
         }
 
+        public void ToInventoryScreen()
+        {
+            SetCurrentState("InventoryScreen");
+            currentState.ResetState();
+        }
+
         private void CheckForStateChange()
         {
             if (currentState.Signal == GameStateSignal.TO_PLAYING)
@@ -107,15 +110,11 @@ namespace _3902_Project
                 ToWinScreen();
             }
 
+            if(currentState.Signal == GameStateSignal.TO_INVENTORY)
+            {
+                ToInventoryScreen();
+            }
         }
-
-
-
-        
-
-
-
-
     }
 
 }

@@ -63,8 +63,6 @@ public class PlayingState : IGameState
     public GameStateSignal Signal { get; set; }
 
     private KeyboardState previousKeyboardState;
-
-
     public PlayingState(SpriteBatch spriteBatch, Dictionary<string, SoundEffect> sfx, GraphicsDeviceManager graphics)
     {
         _spriteBatch = spriteBatch;
@@ -77,14 +75,12 @@ public class PlayingState : IGameState
 
     public void LoadContent(ContentManager contentLoader)
     {
-        
         playerTexture = contentLoader.Load<Texture2D>("LinkSprites");
         enemyTexture = contentLoader.Load<Texture2D>("EnemySprites");
         treasureChestTexture = contentLoader.Load<Texture2D>("TreasureChestSprite");
         spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
         projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
         projectileController = new ProjectileController(projectileSpriteFactory, sfx);
-
 
         hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch, contentLoader.Load<Texture2D>("HUD"));
         textFactory = new HUDSpriteFactory(contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch, contentLoader.Load<Texture2D>("HUD"), playerTexture);
@@ -94,12 +90,8 @@ public class PlayingState : IGameState
 
         player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx, playerInventory);
 
-
-
         itemFactory = new ItemFactory(contentLoader.Load<Texture2D>("ItemSprites"), _spriteBatch);
         itemController = new ItemController(itemFactory, sfx);
-
-
 
         // EnemySpriteFactory, Enemy Actor Factory Enemy Controller, and EnemyLoader Initialization
         enemyMasterSpriteFactory.LoadContent(contentLoader, _spriteBatch);
@@ -258,6 +250,10 @@ public class PlayingState : IGameState
             itemController.SpawnItem(ItemType.Key, player.position + new Vector2(50, 0));
         }
 
+        if (keyState.IsKeyDown(Keys.Escape))
+        {
+            Signal = GameStateSignal.TO_INVENTORY;
+        }
 
         //if (keyState.IsKeyDown(Keys.Q))
         //{
