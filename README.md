@@ -3,7 +3,8 @@
 ## Controls
 ### Movement
 - WASD or arrow keys for movement
-- Z or N to attack
+- Z for primary item/weapon
+- X for secondary item/weapon
 - E to enter damaged state
 - Number keys 1-6 are items as follows
 	- 1 is arrow
@@ -12,8 +13,6 @@
 	- 4 is magic boomerang
 	- 5 is fireball
 	- 6 is bomb
-### Enemies
-- O or P will cycle which enemy or npc is being shown (O goes to previous enemy and P goes to next enemy sequentially)
 ### Items
 - T will spawn a heart near the player
 - R will spawn a rupee near the player
@@ -24,14 +23,11 @@
 - G will change room to the room on the left
 - J will change room to the room on the right
 ### Other
-- Q will quit the game
-- R will reset the game to the initial state
+- ESC will open the inventory
 
 ## Bugs and Known Issues
-- No collision
-- No screen bounds/cycling (things that go off-screen won't go around the other side)
-- Inconsistent sprite scaling
-- Limited implementation of sound effects (no enemy sounds and bomb explosions not yet implemented)
+- Player knockback can be inconsistent
+- Some missing SFX
 
 ## Metrics
 Metrics calculated using the "Code Metrics" tool
@@ -53,6 +49,7 @@ Metrics calculated using the "Code Metrics" tool
 | 3/23 | 83                    | 2151                  | 2                    | 266            | 10588                | 2666                     |
 | 3/29 | 83                    | 2165                  | 2                    | 277            | 10853                | 2720                     |
 | 4/6  | 82                    | 2381                  | 2                    | 292            | 12035                | 2993                     |
+| 4/10 | 82                    | 2542                  | 2                    | 296            | 13137                | 3244                     |
 
 ### Areas for refactoring (methods and classes with the worst maintainability index)
 | Maintainability Index | Class | Method |
@@ -68,14 +65,17 @@ Metrics calculated using the "Code Metrics" tool
 | 58                    | AudioController  | PlaySoundEffect(SoundEffect, float, float, float, bool) : SoundEffectInstance |
 | 59                    | Boomerang        | Update(GameTime) : void |
 
-### Areas for refactoring post first major refactoring
+### Areas for refactoring post first major refactoring (strikethrough indicates no longer within list)
 | Maintainability Index | Class | Method |
 | --------------------- | ----- | ------ |
-| 28 | PlayingState	| ResolveKey(KeyboardState) : void |
+| 28 -> 27 (as of 4/10) | PlayingState	| ResolveKey(KeyboardState) : void |
 | 35 | EnvironmentGetCollidableTiles() : List\<ICollidable\> |
-| 39 | LevelFileReader | LoadLevel(string, int, int, bool) : bool |
+| 39 -> 42 (as of 4/10) | LevelFileReader | LoadLevel(string, int, int, bool) : bool |
 | 46 | PlayingState	| LoadContent(ContentManager) : void |
-| 48 | LevelFileReader | |
-| 50 | PlayingState | ResetState() : void |
-| 52 | EnemyLoader | LoadEnemiesFromRoom(XElement) : void |
+| ~~48~~ | ~~LevelFileReader~~ (as of 4/10) | |
+| ~~50~~ | ~~PlayingState~~ (as of 4/10) | ~~ResetState() : void~~ |
+| ~~52~~ | ~~EnemyLoader~~ (as of 4/10) | ~~LoadEnemiesFromRoom(XElement) : void~~ |
+| 50 | PlayerDoorwayCollisionHandler | HandleCollision(ICollidable, ICollidable, Rectangle) : void |
+| 52 | HUD | Draw() : void |
 | 53 | HUD | HUD(Rectangle, HUDSpriteFactory, HUDBackgroundSprite, LinkInventory) |
+| 54 | CollisionRegistry | RegisterPlayerCollisions(CollisionManager, RoomManager, TileFactory) : void |
