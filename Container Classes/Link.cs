@@ -33,6 +33,13 @@ public class Link : ICollidable
 
     public LinkInventory playerInventory { get; set; }
 
+    // Message display
+    private string currentMessage = "";
+    private int messageTimer = 0;
+    private const int MessageDuration = 120; // 2 seconds at 60 FPS
+    private int messageCooldown = 0; // Prevent spam
+    private const int MessageCooldownDuration = 180; // 3 seconds cooldown between messages
+
     // Inventory/Stats
     //public int CurrentHealth { get; set; }
     //public int MaxHealth { get; set; }
@@ -81,11 +88,11 @@ public class Link : ICollidable
 
     public void Update(GameTime gametime)
     {
-        
+
         playerState.Update(gametime);
-       
+
             Sprite.Update(gametime);
-        
+
         //List<IProjectile> markedForDeletion = new List<IProjectile>();
         playerInventory.currentHearts = (int)health;
 
@@ -97,6 +104,18 @@ public class Link : ICollidable
                 Hurt = false;
                 hurtTimer = 0.0;
             }
+        }
+
+        // Update message timer
+        if (messageTimer > 0)
+        {
+            messageTimer--;
+        }
+
+        // Update message cooldown
+        if (messageCooldown > 0)
+        {
+            messageCooldown--;
         }
     }
 
@@ -134,6 +153,27 @@ public class Link : ICollidable
     public void OnFairyPickup()
     {
         health = playerInventory.maxHearts * Settings.Instance.HEALTH_PER_HEART;
+    }
+
+    public void ShowMessage(string message)
+    {
+        // Only show message if not in cooldown
+        if (messageCooldown <= 0)
+        {
+            currentMessage = message;
+            messageTimer = MessageDuration;
+            messageCooldown = MessageCooldownDuration;
+        }
+    }
+
+    public string GetCurrentMessage()
+    {
+        return messageTimer > 0 ? currentMessage : "";
+    }
+
+    public bool HasMessage()
+    {
+        return messageTimer > 0;
     }
 }
 

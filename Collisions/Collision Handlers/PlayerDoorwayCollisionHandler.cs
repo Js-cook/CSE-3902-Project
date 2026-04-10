@@ -1,16 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using System.Collections.Generic;
 
 public class PlayerDoorwayCollisionHandler : ICollisionHandler
 {
     private RoomManager roomManager;
     private TileFactory tileFactory;
     private bool transitioning;
+    private Dictionary<string, SoundEffect> sfx;
 
-    public PlayerDoorwayCollisionHandler(RoomManager roomManager, TileFactory tileFactory)
+    public PlayerDoorwayCollisionHandler(RoomManager roomManager, TileFactory tileFactory, Dictionary<string, SoundEffect> sfx = null)
     {
         this.roomManager = roomManager;
         this.tileFactory = tileFactory;
         this.transitioning = false;
+        this.sfx = sfx;
     }
 
     public void HandleCollision(ICollidable obj1, ICollidable obj2, Rectangle intersection)
@@ -39,7 +43,11 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
                 // Track the unlocked door globally so it stays unlocked
                 roomManager.UnlockDoor(doorway.Direction);
 
-                // TODO: Add audio for unlocking the door
+                // Play unlock sound
+                if (sfx != null && sfx.ContainsKey("DoorUnlock"))
+                {
+                    sfx["DoorUnlock"].Play();
+                }
 
                 // Return to allow the door state to update; player will transition on next collision
                 return;
@@ -64,7 +72,15 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
                         break;
                 }
 
-                // TODO: Play locked sound & show message
+                // Play locked door sound
+                if (sfx != null && sfx.ContainsKey("DoorLocked"))
+                {
+                    sfx["DoorLocked"].Play(0.3f, 0.0f, 0.0f); // Lower volume
+                }
+
+                // Show message (player needs to handle this)
+                player.ShowMessage("You need a key!");
+
                 return;
             }
         }
