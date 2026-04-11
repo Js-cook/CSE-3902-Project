@@ -51,8 +51,11 @@ public class DownIdlePlayerState : AbstractIdlePlayer
     {
         audioController.PlaySoundEffect(soundEffect["SwordSlash"]);
 
-        IProjectile swordBeam = new SwordBeam(player.position, Direction.DOWN, player.projectileSpriteFactory);
-        projectileController.projectiles.Add(swordBeam);
+        if(player.playerInventory.currentHearts == 2 * player.playerInventory.maxHearts)
+        {
+            IProjectile swordBeam = new SwordBeam(player.position, Direction.DOWN, player.projectileSpriteFactory);
+            projectileController.projectiles.Add(swordBeam);
+        }
 
         player.playerState = new DownAttackingPlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateDownAttackingPlayerSprite(player.position);

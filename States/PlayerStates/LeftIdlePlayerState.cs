@@ -51,8 +51,11 @@ public class LeftIdlePlayerState : AbstractIdlePlayer
     {
         audioController.PlaySoundEffect(soundEffect["SwordSlash"]);
 
-        IProjectile swordBeam = new SwordBeam(player.position, Direction.LEFT, player.projectileSpriteFactory);
-        projectileController.projectiles.Add(swordBeam);
+        if(player.playerInventory.currentHearts == 2 * player.playerInventory.maxHearts)
+        {
+            IProjectile swordBeam = new SwordBeam(player.position, Direction.LEFT, player.projectileSpriteFactory);
+            projectileController.projectiles.Add(swordBeam);
+        }
 
         player.playerState = new LeftAttackingPlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateLeftAttackingPlayerSprite(player.position);
