@@ -23,7 +23,7 @@ public class PlayerItemCollisionHandler : ICollisionHandler
                 player.playerInventory.keys++;
                 break;
             case ItemType.Bomb:
-                player.playerInventory.items++;
+                player.playerInventory.bombs++;
                 break;
             case ItemType.HeartContainer:
                 player.OnHeartContainerPickup();

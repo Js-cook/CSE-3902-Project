@@ -38,7 +38,7 @@ public class InventoryScreenSprite : ISprite
         keyText.TextColor = Color.White;
 
         itemText = spriteFactory.CreateHUDText(new Vector2(390, 855));
-        itemText.Text = "" + playerInventory.items;
+        itemText.Text = "" + playerInventory.calculateNumberOfSecondaryItems();
         itemText.TextColor = Color.White;
 
         secondaryItem = determineItemSprite(playerInventory.secondaryItem, new Vector2(550, 715));
@@ -78,9 +78,7 @@ public class InventoryScreenSprite : ISprite
     {
         rupeeText.Text = "" + playerInventory.rupees;
         keyText.Text = "" + playerInventory.keys;
-        itemText.Text = "" + playerInventory.items;
-        //primaryItemSprite = determineItemSprite(playerInventory.primaryItem, new Vector2(hudPositioning.X + 575, hudPositioning.Y + 100));
-        //secondaryItemSprite = determineItemSprite(playerInventory.secondaryItem, new Vector2(hudPositioning.X + 625, hudPositioning.Y + 130));
+        itemText.Text = "" + playerInventory.calculateNumberOfSecondaryItems();
     }
 
     public void SpriteDraw(Vector2 position)

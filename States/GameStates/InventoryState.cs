@@ -25,10 +25,6 @@ public class InventoryState : IGameState
     private int currentY = 0;
 
     private HUDCursorSprite cursorSprite;
-    //private Vector2 cursorPosition = new Vector2(811, 232);
-
-    //private int horizontalShift = 25;
-    //private int verticalShift = 25;
 
     private int buttonCooldown = 0;
 

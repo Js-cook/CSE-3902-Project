@@ -36,14 +36,14 @@ public class HUD
         keyText.Text = "" + playerInventory.keys;
         keyText.TextColor = Color.White;
 
-        itemText = spriteFactory.CreateHUDText(new Vector2(hudPositioning.X + 390, hudPositioning.Y + 165));
-        itemText.Text = "" + playerInventory.items;
-        itemText.TextColor = Color.White;
-
         hudHeartStartPosition = new Vector2(hudPositioning.X + 705, hudPositioning.Y + 130);
 
         primaryItemSprite = determineItemSprite(playerInventory.primaryItem, new Vector2(hudPositioning.X + 575, hudPositioning.Y + 100));
         secondaryItemSprite = determineItemSprite(playerInventory.secondaryItem, new Vector2(hudPositioning.X + 625, hudPositioning.Y + 130));
+        
+        itemText = spriteFactory.CreateHUDText(new Vector2(hudPositioning.X + 390, hudPositioning.Y + 165));
+        itemText.Text = "" + playerInventory.calculateNumberOfSecondaryItems();
+        itemText.TextColor = Color.White;
     }
 
     private ISprite determineItemSprite(Weapon weapon, Vector2 position)
@@ -80,7 +80,7 @@ public class HUD
     {
         rupeeText.Text = "" + playerInventory.rupees;
         keyText.Text = "" + playerInventory.keys;
-        itemText.Text = "" + playerInventory.items;
+        itemText.Text = "" + playerInventory.calculateNumberOfSecondaryItems();
         primaryItemSprite = determineItemSprite(playerInventory.primaryItem, new Vector2(hudPositioning.X + 575, hudPositioning.Y + 100));
         secondaryItemSprite = determineItemSprite(playerInventory.secondaryItem, new Vector2(hudPositioning.X + 625, hudPositioning.Y + 130));
     }
