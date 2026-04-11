@@ -14,9 +14,6 @@ public class InventoryScreenSprite : ISprite
     private HUDSpriteFactory spriteFactory;
     private LinkInventory playerInventory;
 
-    private ISprite primaryItem;
-    private ISprite secondaryItem;
-
     private HUDText rupeeText { get; set; }
     private HUDText keyText { get; set; }
     private HUDText itemText { get; set; }
@@ -41,7 +38,7 @@ public class InventoryScreenSprite : ISprite
         itemText.Text = "" + playerInventory.calculateNumberOfSecondaryItems();
         itemText.TextColor = Color.White;
 
-        secondaryItem = determineItemSprite(playerInventory.secondaryItem, new Vector2(550, 715));
+        //secondaryItem = determineItemSprite(playerInventory.secondaryItem, new Vector2(550, 715));
     }
 
     private ISprite determineItemSprite(Weapon weapon, Vector2 position)
@@ -91,7 +88,7 @@ public class InventoryScreenSprite : ISprite
         keyText.Draw();
         itemText.Draw();
         
-        secondaryItem.SpriteDraw(new Vector2(272, 170));
+        //secondaryItem.SpriteDraw(new Vector2(272, 170));
 
         int totalHearts = playerInventory.currentHearts;
         string type;

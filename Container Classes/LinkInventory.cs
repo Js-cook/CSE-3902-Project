@@ -14,7 +14,7 @@ public class LinkInventory
     public int boomerangs { get; set; }
     public int magicBoomerangs { get; set; }
     public int arrows { get; set; }
-    
+    public int silverArrows { get; set; }
 
     public bool hasCompass { get; set; }
     public bool hasMap { get; set; }
@@ -31,9 +31,9 @@ public class LinkInventory
         rupees = 0;
         //items = 0;
         bombs = 3;
-        boomerangs = 0;
-        magicBoomerangs = 0;
-        arrows = 0;
+        boomerangs = 1;
+        magicBoomerangs = 1;
+        arrows = 3;
         hasCompass = false;
         hasMap = false;
         primaryItem = Weapon.WOOD_SWORD;
@@ -49,9 +49,9 @@ public class LinkInventory
         currentHearts = maxHearts * 2; // currentHearts refers to the number of heart halves
         rupees = 0;
         bombs = 3;
-        boomerangs = 0;
-        magicBoomerangs = 0;
-        arrows = 0;
+        boomerangs = 1;
+        magicBoomerangs = 1;
+        arrows = 3;
         hasCompass = false;
         hasMap = false;
         primaryItem = Weapon.WOOD_SWORD;
@@ -66,8 +66,7 @@ public class LinkInventory
             case Weapon.ARROW:
                 return arrows;
             case Weapon.SILVER_ARROW:
-                //return playerInventory.arrows;
-                return 0;
+                return silverArrows;
             case Weapon.BOMB:
                 return bombs;
             case Weapon.BOOMERANG:
@@ -89,10 +88,7 @@ public class LinkInventory
                 arrows--;
                 break;
             case Weapon.SILVER_ARROW:
-                //if (playerInventory.arrows > 0)
-                //{
-                //    playerInventory.arrows--;
-                //}
+                silverArrows--;
                 break;
             case Weapon.BOMB:
                 bombs--;
