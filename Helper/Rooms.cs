@@ -412,9 +412,9 @@ public static class RoomsRepository
         var enemies = new List<EnemyDefinition>
         {
             new EnemyDefinition("Skeleton", 1, 3),
-            new EnemyDefinition("Skeleton", 5, 9),
+            
             new EnemyDefinition("Skeleton", 5, 2),
-             new EnemyDefinition("Skeleton", 3, 7),
+           
             new EnemyDefinition("Skeleton", 2, 5),
 
 
