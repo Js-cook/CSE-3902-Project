@@ -49,8 +49,11 @@ public class UpIdlePlayerState : AbstractIdlePlayer
     {
         audioController.PlaySoundEffect(soundEffect["SwordSlash"]);
 
-        IProjectile swordBeam = new SwordBeam(player.position, Direction.UP, player.projectileSpriteFactory);
-        projectileController.projectiles.Add(swordBeam);
+        if(player.playerInventory.currentHearts == 2 * player.playerInventory.maxHearts)
+        {
+            IProjectile swordBeam = new SwordBeam(player.position, Direction.UP, player.projectileSpriteFactory);
+            projectileController.projectiles.Add(swordBeam);
+        }
 
         player.playerState = new UpAttackingPlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateUpAttackingPlayerSprite(player.position);
@@ -129,26 +132,30 @@ public class UpIdlePlayerState : AbstractIdlePlayer
     }
     public override void useSecondaryItem()
     {
-        switch (player.playerInventory.secondaryItem)
+        if(player.playerInventory.calculateNumberOfSecondaryItems() > 0)
         {
-            case Weapon.WOOD_SWORD:
-                BeAttacking();
-                break;
-            case Weapon.ARROW:
-                FireArrow();
-                break;
-            case Weapon.SILVER_ARROW:
-                FireSilverArrow();
-                break;
-            case Weapon.BOMB:
-                FireBomb();
-                break;
-            case Weapon.BOOMERANG:
-                FireBoomerang();
-                break;
-            case Weapon.MAGIC_BOOMERANG:
-                FireMagicBoomerang();
-                break;
+            switch (player.playerInventory.secondaryItem)
+            {
+                case Weapon.WOOD_SWORD:
+                    BeAttacking();
+                    break;
+                case Weapon.ARROW:
+                    FireArrow();
+                    break;
+                case Weapon.SILVER_ARROW:
+                    FireSilverArrow();
+                    break;
+                case Weapon.BOMB:
+                    FireBomb();
+                    break;
+                case Weapon.BOOMERANG:
+                    FireBoomerang();
+                    break;
+                case Weapon.MAGIC_BOOMERANG:
+                    FireMagicBoomerang();
+                    break;
+            }
+            player.playerInventory.useSecondaryItem();
         }
     }
 }

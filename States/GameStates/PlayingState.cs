@@ -39,6 +39,7 @@ public class PlayingState : IGameState
     private HUDBackgroundSprite hudBackgroundSprite;
     private HUD hud;
     private HUDSpriteFactory textFactory;
+    private SpriteFont messageFont;
 
     private TileFactory tileFactory;
     private Environment environment;
@@ -63,8 +64,6 @@ public class PlayingState : IGameState
     public GameStateSignal Signal { get; set; }
 
     private KeyboardState previousKeyboardState;
-
-
     public PlayingState(SpriteBatch spriteBatch, Dictionary<string, SoundEffect> sfx, GraphicsDeviceManager graphics)
     {
         _spriteBatch = spriteBatch;
@@ -77,7 +76,6 @@ public class PlayingState : IGameState
 
     public void LoadContent(ContentManager contentLoader)
     {
-        
         playerTexture = contentLoader.Load<Texture2D>("LinkSprites");
         enemyTexture = contentLoader.Load<Texture2D>("EnemySprites");
         treasureChestTexture = contentLoader.Load<Texture2D>("TreasureChestSprite");
@@ -85,21 +83,17 @@ public class PlayingState : IGameState
         projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
         projectileController = new ProjectileController(projectileSpriteFactory, sfx);
 
-
         hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch, contentLoader.Load<Texture2D>("HUD"));
         textFactory = new HUDSpriteFactory(contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch, contentLoader.Load<Texture2D>("HUD"), playerTexture);
         hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite, playerInventory);
+        messageFont = contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes");
 
         audioController = new AudioController();
 
         player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx, playerInventory);
 
-
-
         itemFactory = new ItemFactory(contentLoader.Load<Texture2D>("ItemSprites"), _spriteBatch);
         itemController = new ItemController(itemFactory, sfx);
-
-
 
         // EnemySpriteFactory, Enemy Actor Factory Enemy Controller, and EnemyLoader Initialization
         enemyMasterSpriteFactory.LoadContent(contentLoader, _spriteBatch);
@@ -126,7 +120,7 @@ public class PlayingState : IGameState
         // Add additional collision handlers here as needed
         collisionManager = new CollisionManager();
 
-        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx);
     }
 
     public void ResolveKey(KeyboardState keyState)
@@ -258,6 +252,10 @@ public class PlayingState : IGameState
             itemController.SpawnItem(ItemType.Key, player.position + new Vector2(50, 0));
         }
 
+        if (keyState.IsKeyDown(Keys.Escape))
+        {
+            Signal = GameStateSignal.TO_INVENTORY;
+        }
 
         //if (keyState.IsKeyDown(Keys.Q))
         //{
@@ -332,6 +330,23 @@ public class PlayingState : IGameState
         enemyController.Draw();
         projectileController.Draw();
         effectController.Draw();
+
+        // Draw player message if exists
+        if (player.HasMessage())
+        {
+            string message = player.GetCurrentMessage();
+            Vector2 textSize = messageFont.MeasureString(message);
+            Vector2 position = new Vector2(512 - textSize.X / 2, 400); // Center horizontally, below middle of screen
+
+            // Draw background
+            Texture2D pixel = new Texture2D(_spriteBatch.GraphicsDevice, 1, 1);
+            pixel.SetData(new[] { Color.Black });
+            Rectangle bgRect = new Rectangle((int)(position.X - 10), (int)(position.Y - 5), (int)(textSize.X + 20), (int)(textSize.Y + 10));
+            _spriteBatch.Draw(pixel, bgRect, Color.Black * 0.8f);
+
+            // Draw text
+            _spriteBatch.DrawString(messageFont, message, position, Color.White);
+        }
     }
 
     public void ResetState()

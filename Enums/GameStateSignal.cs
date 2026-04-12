@@ -7,6 +7,7 @@
         TO_DEATHSCREEN,
         TO_INVENTORY,
         TO_WINSCREEN,
+        TO_SAVED_PLAYING,
         NONE
     }
 }

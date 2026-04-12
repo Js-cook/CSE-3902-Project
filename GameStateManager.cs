@@ -1,25 +1,18 @@
 ﻿using Controllers;
 using Enums;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace _3902_Project
 {
     public class GameStateManager
     {
-
-
         private Dictionary<string, IGameState> gameStates = new Dictionary<string, IGameState>();
         public IGameState currentState { get; private set; }
         private KeyboardController keyboardController;
 
+        private PlayingState savedPlayingState;
 
         public GameStateManager(KeyboardController keyboardController)
         {
@@ -31,6 +24,11 @@ namespace _3902_Project
         {
             currentState.Update(gameTime);
             keyboardController.Update();
+
+            if(currentState is PlayingState)
+            {
+                savedPlayingState = (PlayingState)currentState;
+            }
 
             CheckForStateChange();
         }
@@ -52,7 +50,26 @@ namespace _3902_Project
                 if (currentState != null)
                     currentState.Signal = GameStateSignal.NONE; // Reset signal of the current state before switching
 
-                currentState = gameStates[name];
+                //if (currentState is PlayingState)
+                //{
+                //    savedPlayingState = (PlayingState)currentState;
+                //}
+
+                if (name.Equals("InventoryScreen"))
+                {
+                    Debug.WriteLine("Update inventory of inventory screen");
+                    ((InventoryState)(gameStates[name])).playerInventory = savedPlayingState.player.playerInventory;
+                }
+
+                if(currentState is InventoryState && name.Equals("Playing"))
+                {
+                    currentState = savedPlayingState;
+
+                } else
+                {
+                    currentState = gameStates[name];
+                }
+
                 keyboardController.gameState = currentState;
             }
         }
@@ -78,6 +95,17 @@ namespace _3902_Project
         {
             SetCurrentState("WinScreen");
             currentState.ResetState();
+        }
+
+        public void ToInventoryScreen()
+        {
+            SetCurrentState("InventoryScreen");
+            currentState.ResetState();
+        }
+
+        public void ToSavedPlayState()
+        {
+            SetCurrentState("Playing");
         }
 
         private void CheckForStateChange()
@@ -107,15 +135,16 @@ namespace _3902_Project
                 ToWinScreen();
             }
 
+            if(currentState.Signal == GameStateSignal.TO_INVENTORY)
+            {
+                ToInventoryScreen();
+            }
+
+            if(currentState.Signal == GameStateSignal.TO_SAVED_PLAYING)
+            {
+                ToSavedPlayState();
+            }
         }
-
-
-
-        
-
-
-
-
     }
 
 }

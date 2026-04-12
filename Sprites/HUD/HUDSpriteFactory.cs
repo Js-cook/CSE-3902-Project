@@ -55,4 +55,9 @@ public class HUDSpriteFactory
     {
         return new HUDWoodSwordSprite(itemTexture, spriteBatch);
     }
+
+    public HUDCursorSprite CreateHUDCursorSprite(Vector2 position)
+    {
+        return new HUDCursorSprite(texture, spriteBatch);
+    }
 }

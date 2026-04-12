@@ -9,11 +9,9 @@ using Microsoft.Xna.Framework.Content;
 using System.IO;
 using Enums;
 namespace _3902_Project
-
 {
     public class GameLoader
     {
-       
         private SpriteBatch _spriteBatch;
         private GraphicsDevice GraphicsDevice;
         private GraphicsDeviceManager _graphics;
@@ -26,7 +24,7 @@ namespace _3902_Project
         private IGameState playingState;
         private IGameState deathScreenState;
         private IGameState winScreenState;
-
+        private IGameState inventoryState;
 
         public GameLoader(GraphicsDevice GraphicsDevice, ContentManager Content, GraphicsDeviceManager _graphics, GameStateManager gameStateManager, SpriteBatch spriteBatch)
         {
@@ -40,7 +38,6 @@ namespace _3902_Project
         // This method needs to be cleaned up bad
         public void LoadContent()
         {
-           
             Dictionary<string, SoundEffect> sfx = SFXLoader.LoadPlayerSFX(Content);
 
             playingState = new PlayingState(_spriteBatch, sfx, _graphics);
@@ -52,14 +49,11 @@ namespace _3902_Project
             deathScreenState = new DeathScreenState(playingState);
 
             winScreenState = new WinScreenState(playingState);
+            // questionable syntax
+            inventoryState = new InventoryState(((PlayingState)playingState).player.playerInventory, _spriteBatch);
+            inventoryState.LoadContent(Content);
 
-
-
-
-
-            // Add game states to the manager and set the initial state
             LoadGameStates();
-
         }
 
         private void LoadGameStates()
@@ -69,11 +63,9 @@ namespace _3902_Project
             gameStateManager.AddGameState("EndScreen", startScreenState);
             gameStateManager.AddGameState("DeathScreen", deathScreenState);
             gameStateManager.AddGameState("WinScreen", winScreenState);
+            gameStateManager.AddGameState("InventoryScreen", inventoryState);
             gameStateManager.SetCurrentState("StartScreen");
         }
-
-
-
     }
 
 }
