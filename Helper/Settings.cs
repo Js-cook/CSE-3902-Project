@@ -15,11 +15,12 @@ using System.Threading.Tasks;
     public float PlayerSpeed = 2f;
 
     public float AquamentusFireballSpeed = 4f;
+    public float WinScreenTextSize = 16f;
 
     public float GoriyaKnockbackSpeed = 6f;
     public float GoriyaKnockbackDuration = 0.4f;
 
-    public float StartingPlayerHealth = 6f;
+    public float StartingPlayerHealth = 3f;
 
     public float FairyFlySpeed = 10f;
 

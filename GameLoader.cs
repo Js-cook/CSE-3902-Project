@@ -47,8 +47,10 @@ namespace _3902_Project
             startScreenState.LoadContent(Content);
 
             deathScreenState = new DeathScreenState(playingState);
+            deathScreenState.LoadContent(Content);
 
             winScreenState = new WinScreenState(playingState);
+            winScreenState.LoadContent(Content);
             // questionable syntax
             inventoryState = new InventoryState(((PlayingState)playingState).player.playerInventory, _spriteBatch);
             inventoryState.LoadContent(Content);

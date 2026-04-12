@@ -51,7 +51,7 @@ public class PlayingState : IGameState
 
     private CollisionManager collisionManager;
 
-    private SpriteBatch _spriteBatch;
+    public SpriteBatch _spriteBatch;
 
     private Dictionary<string, SoundEffect> sfx;
     
