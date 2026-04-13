@@ -1,16 +1,16 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Interfaces;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class OldMan //TODO: NPC Interface
+public class OldMan : IEnemy
 {
-    public Vector2 position { get; set; }
-    public ISprite Sprite { get; set; }
-    // idk if this should be public
-    public IEnemyState oldManState { get; set; }
+    public int Health { get; set; } = 999;
+    public bool isDead { get; set; }
 
     public Rectangle Hitbox
     {
@@ -20,22 +20,44 @@ public class OldMan //TODO: NPC Interface
         }
     }
 
+    public bool HitboxActive { get; set; }
+    public Vector2 position { get; set; }
+    public ISprite Sprite { get; set; }
+    public IEnemyState oldManState { get; set; }
 
-    public OldMan(OldManSpriteFactory spriteFactory, GraphicsDeviceManager _graphics)
+    public OldMan(OldManSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, Vector2 startPosition)
     {
-        position = new Vector2(60, 30); // arbitrary starting position - change later
-        oldManState = (IEnemyState)new IdleOldManState(this, spriteFactory, _graphics); //TODO: Change to NPC State
+        position = startPosition;
+        oldManState = new IdleOldManState(this, spriteFactory, _graphics);
         Sprite = spriteFactory.CreateOldManIdleSprite(position);
+        HitboxActive = false;
     }
 
     public void Update(GameTime gametime)
     {
         oldManState.Update(gametime);
-        Sprite.Update(gametime);
+        // Don't update sprite animation - keep him static
     }
 
     public void Draw()
     {
         Sprite.SpriteDraw(position);
+    }
+
+    public void TakeDamage(int damage)
+    {
+    }
+
+    public void ChangeState(IEnemyState newState)
+    {
+        oldManState = newState;
+    }
+
+    public void OnWallCollision(Direction newDir)
+    {
+    }
+
+    public void DropHearts(int numHearts)
+    {
     }
 }

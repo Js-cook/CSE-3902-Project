@@ -1,18 +1,18 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-public class PushSquareBlockSprite : BaseTile
+public class BlackFloorSprite : BaseTile
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
 
-    private Rectangle sourceRectangle = new Rectangle(323, 91, 16, 16);
+    private Rectangle sourceRectangle = new Rectangle(404, 27, 8, 8);
 
-    public PushSquareBlockSprite(Texture2D texture, SpriteBatch spriteBatch)
+    public BlackFloorSprite(Texture2D texture, SpriteBatch spriteBatch)
     {
         this.texture = texture;
         this.spriteBatch = spriteBatch;

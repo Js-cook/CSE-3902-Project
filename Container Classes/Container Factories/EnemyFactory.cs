@@ -48,4 +48,9 @@ public class EnemyFactory
             return new Aquamentus(enemyMasterSpriteFactory.aquamentusSpriteFactory, _graphics, bossProjectileSpriteFactory, startPos);
         }
 
+        public OldMan CreateOldMan(Vector2 startPos)
+        {
+            return new OldMan(enemyMasterSpriteFactory.oldManSpriteFactory, _graphics, startPos);
+        }
+
 }

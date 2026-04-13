@@ -16,6 +16,7 @@ public class EnemyMasterSpriteFactory
     public SkeletonSpriteFactory skeletonSpriteFactory { get; private set; }
     public WallmasterSpriteFactory wallmasterSpriteFactory { get; private set; }
     public AquamentusSpriteFactory aquamentusSpriteFactory { get; private set; }
+    public OldManSpriteFactory oldManSpriteFactory { get; private set; }
 
     public EnemyProjectileSpriteFactory enemyProjectileSpriteFactory { get; private set; }
 
@@ -47,6 +48,7 @@ public class EnemyMasterSpriteFactory
         aquamentusSpriteFactory = new AquamentusSpriteFactory(bossTexture, _spriteBatch);
         bossProjectileSpriteFactory = new BossProjectileSpriteFactory(bossTexture, _spriteBatch);
         enemyProjectileSpriteFactory = new EnemyProjectileSpriteFactory(enemyTexture, _spriteBatch);
+        oldManSpriteFactory = new OldManSpriteFactory(npcTexture, _spriteBatch);
         
 
 

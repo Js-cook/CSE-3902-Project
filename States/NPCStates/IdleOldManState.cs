@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Enums;
 
-public class IdleOldManState //TODO: Not an IEnemyState
+public class IdleOldManState : IEnemyState
 {
     private OldMan oldMan;
     private OldManSpriteFactory spriteFactory;
@@ -15,25 +16,23 @@ public class IdleOldManState //TODO: Not an IEnemyState
     {
         this.oldMan = oldMan;
         this.spriteFactory = spriteFactory;
-       
+
         this._graphics = _graphics;
 
     }
     public void ChangeDirection()
     {
-        // No need for this 
     }
     public void BeDead()
     {
-        //No need for this
-
     }
     public void Update(GameTime gameTime)
     {
-        // Idle
-
-
     }
-
-
+    public void TakeDamage()
+    {
+    }
+    public void OnWallCollision(Enums.Direction newDir)
+    {
+    }
 }
