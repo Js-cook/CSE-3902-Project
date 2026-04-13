@@ -176,7 +176,13 @@ public class Environment
                               sprite is RightStatueSprite ||
                               sprite is BlueGapSprite;
 
-                collidableTiles.Add(new Tile(sprite, tilePosition, isSolid));
+                Tile tile = new Tile(sprite, tilePosition, isSolid);
+                tile.BlocksProjectiles = isSolid;
+                if (sprite is BlueGapSprite)
+                {
+                    tile.BlocksProjectiles = false;
+                }
+                collidableTiles.Add(tile);
             }
         }
 
