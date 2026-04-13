@@ -110,7 +110,7 @@ public class PlayingState : IGameState
         //room manager
         tileFactory = new TileFactory(contentLoader.Load<Texture2D>("DungeonTileSprites"), playerTexture, enemyTexture, treasureChestTexture, _spriteBatch);
         environment = new Environment(tileFactory);
-        levelFileReader = new LevelFileReader(environment, enemyLoader);
+        levelFileReader = new LevelFileReader(environment, enemyLoader, itemController);
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
@@ -354,7 +354,7 @@ public class PlayingState : IGameState
         itemController.itemArray.Clear();
 
         environment = new Environment(tileFactory);
-        levelFileReader = new LevelFileReader(environment, enemyLoader);
+        levelFileReader = new LevelFileReader(environment, enemyLoader, itemController);
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 

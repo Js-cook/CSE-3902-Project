@@ -100,6 +100,9 @@
 			<Enemy type="Gel" x="2" y="4" />
 			<Enemy type="Gel" x="9" y="6" />
 		</Enemies>
+		<Items>
+			<Item type="Map" x="2" y="2" />
+		</Items>
 	</Room>
 	<Room row="2" col="1">
 		<Tiles>
@@ -299,6 +302,9 @@
 			<Enemy type="Bat" x="5" y="0" />
 			<Enemy type="Bat" x="3" y="5" />
 		</Enemies>
+		<Items>
+			<Item type="Compass" x="2" y="2" />
+		</Items>
 	</Room>
 	<Room row="5" col="3">
 		<Tiles>
