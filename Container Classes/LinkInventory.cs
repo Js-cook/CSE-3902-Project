@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Enums;
+using Microsoft.Xna.Framework;
 
 public class LinkInventory
 {
@@ -23,6 +24,8 @@ public class LinkInventory
     public Weapon primaryItem { get; set; }
     public Weapon secondaryItem { get; set; }
 
+    public Vector2 currentRoom;
+
     public LinkInventory()
     {
         keys = 0;
@@ -39,7 +42,7 @@ public class LinkInventory
         primaryItem = Weapon.WOOD_SWORD;
         secondaryItem = Weapon.BOMB;
         hasTriForcePiece = false;
-
+        currentRoom = new Vector2(5, 2);
     }
 
     public void ResetInventory()

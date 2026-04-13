@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class PlayerDoorwayCollisionHandler : ICollisionHandler
 {
@@ -110,6 +111,7 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
                 break;
         }
 
+        player.playerInventory.currentRoom = new Vector2(roomManager.CurrentRow, roomManager.CurrentCol);
         transitioning = false;
     }
 }
