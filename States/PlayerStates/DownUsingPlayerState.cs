@@ -21,8 +21,11 @@ public class DownUsingPlayerState : AbstractUsingPlayer
         this.spriteFactory = spriteFactory;
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
+
+        this.player.currDirection = Direction.DOWN;
+
     }
-    
+
     public override void BeDamaged()
     {
         player.Hurt = true;

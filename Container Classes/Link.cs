@@ -1,10 +1,12 @@
 ﻿using Controllers;
+using Enums;
 using Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Sprites;
 using System;
 using System.Collections.Generic;
+using static System.Net.Mime.MediaTypeNames;
 
 
 public class Link : ICollidable
@@ -36,6 +38,12 @@ public class Link : ICollidable
     public IPlayerSprite Sprite { get; set; }
     public IPlayerState playerState { get; set; }
     public ProjectileSpriteFactory projectileSpriteFactory { get; set; }
+    public ProjectileController projectileController { get; set; }
+    public PlayerSpriteFactory playerSpriteFactory { get; set; }
+
+    public Direction currDirection { get; set; }
+
+    public Dictionary<string, SoundEffect> soundEffect { get; set; }
 
     public bool Hurt { get; set; }
     private double hurtTimer = 0.0;
@@ -69,7 +77,11 @@ public class Link : ICollidable
         playerState = new RightIdlePlayerState(this, spriteFactory, projectileController, soundEffect);
         this.projectileSpriteFactory = projectileSpriteFactory;
         Sprite = spriteFactory.CreateRightIdlePlayerSprite(position);
+        currDirection = Direction.RIGHT;
         this.playerInventory = playerInventory;
+        this.playerSpriteFactory = spriteFactory;
+        this.projectileController = projectileController;
+        this.soundEffect = soundEffect;
 
         //Adds Stats to Link, starting with 3 hearts (6 health) and no rupees, keys, or bombs
         //CurrentHealth = 6; 
@@ -81,20 +93,27 @@ public class Link : ICollidable
 
     public void MoveUp() 
     {
+        if (this.playerState is StunnedPlayerState) return;
         position = new Vector2(position.X, position.Y - (2 * Settings.Instance.PlayerSpeed));
     }
 
     public void MoveDown()
     {
+        if (this.playerState is StunnedPlayerState) return;
+
         position = new Vector2(position.X, position.Y + (2  * Settings.Instance.PlayerSpeed));
     }
 
     public void MoveLeft()
     {
+        if (this.playerState is StunnedPlayerState) return;
+
         position = new Vector2(position.X - (2 * Settings.Instance.PlayerSpeed), position.Y);
     }
     public void MoveRight()
     {
+        if (this.playerState is StunnedPlayerState) return;
+
         position = new Vector2(position.X + (2 * Settings.Instance.PlayerSpeed), position.Y);
     }
 
@@ -134,8 +153,10 @@ public class Link : ICollidable
     public void Draw()
     {
         Sprite.Hurt = Hurt;
-        Sprite.SpriteDraw(position);
+        Sprite.SpriteDraw(position, Color.White); // States control their own color. Pass in white as default here
     }
+
+
 
     public void TakeDamage(float damage)
     {
@@ -149,6 +170,16 @@ public class Link : ICollidable
                 health = 0; // Ensure health doesn't go negative
             }
         }
+    }
+
+    public void StunPlayer()
+    {
+        if (!Hurt)
+        { Hurt = true;
+            playerState = new StunnedPlayerState(this, playerSpriteFactory, projectileController, soundEffect, currDirection);
+        }
+
+
     }
 
     public void OnHeartPickup()
@@ -187,5 +218,7 @@ public class Link : ICollidable
     {
         return messageTimer > 0;
     }
+
+
 }
 

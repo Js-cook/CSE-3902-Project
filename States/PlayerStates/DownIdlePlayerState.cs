@@ -21,6 +21,8 @@ public class DownIdlePlayerState : AbstractIdlePlayer
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
         audioController = new AudioController();
+
+        this.player.currDirection = Direction;
     }
 
     public override void ChangeDirection(Direction Direction)

@@ -58,7 +58,7 @@ namespace Sprites
                 attackTimer = 0.0;
             }
         }
-        public void SpriteDraw(Vector2 position)
+        public void SpriteDraw(Vector2 position, Color color)
         {
             Vector2 origin = new Vector2(0, 0);
 
@@ -81,7 +81,7 @@ namespace Sprites
             }
             else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, scale, SpriteEffects.FlipHorizontally, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, color, 0.0f, origin, scale, SpriteEffects.FlipHorizontally, 0.0f);
             }
         }
 

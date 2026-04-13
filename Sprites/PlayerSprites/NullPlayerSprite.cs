@@ -18,7 +18,7 @@ namespace Sprites
             // position parameter kept for factory compatibility; no-op
         }
 
-        public void SpriteDraw(Vector2 position)
+        public void SpriteDraw(Vector2 position, Color color)
         {
             // intentionally empty - nothing to draw
         }

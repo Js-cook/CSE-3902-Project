@@ -18,6 +18,9 @@ public class LeftMovingPlayerState : AbstractMovingPlayer
         this.spriteFactory = spriteFactory;
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
+
+        this.player.currDirection = Direction.LEFT;
+
     }
 
     public override void ChangeDirection(Direction Direction)

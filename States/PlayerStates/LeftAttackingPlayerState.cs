@@ -22,9 +22,12 @@ public class LeftAttackingPlayerState : AbstractAttackingPlayer
         this.spriteFactory = spriteFactory;
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
+
+        this.player.currDirection = Direction.LEFT;
+
     }
 
-   
+
     public override void BeIdle()
     {
         if (animationDone)
