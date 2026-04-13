@@ -39,6 +39,7 @@ public class LevelFileReader
         gameEnv.spikeTiles.Clear();
         gameEnv.treasureChests.Clear();
         gameEnv.doorways.Clear();
+        gameEnv.pushableBlocks.Clear();
 
         // Load tiles from room definition
         foreach (var tileRow in roomDef.Tiles)
@@ -70,6 +71,21 @@ public class LevelFileReader
                     );
 
                     gameEnv.AddTreasureChest(chestPosition);
+                }
+                else if (key == "PushSquareBlock")
+                {
+                    spriteRow[i] = gameEnv.tileMap["BlueFloor"];
+
+                    const int tileSize = 32 * 2;
+                    const int hudHeight = 112 * 2;
+                    const int wallOffset = 64;
+
+                    Vector2 blockPosition = new Vector2(
+                        wallOffset * 2 + (i * tileSize),
+                        hudHeight + wallOffset * 2 + (gameEnv.tiles.Count * tileSize)
+                    );
+
+                    gameEnv.AddPushableBlock(blockPosition);
                 }
                 else if (gameEnv.tileMap.ContainsKey(key))
                 {

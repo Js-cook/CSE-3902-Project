@@ -77,6 +77,11 @@ public class TileFactory
         return new BlueFloorSprite(tileTexture, spriteBatch);
     }
 
+    public ISprite CreateBlackFloorSprite()
+    {
+        return new BlackFloorSprite(tileTexture, spriteBatch);
+    }
+
     public ISprite CreateBlueSandSprite()
     {
         return new BlueSandSprite(tileTexture, spriteBatch);

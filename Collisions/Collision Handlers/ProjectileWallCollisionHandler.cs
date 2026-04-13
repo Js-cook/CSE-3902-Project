@@ -16,8 +16,8 @@ public class ProjectileWallCollisionHandler : ICollisionHandler
         if (projectile == null || tile == null)
             return;
 
-        // Only process collision if tile is solid
-        if (!tile.IsSolid)
+        // Only process collision if tile blocks projectiles
+        if (!tile.BlocksProjectiles)
             return;
 
 

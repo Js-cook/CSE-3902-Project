@@ -13,6 +13,7 @@ public class Environment
     public List<SpikeTile> spikeTiles { get; set; }
     public List<TreasureChest> treasureChests { get; set; }
     public List<Doorway> doorways { get; set; }
+    public List<PushableBlock> pushableBlocks { get; set; }
     public Dictionary<int, ISprite> doorMap = new Dictionary<int, ISprite>();
     public Dictionary<string, ISprite> tileMap { get; set; }
     private TileFactory factory;
@@ -28,6 +29,7 @@ public class Environment
         spikeTiles = new List<SpikeTile>();
         treasureChests = new List<TreasureChest>();
         doorways = new List<Doorway>();
+        pushableBlocks = new List<PushableBlock>();
 
 
         tileMap = new Dictionary<string, ISprite> 
@@ -40,6 +42,7 @@ public class Environment
             { "WhiteBrick", factory.CreateWhiteBrickSprite() },
             { "Ladder", factory.CreateLadderSprite() },
             { "BlueFloor", factory.CreateBlueFloorSprite() },
+            { "BlackFloor", factory.CreateBlackFloorSprite() },
             { "BlueSand", factory.CreateBlueSandSprite() },
             { "RoomExterior", factory.CreateRoomExteriorSprite() },
             { "LeftStatue", factory.CreateLeftStatueSprite()  },
@@ -95,6 +98,11 @@ public class Environment
     {
         treasureChests.Add(new TreasureChest(factory.CreateTreasureChestSprite(), position));
     }
+
+    public void AddPushableBlock(Vector2 position, HashSet<int> allowedDirections = null)
+    {
+        pushableBlocks.Add(new PushableBlock(factory.CreatePushSquareBlockSprite(), position, allowedDirections));
+    }
     private bool IsOpenDoor(int direction)
     {
         return doorways.Exists(d => d.Direction == direction && !d.IsLocked);
@@ -141,6 +149,10 @@ public class Environment
         {
             chest.Sprite.SpriteDraw(chest.Position);
         }
+        foreach (PushableBlock block in pushableBlocks)
+        {
+            block.Draw();
+        }
 
         foreach (var kvp in doorMap)
         {
@@ -176,7 +188,13 @@ public class Environment
                               sprite is RightStatueSprite ||
                               sprite is BlueGapSprite;
 
-                collidableTiles.Add(new Tile(sprite, tilePosition, isSolid));
+                Tile tile = new Tile(sprite, tilePosition, isSolid);
+                tile.BlocksProjectiles = isSolid;
+                if (sprite is BlueGapSprite)
+                {
+                    tile.BlocksProjectiles = false;
+                }
+                collidableTiles.Add(tile);
             }
         }
 
@@ -267,6 +285,10 @@ public class Environment
         foreach (TreasureChest chest in treasureChests)
         {
             collidableTiles.Add(chest);
+        }
+        foreach (PushableBlock block in pushableBlocks)
+        {
+            collidableTiles.Add(block);
         }
         foreach (Doorway doorway in doorways)
         {

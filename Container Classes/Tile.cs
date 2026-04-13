@@ -5,6 +5,7 @@ public class Tile : ICollidable
     public ISprite Sprite { get; set; }
     public Vector2 Position { get; set; }
     public bool IsSolid { get; set; }
+    public bool BlocksProjectiles { get; set; }
     public bool HitboxActive { get; set; } = true; // Tiles are always active
 
     
