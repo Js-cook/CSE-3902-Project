@@ -42,6 +42,7 @@ public class Environment
             { "WhiteBrick", factory.CreateWhiteBrickSprite() },
             { "Ladder", factory.CreateLadderSprite() },
             { "BlueFloor", factory.CreateBlueFloorSprite() },
+            { "BlackFloor", factory.CreateBlackFloorSprite() },
             { "BlueSand", factory.CreateBlueSandSprite() },
             { "RoomExterior", factory.CreateRoomExteriorSprite() },
             { "LeftStatue", factory.CreateLeftStatueSprite()  },
