@@ -111,7 +111,7 @@ public class PlayingState : IGameState
         tileFactory = new TileFactory(contentLoader.Load<Texture2D>("DungeonTileSprites"), playerTexture, enemyTexture, treasureChestTexture, _spriteBatch);
         environment = new Environment(tileFactory);
         levelFileReader = new LevelFileReader(environment, enemyLoader);
-        roomManager = new RoomManager(levelFileReader, 0, 1, enemyController);
+        roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
 
@@ -184,12 +184,6 @@ public class PlayingState : IGameState
             player.playerState.ChangeDirection(Direction.RIGHT);
             player.MoveRight();
             movementKeyActive = true;
-        }
-
-        if (keyState.IsKeyDown(Keys.N) && projectileInputLimiter == 0)
-        {
-            player.playerState.BeAttacking();
-            projectileInputLimiter = 10;
         }
 
         if ((keyState.IsKeyDown(Keys.D1) || keyState.IsKeyDown(Keys.NumPad1)) && projectileInputLimiter == 0)
@@ -361,13 +355,13 @@ public class PlayingState : IGameState
 
         environment = new Environment(tileFactory);
         levelFileReader = new LevelFileReader(environment, enemyLoader);
-        roomManager = new RoomManager(levelFileReader, 0, 1, enemyController);
+        roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
       
         playerDead = false;
         player.HitboxActive = true;
-        player.position = new Vector2(400 * 2, 250 * 2); // Spawn center position
+        player.position = new Vector2(512, 672);
         player.health = Settings.Instance.StartingPlayerHealth; // 3 hearts
         player.Hurt = false;
         player.playerState = new RightIdlePlayerState(player, spriteFactory, projectileController, sfx);
