@@ -57,7 +57,6 @@ public static class RoomsRepository
     {
         _rooms = new Dictionary<(int, int), RoomDefinition>
         {
-            { (99, 99), CreateRoom99_99() },
             { (0, 1), CreateRoom0_1() },
             { (0, 2), CreateRoom0_2() },
             { (1, 2), CreateRoom1_2() },
@@ -83,22 +82,6 @@ public static class RoomsRepository
         return _rooms.TryGetValue((row, col), out var room) ? room : null;
     }
 
-    private static RoomDefinition CreateRoom99_99()
-    {
-        var tiles = new string[][]
-        {
-            new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
-            new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
-            new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
-            new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
-            new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
-            new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
-            new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
-        };
-        var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "Wall" }, { "Bottom", "Wall" }, { "Left", "Wall" } };
-        return new RoomDefinition(99, 99, tiles, doors);
-    }
-
     private static RoomDefinition CreateRoom0_1()
     {
         var tiles = new string[][]
@@ -106,7 +89,7 @@ public static class RoomsRepository
             new string[] { "Spike", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "Spike" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "SquareBlock", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "SquareBlock", "BlueFloor", "SquareBlock", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
-            new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "SquareBlock", "BlueFloor", "Stair", "BlueFloor", "SquareBlock", "BlueFloor", "BlueFloor", "BlueFloor" },
+            new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "PushSquareBlock", "BlueFloor", "Stair", "BlueFloor", "SquareBlock", "BlueFloor", "BlueFloor", "BlueFloor" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "SquareBlock", "BlueFloor", "SquareBlock", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "SquareBlock", "TreasureChest", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
             new string[] { "Spike", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "Spike" },
@@ -197,7 +180,7 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
-            new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "SquareBlock", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
+            new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "PushSquareBlock", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
