@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Game1>
+	<Room row="99" col="99">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="Wall" />
+			<Right type="Wall" />
+			<Bottom type="Wall" />
+			<Left type="Wall" />
+		</Doors>
+	</Room>
+	<Room row="0" col="1">
+		<Tiles>
+			<row>Spike,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,Spike</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,Stair,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,TreasureChest,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>Spike,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,Spike</row>
+		</Tiles>
+		<Doors>
+			<Top type="Wall" />
+			<Right type="KeyLockedDoor" />
+			<Bottom type="Wall" />
+			<Left type="Wall" />
+		</Doors>
+	</Room>
+	<Room row="0" col="2">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueGap,BlueGap,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueGap,BlueGap,BlueFloor</row>
+			<row>BlueFloor,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueFloor</row>
+			<row>BlueFloor,BlueGap,BlueFloor,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueFloor,BlueGap,BlueFloor</row>
+			<row>BlueFloor,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueFloor</row>
+			<row>BlueFloor,BlueGap,BlueGap,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueGap,BlueGap,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="Wall" />
+			<Right type="Wall" />
+			<Bottom type="KeyLockedDoor" />
+			<Left type="KeyLockedDoor" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Goriya" x="7" y="0" />
+			<Enemy type="Goriya" x="6" y="2" />
+			<Enemy type="Goriya" x="7" y="4" />
+		</Enemies>
+	</Room>
+	<Room row="1" col="2">
+		<Tiles>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueFloor,BlueFloor,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueFloor,BlueGap</row>
+			<row>BlueGap,BlueFloor,BlueGap,BlueFloor,BlueGap,BlueFloor,BlueGap,BlueGap,BlueFloor,BlueGap,BlueFloor,BlueGap</row>
+			<row>BlueFloor,BlueFloor,BlueGap,BlueFloor,BlueGap,BlueFloor,BlueFloor,BlueGap,BlueFloor,BlueGap,BlueFloor,BlueFloor</row>
+			<row>BlueGap,BlueFloor,BlueGap,BlueFloor,BlueGap,BlueGap,BlueFloor,BlueGap,BlueFloor,BlueGap,BlueFloor,BlueGap</row>
+			<row>BlueGap,BlueFloor,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueGap,BlueFloor,BlueFloor,BlueFloor,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueFloor,BlueFloor,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+		</Tiles>
+		<Doors>
+			<Top type="KeyLockedDoor" />
+			<Right type="Wall" />
+			<Bottom type="OpenDoor" />
+			<Left type="Wall" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Skeleton" x="1" y="1" />
+			<Enemy type="Skeleton" x="3" y="4" />
+			<Enemy type="Skeleton" x="8" y="1" />
+		</Enemies>
+	</Room>
+	<Room row="2" col="2">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="OpenDoor" />
+			<Right type="KeyLockedDoor" />
+			<Bottom type="BombedWall" />
+			<Left type="OpenDoor" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Gel" x="1" y="0" />
+			<Enemy type="Gel" x="9" y="2" />
+			<Enemy type="Gel" x="2" y="4" />
+			<Enemy type="Gel" x="9" y="6" />
+		</Enemies>
+	</Room>
+	<Room row="2" col="1">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="Wall" />
+			<Right type="OpenDoor" />
+			<Bottom type="KeyLockedDoor" />
+			<Left type="DiamondLockedDoor" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Gel" x="1" y="3" />
+			<Enemy type="Gel" x="5" y="0" />
+			<Enemy type="Gel" x="5" y="5" />
+		</Enemies>
+	</Room>
+	<Room row="2" col="0">
+		<Tiles>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+		</Tiles>
+		<Doors>
+			<Top type="Wall" />
+			<Right type="OpenDoor" />
+			<Bottom type="Wall" />
+			<Left type="Wall" />
+		</Doors>
+		<Enemies>
+			<Enemy type="OldMan" x="5" y="3" />
+		</Enemies>
+	</Room>
+	<Room row="3" col="1">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="KeyLockedDoor" />
+			<Right type="DiamondLockedDoor" />
+			<Bottom type="Wall" />
+			<Left type="Wall" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Bat" x="1" y="3" />
+			<Enemy type="Bat" x="5" y="9" />
+			<Enemy type="Bat" x="5" y="2" />
+			<Enemy type="Bat" x="1" y="3" />
+			<Enemy type="Bat" x="5" y="0" />
+			<Enemy type="Bat" x="3" y="5" />
+		</Enemies>
+	</Room>
+	<Room row="3" col="2">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="BombedWall" />
+			<Right type="OpenDoor" />
+			<Bottom type="OpenDoor" />
+			<Left type="OpenDoor" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Skeleton" x="1" y="3" />
+			<Enemy type="Skeleton" x="2" y="4" />
+			<Enemy type="Skeleton" x="5" y="2" />
+			<Enemy type="Skeleton" x="4" y="3" />
+			<Enemy type="Skeleton" x="5" y="0" />
+		</Enemies>
+	</Room>
+	<Room row="4" col="2">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="OpenDoor" />
+			<Right type="Wall" />
+			<Bottom type="KeyLockedDoor" />
+			<Left type="Wall" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Skeleton" x="1" y="3" />
+			<Enemy type="Skeleton" x="2" y="4" />
+			<Enemy type="Skeleton" x="5" y="2" />
+		</Enemies>
+	</Room>
+	<Room row="5" col="1">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="Wall" />
+			<Right type="OpenDoor" />
+			<Bottom type="Wall" />
+			<Left type="Wall" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Bat" x="1" y="3" />
+			<Enemy type="Bat" x="2" y="4" />
+			<Enemy type="Bat" x="5" y="2" />
+		</Enemies>
+	</Room>
+	<Room row="5" col="2">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,LeftStatue,BlueFloor,BlueFloor,LeftStatue,BlueFloor,BlueFloor,RightStatue,BlueFloor,BlueFloor,RightStatue,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,LeftStatue,BlueFloor,BlueFloor,LeftStatue,BlueFloor,BlueFloor,RightStatue,BlueFloor,BlueFloor,RightStatue,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueSand,BlueSand,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,LeftStatue,BlueFloor,BlueSand,LeftStatue,BlueSand,BlueSand,RightStatue,BlueSand,BlueFloor,RightStatue,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueSand,BlueSand,BlueSand,BlueSand,BlueSand,BlueSand,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="KeyLockedDoor" />
+			<Right type="OpenDoor" />
+			<Bottom type="OpenDoor" />
+			<Left type="OpenDoor" />
+		</Doors>
+	</Room>
+	<Room row="2" col="3">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="Wall" />
+			<Right type="OpenDoor" />
+			<Bottom type="BombedWall" />
+			<Left type="KeyLockedDoor" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Goriya" x="1" y="3" />
+			<Enemy type="Goriya" x="5" y="0" />
+			<Enemy type="Goriya" x="5" y="5" />
+		</Enemies>
+	</Room>
+	<Room row="3" col="3">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="BombedWall" />
+			<Right type="Wall" />
+			<Bottom type="Wall" />
+			<Left type="OpenDoor" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Bat" x="1" y="3" />
+			<Enemy type="Bat" x="5" y="9" />
+			<Enemy type="Bat" x="5" y="2" />
+			<Enemy type="Bat" x="3" y="3" />
+			<Enemy type="Bat" x="5" y="0" />
+			<Enemy type="Bat" x="3" y="5" />
+		</Enemies>
+	</Room>
+	<Room row="5" col="3">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="Wall" />
+			<Right type="Wall" />
+			<Bottom type="Wall" />
+			<Left type="OpenDoor" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Skeleton" x="1" y="3" />
+			<Enemy type="Skeleton" x="5" y="2" />
+			<Enemy type="Skeleton" x="2" y="5" />
+		</Enemies>
+	</Room>
+	<Room row="1" col="4">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,SquareBlock</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,SquareBlock</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock</row>
+		</Tiles>
+		<Doors>
+			<Top type="Wall" />
+			<Right type="DiamondLockedDoor" />
+			<Bottom type="KeyLockedDoor" />
+			<Left type="Wall" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Aquamentus" x="6" y="3" />
+		</Enemies>
+	</Room>
+	<Room row="2" col="4">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,SquareBlock,SquareBlock,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,SquareBlock,SquareBlock,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,SquareBlock,SquareBlock,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="KeyLockedDoor" />
+			<Right type="Wall" />
+			<Bottom type="Wall" />
+			<Left type="OpenDoor" />
+		</Doors>
+		<Enemies>
+			<Enemy type="Skeleton" x="7" y="3" />
+			<Enemy type="Skeleton" x="7" y="5" />
+			<Enemy type="Skeleton" x="0" y="6" />
+			<Enemy type="Goriya" x="2" y="1" />
+			<Enemy type="Goriya" x="2" y="5" />
+			<Enemy type="Goriya" x="4" y="1" />
+			<Enemy type="Gel" x="11" y="5" />
+			<Enemy type="Gel" x="11" y="1" />
+		</Enemies>
+	</Room>
+	<Room row="1" col="5">
+		<Tiles>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,BlueFloor,BlueFloor,LeftStatue,BlueFloor,BlueFloor,RightStatue,BlueFloor,BlueFloor,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,BlueFloor,LeftStatue,BlueFloor,BlueFloor,BlueFloor,BlueFloor,RightStatue,BlueFloor,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,SquareBlock,SquareBlock,SquareBlock,SquareBlock,BlueFloor,BlueFloor,SquareBlock,SquareBlock,SquareBlock,SquareBlock,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+		</Tiles>
+		<Doors>
+			<Top type="Wall" />
+			<Right type="Wall" />
+			<Bottom type="Wall" />
+			<Left type="OpenDoor" />
+		</Doors>
+	</Room>
+</Game1>
