@@ -52,6 +52,8 @@ public class RoomDefinition
     }
 }
 
+// compass in 3,3 map is in 2, 2
+
 public static class RoomsRepository
 {
     private static Dictionary<(int, int), RoomDefinition> _rooms;
@@ -76,6 +78,7 @@ public static class RoomsRepository
                     string[][] tiles = null;
                     var doors = new Dictionary<string, string>();
                     var enemies = new List<EnemyDefinition>();
+                    var items = new List<ItemDefinition>();
 
                     using (XmlReader roomReader = reader.ReadSubtree())
                     {
@@ -133,15 +136,123 @@ public static class RoomsRepository
 
                                 enemies.Add(new EnemyDefinition(type, x, y));
                             }
+
+                            if (roomReader.NodeType == XmlNodeType.Element && roomReader.Name == "Items")
+                            {
+                                using (XmlReader itemReader = roomReader.ReadSubtree())
+                                {
+                                    while (itemReader.Read())
+                                    {
+                                        if (itemReader.NodeType == XmlNodeType.Element && itemReader.Name == "Item")
+                                        {
+                                            string typeStr = itemReader.GetAttribute("type");
+                                            int x = int.Parse(itemReader.GetAttribute("x"));
+                                            int y = int.Parse(itemReader.GetAttribute("y"));
+
+                                            if (Enum.TryParse(typeStr, out ItemType type))
+                                            {
+                                                items.Add(new ItemDefinition(type, x, y));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
 
-                    var roomDef = new RoomDefinition(row, col, tiles, doors, enemies);
+                    var roomDef = new RoomDefinition(row, col, tiles, doors, enemies, items);
                     _rooms[(row, col)] = roomDef;
                 }
             }
         }
     }
+
+    //static RoomsRepository()
+    //{
+    //    _rooms = new Dictionary<(int, int), RoomDefinition>();
+
+    //    string filePath = Path.Combine("Content", "RoomData.xml");
+
+    //    Debug.WriteLine(filePath);
+
+    //    using (XmlReader reader = XmlReader.Create(filePath))
+    //    {
+    //        while (reader.Read())
+    //        {
+    //            if (reader.NodeType == XmlNodeType.Element && reader.Name == "Room")
+    //            {
+    //                int row = int.Parse(reader.GetAttribute("row"));
+    //                int col = int.Parse(reader.GetAttribute("col"));
+
+    //                string[][] tiles = null;
+    //                var doors = new Dictionary<string, string>();
+    //                var enemies = new List<EnemyDefinition>();
+
+    //                using (XmlReader roomReader = reader.ReadSubtree())
+    //                {
+    //                    while (roomReader.Read())
+    //                    {
+    //                        // -------- TILES --------
+    //                        if (roomReader.NodeType == XmlNodeType.Element && roomReader.Name == "Tiles")
+    //                        {
+    //                            var tileRows = new List<string[]>();
+
+    //                            using (XmlReader tileReader = roomReader.ReadSubtree())
+    //                            {
+    //                                while (tileReader.Read())
+    //                                {
+    //                                    if (tileReader.NodeType == XmlNodeType.Element && tileReader.Name == "row")
+    //                                    {
+    //                                        string rowData = tileReader.ReadElementContentAsString();
+    //                                        string[] tilesSplit = rowData.Split(',');
+    //                                        tileRows.Add(tilesSplit);
+    //                                    }
+    //                                }
+    //                            }
+
+    //                            tiles = tileRows.ToArray();
+    //                        }
+
+    //                        // -------- DOORS --------
+    //                        if (roomReader.NodeType == XmlNodeType.Element && roomReader.Name == "Doors")
+    //                        {
+    //                            using (XmlReader doorReader = roomReader.ReadSubtree())
+    //                            {
+    //                                while (doorReader.Read())
+    //                                {
+    //                                    if (doorReader.NodeType == XmlNodeType.Element)
+    //                                    {
+    //                                        if (doorReader.Name == "Top" ||
+    //                                            doorReader.Name == "Right" ||
+    //                                            doorReader.Name == "Bottom" ||
+    //                                            doorReader.Name == "Left")
+    //                                        {
+    //                                            string type = doorReader.GetAttribute("type");
+    //                                            doors[doorReader.Name] = type;
+    //                                        }
+    //                                    }
+    //                                }
+    //                            }
+    //                        }
+
+    //                        // -------- ENEMIES --------
+    //                        if (roomReader.NodeType == XmlNodeType.Element && roomReader.Name == "Enemy")
+    //                        {
+    //                            string type = roomReader.GetAttribute("type");
+    //                            int x = int.Parse(roomReader.GetAttribute("x"));
+    //                            int y = int.Parse(roomReader.GetAttribute("y"));
+
+    //                            enemies.Add(new EnemyDefinition(type, x, y));
+    //                        }
+    //                    }
+    //                }
+
+    //                var roomDef = new RoomDefinition(row, col, tiles, doors, enemies);
+    //                _rooms[(row, col)] = roomDef;
+    //            }
+    //        }
+    //    }
+    //}
 
     public static RoomDefinition GetRoom(int row, int col)
     {
