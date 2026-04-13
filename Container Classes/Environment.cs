@@ -68,11 +68,16 @@ public class Environment
         };
         doorMap[direction] = sprite;
 
-        // Only actual door types should be unlockable, not walls
-        bool isLocked = type == "KeyLockedDoor" || type == "DiamondLockedDoor";
-        Vector2 pos = GetDoorPosition(direction);
+        // Only add actual doors to doorways list, not walls
+        // Walls should only be visual sprites, not collidable doorways
+        bool isActualDoor = type == "OpenDoor" || type == "KeyLockedDoor" || type == "DiamondLockedDoor" || type == "BombedWall";
 
-        doorways.Add(new Doorway(sprite, pos, direction, isLocked));
+        if (isActualDoor)
+        {
+            bool isLocked = type == "KeyLockedDoor" || type == "DiamondLockedDoor";
+            Vector2 pos = GetDoorPosition(direction);
+            doorways.Add(new Doorway(sprite, pos, direction, isLocked));
+        }
     }
 
     private Vector2 GetDoorPosition(int direction)
@@ -198,12 +203,12 @@ public class Environment
 
         int wallThickness = 64; // Use scaled wall thickness
 
-        // Top boundary - leave gap if top door is open
+        // Top boundary - leave gap if top door exists (open or locked)
         for (int x = floorLeft - wallThickness; x <= floorRight + wallThickness; x += scaledTileSize)
         {
             bool inTopDoorGap = false;
 
-            if (IsOpenDoor(0))
+            if (HasDoor(0))
             {
                 Vector2 topDoorPos = GetDoorPosition(0);
 
@@ -242,7 +247,17 @@ public class Environment
         // Left boundary - leave gap if left door exists (open or locked)
         for (int y = floorTop - wallThickness; y <= floorBottom + wallThickness; y += scaledTileSize)
         {
-            bool inLeftDoorGap = HasDoor(3) && y >= floorTop + 2 * scaledTileSize && y <= floorTop + 3 * scaledTileSize;
+            bool inLeftDoorGap = false;
+
+            if (HasDoor(3))
+            {
+                Vector2 leftDoorPos = GetDoorPosition(3);
+
+                int gapTop = (int)leftDoorPos.Y;
+                int gapBottom = gapTop + 2 * scaledTileSize;
+
+                inLeftDoorGap = y >= gapTop && y < gapBottom;
+            }
 
             if (!inLeftDoorGap)
             {
@@ -253,7 +268,17 @@ public class Environment
         // Right boundary - leave gap if right door exists (open or locked)
         for (int y = floorTop - wallThickness; y <= floorBottom + wallThickness; y += scaledTileSize)
         {
-            bool inRightDoorGap = HasDoor(1) && y >= floorTop + 2 * scaledTileSize && y <= floorTop + 3 * scaledTileSize;
+            bool inRightDoorGap = false;
+
+            if (HasDoor(1))
+            {
+                Vector2 rightDoorPos = GetDoorPosition(1);
+
+                int gapTop = (int)rightDoorPos.Y;
+                int gapBottom = gapTop + 2 * scaledTileSize;
+
+                inRightDoorGap = y >= gapTop && y < gapBottom;
+            }
 
             if (!inRightDoorGap)
             {
