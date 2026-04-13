@@ -14,7 +14,19 @@ public class Link : ICollidable
     {
         get
         {
-            return new Rectangle((int)position.X, (int)position.Y, Sprite.Width, Sprite.Height);
+            switch (playerState)
+            {
+                case UpAttackingPlayerState:
+                    return new Rectangle((int)position.X, (int)position.Y - 20, Sprite.Width, Sprite.Height);
+                case DownAttackingPlayerState:
+                    return new Rectangle((int)position.X, (int)position.Y, Sprite.Width, Sprite.Height + 20);
+                case LeftAttackingPlayerState:
+                    return new Rectangle((int)position.X - 20, (int)position.Y, Sprite.Width, Sprite.Height);
+                case RightAttackingPlayerState:
+                    return new Rectangle((int)position.X, (int)position.Y, Sprite.Width + 20, Sprite.Height);
+                default:
+                    return new Rectangle((int)position.X, (int)position.Y, Sprite.Width, Sprite.Height);
+            }
         }
     }
     public bool HitboxActive { get; set; } //not sure if this is necessary for Link, but it is for enemies and projectiles so I added it here for consistency and to implement ICollidable correctly

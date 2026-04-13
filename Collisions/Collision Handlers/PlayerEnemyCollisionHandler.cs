@@ -108,7 +108,7 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
     private void ApplyKnockback(Link player, Vector2 knockbackDirection)
     {
         // Knockback strength (adjust as needed for game feel)
-        float knockbackStrength = 16f;
+        float knockbackStrength = 32f;
 
         // Apply the knockback to player position
         player.position += knockbackDirection * knockbackStrength;
@@ -116,7 +116,7 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
 
     private void ApplyKnockback(IEnemy enemy, Vector2 knockbackDirection)
     {
-        float knockbackStrength = 16f;
+        float knockbackStrength = 32f;
         enemy.position += knockbackDirection * knockbackStrength;
     }
 }
