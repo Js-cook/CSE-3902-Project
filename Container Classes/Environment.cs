@@ -61,6 +61,16 @@ public class Environment
             type = "OpenDoor";
         }
 
+        // Track if this was originally a bombed wall (before it might be converted to open)
+        bool isBombedWall = type == "BombedWall";
+
+        // If bombed wall was unlocked (bombed), convert to open door
+        if (wasUnlocked && type == "BombedWall")
+        {
+            type = "OpenDoor";
+            isBombedWall = false; // No longer a bombed wall after being opened
+        }
+
         ISprite sprite = type switch
         {
             "BombedWall" => factory.CreateBombedWallSprite(direction),
@@ -77,9 +87,9 @@ public class Environment
 
         if (isActualDoor)
         {
-            bool isLocked = type == "KeyLockedDoor" || type == "DiamondLockedDoor";
+            bool isLocked = type == "KeyLockedDoor" || type == "DiamondLockedDoor" || type == "BombedWall";
             Vector2 pos = GetDoorPosition(direction);
-            doorways.Add(new Doorway(sprite, pos, direction, isLocked));
+            doorways.Add(new Doorway(sprite, pos, direction, isLocked, isBombedWall));
         }
     }
 

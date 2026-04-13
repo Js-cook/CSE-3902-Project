@@ -32,6 +32,33 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
         // Handles Locked Doors - checks if the door is locked and if the player has a key to unlock it
         if (doorway.IsLocked)
         {
+            // Handle bombed walls separately - they need bombs, not keys
+            if (doorway.IsBombedWall)
+            {
+                // Player can't unlock bombed walls with keys - push them back
+                switch (doorway.Direction)
+                {
+                    case 0: // Top door - push player down
+                        player.position = new Vector2(player.position.X, player.position.Y + intersection.Height);
+                        break;
+                    case 1: // Right door - push player left
+                        player.position = new Vector2(player.position.X - intersection.Width, player.position.Y);
+                        break;
+                    case 2: // Bottom door - push player up
+                        player.position = new Vector2(player.position.X, player.position.Y - intersection.Height);
+                        break;
+                    case 3: // Left door - push player right
+                        player.position = new Vector2(player.position.X + intersection.Width, player.position.Y);
+                        break;
+                }
+
+                // Show message that they need a bomb
+                player.ShowMessage("Use a bomb to open this!");
+
+                return;
+            }
+
+            // Regular key-locked doors
             if (player.playerInventory.keys > 0)
             {
                 // Player has a key - unlock the door
