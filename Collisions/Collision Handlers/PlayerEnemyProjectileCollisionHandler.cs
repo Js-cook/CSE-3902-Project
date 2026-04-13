@@ -6,31 +6,33 @@ public class PlayerEnemyProjectileCollisionHandler : ICollisionHandler
 {
     public void HandleCollision(ICollidable obj1, ICollidable obj2, Rectangle intersection)
     {
+
         Link player = obj1 as Link ?? obj2 as Link;
         IProjectile projectile = obj1 as IProjectile ?? obj2 as IProjectile;
 
         if (player == null || projectile == null)
             return;
 
-        // Don't process collision if player is already hurt
+        // Don't process collision if player is already hurt or if projectile is inactive
         if (player.Hurt)
             return;
-
-        // Don't process collision if projectile is already inactive
         if (!projectile.Active)
             return;
 
-        // Determine knockback direction based on projectile position relative to player
         Vector2 knockbackDirection = GetKnockbackDirection(player, projectile, intersection);
-
-        // Apply knockback to player
         ApplyKnockback(player, knockbackDirection);
 
-        // Damage the player
-        player.TakeDamage(projectile.DamageValue);
 
-        // Destroy the projectile (it hit the player)
-        projectile.Active = false;
+        // If projectile is goriya boomerang, it should stun player
+        if (projectile is not GoriyaBoomerang)
+        {
+            player.TakeDamage(projectile.DamageValue);
+        }
+        else
+        {
+            player.StunPlayer();
+        }
+        projectile.Active = false; // Deactivate projectile after collision
     }
 
     private Vector2 GetKnockbackDirection(Link player, IProjectile projectile, Rectangle intersection)

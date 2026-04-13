@@ -22,8 +22,11 @@ public class RightUsingPlayerState : AbstractUsingPlayer
         this.spriteFactory = spriteFactory;
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
+
+        this.player.currDirection = Direction.RIGHT;
+
     }
-    
+
     public override void BeDamaged()
     {
         player.Hurt = true;

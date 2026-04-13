@@ -1,6 +1,7 @@
 ﻿using Interfaces;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Enums;
 
 namespace Sprites
 {
@@ -88,6 +89,11 @@ namespace Sprites
 
             return new WinPlayerSprite(playerTexture, position, spriteBatch);
 
+        }
+
+        public IPlayerSprite CreateStunnedPlayerSprite(Vector2 position, IPlayerSprite decoratedSprite)
+        {
+            return new StunnedPlayerSprite(playerTexture, position, spriteBatch, decoratedSprite);
         }
     }
 }

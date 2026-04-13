@@ -21,7 +21,7 @@ namespace Sprites
             this.spriteBatch = spriteBatch;
         }
 
-        public void SpriteDraw(Vector2 position)
+        public void SpriteDraw(Vector2 position, Color color)
         {
             //throw new NotImplementedException();
             if (Hurt)
@@ -30,7 +30,7 @@ namespace Sprites
             }
             else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, new Vector2(0, 0), scale, SpriteEffects.FlipHorizontally, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, color, 0.0f, new Vector2(0, 0), scale, SpriteEffects.FlipHorizontally, 0.0f);
             }
         }
         public void Update(GameTime gameTime)

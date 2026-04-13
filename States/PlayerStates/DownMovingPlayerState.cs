@@ -19,6 +19,8 @@ public class DownMovingPlayerState : AbstractMovingPlayer
         this.spriteFactory = spriteFactory;
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
+
+        this.player.currDirection = Direction.DOWN;
     }
 
     public override void ChangeDirection(Direction Direction)

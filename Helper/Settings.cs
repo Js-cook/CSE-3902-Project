@@ -22,6 +22,8 @@ using System.Threading.Tasks;
 
     public float StartingPlayerHealth = 3f;
 
+    public float PlayerStunnedTime = 1.5f;
+
     public float FairyFlySpeed = 10f;
 
     public int HEALTH_PER_HEART = 2;

@@ -53,7 +53,7 @@ namespace Sprites
                 attackTimer = 0.0;
             }
         }
-        public void SpriteDraw(Vector2 position)
+        public void SpriteDraw(Vector2 position, Color color)
         {
             if (Hurt)
             {
@@ -61,7 +61,7 @@ namespace Sprites
             }
             else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(texture, position, currentFrame, color, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.0f);
             }
         }
     }

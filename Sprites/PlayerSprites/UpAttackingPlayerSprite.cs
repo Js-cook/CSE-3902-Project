@@ -56,7 +56,7 @@ namespace Sprites
                 attackTimer = 0.0;
             }
         }
-        public void SpriteDraw(Vector2 position)
+        public void SpriteDraw(Vector2 position, Color color)
         {
             Vector2 origin = new Vector2(0, 0);
 
@@ -77,7 +77,7 @@ namespace Sprites
                 spriteBatch.Draw(texture, position, currentFrame, Color.Red, 0.0f, origin,scale, SpriteEffects.None, 0.0f);
             } else
             {
-                spriteBatch.Draw(texture, position, currentFrame, Color.White, 0.0f, origin, scale, SpriteEffects.None, 0.0f); // put origin on same x but lower the y
+                spriteBatch.Draw(texture, position, currentFrame, color, 0.0f, origin, scale, SpriteEffects.None, 0.0f); // put origin on same x but lower the y
             }
         }
     }

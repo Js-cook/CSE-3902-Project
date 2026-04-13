@@ -21,6 +21,9 @@ public class UpMovingPlayerState : AbstractMovingPlayer
         this.spriteFactory = spriteFactory;
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
+
+        this.player.currDirection = Direction.UP;
+
     }
     public override void ChangeDirection(Direction Direction)
     {

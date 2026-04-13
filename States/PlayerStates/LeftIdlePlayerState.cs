@@ -20,6 +20,9 @@ public class LeftIdlePlayerState : AbstractIdlePlayer
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
         audioController = new AudioController();
+
+        this.player.currDirection = Direction.LEFT;
+
     }
 
     public override void ChangeDirection(Direction Direction)
