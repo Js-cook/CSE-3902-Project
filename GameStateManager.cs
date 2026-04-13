@@ -77,7 +77,8 @@ namespace _3902_Project
        public void ToDeathScreen()
        {
             SetCurrentState("DeathScreen");
-       }
+            currentState.ResetState();
+        }
 
        public void StartStateToPlayState()
        {
