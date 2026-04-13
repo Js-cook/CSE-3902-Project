@@ -69,7 +69,7 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
         } else
         {
             // weird edge case just give it to the player
-            res = true;
+            //res = true;
         }
 
         return res;
