@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using System;
 
 public class PlayerEnemyCollisionHandler : ICollisionHandler
 {
@@ -9,6 +10,13 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
 
         if (player == null || enemy == null)
             return;
+
+        if(DetermineSuccessfulPlayerAttack(player, enemy, intersection))
+        {
+            ApplyKnockback(enemy, -1 * GetKnockbackDirection(player, enemy, intersection));
+            enemy.TakeDamage(1); 
+            return; 
+        }
 
         // Don't process collision if player is already hurt
         if (player.Hurt)
@@ -26,6 +34,45 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
 
         // Damage the player
         player.TakeDamage(1); // Each collision with any enemy causes 1 damage, adjust as needed
+    }
+
+    private bool DetermineSuccessfulPlayerAttack(Link player, IEnemy enemy, Rectangle intersection)
+    {
+        bool res = false;
+        Vector2 playerCenter = new Vector2(player.Hitbox.Center.X, player.Hitbox.Center.Y);
+        Vector2 enemyCenter = new Vector2(enemy.Hitbox.Center.X, enemy.Hitbox.Center.Y);
+
+        Vector2 direction = playerCenter - enemyCenter;
+
+        if(Math.Abs(direction.X) < Math.Abs(direction.Y))
+        {
+            // vertical collision
+            if(direction.Y < 0)
+            {
+                // player is above enemy
+                res = player.playerState is DownAttackingPlayerState;
+            } else
+            {
+                res = player.playerState is UpAttackingPlayerState;
+            }
+        } else if(Math.Abs(direction.X) > Math.Abs(direction.Y))
+        {
+            // horizontal collision
+            if(direction.X < 0)
+            {
+                // player is left of enemy
+                res = player.playerState is RightAttackingPlayerState;
+            } else
+            {
+                res = player.playerState is LeftAttackingPlayerState;
+            }
+        } else
+        {
+            // weird edge case just give it to the player
+            res = true;
+        }
+
+        return res;
     }
 
     private Vector2 GetKnockbackDirection(Link player, IEnemy enemy, Rectangle intersection)
@@ -65,5 +112,11 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
 
         // Apply the knockback to player position
         player.position += knockbackDirection * knockbackStrength;
+    }
+
+    private void ApplyKnockback(IEnemy enemy, Vector2 knockbackDirection)
+    {
+        float knockbackStrength = 16f;
+        enemy.position += knockbackDirection * knockbackStrength;
     }
 }
