@@ -124,6 +124,7 @@ public class DeathScreenState : IGameState
     {
        Signal = GameStateSignal.NONE;
        deathScreenTimer = deathScreenTimerMax;
+       fadeAlpha = 0f;
     }
        
 }
