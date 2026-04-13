@@ -238,7 +238,9 @@ public class Environment
 
             if (!inTopDoorGap)
             {
-                collidableTiles.Add(new Tile(null, new Vector2(x, floorTop - wallThickness), true));
+                Tile boundaryTile = new Tile(null, new Vector2(x, floorTop - wallThickness), true);
+                boundaryTile.BlocksProjectiles = true;
+                collidableTiles.Add(boundaryTile);
             }
         }
 
@@ -259,7 +261,9 @@ public class Environment
 
             if (!inBottomDoorGap)
             {
-                collidableTiles.Add(new Tile(null, new Vector2(x, floorBottom), true));
+                Tile boundaryTile = new Tile(null, new Vector2(x, floorBottom), true);
+                boundaryTile.BlocksProjectiles = true;
+                collidableTiles.Add(boundaryTile);
             }
         }
         // Left boundary - leave gap if left door exists (open or locked)
@@ -279,7 +283,9 @@ public class Environment
 
             if (!inLeftDoorGap)
             {
-                collidableTiles.Add(new Tile(null, new Vector2(floorLeft - wallThickness, y), true));
+                Tile boundaryTile = new Tile(null, new Vector2(floorLeft - wallThickness, y), true);
+                boundaryTile.BlocksProjectiles = true;
+                collidableTiles.Add(boundaryTile);
             }
         }
 
@@ -300,7 +306,9 @@ public class Environment
 
             if (!inRightDoorGap)
             {
-                collidableTiles.Add(new Tile(null, new Vector2(floorRight, y), true));
+                Tile boundaryTile = new Tile(null, new Vector2(floorRight, y), true);
+                boundaryTile.BlocksProjectiles = true;
+                collidableTiles.Add(boundaryTile);
             }
         }
         foreach (SpikeTile spike in spikeTiles)
