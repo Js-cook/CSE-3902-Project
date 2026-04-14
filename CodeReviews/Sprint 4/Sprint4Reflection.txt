@@ -1,3 +1,11 @@
 ﻿Sprint 4 Reflection
 
-This sprint went decently well overall. We got a lot of functionality done compared to earlier sprints which had considerably less to do. The team also demonstrated great strength in handling larger issues and bugs with significantly improved communication and collaboration being utilized to resolve issues far more efficiently and effectively. Additionally, we also managed to do a large refactor of both Game1 and the KeyboardController, both of which were very tightly coupled and complex. Additionally, these changes also allowed us to implement various gamestates quite easily. With all that being said, procrastination was a huge problem. A lot of the work got pushed off until the very last minute which made the end of the sprint far more stressful than it should have been and limited further refactoring efforts. I think this sprint showed what the team is capable of when we collaborate to the fullest extent, but also what happens when time isn't managed properly.
+This sprint went decently well overall. We got a lot of functionality done compared to earlier sprints which had considerably less to do. 
+The team also demonstrated great strength in handling larger issues and bugs with significantly improved communication and collaboration 
+being utilized to resolve issues far more efficiently and effectively. Additionally, we also managed to do a large refactor of both Game1 
+and the KeyboardController, both of which were very tightly coupled and complex. Additionally, these changes also allowed us to implement 
+various gamestates quite easily. With all that being said, procrastination was a huge problem. A lot of the work got pushed off until the 
+very last minute which made the end of the sprint far more stressful than it should have been and limited further refactoring efforts. I 
+think this sprint showed what the team is capable of when we collaborate to the fullest extent, but also what happens when time isn't 
+managed properly. This sprint showed the potential of each individual in the team as well since we were pushed into things that we hadn't done before, and read
+a lot of code that we hadn't written ourselves which was a skillset not being used in earlier sprints. 
