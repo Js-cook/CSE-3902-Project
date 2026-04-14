@@ -255,6 +255,9 @@
 			<Bottom type="OpenDoor" />
 			<Left type="OpenDoor" />
 		</Doors>
+		<Enemies>
+			<Enemy type="WallmasterManager" count="4" />
+		</Enemies>
 	</Room>
 	<Room row="2" col="3">
 		<Tiles>

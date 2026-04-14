@@ -18,6 +18,9 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
             return; 
         }
 
+
+
+
         // Don't process collision if player is already hurt
         if (player.Hurt)
             return;
@@ -25,6 +28,19 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
         // Don't process collision if enemy is dead
         if (enemy.isDead)
             return;
+
+        if (enemy is WallmasterManager)
+            return;
+
+        // 3. SPECIAL CASE: Wallmaster Grab
+        if (enemy is Wallmaster wallmaster)
+        {
+            // Call a new helper method on the Wallmaster to handle the state changes
+            wallmaster.GrabPlayer(player);
+
+            // Return immediately! We do NOT want standard knockback or standard damage.
+            return;
+        }
 
         // Determine knockback direction based on collision side
         Vector2 knockbackDirection = GetKnockbackDirection(player, enemy, intersection);

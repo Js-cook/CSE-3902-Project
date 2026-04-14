@@ -21,7 +21,9 @@ public class EnemyLoader
             { "Aquamentus", enemyFactory.CreateAquamentus },
             { "Skeleton", enemyFactory.CreateSkeleton },
             { "Bat", enemyFactory.CreateBat },
-            { "OldMan", enemyFactory.CreateOldMan }
+            { "OldMan", enemyFactory.CreateOldMan },
+            { "WallmasterManager", enemyFactory.CreateWallmaster}
+
 
         };
     }
@@ -44,6 +46,20 @@ public class EnemyLoader
 
         foreach (var enemyDef in enemies)
         {
+
+            if (enemyDef.Type == "WallmasterManager")
+            {
+                // 1. Instantiate the Container
+                WallmasterManager manager = new WallmasterManager(_roomBounds);
+
+                // 2. Initialize the pool using the Count from the XML
+                manager.InitializeHands(enemyDef.Count, _spriteFactory);
+
+                // 3. Add manager to your room's update loop 
+                // (Assuming your manager implements IEnemy or an IUpdateable interface)
+                _activeEnemies.Add(manager);
+            }
+
             float x = gridOffset.X + (enemyDef.X * tileSize);
             float y = gridOffset.Y + (enemyDef.Y * tileSize);
 
