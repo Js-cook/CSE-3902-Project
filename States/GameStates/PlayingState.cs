@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Sprites;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -52,10 +53,13 @@ public class PlayingState : IGameState
 
     private CollisionManager collisionManager;
 
+    private RoomTransitionManager transitionManager;
+    private Vector2 pendingPlayerPosition;
+
     public SpriteBatch _spriteBatch;
 
     private Dictionary<string, SoundEffect> sfx;
-    
+
     private GraphicsDeviceManager _graphics;
 
     private int projectileInputLimiter = 0;
@@ -117,6 +121,8 @@ public class PlayingState : IGameState
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
+        transitionManager = new RoomTransitionManager(_spriteBatch.GraphicsDevice, _spriteBatch);
+
         // Diamond door manager - handles opening diamond doors based on triggers
         diamondDoorManager = new DiamondDoorManager(environment, tileFactory, roomManager);
 
@@ -130,7 +136,7 @@ public class PlayingState : IGameState
         // Add additional collision handlers here as needed
         collisionManager = new CollisionManager();
 
-        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory,itemController, sfx, enemyController);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController, TriggerRoomTransition);
     }
 
     private void SubscribeToBlockPushedEvents()
@@ -144,6 +150,12 @@ public class PlayingState : IGameState
 
     public void ResolveKey(KeyboardState keyState)
     {
+        if (transitionManager != null && transitionManager.IsTransitioning)
+        {
+            previousKeyboardState = keyState;
+            return;
+        }
+
         bool movementKeyActive = false;
         if (itemSwitchLimiter > 0)
         {
@@ -290,11 +302,23 @@ public class PlayingState : IGameState
 
     public void Update(GameTime gameTime)
     {
+        if (transitionManager != null && transitionManager.IsTransitioning)
+        {
+            transitionManager.Update(gameTime);
+            if (!transitionManager.IsTransitioning)
+            {
+                player.position = pendingPlayerPosition;
+                player.playerInventory.currentRoom = new Vector2(roomManager.CurrentRow, roomManager.CurrentCol);
+            }
+            hud.Update(gameTime);
+            return;
+        }
+
         // then update all entities based on that input
 
         // Only update player logic if no state transition signal is set otherwise,
         // it'll update with a null player sprite in case player is dead
-        if (Signal == GameStateSignal.NONE) 
+        if (Signal == GameStateSignal.NONE)
             player.Update(gameTime);
 
         environment.Update(gameTime);
@@ -313,7 +337,7 @@ public class PlayingState : IGameState
             ];
 
         collisionManager.Update(gameTime, collidables);
-        CheckForWinCondition(); 
+        CheckForWinCondition();
 
         if (player.health <= 0 && !playerDead)
         {
@@ -328,6 +352,38 @@ public class PlayingState : IGameState
         hud.Update(gameTime);
     }
 
+    public void TriggerRoomTransition(int direction)
+    {
+        if (transitionManager == null || transitionManager.IsTransitioning) return;
+
+        pendingPlayerPosition = direction switch
+        {
+            0 => new Vector2(player.position.X, 700),
+            1 => new Vector2(180, player.position.Y),
+            2 => new Vector2(player.position.X, 320),
+            3 => new Vector2(820, player.position.Y),
+            _ => player.position
+        };
+
+        transitionManager.StartTransition(direction, DrawRoomContent, () =>
+        {
+            switch (direction)
+            {
+                case 0: roomManager.MoveUp(); break;
+                case 1: roomManager.MoveRight(); break;
+                case 2: roomManager.MoveDown(); break;
+                case 3: roomManager.MoveLeft(); break;
+            }
+        });
+    }
+
+    private void DrawRoomContent()
+    {
+        environment.Draw();
+        enemyController.Draw();
+        itemController.Draw();
+    }
+
     private void CheckForWinCondition()
     {
         if (player.playerState is WinPlayerState)
@@ -339,10 +395,17 @@ public class PlayingState : IGameState
             Signal = GameStateSignal.TO_WINSCREEN;
         }
 
-        
+
     }
     public void Draw()
     {
+        if (transitionManager != null && transitionManager.IsTransitioning)
+        {
+            transitionManager.Draw();
+            hud.Draw();
+            return;
+        }
+
         environment.Draw();
         hud.Draw();
 
@@ -374,7 +437,7 @@ public class PlayingState : IGameState
     public void ResetState()
     {
         Signal = GameStateSignal.NONE;
-        
+
 
         enemyController.enemyArray.Clear();
         projectileController.projectiles.Clear();
@@ -386,11 +449,6 @@ public class PlayingState : IGameState
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
-        // Reinitialize diamond door manager and resubscribe to events
-        diamondDoorManager = new DiamondDoorManager(environment, tileFactory, roomManager);
-        enemyController.AllEnemiesKilled += diamondDoorManager.OnAllEnemiesKilled;
-        enemyController.BossDeath += diamondDoorManager.OnBossDeath;
-        SubscribeToBlockPushedEvents();
 
         playerDead = false;
         player.HitboxActive = true;
@@ -403,9 +461,9 @@ public class PlayingState : IGameState
 
 
         collisionManager = new CollisionManager();
-        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory,itemController, sfx, enemyController);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController, TriggerRoomTransition);
 
-       
+
         projectileInputLimiter = 0;
         roomSwitchLimiter = 0;
         itemSwitchLimiter = 0;

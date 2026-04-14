@@ -1,0 +1,9 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 4/13/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: Rooms.cs
+Author of the .cs file being reviewed: Adeel Khatri
+Number of minutes taken to complete the review: 50 minutes
+
+Specific comments on code quality:
+A major positive for maintainability is how clearly the data structures are defined. Classes like EnemyDefinition, ItemDefinition, and RoomDefinition are simple and easy to understand, making the file much more approachable. Each class has a well-defined purpose and uses straightforward properties, which makes modifying the code far simpler. The use of collections like List<> and Dictionary<> makes the structure of a room (tiles, doors, enemies, items) very intuitive and extensible. Additionally, the decision to centralize all room data inside RoomsRepository is a strong organizational choice—it keeps room-related logic in one place and prevents it from being scattered across the codebase. However, the large number of CreateRoomX_Y methods introduces a lot of duplication, especially with nearly identical tile arrays and door dictionaries. This makes it difficult to add additional rooms or change the structure of the dungeon (i.e. randomized layouts). There's also a minor issue of multiple classes being defined in one file which can be confusing when trying to modify one. 

@@ -7,11 +7,11 @@ using Microsoft.Xna.Framework.Audio;
 
 public static class CollisionRegistry
 {
-    public static void Initialize(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory,ItemController itemController, Dictionary<string, SoundEffect> sfx = null, EnemyController enemyController = null)
+    public static void Initialize(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory, Dictionary<string, SoundEffect> sfx = null, EnemyController enemyController = null, Action<int> onRoomTransition = null)
     {
         RegisterEnemyPlayerProjectileCollisions(collisionManager);
         RegisterEnemyWallAndDoorwayCollisions(collisionManager);
-        RegisterPlayerCollisions(collisionManager, roomManager, tileFactory,itemController, sfx);
+        RegisterPlayerCollisions(collisionManager, roomManager, tileFactory, sfx, onRoomTransition);
         RegisterPlayerItemCollisions(collisionManager, enemyController);
         RegisterProjectileWallCollisions(collisionManager);
         RegisterFairyWallCollision(collisionManager);
@@ -64,15 +64,15 @@ public static class CollisionRegistry
 
     }
 
-    private static void RegisterPlayerCollisions(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory,ItemController itemController, Dictionary<string, SoundEffect> sfx)
+    private static void RegisterPlayerCollisions(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory, Dictionary<string, SoundEffect> sfx, Action<int> onRoomTransition)
     {
         // Create shared handler instances
         PlayerEnemyCollisionHandler playerEnemyHandler = new PlayerEnemyCollisionHandler();
         PlayerEnemyProjectileCollisionHandler playerProjectileHandler = new PlayerEnemyProjectileCollisionHandler();
         PlayerWallCollisionHandler playerWallHandler = new PlayerWallCollisionHandler();
         PlayerSpikeCollisionHandler playerSpikeHandler = new PlayerSpikeCollisionHandler();
-        PlayerTreasureChestCollisionHandler playerChestHandler = new PlayerTreasureChestCollisionHandler(itemController);
-        PlayerDoorwayCollisionHandler playerDoorwayHandler = new PlayerDoorwayCollisionHandler(roomManager, tileFactory, sfx);
+        PlayerTreasureChestCollisionHandler playerChestHandler = new PlayerTreasureChestCollisionHandler();
+        PlayerDoorwayCollisionHandler playerDoorwayHandler = new PlayerDoorwayCollisionHandler(roomManager, tileFactory, sfx, onRoomTransition);
         PlayerPushableBlockCollisionHandler playerPushableBlockHandler = new PlayerPushableBlockCollisionHandler();
         // Register Player vs Enemy collisions for all enemy types
         collisionManager.RegisterHandler(typeof(Link), typeof(Bat), playerEnemyHandler);
