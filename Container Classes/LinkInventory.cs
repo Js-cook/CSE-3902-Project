@@ -47,7 +47,7 @@ public class LinkInventory
 
     public void ResetInventory()
     {
-        keys = 1;
+        keys = 0;
         maxHearts = 3; // maxHearts here refers to the number of whole hearts
         currentHearts = maxHearts * 2; // currentHearts refers to the number of heart halves
         rupees = 0;

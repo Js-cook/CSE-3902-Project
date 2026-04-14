@@ -1,0 +1,9 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 4/13/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: DiamondDoorManager.cs
+Author of the .cs file being reviewed: Daniel Koba
+Number of minutes taken to complete the review: 50 minutes
+
+Specific comments on code quality:
+Overall this class is pretty clean and easy to follow. The intent is clear right away, and the public methods (OnAllEnemiesKilled, OnBossDeath, OnBlockPushed) map directly to the different methods, which makes the code straightforward to use from anywhere. The helper methods also keep things from getting too cluttered, which is nice for long-term maintainability and extensibility. If I were to offer critiques, the class is tightly coupled to Environment, TileFactory, and RoomManager which makes it difficult to refactor and change those methods without also breaking this one (getter methods might be nice instead of just field references). Overall the class does well to make itself extensible and simple but there are still some coupling issues that would be nice to iron out.
