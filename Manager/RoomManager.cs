@@ -124,6 +124,7 @@ public class RoomManager
 
         // 2. Check Link's State
         player.playerState = new RightIdlePlayerState(player, player.playerSpriteFactory, player.projectileController, player.soundEffect);
+        player.HitboxActive = true;
         player.position = new Vector2(400 * 2, 250 * 2);
         System.Diagnostics.Debug.WriteLine($"Player teleported to: {player.position.X}, {player.position.Y}");
     }

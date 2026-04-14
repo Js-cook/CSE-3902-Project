@@ -19,6 +19,7 @@ public class GrabbedPlayerState : AbstractGrabbedPlayerState
     public GrabbedPlayerState(Link player, Wallmaster wallmaster)
     {
         this.player = player;
+        player.HitboxActive = false; // Disable player's hitbox while grabbed
         captor = wallmaster;
     }
     public override void Update(GameTime gameTime)

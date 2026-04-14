@@ -104,7 +104,7 @@ public class WallmasterManager : IEnemy
                 {
 
 
-                    WallDirection chosenWall = DetermineSpawnWall(distNorth, distSouth, distEast, distWest, minDistance);
+                    WallDirection chosenWall = DetermineSpawnWall(roomBounds, player.position);
                     Vector2 spawnPosition = CalculateSpawnPosition(chosenWall, player.position);
 
                     // Grab a hand from the pool, spawn it, and move it to the active list
@@ -144,13 +144,36 @@ public class WallmasterManager : IEnemy
     public void DropHearts(int numHearts) { }
 
     // --- Helper Methods ---
-    private WallDirection DetermineSpawnWall(float north, float south, float east, float west, float min)
+    private WallDirection DetermineSpawnWall(Rectangle bounds, Vector2 playerPos)
     {
-       
-        if (Math.Abs(min - north) < 0.1f) return WallDirection.North;
-        if (Math.Abs(min - south) < 0.1f) return WallDirection.South;
-        if (Math.Abs(min - east) < 0.1f) return WallDirection.East;
-        return WallDirection.West;
+        // 1. Calculate the actual gaps (Must be positive)
+        float distNorth = playerPos.Y - bounds.Top;
+        float distSouth = bounds.Bottom - playerPos.Y; // IMPORTANT: Bottom - Y
+        float distWest = playerPos.X - bounds.Left;
+        float distEast = bounds.Right - playerPos.X;   // IMPORTANT: Right - X
+
+        // 2. Start by assuming North is the closest
+        float min = distNorth;
+        WallDirection bestWall = WallDirection.North;
+
+        // 3. Compare the others one by one
+        if (distSouth < min)
+        {
+            min = distSouth;
+            bestWall = WallDirection.South;
+        }
+        if (distEast < min)
+        {
+            min = distEast;
+            bestWall = WallDirection.East;
+        }
+        if (distWest < min)
+        {
+            min = distWest;
+            bestWall = WallDirection.West;
+        }
+
+        return bestWall;
     }
 
     private Vector2 CalculateSpawnPosition(WallDirection wall, Vector2 playerPos)
