@@ -28,6 +28,12 @@ public class PlayerItemCollisionHandler : ICollisionHandler
             case ItemType.HeartContainer:
                 player.OnHeartContainerPickup();
                 break;
+            case ItemType.Map:
+                player.playerInventory.hasMap = true;
+                break;
+            case ItemType.Compass:
+                player.playerInventory.hasCompass = true;
+                break;
             case ItemType.Fairy:
                 player.OnFairyPickup();
                 break;

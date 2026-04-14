@@ -15,7 +15,7 @@ public static class CollisionRegistry
         RegisterPlayerItemCollisions(collisionManager);
         RegisterProjectileWallCollisions(collisionManager);
         RegisterFairyWallCollision(collisionManager);
-
+        RegisterBombBombedWallCollisions(collisionManager, roomManager, tileFactory, sfx);
 
     }
 
@@ -110,7 +110,13 @@ public static class CollisionRegistry
 
     }
 
+    private static void RegisterBombBombedWallCollisions(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory, Dictionary<string, SoundEffect> sfx)
+    {
+        BombBombedWallCollisionHandler bombWallHandler = new BombBombedWallCollisionHandler(roomManager, tileFactory, sfx);
+        collisionManager.RegisterHandler(typeof(Bomb), typeof(Doorway), bombWallHandler);
+    }
 
-   
+
+
 
 }
