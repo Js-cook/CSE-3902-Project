@@ -122,7 +122,7 @@ public class PlayingState : IGameState
         // Add additional collision handlers here as needed
         collisionManager = new CollisionManager();
 
-        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController);
     }
 
     public void ResolveKey(KeyboardState keyState)
@@ -246,6 +246,10 @@ public class PlayingState : IGameState
         if (keyState.IsKeyDown(Keys.K) && previousKeyboardState.IsKeyUp(Keys.K))
         {
             itemController.SpawnItem(ItemType.Key, player.position + new Vector2(50, 0));
+        }
+        if (keyState.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
+        {
+            itemController.SpawnItem(ItemType.Clock, player.position + new Vector2(50, 0));
         }
 
         if (keyState.IsKeyDown(Keys.Escape))
@@ -375,9 +379,9 @@ public class PlayingState : IGameState
         player.projectiles.Clear();
         playerInventory.ResetInventory();
 
-       
+
         collisionManager = new CollisionManager();
-        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController);
 
        
         projectileInputLimiter = 0;

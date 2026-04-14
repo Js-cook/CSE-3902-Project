@@ -73,7 +73,8 @@ public class Environment
 
         ISprite sprite = type switch
         {
-            "BombedWall" => factory.CreateBombedWallSprite(direction),
+            // Use WallSprite for unopened bombed walls so they look like normal walls
+            "BombedWall" => factory.CreateWallSprite(direction),
             "DiamondLockedDoor" => factory.CreateDiamondLockedDoorSprite(direction),
             "KeyLockedDoor" => factory.CreateKeyLockedDoorSprite(direction),
             "OpenDoor" => factory.CreateOpenDoorSprite(direction),

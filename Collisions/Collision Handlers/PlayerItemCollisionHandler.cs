@@ -4,6 +4,13 @@ using Microsoft.Xna.Framework;
 
 public class PlayerItemCollisionHandler : ICollisionHandler
 {
+    private EnemyController enemyController;
+
+    public PlayerItemCollisionHandler(EnemyController enemyController = null)
+    {
+        this.enemyController = enemyController;
+    }
+
     public void HandleCollision(ICollidable playerCollidable, ICollidable itemCollidable, Rectangle intersection)
     {
         if (playerCollidable is not Link player || itemCollidable is not PickupItem pickup || !pickup.HitboxActive)
@@ -39,6 +46,13 @@ public class PlayerItemCollisionHandler : ICollisionHandler
                 break;
             case ItemType.Fairy:
                 player.OnFairyPickup();
+                break;
+            case ItemType.Clock:
+                // Freeze all enemies for 5 seconds (5000 milliseconds)
+                if (enemyController != null)
+                {
+                    enemyController.FreezeEnemies(5000f);
+                }
                 break;
             case ItemType.TriForcePiece:
                 player.playerInventory.hasTriForcePiece = true;
