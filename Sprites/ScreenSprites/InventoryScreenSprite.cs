@@ -45,7 +45,7 @@ public class InventoryScreenSprite : ISprite
         itemText.TextColor = Color.White;
 
         //secondaryItem = determineItemSprite(playerInventory.secondaryItem, new Vector2(550, 715));\
-        hudMapCover = spriteFactory.CreateHUDSquareSprite(new Rectangle(63, 645 + 32, 275, 195), Color.Blue);
+        hudMapCover = spriteFactory.CreateHUDSquareSprite(new Rectangle(63, 645 + 32, 275, 195), Color.Black);
 
         mapIndicators = new()
         {
