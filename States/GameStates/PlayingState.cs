@@ -130,7 +130,7 @@ public class PlayingState : IGameState
         // Add additional collision handlers here as needed
         collisionManager = new CollisionManager();
 
-        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory,itemController, sfx, enemyController);
     }
 
     private void SubscribeToBlockPushedEvents()
@@ -403,7 +403,7 @@ public class PlayingState : IGameState
 
 
         collisionManager = new CollisionManager();
-        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory,itemController, sfx, enemyController);
 
        
         projectileInputLimiter = 0;
