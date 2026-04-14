@@ -50,6 +50,7 @@ Metrics calculated using the "Code Metrics" tool
 | 3/29 | 83                    | 2165                  | 2                    | 277            | 10853                | 2720                     |
 | 4/6  | 82                    | 2381                  | 2                    | 292            | 12035                | 2993                     |
 | 4/10 | 82                    | 2542                  | 2                    | 296            | 13137                | 3244                     |
+| 4/13 | 81                    | 3041	               | 2                    | 326            | 15918                | 4062                     |
 
 ### Areas for refactoring (methods and classes with the worst maintainability index)
 | Maintainability Index | Class | Method |
