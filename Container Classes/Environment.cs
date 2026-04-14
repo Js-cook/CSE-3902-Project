@@ -6,6 +6,7 @@ using Sprites;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Enums;
 
 public class Environment
 {
@@ -52,29 +53,50 @@ public class Environment
 
     public void AssignDoor(int direction, string type, RoomManager roomManager, int row, int col)
     {
+        // Parse door type and trigger (format: "DiamondLockedDoor:AllEnemies" or just "KeyLockedDoor")
+        string[] parts = type.Split(':');
+        string doorType = parts[0];
+        DoorTriggerType triggerType = DoorTriggerType.None;
+
+        // Parse trigger type if specified
+        if (parts.Length > 1)
+        {
+            triggerType = parts[1] switch
+            {
+                "AllEnemies" => DoorTriggerType.AllEnemies,
+                "BlockPushed" => DoorTriggerType.BlockPushed,
+                "Boss" => DoorTriggerType.Boss,
+                _ => DoorTriggerType.None
+            };
+        }
+
         // Check if this door was previously unlocked
         bool wasUnlocked = roomManager != null && roomManager.IsDoorUnlocked(row, col, direction);
 
         // If the door was unlocked, treat it as an open door
-        if (wasUnlocked && (type == "KeyLockedDoor" || type == "DiamondLockedDoor"))
+        if (wasUnlocked && (doorType == "KeyLockedDoor" || doorType == "DiamondLockedDoor"))
         {
-            type = "OpenDoor";
+            doorType = "OpenDoor";
         }
 
         // Track if this was originally a bombed wall (before it might be converted to open)
-        bool isBombedWall = type == "BombedWall";
+        bool isBombedWall = doorType == "BombedWall";
 
-        // If bombed wall was unlocked (bombed), convert to open door
-        if (wasUnlocked && type == "BombedWall")
+        // If bombed wall was unlocked (bombed), keep it as BombedWall type but mark as unlocked
+        // This preserves the cracked sprite appearance instead of converting to clean open door
+        bool wasBombedWall = false;
+        if (wasUnlocked && doorType == "BombedWall")
         {
-            type = "OpenDoor";
-            isBombedWall = false; // No longer a bombed wall after being opened
+            wasBombedWall = true;
+            isBombedWall = false; // Mark as no longer locked, but preserve sprite
         }
 
-        ISprite sprite = type switch
+        ISprite sprite = doorType switch
         {
             // Use WallSprite for unopened bombed walls so they look like normal walls
-            "BombedWall" => factory.CreateWallSprite(direction),
+            "BombedWall" when !wasUnlocked => factory.CreateWallSprite(direction),
+            // Use BombedWallSprite for bombed walls that have been destroyed (permanent cracked appearance)
+            "BombedWall" when wasUnlocked => factory.CreateBombedWallSprite(direction),
             "DiamondLockedDoor" => factory.CreateDiamondLockedDoorSprite(direction),
             "KeyLockedDoor" => factory.CreateKeyLockedDoorSprite(direction),
             "OpenDoor" => factory.CreateOpenDoorSprite(direction),
@@ -84,13 +106,14 @@ public class Environment
 
         // Only add actual doors to doorways list, not walls
         // Walls should only be visual sprites, not collidable doorways
-        bool isActualDoor = type == "OpenDoor" || type == "KeyLockedDoor" || type == "DiamondLockedDoor" || type == "BombedWall";
+        bool isActualDoor = doorType == "OpenDoor" || doorType == "KeyLockedDoor" || doorType == "DiamondLockedDoor" || doorType == "BombedWall";
 
         if (isActualDoor)
         {
-            bool isLocked = type == "KeyLockedDoor" || type == "DiamondLockedDoor" || type == "BombedWall";
+            // BombedWall is locked only if it hasn't been bombed yet
+            bool isLocked = (doorType == "KeyLockedDoor" || doorType == "DiamondLockedDoor" || (doorType == "BombedWall" && !wasUnlocked));
             Vector2 pos = GetDoorPosition(direction);
-            doorways.Add(new Doorway(sprite, pos, direction, isLocked, isBombedWall));
+            doorways.Add(new Doorway(sprite, pos, direction, isLocked, isBombedWall, triggerType));
         }
     }
 
@@ -170,9 +193,19 @@ public class Environment
             block.Draw();
         }
 
+        // Draw doorways directly so sprite changes (like bombing) are immediately visible
+        foreach (Doorway doorway in doorways)
+        {
+            doorway.Sprite.SpriteDraw(doorway.Position);
+        }
+
+        // Also draw any door sprites that don't have doorway objects (like walls)
         foreach (var kvp in doorMap)
         {
-            kvp.Value.SpriteDraw(GetDoorPosition(kvp.Key));
+            if (!doorways.Exists(d => d.Direction == kvp.Key))
+            {
+                kvp.Value.SpriteDraw(GetDoorPosition(kvp.Key));
+            }
         }
     }
 

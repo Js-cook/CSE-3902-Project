@@ -45,6 +45,7 @@ public class PlayingState : IGameState
     private Environment environment;
     private LevelFileReader levelFileReader;
     private RoomManager roomManager;
+    private DiamondDoorManager diamondDoorManager;
 
     private ItemFactory itemFactory;
     private ItemController itemController;
@@ -116,6 +117,13 @@ public class PlayingState : IGameState
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
+        // Diamond door manager - handles opening diamond doors based on triggers
+        diamondDoorManager = new DiamondDoorManager(environment, tileFactory, roomManager);
+
+        // Subscribe to events for diamond doors
+        enemyController.AllEnemiesKilled += diamondDoorManager.OnAllEnemiesKilled;
+        enemyController.BossDeath += diamondDoorManager.OnBossDeath;
+        SubscribeToBlockPushedEvents();
 
         //keyboardController = new KeyboardController(player, roomManager, enemyController, this, itemController);
 
@@ -123,6 +131,15 @@ public class PlayingState : IGameState
         collisionManager = new CollisionManager();
 
         CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController);
+    }
+
+    private void SubscribeToBlockPushedEvents()
+    {
+        // Subscribe to all pushable blocks in the environment
+        foreach (var block in environment.pushableBlocks)
+        {
+            block.BlockPushed += diamondDoorManager.OnBlockPushed;
+        }
     }
 
     public void ResolveKey(KeyboardState keyState)
@@ -369,7 +386,12 @@ public class PlayingState : IGameState
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
-      
+        // Reinitialize diamond door manager and resubscribe to events
+        diamondDoorManager = new DiamondDoorManager(environment, tileFactory, roomManager);
+        enemyController.AllEnemiesKilled += diamondDoorManager.OnAllEnemiesKilled;
+        enemyController.BossDeath += diamondDoorManager.OnBossDeath;
+        SubscribeToBlockPushedEvents();
+
         playerDead = false;
         player.HitboxActive = true;
         player.position = new Vector2(512, 672);

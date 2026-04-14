@@ -9,10 +9,13 @@ public class PushableBlock : ICollidable
     public Vector2 Position { get; set; }
     public bool HitboxActive { get; set; } = true;
     public bool HasBeenPushed { get; private set; } = false;
-    
+
     private HashSet<int> allowedDirections;
-    
+
     private const int tileSize = 32 * 2;
+
+    // Event triggered when block is successfully pushed
+    public event Action BlockPushed;
 
     public Rectangle Hitbox
     {
@@ -50,6 +53,10 @@ public class PushableBlock : ICollidable
         };
         Position = nextPosition;
         HasBeenPushed = true;
+
+        // Trigger the event when block is pushed
+        BlockPushed?.Invoke();
+
         return true;
     }
 

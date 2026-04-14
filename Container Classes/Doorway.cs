@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Microsoft.Xna.Framework;
+using Enums;
 
 public class Doorway : ICollidable
 {
@@ -9,6 +10,7 @@ public class Doorway : ICollidable
     public bool HitboxActive { get; set; } = true;
     public bool IsLocked { get; set; }
     public bool IsBombedWall { get; set; }
+    public DoorTriggerType TriggerType { get; set; } = DoorTriggerType.None;
 
     public Rectangle Hitbox
     {
@@ -47,12 +49,13 @@ public class Doorway : ICollidable
         }
     }
 
-    public Doorway(ISprite sprite, Vector2 position, int direction, bool isLocked = false, bool isBombedWall = false)
+    public Doorway(ISprite sprite, Vector2 position, int direction, bool isLocked = false, bool isBombedWall = false, DoorTriggerType triggerType = DoorTriggerType.None)
     {
         Sprite = sprite;
         Position = position;
         Direction = direction;
         IsLocked = isLocked;
         IsBombedWall = isBombedWall;
+        TriggerType = triggerType;
     }
 }
