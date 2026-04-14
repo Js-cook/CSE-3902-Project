@@ -53,21 +53,35 @@ public class Environment
 
     public void AssignDoor(int direction, string type, RoomManager roomManager, int row, int col)
     {
+        // TEMPORARY DEBUG: Log the door type string
+        if (type.Contains("Diamond"))
+        {
+            System.Diagnostics.Debug.WriteLine($"*** PARSING DIAMOND DOOR: '{type}' at Room ({row},{col}) Direction {direction}");
+        }
+
         // Parse door type and trigger (format: "DiamondLockedDoor:AllEnemies" or just "KeyLockedDoor")
         string[] parts = type.Split(':');
-        string doorType = parts[0];
+        string doorType = parts[0].Trim(); // Trim whitespace
         DoorTriggerType triggerType = DoorTriggerType.None;
 
         // Parse trigger type if specified
         if (parts.Length > 1)
         {
-            triggerType = parts[1] switch
+            string triggerString = parts[1].Trim(); // Trim whitespace
+            triggerType = triggerString switch
             {
                 "AllEnemies" => DoorTriggerType.AllEnemies,
                 "BlockPushed" => DoorTriggerType.BlockPushed,
                 "Boss" => DoorTriggerType.Boss,
                 _ => DoorTriggerType.None
             };
+
+            // Debug output
+            System.Diagnostics.Debug.WriteLine($"Room ({row},{col}) Dir {direction}: DoorType={doorType}, Trigger={triggerString} => {triggerType}, Parts.Length={parts.Length}");
+        }
+        else
+        {
+            System.Diagnostics.Debug.WriteLine($"Room ({row},{col}) Dir {direction}: DoorType={doorType}, NO TRIGGER (parts.Length={parts.Length})");
         }
 
         // Check if this door was previously unlocked
@@ -113,6 +127,10 @@ public class Environment
             // BombedWall is locked only if it hasn't been bombed yet
             bool isLocked = (doorType == "KeyLockedDoor" || doorType == "DiamondLockedDoor" || (doorType == "BombedWall" && !wasUnlocked));
             Vector2 pos = GetDoorPosition(direction);
+
+            // Debug output for doorway creation
+            System.Diagnostics.Debug.WriteLine($"Creating doorway: Type={doorType}, IsLocked={isLocked}, IsBombedWall={isBombedWall}, TriggerType={triggerType}");
+
             doorways.Add(new Doorway(sprite, pos, direction, isLocked, isBombedWall, triggerType));
         }
     }

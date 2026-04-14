@@ -180,97 +180,11 @@ public static class RoomsRepository
         }
     }
 
-    //static RoomsRepository()
-    //{
-    //    _rooms = new Dictionary<(int, int), RoomDefinition>();
-
-    //    string filePath = Path.Combine("Content", "RoomData.xml");
-
-    //    Debug.WriteLine(filePath);
-
-    //    using (XmlReader reader = XmlReader.Create(filePath))
-    //    {
-    //        while (reader.Read())
-    //        {
-    //            if (reader.NodeType == XmlNodeType.Element && reader.Name == "Room")
-    //            {
-    //                int row = int.Parse(reader.GetAttribute("row"));
-    //                int col = int.Parse(reader.GetAttribute("col"));
-
-    //                string[][] tiles = null;
-    //                var doors = new Dictionary<string, string>();
-    //                var enemies = new List<EnemyDefinition>();
-
-    //                using (XmlReader roomReader = reader.ReadSubtree())
-    //                {
-    //                    while (roomReader.Read())
-    //                    {
-    //                        // -------- TILES --------
-    //                        if (roomReader.NodeType == XmlNodeType.Element && roomReader.Name == "Tiles")
-    //                        {
-    //                            var tileRows = new List<string[]>();
-
-    //                            using (XmlReader tileReader = roomReader.ReadSubtree())
-    //                            {
-    //                                while (tileReader.Read())
-    //                                {
-    //                                    if (tileReader.NodeType == XmlNodeType.Element && tileReader.Name == "row")
-    //                                    {
-    //                                        string rowData = tileReader.ReadElementContentAsString();
-    //                                        string[] tilesSplit = rowData.Split(',');
-    //                                        tileRows.Add(tilesSplit);
-    //                                    }
-    //                                }
-    //                            }
-
-    //                            tiles = tileRows.ToArray();
-    //                        }
-
-    //                        // -------- DOORS --------
-    //                        if (roomReader.NodeType == XmlNodeType.Element && roomReader.Name == "Doors")
-    //                        {
-    //                            using (XmlReader doorReader = roomReader.ReadSubtree())
-    //                            {
-    //                                while (doorReader.Read())
-    //                                {
-    //                                    if (doorReader.NodeType == XmlNodeType.Element)
-    //                                    {
-    //                                        if (doorReader.Name == "Top" ||
-    //                                            doorReader.Name == "Right" ||
-    //                                            doorReader.Name == "Bottom" ||
-    //                                            doorReader.Name == "Left")
-    //                                        {
-    //                                            string type = doorReader.GetAttribute("type");
-    //                                            doors[doorReader.Name] = type;
-    //                                        }
-    //                                    }
-    //                                }
-    //                            }
-    //                        }
-
-    //                        // -------- ENEMIES --------
-    //                        if (roomReader.NodeType == XmlNodeType.Element && roomReader.Name == "Enemy")
-    //                        {
-    //                            string type = roomReader.GetAttribute("type");
-    //                            int x = int.Parse(roomReader.GetAttribute("x"));
-    //                            int y = int.Parse(roomReader.GetAttribute("y"));
-
-    //                            enemies.Add(new EnemyDefinition(type, x, y));
-    //                        }
-    //                    }
-    //                }
-
-    //                var roomDef = new RoomDefinition(row, col, tiles, doors, enemies);
-    //                _rooms[(row, col)] = roomDef;
-    //            }
-    //        }
-    //    }
-    //}
-
     public static RoomDefinition GetRoom(int row, int col)
     {
         return _rooms.TryGetValue((row, col), out var room) ? room : null;
     }
+<<<<<<< HEAD
 
     private static RoomDefinition CreateRoom99_99()
     {
@@ -392,7 +306,7 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
-        var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "OpenDoor" }, { "Bottom", "KeyLockedDoor" }, { "Left", "DiamondLockedDoor" } };
+        var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "OpenDoor" }, { "Bottom", "KeyLockedDoor" }, { "Left", "DiamondLockedDoor:BlockPushed" } };
 
         var enemies = new List<EnemyDefinition>
         {
@@ -631,7 +545,7 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "SquareBlock", "SquareBlock", "SquareBlock" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "SquareBlock", "SquareBlock", "SquareBlock", "SquareBlock", "SquareBlock" },
         };
-        var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "DiamondLockedDoor" }, { "Bottom", "KeyLockedDoor" }, { "Left", "Wall" } };
+        var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "DiamondLockedDoor:Boss" }, { "Bottom", "DiamondLockedDoor:Boss" }, { "Left", "Wall" } };
 
         var enemies = new List<EnemyDefinition>
         {
@@ -686,4 +600,6 @@ public static class RoomsRepository
         // TODO_IMPORTANT: ADD TRIFORCE PIECE HERE
         return new RoomDefinition(1, 5, tiles, doors);
     }
+=======
+>>>>>>> 68585459a282252ddd9750142888515af0092881
 }

@@ -59,5 +59,8 @@ public class Doorway : ICollidable
         IsLocked = isLocked;
         IsBombedWall = isBombedWall;
         TriggerType = triggerType;
+
+        // Debug output
+        System.Diagnostics.Debug.WriteLine($"Doorway created: Dir={direction}, Locked={isLocked}, BombWall={isBombedWall}, Trigger={triggerType}");
     }
 }

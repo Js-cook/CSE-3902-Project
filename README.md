@@ -17,17 +17,17 @@
 - T will spawn a heart near the player
 - R will spawn a rupee near the player
 - K will a key near the player
+- C will spawn a clock power-up near the player
 ### Environment/Rooms
 - Y will change room to the room above
 - H will change room to the room below
 - G will change room to the room on the left
 - J will change room to the room on the right
 ### Other
-- ESC will open the inventory
+- ESC will open the inventory (closed with left control)
+- P will pause the game (p again to unpause)
 
 ## Bugs and Known Issues
-- Player knockback can be inconsistent
-- Some missing SFX
 
 ## Metrics
 Metrics calculated using the "Code Metrics" tool
@@ -50,6 +50,7 @@ Metrics calculated using the "Code Metrics" tool
 | 3/29 | 83                    | 2165                  | 2                    | 277            | 10853                | 2720                     |
 | 4/6  | 82                    | 2381                  | 2                    | 292            | 12035                | 2993                     |
 | 4/10 | 82                    | 2542                  | 2                    | 296            | 13137                | 3244                     |
+| 4/13 | 81                    | 3041	               | 2                    | 326            | 15918                | 4062                     |
 
 ### Areas for refactoring (methods and classes with the worst maintainability index)
 | Maintainability Index | Class | Method |
