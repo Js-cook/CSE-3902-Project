@@ -31,20 +31,17 @@ public class BombBombedWallCollisionHandler : ICollisionHandler
         if (!bomb.HitboxActive)
             return;
 
-        // Bomb opens the bombed wall
+        // Bomb destroys the wall - unlock it but keep the damaged appearance
         doorway.IsLocked = false;
         doorway.IsBombedWall = false;
 
-        // First show the bombed/cracked wall sprite briefly for visual effect
+        // Change sprite to show the cracked/bombed wall appearance (stays permanently)
         doorway.Sprite = tileFactory.CreateBombedWallSprite(doorway.Direction);
 
-        // Then immediately change to open door (or add a timer for delayed opening if desired)
-        doorway.Sprite = tileFactory.CreateOpenDoorSprite(doorway.Direction);
-
-        // Track the unlocked door globally so it stays open
+        // Track the unlocked door globally so it stays in bombed state across room transitions
         roomManager.UnlockDoor(doorway.Direction);
 
-        // Play bomb/explosion sound (already plays from bomb damage, so we could add a specific wall break sound here)
+        // Play bomb/explosion sound
         if (sfx != null && sfx.ContainsKey("BombDrop")) // Using BombDrop as placeholder for wall break sound
         {
             sfx["BombDrop"].Play(0.5f, 0.0f, 0.0f);

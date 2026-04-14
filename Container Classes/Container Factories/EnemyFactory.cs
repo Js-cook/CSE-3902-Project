@@ -40,7 +40,7 @@ public class EnemyFactory
     
         public Wallmaster CreateWallmaster(Vector2 startPos)
         {
-            return new Wallmaster(enemyMasterSpriteFactory.wallmasterSpriteFactory, _graphics, startPos);
+            return new Wallmaster(enemyMasterSpriteFactory.wallmasterSpriteFactory, startPos);
         }
     
         public Aquamentus CreateAquamentus(Vector2 startPos)
@@ -52,5 +52,7 @@ public class EnemyFactory
         {
             return new OldMan(enemyMasterSpriteFactory.oldManSpriteFactory, _graphics, startPos);
         }
+
+      
 
 }

@@ -32,12 +32,31 @@ public class CollisionManager
 
     public void Update(GameTime gameTime, List<ICollidable> collidables)
     {
-        for (int i = 0; i < collidables.Count; i++)
+
+        List<ICollidable> flatCollidables = new List<ICollidable>();
+
+        foreach (ICollidable obj in collidables)
         {
-            for (int j = i + 1; j < collidables.Count; j++)
+            // If the object is a manager, unpack its active hands
+            if (obj is WallmasterManager manager)
             {
-                ICollidable obj1 = collidables[i];
-                ICollidable obj2 = collidables[j];
+                // Cast and add the active hands to our collision pool
+                flatCollidables.AddRange(manager.GetActiveHands());
+            }
+            else
+            {
+                // Standard objects go straight in
+                flatCollidables.Add(obj);
+            }
+        }
+
+
+        for (int i = 0; i < flatCollidables.Count; i++)
+        {
+            for (int j = i + 1; j < flatCollidables.Count; j++)
+            {
+                ICollidable obj1 = flatCollidables[i];
+                ICollidable obj2 = flatCollidables[j];
                
                 if (obj1.HitboxActive && obj2.HitboxActive)
                     if (obj1.Hitbox.Intersects(obj2.Hitbox))
