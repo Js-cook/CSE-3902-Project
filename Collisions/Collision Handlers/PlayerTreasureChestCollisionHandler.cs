@@ -1,7 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 
 public class PlayerTreasureChestCollisionHandler : ICollisionHandler
 {
+    private ItemController itemController;
+
+    public PlayerTreasureChestCollisionHandler(ItemController itemController)
+    {
+        this.itemController = itemController;
+    }
+
     public void HandleCollision(ICollidable obj1, ICollidable obj2, Rectangle intersection)
     {
         Link player = obj1 as Link ?? obj2 as Link;
@@ -12,6 +20,16 @@ public class PlayerTreasureChestCollisionHandler : ICollisionHandler
 
         if (!chest.HitboxActive)
             return;
+
+        if (!chest.IsOpened)
+        {
+            ItemType? drop = chest.OpenAndGetRandomDrop();
+
+            if (drop.HasValue)
+            {
+                itemController.SpawnItem(drop.Value, chest.Position);
+            }
+        }
 
         ResolveCollision(player, chest.Hitbox, intersection);
     }
