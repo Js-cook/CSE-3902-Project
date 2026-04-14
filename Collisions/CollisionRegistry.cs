@@ -7,15 +7,15 @@ using Microsoft.Xna.Framework.Audio;
 
 public static class CollisionRegistry
 {
-    public static void Initialize(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory, Dictionary<string, SoundEffect> sfx = null)
+    public static void Initialize(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory, Dictionary<string, SoundEffect> sfx = null, EnemyController enemyController = null)
     {
         RegisterEnemyPlayerProjectileCollisions(collisionManager);
         RegisterEnemyWallAndDoorwayCollisions(collisionManager);
         RegisterPlayerCollisions(collisionManager, roomManager, tileFactory, sfx);
-        RegisterPlayerItemCollisions(collisionManager);
+        RegisterPlayerItemCollisions(collisionManager, enemyController);
         RegisterProjectileWallCollisions(collisionManager);
         RegisterFairyWallCollision(collisionManager);
-
+        RegisterBombBombedWallCollisions(collisionManager, roomManager, tileFactory, sfx);
 
     }
 
@@ -97,9 +97,9 @@ public static class CollisionRegistry
     }
 
     // Register Player and Items Collisions
-    private static void RegisterPlayerItemCollisions(CollisionManager collisionManager)
+    private static void RegisterPlayerItemCollisions(CollisionManager collisionManager, EnemyController enemyController)
     {
-        collisionManager.RegisterHandler(typeof(Link), typeof(PickupItem), new PlayerItemCollisionHandler());
+        collisionManager.RegisterHandler(typeof(Link), typeof(PickupItem), new PlayerItemCollisionHandler(enemyController));
 
     }
 
@@ -110,7 +110,13 @@ public static class CollisionRegistry
 
     }
 
+    private static void RegisterBombBombedWallCollisions(CollisionManager collisionManager, RoomManager roomManager, TileFactory tileFactory, Dictionary<string, SoundEffect> sfx)
+    {
+        BombBombedWallCollisionHandler bombWallHandler = new BombBombedWallCollisionHandler(roomManager, tileFactory, sfx);
+        collisionManager.RegisterHandler(typeof(Bomb), typeof(Doorway), bombWallHandler);
+    }
 
-   
+
+
 
 }

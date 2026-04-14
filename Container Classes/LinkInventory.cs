@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Enums;
+using Microsoft.Xna.Framework;
 
 public class LinkInventory
 {
@@ -23,6 +24,8 @@ public class LinkInventory
     public Weapon primaryItem { get; set; }
     public Weapon secondaryItem { get; set; }
 
+    public Vector2 currentRoom;
+
     public LinkInventory()
     {
         keys = 0;
@@ -31,15 +34,15 @@ public class LinkInventory
         rupees = 0;
         //items = 0;
         bombs = 3;
-        boomerangs = 1;
-        magicBoomerangs = 1;
+        boomerangs = 0;
+        magicBoomerangs = 0;
         arrows = 3;
         hasCompass = false;
         hasMap = false;
         primaryItem = Weapon.WOOD_SWORD;
         secondaryItem = Weapon.BOMB;
         hasTriForcePiece = false;
-
+        currentRoom = new Vector2(5, 2);
     }
 
     public void ResetInventory()
@@ -49,8 +52,8 @@ public class LinkInventory
         currentHearts = maxHearts * 2; // currentHearts refers to the number of heart halves
         rupees = 0;
         bombs = 3;
-        boomerangs = 1;
-        magicBoomerangs = 1;
+        boomerangs = 0;
+        magicBoomerangs = 0;
         arrows = 3;
         hasCompass = false;
         hasMap = false;

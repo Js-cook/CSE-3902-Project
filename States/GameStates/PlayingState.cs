@@ -89,6 +89,8 @@ public class PlayingState : IGameState
         messageFont = contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes");
 
         audioController = new AudioController();
+        backgroundMusic = contentLoader.Load<Song>("BackgroundMusic");
+
 
         player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx, playerInventory);
 
@@ -110,7 +112,7 @@ public class PlayingState : IGameState
         //room manager
         tileFactory = new TileFactory(contentLoader.Load<Texture2D>("DungeonTileSprites"), playerTexture, enemyTexture, treasureChestTexture, _spriteBatch);
         environment = new Environment(tileFactory);
-        levelFileReader = new LevelFileReader(environment, enemyLoader);
+        levelFileReader = new LevelFileReader(environment, enemyLoader, itemController);
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
@@ -120,7 +122,7 @@ public class PlayingState : IGameState
         // Add additional collision handlers here as needed
         collisionManager = new CollisionManager();
 
-        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController);
     }
 
     public void ResolveKey(KeyboardState keyState)
@@ -245,6 +247,10 @@ public class PlayingState : IGameState
         {
             itemController.SpawnItem(ItemType.Key, player.position + new Vector2(50, 0));
         }
+        if (keyState.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
+        {
+            itemController.SpawnItem(ItemType.Clock, player.position + new Vector2(50, 0));
+        }
 
         if (keyState.IsKeyDown(Keys.Escape))
         {
@@ -255,6 +261,11 @@ public class PlayingState : IGameState
         //{
         //    gameInstance.Exit();
         //}
+
+        if (keyState.IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))
+        {
+            Signal = GameStateSignal.TO_PAUSED;
+        }
 
 
         previousKeyboardState = keyState;
@@ -346,15 +357,15 @@ public class PlayingState : IGameState
     public void ResetState()
     {
         Signal = GameStateSignal.NONE;
-
         
+
         enemyController.enemyArray.Clear();
         projectileController.projectiles.Clear();
         effectController.ClearEffects();
         itemController.itemArray.Clear();
 
         environment = new Environment(tileFactory);
-        levelFileReader = new LevelFileReader(environment, enemyLoader);
+        levelFileReader = new LevelFileReader(environment, enemyLoader, itemController);
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
@@ -368,9 +379,9 @@ public class PlayingState : IGameState
         player.projectiles.Clear();
         playerInventory.ResetInventory();
 
-       
+
         collisionManager = new CollisionManager();
-        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController);
 
        
         projectileInputLimiter = 0;

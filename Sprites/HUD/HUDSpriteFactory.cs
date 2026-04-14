@@ -60,4 +60,9 @@ public class HUDSpriteFactory
     {
         return new HUDCursorSprite(texture, spriteBatch);
     }
+
+    public HUDSquareSprite CreateHUDSquareSprite(Rectangle coverage, Color color)
+    {
+        return new HUDSquareSprite(coverage, spriteBatch, texture, color);
+    }
 }

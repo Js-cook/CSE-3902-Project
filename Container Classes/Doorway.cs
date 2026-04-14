@@ -8,6 +8,7 @@ public class Doorway : ICollidable
     public int Direction { get; set; }
     public bool HitboxActive { get; set; } = true;
     public bool IsLocked { get; set; }
+    public bool IsBombedWall { get; set; }
 
     public Rectangle Hitbox
     {
@@ -46,11 +47,12 @@ public class Doorway : ICollidable
         }
     }
 
-    public Doorway(ISprite sprite, Vector2 position, int direction, bool isLocked = false)
+    public Doorway(ISprite sprite, Vector2 position, int direction, bool isLocked = false, bool isBombedWall = false)
     {
         Sprite = sprite;
         Position = position;
         Direction = direction;
         IsLocked = isLocked;
+        IsBombedWall = isBombedWall;
     }
 }

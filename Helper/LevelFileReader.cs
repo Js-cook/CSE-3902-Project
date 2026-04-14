@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.VisualBasic;
 using System;
+using Controllers;
 using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
@@ -12,11 +13,13 @@ public class LevelFileReader
     private Environment gameEnv;
     private EnemyLoader enemyLoader;
     private RoomManager roomManager;
+    private ItemController itemController;
 
-    public LevelFileReader(Environment gameEnv, EnemyLoader enemyLoader)
+    public LevelFileReader(Environment gameEnv, EnemyLoader enemyLoader, ItemController itemController = null)
     {
         this.gameEnv = gameEnv;
         this.enemyLoader = enemyLoader;
+        this.itemController = itemController;
     }
 
     public void SetRoomManager(RoomManager roomManager)
@@ -40,6 +43,11 @@ public class LevelFileReader
         gameEnv.treasureChests.Clear();
         gameEnv.doorways.Clear();
         gameEnv.pushableBlocks.Clear();
+        // Clear any items from previous room so items don't persist across rooms
+        if (itemController != null)
+        {
+            itemController.ClearItems();
+        }
 
         // Load tiles from room definition
         foreach (var tileRow in roomDef.Tiles)
@@ -119,6 +127,26 @@ public class LevelFileReader
         else
         {
             enemyLoader.ClearEnemies();
+        }
+        // Load pickup items (if any)
+        if (roomDef.PickupItems != null && roomDef.PickupItems.Count > 0 && itemController != null)
+        {
+            const int tileSize = 32 * 2;
+            const int hudHeight = 112 * 2;
+            const int wallOffset = 64;
+            Vector2 gridOffset = new Vector2(wallOffset * 2, hudHeight + wallOffset * 2);
+
+            foreach (var itemDef in roomDef.PickupItems)
+            {
+                // Skip items that were already collected
+                if (itemDef.Acquired) continue;
+
+                float x = gridOffset.X + (itemDef.X * tileSize);
+                float y = gridOffset.Y + (itemDef.Y * tileSize);
+                Vector2 position = new Vector2(x, y);
+                // Spawn with room and grid info so collection can be persisted
+                itemController.SpawnItem(itemDef.Type, position, row, col, itemDef.X, itemDef.Y);
+            }
         }
         return true;
     }

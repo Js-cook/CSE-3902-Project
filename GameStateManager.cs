@@ -77,7 +77,8 @@ namespace _3902_Project
        public void ToDeathScreen()
        {
             SetCurrentState("DeathScreen");
-       }
+            currentState.ResetState();
+        }
 
        public void StartStateToPlayState()
        {
@@ -106,6 +107,13 @@ namespace _3902_Project
         public void ToSavedPlayState()
         {
             SetCurrentState("Playing");
+        }
+
+
+        public void ToPausedState()
+        {
+            SetCurrentState("PauseScreen");
+            currentState.ResetState();
         }
 
         private void CheckForStateChange()
@@ -143,6 +151,16 @@ namespace _3902_Project
             if(currentState.Signal == GameStateSignal.TO_SAVED_PLAYING)
             {
                 ToSavedPlayState();
+            }
+
+            if (currentState.Signal == GameStateSignal.TO_PAUSED)
+            {
+                ToPausedState();
+            }
+
+            if (currentState.Signal == GameStateSignal.TO_RESUME)
+            {
+                    ToSavedPlayState();
             }
         }
     }

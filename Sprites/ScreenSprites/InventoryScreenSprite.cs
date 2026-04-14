@@ -1,6 +1,7 @@
 ﻿using Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 public class InventoryScreenSprite : ISprite
 {
@@ -17,6 +18,11 @@ public class InventoryScreenSprite : ISprite
     private HUDText rupeeText { get; set; }
     private HUDText keyText { get; set; }
     private HUDText itemText { get; set; }
+
+    private Dictionary<(int, int), Vector2> mapIndicators;
+    private ISprite hudMapCover;
+    private ISprite hudLocator;
+    private ISprite compassLocator;
 
     public InventoryScreenSprite(Texture2D texture, SpriteBatch spriteBatch, HUDSpriteFactory spriteFactory, LinkInventory playerInventory)
     {
@@ -38,7 +44,32 @@ public class InventoryScreenSprite : ISprite
         itemText.Text = "" + playerInventory.calculateNumberOfSecondaryItems();
         itemText.TextColor = Color.White;
 
-        //secondaryItem = determineItemSprite(playerInventory.secondaryItem, new Vector2(550, 715));
+        //secondaryItem = determineItemSprite(playerInventory.secondaryItem, new Vector2(550, 715));\
+        hudMapCover = spriteFactory.CreateHUDSquareSprite(new Rectangle(63, 645 + 32, 275, 195), Color.Black);
+
+        mapIndicators = new()
+        {
+            {(0, 1), new Vector2(125, 618 + 65) },
+            {(0, 2), new Vector2(167, 618 + 65) },
+            {(1, 2), new Vector2(167, 618 + 105) },
+            {(2, 2), new Vector2(167, 618 + 140) },
+            {(2, 1), new Vector2(125, 618 + 140) },
+            {(2, 0), new Vector2(83, 618 + 140) },
+            {(3, 1), new Vector2(125, 618 + 170) },
+            {(3, 2), new Vector2(167, 618 + 170) },
+            {(4, 2), new Vector2(167, 618 + 200) },
+            {(5, 1), new Vector2(125, 618 + 240) },
+            {(5, 2), new Vector2(167, 618 + 240) }, // starting room
+            {(2, 3), new Vector2(209, 618 + 140) },
+            {(3, 3), new Vector2(209, 618 + 170) },
+            {(5, 3), new Vector2(209, 618 + 240) },
+            {(1, 4), new Vector2(251, 618 + 105) },
+            {(2, 4), new Vector2(251, 618 + 140) },
+            {(1, 5), new Vector2(293, 618 + 105) },
+        };
+
+        hudLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle((int)mapIndicators[((int)(playerInventory.currentRoom.X), (int)(playerInventory.currentRoom.Y))].X, (int)mapIndicators[((int)playerInventory.currentRoom.X, (int)playerInventory.currentRoom.Y)].Y, 10, 10), Color.LimeGreen);
+        compassLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle(0 + 293, 618 + 70, 10, 10), Color.Red);
     }
 
     private ISprite determineItemSprite(Weapon weapon, Vector2 position)
@@ -76,6 +107,8 @@ public class InventoryScreenSprite : ISprite
         rupeeText.Text = "" + playerInventory.rupees;
         keyText.Text = "" + playerInventory.keys;
         itemText.Text = "" + playerInventory.calculateNumberOfSecondaryItems();
+
+        hudLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle((int)mapIndicators[((int)(playerInventory.currentRoom.X), (int)(playerInventory.currentRoom.Y))].X, (int)mapIndicators[((int)playerInventory.currentRoom.X, (int)playerInventory.currentRoom.Y)].Y, 10, 10), Color.LimeGreen);
     }
 
     public void SpriteDraw(Vector2 position)
@@ -113,6 +146,18 @@ public class InventoryScreenSprite : ISprite
             Vector2 pos = new Vector2(740 + (i % 8) * 30, 760 + (i / 8) * 30);
             ISprite heart = spriteFactory.CreateHUDHeart(type);
             heart.SpriteDraw(pos);
+
+            if (!playerInventory.hasMap)
+            {
+                hudMapCover.SpriteDraw(new Vector2(300, 618 + 50));
+            }
+
+            if (playerInventory.hasCompass)
+            {
+                compassLocator.SpriteDraw(Vector2.Zero);
+            }
+
+            hudLocator.SpriteDraw(Vector2.Zero);
         }
     }
 }
