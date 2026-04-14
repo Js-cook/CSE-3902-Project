@@ -135,7 +135,7 @@ public class Environment
         }
     }
 
-    private Vector2 GetDoorPosition(int direction)
+    public Vector2 GetDoorPosition(int direction)
     {
         return direction switch
         {
@@ -338,7 +338,7 @@ public class Environment
                 Vector2 leftDoorPos = GetDoorPosition(3);
 
                 int gapTop = (int)leftDoorPos.Y;
-                int gapBottom = gapTop + 2 * scaledTileSize;
+                int gapBottom = gapTop + scaledTileSize;
 
                 inLeftDoorGap = y >= gapTop && y < gapBottom;
             }
@@ -361,7 +361,7 @@ public class Environment
                 Vector2 rightDoorPos = GetDoorPosition(1);
 
                 int gapTop = (int)rightDoorPos.Y;
-                int gapBottom = gapTop + 2 * scaledTileSize;
+                int gapBottom = gapTop + scaledTileSize;
 
                 inRightDoorGap = y >= gapTop && y < gapBottom;
             }

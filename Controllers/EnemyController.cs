@@ -52,18 +52,23 @@ public class EnemyController
                 isFrozen = false;
                 freezeTimer = 0f;
             }
-            // Don't update enemies while frozen, but still draw them
             return;
         }
 
         bool removedDead = false;
+
+        int initialCount = enemyArray.Count;
+
         for (int i = enemyArray.Count - 1; i >= 0; i--)
         {
+           
+            if (i >= enemyArray.Count) break;
+
             var enemy = enemyArray[i];
             if (enemy.isDead)
             {
                 audioController.PlaySoundEffect(sfx["EnemyDie"], 0.75f);
-                enemyArray.RemoveAt(i); // Remove after playing sound
+                enemyArray.RemoveAt(i);
                 removedDead = true;
 
                 if (enemy is Aquamentus)
@@ -72,11 +77,17 @@ public class EnemyController
                     BossDeath?.Invoke(); // Trigger boss death event for diamond doors
                 }
                 SpawnRandomItem(enemy.position);
-
             }
             else
             {
                 enemy.Update(gameTime);
+
+              
+                if (enemyArray.Count != initialCount && i > 0)
+                {
+                   
+                    return;
+                }
             }
         }
 
@@ -85,7 +96,6 @@ public class EnemyController
             AllEnemiesKilled?.Invoke();
         }
     }
-
     public void FreezeEnemies(float durationMs)
     {
         isFrozen = true;

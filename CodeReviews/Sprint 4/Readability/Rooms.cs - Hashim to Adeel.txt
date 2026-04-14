@@ -1,0 +1,11 @@
+Author of the code review: Hashim Zafar
+Date of the code review: 4/13/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: Rooms.cs
+Author of the .cs file being reviewed: Adeel Khatri
+Number of minutes taken to complete the review: 10 minutes
+
+
+The Rooms.cs class has inconsidstet naming ocnventions like count that don't match the other properties like Type and X. 
+Right now, the code for reading the XML file is very long and nested, which makes it hard to follow. Making it modular by breaking
+it into smallermethods or even classes would be easier to read and maintain as well. 

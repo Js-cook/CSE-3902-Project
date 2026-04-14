@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.IO;
+using Microsoft.Xna.Framework;
 
 public class RoomManager
 {
@@ -19,6 +20,10 @@ public class RoomManager
     public int CurrentRow { get; private set; }
     public int CurrentCol { get; private set; }
 
+
+    private readonly int startRow;
+    private readonly int startCol;
+
     public RoomManager(LevelFileReader reader, int startRow, int startCol, EnemyController enemyController)
     {
         this.reader = reader;
@@ -31,7 +36,10 @@ public class RoomManager
         // Load initial room
         this.CurrentRow = startRow;
         this.CurrentCol = startCol;
-        reader.LoadLevel(CurrentRow, CurrentCol, !IsRoomCleared(CurrentRow, CurrentCol));
+
+        this.startRow = startRow;
+        this.startCol = startCol;
+        reader.LoadLevel(CurrentRow, CurrentCol, this, !IsRoomCleared(CurrentRow, CurrentCol));
     }
 
     public void MoveUp() { TryTransition(CurrentRow - 1, CurrentCol); }
@@ -42,7 +50,7 @@ public class RoomManager
     private void TryTransition(int nextRow, int nextCol)
     {
         // Only update row/col if the load actually succeeds
-        if (reader.LoadLevel(nextRow, nextCol, !IsRoomCleared(nextRow, nextCol)))
+        if (reader.LoadLevel(nextRow, nextCol, this, !IsRoomCleared(nextRow, nextCol)))
         {
             CurrentRow = nextRow;
             CurrentCol = nextCol;
@@ -61,7 +69,10 @@ public class RoomManager
     {
         return clearedRooms.Contains((row, col));
     }
-
+    public Environment GetCurrentEnvironment()
+    {
+        return reader.GetEnvironment();
+    }
     public void UnlockDoor(int direction)
     {
         // Unlock the door from the current room's perspective
@@ -101,5 +112,29 @@ public class RoomManager
     public bool IsDoorUnlocked(int row, int col, int direction)
     {
         return unlockedDoors.Contains((row, col, direction));
+    }
+
+
+    public void ResetDungeon(Link player)
+    {
+        System.Diagnostics.Debug.WriteLine("--- RESET DUNGEON CALLED ---");
+        System.Diagnostics.Debug.WriteLine($"Target: Row {startRow}, Col {startCol}");
+
+        // 1. Check if the reader is successfully loading the level
+        bool loadSuccess = reader.LoadLevel(startRow, startCol, this, !IsRoomCleared(startRow, startCol));
+        System.Diagnostics.Debug.WriteLine($"Load Success: {loadSuccess}");
+
+        if (loadSuccess)
+        {
+            CurrentRow = startRow;
+            CurrentCol = startCol;
+            System.Diagnostics.Debug.WriteLine("Room coordinates updated.");
+        }
+
+        // 2. Check Link's State
+        player.playerState = new RightIdlePlayerState(player, player.playerSpriteFactory, player.projectileController, player.soundEffect);
+        player.HitboxActive = true;
+        player.position = new Vector2(400 * 2, 250 * 2);
+        System.Diagnostics.Debug.WriteLine($"Player teleported to: {player.position.X}, {player.position.Y}");
     }
 }

@@ -9,12 +9,14 @@ public class EnemyDefinition
     public string Type { get; set; }
     public int X { get; set; }
     public int Y { get; set; }
+    public int count { get; set; } // used for wallmaster manager
 
-    public EnemyDefinition(string type, int x, int y)
+    public EnemyDefinition(string type, int x, int y, int count = 1)
     {
         Type = type;
         X = x;
         Y = y;
+        this.count = count;
     }
 }
 
@@ -132,10 +134,20 @@ public static class RoomsRepository
                             if (roomReader.NodeType == XmlNodeType.Element && roomReader.Name == "Enemy")
                             {
                                 string type = roomReader.GetAttribute("type");
-                                int x = int.Parse(roomReader.GetAttribute("x"));
-                                int y = int.Parse(roomReader.GetAttribute("y"));
 
-                                enemies.Add(new EnemyDefinition(type, x, y));
+                                // Default to 0 if parsing fails
+                                int.TryParse(roomReader.GetAttribute("x"), out int x);
+                                int.TryParse(roomReader.GetAttribute("y"), out int y);
+
+                                // Default count to 1 if not specified or parsing fails
+                                int count = 1;
+                                string countAttribute = roomReader.GetAttribute("count");
+                                if (!string.IsNullOrEmpty(countAttribute))
+                                {
+                                    int.TryParse(countAttribute, out count);
+                                }
+
+                                enemies.Add(new EnemyDefinition(type, x, y, count));
                             }
 
                             if (roomReader.NodeType == XmlNodeType.Element && roomReader.Name == "Items")
@@ -274,7 +286,7 @@ public static class RoomsRepository
         };
         var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "Wall" }, { "Bottom", "Wall" }, { "Left", "Wall" } };
 
-        return new RoomDefinition(0, 1, tiles, doors);
+        return new RoomDefinition(99, 99, tiles, doors);
     }
 
     private static RoomDefinition CreateRoom0_1()

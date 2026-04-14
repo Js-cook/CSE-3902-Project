@@ -1,0 +1,13 @@
+Author of the code review: Hashim Zafar
+Date of the code review: 4/13/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: Rooms.cs
+Author of the .cs file being reviewed: Adeel Khatri
+Number of minutes taken to complete the review: 30 minutes
+
+The Rooms.cs class handles the XML loading inside a static constructor, which makes it 
+hard to debug if the file is missing and prevents you from easily loading different levels. 
+You should move this logic into a separate method and use int.TryParse to prevent the game 
+from crashing if the data has typos. It is also important to verify that the tile data actually
+exists before creating a room to avoid errors later on. Making the class non-static and adding 
+these checks would make your code much more flexible and reliable.

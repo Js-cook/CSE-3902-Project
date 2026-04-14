@@ -1,0 +1,9 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 4/13/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: DiamondDoorManager.cs
+Author of the .cs file being reviewed: Daniel Koba
+Number of minutes taken to complete the review: 50 minutes
+
+Specific comments on code quality:
+Overall the readability of this class is solid. It’s easy to follow what’s going on without having to read too carefully into the code, and the structure is logical. The method names are clear and descriptive, which helps a lot at first glance and also makes using the class far simpler. I have somewhat mixed feelings about the XML-style comment at the top. While it's nice to have descriptive comments, I think super long comments like these can be somewhat cumbersome and could probably be simplified into a 1-2 sentence summary while still maintaining clarity. The class's simplicity does well to enhance its readability which is why I find this class to be quite readable in general.

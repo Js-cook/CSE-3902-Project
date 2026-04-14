@@ -1,0 +1,9 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 4/13/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: Rooms.cs
+Author of the .cs file being reviewed: Adeel Khatri
+Number of minutes taken to complete the review: 50 minutes
+
+Specific comments on code quality:
+As mentioned prior, the use of collections are very helpful here in inferring the structure of the rooms to the reader. It's also nice that all the room-related logic is all centralized in one place to avoid having to reference multiple places throughout the project. However, the large number of CreateRoomX_Y methods can make the file feel quite cumbersome and repetitive. Additionally, the hardcoded string literals can also be quite difficult to visually parse. To the credit of the CreateRoomX_Y methods, the name is quite apt and does a good job of communicating functionality. This class could be significantly improved through a more dynamic approach to reading in data such as a data file.

@@ -1,0 +1,9 @@
+﻿Author of the code review: Jacob Cook
+Date of the code review: 4/13/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: GameLoader.cs
+Author of the .cs file being reviewed: Hashim Zafar
+Number of minutes taken to complete the review: 50 minutes
+
+Specific comments on code quality:
+A major positive in terms of maintainability is how clearly the responsibility of the class is. As the name implies, GameLoader initializes and connects game states and prevents the case of one class taking on a rediculous amount of responsibility. Use of abstract types like IGameState also make this class extensible and allow for more states to be created and implemented quite easily. If I were to offer some critiques there is a bit higher coupling around PlayingState with multiple casts from IGameState to PlayingState. This makes the class slightly more error prone in the case that significant changes are made to PlayingState. There's also a lot of duplication that happens with the LoadContent() method just repeatedly creating states and calling LoadContent() on them. Perhaps a factory-like design might be nice to reduce the repetitiveness. To summarize, the class's purpose is very well-defined and it is structured well. It also does well to prevent other classes from taking on too much responsibility. However, there is some tight coupling in certain areas and it can be repetitive too but both of these can be fixed through minor structural/design tweaks.
