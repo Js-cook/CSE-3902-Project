@@ -118,7 +118,7 @@
 			<Top type="Wall" />
 			<Right type="OpenDoor" />
 			<Bottom type="KeyLockedDoor" />
-			<Left type="DiamondLockedDoor" />
+			<Left type="DiamondLockedDoor:BlockPushed" />
 		</Doors>
 		<Enemies>
 			<Enemy type="Gel" x="1" y="3" />
@@ -349,8 +349,8 @@
 		</Tiles>
 		<Doors>
 			<Top type="Wall" />
-			<Right type="DiamondLockedDoor" />
-			<Bottom type="KeyLockedDoor" />
+			<Right type="DiamondLockedDoor:Boss" />
+			<Bottom type="DiamondLockedDoor:Boss" />
 			<Left type="Wall" />
 		</Doors>
 		<Enemies>

@@ -380,7 +380,7 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor" },
         };
-        var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "OpenDoor" }, { "Bottom", "KeyLockedDoor" }, { "Left", "DiamondLockedDoor" } };
+        var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "OpenDoor" }, { "Bottom", "KeyLockedDoor" }, { "Left", "DiamondLockedDoor:BlockPushed" } };
 
         var enemies = new List<EnemyDefinition>
         {
@@ -619,7 +619,7 @@ public static class RoomsRepository
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "SquareBlock", "SquareBlock", "SquareBlock" },
             new string[] { "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "BlueFloor", "SquareBlock", "SquareBlock", "SquareBlock", "SquareBlock", "SquareBlock" },
         };
-        var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "DiamondLockedDoor" }, { "Bottom", "KeyLockedDoor" }, { "Left", "Wall" } };
+        var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "DiamondLockedDoor:Boss" }, { "Bottom", "DiamondLockedDoor:Boss" }, { "Left", "Wall" } };
 
         var enemies = new List<EnemyDefinition>
         {

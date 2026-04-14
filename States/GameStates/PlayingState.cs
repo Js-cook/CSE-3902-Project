@@ -117,6 +117,9 @@ public class PlayingState : IGameState
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
+        // Subscribe to room changes so we can re-subscribe to new pushable blocks
+        roomManager.RoomChanged += SubscribeToBlockPushedEvents;
+
         // Diamond door manager - handles opening diamond doors based on triggers
         diamondDoorManager = new DiamondDoorManager(environment, tileFactory, roomManager);
 

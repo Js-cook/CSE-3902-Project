@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Enums;
 
 public class PlayerDoorwayCollisionHandler : ICollisionHandler
 {
@@ -54,6 +55,39 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
 
                 // Show message that they need a bomb
                 player.ShowMessage("Use a bomb to open this!");
+
+                return;
+            }
+
+            // Handle diamond locked doors - they can't be opened by player, only by triggers
+            if (doorway.TriggerType != DoorTriggerType.None)
+            {
+                // Push player back - diamond doors can't be manually opened
+                switch (doorway.Direction)
+                {
+                    case 0: // Top door - push player down
+                        player.position = new Vector2(player.position.X, player.position.Y + intersection.Height);
+                        break;
+                    case 1: // Right door - push player left
+                        player.position = new Vector2(player.position.X - intersection.Width, player.position.Y);
+                        break;
+                    case 2: // Bottom door - push player up
+                        player.position = new Vector2(player.position.X, player.position.Y - intersection.Height);
+                        break;
+                    case 3: // Left door - push player right
+                        player.position = new Vector2(player.position.X + intersection.Width, player.position.Y);
+                        break;
+                }
+
+                // Show message based on trigger type
+                string message = doorway.TriggerType switch
+                {
+                    DoorTriggerType.AllEnemies => "DIAMOND DOOR: Defeat all enemies!",
+                    DoorTriggerType.BlockPushed => "DIAMOND DOOR: Push the block!",
+                    DoorTriggerType.Boss => "DIAMOND DOOR: Defeat the boss!",
+                    _ => "This door is locked!"
+                };
+                player.ShowMessage(message);
 
                 return;
             }

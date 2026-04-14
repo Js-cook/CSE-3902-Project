@@ -13,6 +13,9 @@ public class RoomManager
     private HashSet<(int row, int col)> clearedRooms = new HashSet<(int row, int col)>();
     private HashSet<(int row, int col, int direction)> unlockedDoors = new HashSet<(int row, int col, int direction)>();
 
+    // Event that fires whenever a room is loaded (for re-subscribing to block events, etc.)
+    public event Action RoomChanged;
+
     public int CurrentRow { get; private set; }
     public int CurrentCol { get; private set; }
 
@@ -43,6 +46,9 @@ public class RoomManager
         {
             CurrentRow = nextRow;
             CurrentCol = nextCol;
+
+            // Notify that room has changed (for re-subscribing to events, etc.)
+            RoomChanged?.Invoke();
         }
     }
 
