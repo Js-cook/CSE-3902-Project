@@ -22,7 +22,7 @@
 			<row>Spike,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,Spike</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
-			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,Stair,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,PushSquareBlock,BlueFloor,Stair,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,TreasureChest,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>Spike,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,Spike</row>
@@ -109,7 +109,7 @@
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
-			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,SquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,PushSquareBlock,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
 			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
