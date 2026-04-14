@@ -1,0 +1,13 @@
+hor of the code review: Adeel Khatri
+Date of the code review: 4/13/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: GameStateManager.cs
+Author of the .cs file being reviewed: Hashim Zafar
+Number of minutes taken to complete the review: 40 minutes
+
+
+The only issue I had with the file was kinda the lack of comments. Especially in the SetCurrentState
+method where the inventory is manually synced between the playing and inventory states, it took me a
+second to understand what the code was doing, and I think a few comments would have made it easier to 
+understand. Additonally, the SetCurrentState method is a bit long and has a lot of branching logic, so perhaps breaking it up into
+smaller methods or using a more data-driven approach could improve readability.
