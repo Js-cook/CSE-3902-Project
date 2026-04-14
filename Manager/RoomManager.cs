@@ -55,7 +55,10 @@ public class RoomManager
     {
         return clearedRooms.Contains((row, col));
     }
-
+    public Environment GetCurrentEnvironment()
+    {
+        return reader.GetEnvironment();
+    }
     public void UnlockDoor(int direction)
     {
         // Unlock the door from the current room's perspective

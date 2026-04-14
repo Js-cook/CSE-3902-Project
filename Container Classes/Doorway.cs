@@ -19,28 +19,30 @@ public class Doorway : ICollidable
 
             int offsetX = 0;
             int offsetY = 0;
+            int triggerInset = 12;
 
             if (Direction == 0 || Direction == 2) // top and bottom doors
             {
                 width = 126;
                 height = 96;
+                offsetY += triggerInset;
             }
             else // left and right doors
             {
-                width = 96;
-                height = 126;
-
+                width = 80;
+                height = 128;
+                offsetY = 0;
 
                 if (Direction == 3)
                 {
-                    offsetX = 10; // Shift right
+                    offsetX += triggerInset; // Shift right
                 }
                 else if (Direction == 1)
                 {
-                    offsetX = -10; // Shift left
+                    offsetX += triggerInset; // Shift left
                 }
             
-                offsetY = -30;
+                
             }
 
             return new Rectangle((int)Position.X + offsetX, (int)Position.Y + offsetY, width, height);

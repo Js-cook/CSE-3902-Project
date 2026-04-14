@@ -1,20 +1,22 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 public class PlayerDoorwayCollisionHandler : ICollisionHandler
 {
     private RoomManager roomManager;
     private TileFactory tileFactory;
-    private bool transitioning;
+    private DateTime nextAllowedTransitionTime;
+    private static readonly TimeSpan TransitionCooldown = TimeSpan.FromMilliseconds(400);
     private Dictionary<string, SoundEffect> sfx;
 
     public PlayerDoorwayCollisionHandler(RoomManager roomManager, TileFactory tileFactory, Dictionary<string, SoundEffect> sfx = null)
     {
         this.roomManager = roomManager;
         this.tileFactory = tileFactory;
-        this.transitioning = false;
+        this.nextAllowedTransitionTime = DateTime.MinValue;
         this.sfx = sfx;
     }
 
@@ -113,32 +115,62 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
             }
         }
 
-        if (transitioning)
+        if (DateTime.UtcNow < nextAllowedTransitionTime)
             return;
 
-        transitioning = true;
+        nextAllowedTransitionTime = DateTime.UtcNow + TransitionCooldown;
 
-        switch (doorway.Direction)
+        int spawnInset = 64;
+        int centerOffset = 32;
+        Vector2 spawnPos = player.position;
+
+        // Move room + get correct doorway
+        if (doorway.Direction == 0)
         {
-            case 0:
-                roomManager.MoveUp();
-                player.position = new Vector2(player.position.X, 700);
-                break;
-            case 1:
-                roomManager.MoveRight();
-                player.position = new Vector2(180, player.position.Y);
-                break;
-            case 2:
-                roomManager.MoveDown();
-                player.position = new Vector2(player.position.X, 320);
-                break;
-            case 3:
-                roomManager.MoveLeft();
-                player.position = new Vector2(820, player.position.Y);
-                break;
+            roomManager.MoveUp();
+            spawnPos = roomManager.GetCurrentEnvironment().GetDoorPosition(2);
+        }
+        if (doorway.Direction == 1)
+        {
+            roomManager.MoveRight();
+            spawnPos = roomManager.GetCurrentEnvironment().GetDoorPosition(3);
+        }
+        if (doorway.Direction == 2)
+        {
+            roomManager.MoveDown();
+            spawnPos = roomManager.GetCurrentEnvironment().GetDoorPosition(0);
+        }
+        if (doorway.Direction == 3)
+        {
+            roomManager.MoveLeft();
+            spawnPos = roomManager.GetCurrentEnvironment().GetDoorPosition(1);
         }
 
+        // Move Link slightly INSIDE doorway
+        if (doorway.Direction == 0)
+        {
+            spawnPos.X += centerOffset;
+            spawnPos.Y -= spawnInset;
+        }
+        if (doorway.Direction == 1)
+        {
+            spawnPos.X += spawnInset;
+            spawnPos.Y += centerOffset;
+        }
+        if (doorway.Direction == 2)
+        {
+            spawnPos.X += centerOffset;
+            spawnPos.Y += spawnInset;
+        }
+        if (doorway.Direction == 3)
+        {
+            spawnPos.X -= spawnInset;
+            spawnPos.Y += centerOffset;
+        }
+
+        player.position = spawnPos;
+
         player.playerInventory.currentRoom = new Vector2(roomManager.CurrentRow, roomManager.CurrentCol);
-        transitioning = false;
+        
     }
 }

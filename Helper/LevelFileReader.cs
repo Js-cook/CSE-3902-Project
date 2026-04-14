@@ -26,6 +26,10 @@ public class LevelFileReader
     {
         this.roomManager = roomManager;
     }
+    public Environment GetEnvironment()
+    {
+        return gameEnv;
+    }
 
     public bool LoadLevel(int row, int col, bool spawnEnemies = true)
     {
