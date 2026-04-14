@@ -129,7 +129,6 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
             return;
         }
 
-        transitioning = true;
         nextAllowedTransitionTime = DateTime.UtcNow + TransitionCooldown;
 
         int spawnInset = 64;
