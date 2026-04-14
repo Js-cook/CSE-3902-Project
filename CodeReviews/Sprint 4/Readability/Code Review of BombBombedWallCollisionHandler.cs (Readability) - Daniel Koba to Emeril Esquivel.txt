@@ -1,0 +1,11 @@
+Author of the code review: Daniel Koba
+Date of the code review: 4/14/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: BombBombedWallCollisionHandler.cs
+Author of the .cs file being reviewed: Emeril Esquivel
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality:
+The BombBombedWallCollisionHandler class is focused and concise, which enhances readability. The class name clearly describes its purpose, and the single HandleCollision method follows the ICollisionHandler interface pattern consistently used throughout the project. The type checking using pattern matching (bomb is Bomb, other is Doorway) is clean and leverages modern C# features effectively.
+
+However, there are some readability issues. The conditional logic checks multiple properties in sequence (IsBombedWall, IsLocked, HitboxActive) which creates a somewhat complex flow. Using early returns with guard clauses would simplify this - for example, checking and returning early if it's not a bombed wall, then checking if not locked, etc. The sprite assignment logic (doorway.Sprite = tileFactory.CreateBombedWallSprite(doorway.Direction)) is clear but the reason why we're using CreateBombedWallSprite instead of CreateOpenDoorSprite is not immediately obvious without context from other parts of the codebase. A comment explaining this design decision (permanent cracked appearance vs clean open door) would help. The variable names are mostly good, but "other" is generic - "collidable" or "doorway" from the start would be clearer. The magic numbers for direction (0, 1, 2, 3) should be replaced with constants or an enum to make the code self-documenting. The lack of null checks for roomManager and tileFactory could lead to NullReferenceExceptions. Overall, the code is readable but would benefit from better documentation and some refactoring to reduce conditional complexity.

@@ -1,7 +1,18 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 public class PlayerWallCollisionHandler : ICollisionHandler
 {
+    private RoomManager roomManager;
+    private DateTime nextAllowedStairTime;
+    private static readonly TimeSpan StairCooldown = TimeSpan.FromMilliseconds(500);
+
+    public PlayerWallCollisionHandler(RoomManager roomManager = null)
+    {
+        this.roomManager = roomManager;
+        this.nextAllowedStairTime = DateTime.MinValue;
+    }
+
     public void HandleCollision(ICollidable obj1, ICollidable obj2, Rectangle intersection)
     {
         Link player = obj1 as Link ?? obj2 as Link;
@@ -9,6 +20,36 @@ public class PlayerWallCollisionHandler : ICollisionHandler
 
         if (player == null || tile == null)
             return;
+
+        if (tile.Sprite is StairSprite && roomManager != null)
+        {
+            if (DateTime.UtcNow >= nextAllowedStairTime)
+            {
+                nextAllowedStairTime = DateTime.UtcNow + StairCooldown;
+                roomManager.ToggleSecretRoom();
+                const int hudHeight = 224;
+                const int tileSize = 64;
+                player.position = new Vector2(3 * tileSize, hudHeight + 3 * tileSize);
+            }
+            return;
+        }
+        if (tile.Sprite is LadderSprite && roomManager != null
+            && roomManager.CurrentRow == 99 && roomManager.CurrentCol == 99)
+        {
+            const int secretHudHeight = 224;
+            if ((int)tile.Position.Y == secretHudHeight)
+            {
+                if (DateTime.UtcNow >= nextAllowedStairTime)
+                {
+                    nextAllowedStairTime = DateTime.UtcNow + StairCooldown;
+                    roomManager.ToggleSecretRoom();
+                    const int wallOffset = 64;
+                    const int ts = 64;
+                    player.position = new Vector2(wallOffset * 2 + 5 * ts, secretHudHeight + wallOffset * 2 + 3 * ts);
+                }
+                return;
+            }
+        }
 
         // Only process collision if tile is solid
         if (!tile.IsSolid)

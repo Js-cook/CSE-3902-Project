@@ -1,0 +1,17 @@
+﻿Author of the code review: Emeril Esquivel
+Date of the code review: 4/13/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: BombBombedWallCollisionHandler.cs
+Author of the .cs file being reviewed: Daniel Koba
+Number of minutes taken to complete the review: 35 minutes
+
+Specific comments on code quality:
+A major positive for maintainability is that the class has a clear purpose and is well-contained. 
+It only handles bomb interactions with bombable walls, which makes it easy to understand and modify. 
+The use of constructor parameters for RoomManager, TileFactory, and sound effects is also good, since 
+it avoids hardcoding dependencies.
+
+One main issue is the use of multiple boolean flags (IsBombedWall, IsLocked) to control doorway state. 
+This can become confusing and harder to maintain as more states are added. Using a single enum for doorway 
+states would make the logic clearer. Another issue is the use of the "BombDrop" string for the sound effect,
+which does not match the action and could cause confusion later.

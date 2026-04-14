@@ -1,0 +1,11 @@
+Author of the code review: Daniel Koba
+Date of the code review: 4/14/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: PlayingState.cs
+Author of the .cs file being reviewed: Jacob Cook
+Number of minutes taken to complete the review: 45 minutes
+
+Specific comments on code quality:
+The PlayingState class serves as the main game state controller and handles a substantial amount of functionality. From a readability perspective, the class structure is logical with clear sections for controllers, managers, and game loop methods. The method names follow standard MonoGame conventions (LoadContent, Update, Draw, ResolveKey) which makes the code familiar and predictable.
+
+However, there are significant readability concerns. The class has over 30 private fields at the top, creating a very dense declaration section that's overwhelming to read through. Grouping related fields with region directives or comments would help (e.g., #region Sprite Factories, #region Controllers). The ResolveKey method is extremely long at 150+ lines with deeply nested if statements for input handling. This creates a lot of cognitive load - breaking it into smaller methods like HandleMovementKeys(), HandleWeaponKeys(), and HandleDebugKeys() would make the logic much easier to follow. There are many magic numbers without explanation: projectileInputLimiter = 20, roomSwitchLimiter = 10, new Vector2(512, 672), new Vector2(50, 0). These should be extracted to named constants with comments explaining their purpose. The commented-out code (lines around the Q key check) should be removed entirely rather than left in comments. The test key handlers (T, R, K, C keys) should be marked clearly as debug/test code or removed for production. Overall, while the code is functional, its readability suffers from the god class antipattern and would benefit significantly from decomposition into smaller, focused methods.

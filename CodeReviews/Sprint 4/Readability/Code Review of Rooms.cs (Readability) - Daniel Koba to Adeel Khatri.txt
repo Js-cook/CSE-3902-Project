@@ -1,0 +1,11 @@
+Author of the code review: Daniel Koba
+Date of the code review: 4/14/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: Rooms.cs
+Author of the .cs file being reviewed: Adeel Khatri
+Number of minutes taken to complete the review: 40 minutes
+
+Specific comments on code quality:
+The Rooms.cs file contains the RoomsRepository static class that loads room data from XML, along with supporting classes (RoomDefinition, EnemyDefinition, ItemDefinition). The overall structure is logical with the XML parsing happening in the static constructor. The helper classes (RoomDefinition, EnemyDefinition, ItemDefinition) have clear, descriptive property names that make their purpose obvious.
+
+However, there are significant readability issues in the XML parsing logic. The static constructor is extremely long (over 100 lines) with deeply nested using statements and while loops. The nesting level reaches 5-6 levels deep in some places, making it very difficult to follow the control flow. Breaking this into smaller helper methods like ParseTiles(), ParseDoors(), ParseEnemies(), and ParseItems() would dramatically improve readability. The variable names like "tileRows" and "roomReader" are decent, but more context would help - "parsedTileRows" or "roomElementReader" would be clearer. The inconsistent naming convention for the count property in EnemyDefinition (lowercase) versus Type, X, Y (PascalCase) is confusing and breaks the expected pattern. The lack of comments explaining the XML structure being parsed makes it difficult to understand what the code is expecting. Adding XML structure comments or linking to the RoomData.xml schema would help. The Debug.WriteLine statement on line 70 should either be removed or wrapped in conditional compilation. The GetRoom method is simple and readable, which is good. Overall, the file would benefit greatly from extracting parsing logic into separate methods to reduce nesting and improve comprehension.

@@ -1,0 +1,11 @@
+Author of the code review: Daniel Koba
+Date of the code review: 4/14/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: PlayingState.cs
+Author of the .cs file being reviewed: Jacob Cook
+Number of minutes taken to complete the review: 45 minutes
+
+Specific comments on code quality:
+The PlayingState class manages the entire playing game state and demonstrates both strengths and weaknesses in maintainability. On the positive side, the class properly initializes and resets all game systems through LoadContent and ResetState methods, ensuring clean state management. The use of controllers and managers for different subsystems (EnemyController, ItemController, ProjectileController) shows good separation of concerns at a high level.
+
+However, the class suffers from severe maintainability issues due to being a god class with too many responsibilities. With 30+ dependencies injected or created, any change to a subsystem often requires modifying this class. This tight coupling makes the code fragile - adding a new controller or manager requires changes in at least 4 places: field declaration, constructor/initialization, Update method, and possibly ResetState. The class violates the Single Responsibility Principle as it handles input, manages all subsystems, handles collisions, manages state transitions, and more. Refactoring this into a GameContext or ServiceLocator pattern would greatly improve maintainability. The lack of interface definitions for many of the manager classes makes unit testing extremely difficult. The presence of test/debug code (keys T, R, K, C) mixed with production code is a maintainability concern - these should be in a separate debug build or removed entirely. The collision system initialization is particularly concerning as CollisionRegistry.Initialize is called with many parameters, creating tight coupling. If CollisionRegistry needs to change, PlayingState must change as well. The ResetState method has duplicate logic with LoadContent for initializing the environment and room manager, which violates DRY principles. Overall, while the code works, its maintainability is poor and would become increasingly difficult to modify and extend as the project grows. A significant refactoring effort would be needed to make this code maintainable long-term.

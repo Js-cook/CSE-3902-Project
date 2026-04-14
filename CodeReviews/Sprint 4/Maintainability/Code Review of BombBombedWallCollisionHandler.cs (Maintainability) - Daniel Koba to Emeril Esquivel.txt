@@ -1,0 +1,11 @@
+Author of the code review: Daniel Koba
+Date of the code review: 4/14/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: BombBombedWallCollisionHandler.cs
+Author of the .cs file being reviewed: Emeril Esquivel
+Number of minutes taken to complete the review: 30 minutes
+
+Specific comments on code quality:
+The BombBombedWallCollisionHandler class demonstrates good maintainability through its adherence to the Single Responsibility Principle. The class has one clear job: handle collisions between bombs and bombed walls. This focused design makes it easy to modify or extend without affecting other collision handlers. The use of dependency injection for RoomManager and TileFactory allows for better testability and loose coupling.
+
+However, there are maintainability concerns that should be addressed. The class is tightly coupled to the specific implementation details of Doorway (IsBombedWall, IsLocked, Direction properties) and Bomb (HitboxActive property). If these classes change their internal structure, this handler must also change. Using interfaces or abstract base classes would provide better isolation. The direct manipulation of doorway properties (IsLocked = false, IsBombedWall = false, Sprite = ...) violates encapsulation - the Doorway class should provide methods like Unlock() or ConvertToBombedState() to maintain its own invariants. The lack of error handling means invalid states could cause silent failures or unexpected behavior. For example, what happens if Direction is an invalid value when calling CreateBombedWallSprite? The handler doesn't validate this. The state change logic (changing three separate properties on doorway) is fragile - if we forget to change one property, the door could be in an inconsistent state. A state machine pattern or atomic state transition method would be more robust. The dependency on RoomManager.UnlockDoor suggests this class is doing more than just handling the collision - it's also managing game state persistence. This additional responsibility reduces maintainability. Overall, while the code works for current needs, its tight coupling and lack of encapsulation would make future changes risky and potentially bug-prone.

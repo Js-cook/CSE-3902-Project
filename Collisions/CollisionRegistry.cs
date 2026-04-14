@@ -69,7 +69,7 @@ public static class CollisionRegistry
         // Create shared handler instances
         PlayerEnemyCollisionHandler playerEnemyHandler = new PlayerEnemyCollisionHandler();
         PlayerEnemyProjectileCollisionHandler playerProjectileHandler = new PlayerEnemyProjectileCollisionHandler();
-        PlayerWallCollisionHandler playerWallHandler = new PlayerWallCollisionHandler();
+        PlayerWallCollisionHandler playerWallHandler = new PlayerWallCollisionHandler(roomManager);
         PlayerSpikeCollisionHandler playerSpikeHandler = new PlayerSpikeCollisionHandler();
         PlayerTreasureChestCollisionHandler playerChestHandler = new PlayerTreasureChestCollisionHandler(itemController);
         PlayerDoorwayCollisionHandler playerDoorwayHandler = new PlayerDoorwayCollisionHandler(roomManager, tileFactory, sfx, onRoomTransition);

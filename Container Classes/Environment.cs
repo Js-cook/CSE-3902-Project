@@ -18,6 +18,7 @@ public class Environment
     public Dictionary<int, ISprite> doorMap = new Dictionary<int, ISprite>();
     public Dictionary<string, ISprite> tileMap { get; set; }
     private TileFactory factory;
+    public bool IsSecretRoom { get; set; } = false;
 
     private const int tileSize = 32*2;
     private const int hudHeight = 112*2;
@@ -183,7 +184,7 @@ public class Environment
     public void Draw()
     {
 
-        Vector2 currentPos = new Vector2(wallOffset*2, (hudHeight + wallOffset*2));
+        Vector2 currentPos = IsSecretRoom ? new Vector2(0, hudHeight) : new Vector2(wallOffset*2, (hudHeight + wallOffset*2));
         foreach (ISprite[] tileRow in tiles)
         {
             float rowStartX = currentPos.X;
@@ -196,8 +197,11 @@ public class Environment
             currentPos.Y += tileSize;
         }
 
-        tileMap["RoomExterior"].SpriteDraw(new Vector2(0, hudHeight));
-        
+        if (!IsSecretRoom)
+        {
+            tileMap["RoomExterior"].SpriteDraw(new Vector2(0, hudHeight));
+        }
+
         foreach (SpikeTile spike in spikeTiles)
         {
             spike.Sprite.SpriteDraw(spike.Position);
@@ -231,7 +235,7 @@ public class Environment
     {
         List<ICollidable> collidableTiles = new List<ICollidable>();
 
-        Vector2 gridOffset = new Vector2(wallOffset*2, hudHeight + wallOffset*2); // Match Draw() calculation
+        Vector2 gridOffset = IsSecretRoom ? new Vector2(0, hudHeight) : new Vector2(wallOffset*2, hudHeight + wallOffset*2); // Match Draw() calculation
         int scaledTileSize = tileSize; // Use the constant which is already scaled (32*2 = 64)
 
         for (int row = 0; row < tiles.Count; row++)
@@ -271,6 +275,9 @@ public class Environment
 
         if (tiles.Count == 0)
             return collidableTiles; // No tiles loaded yet
+
+        if (IsSecretRoom)
+            return collidableTiles; // No boundaries for secret room
 
         int numCols = tiles[0].Length;
         int numRows = tiles.Count;

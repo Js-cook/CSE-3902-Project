@@ -1,0 +1,11 @@
+Author of the code review: Daniel Koba
+Date of the code review: 4/14/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: GameStateManager.cs
+Author of the .cs file being reviewed: Hashim Zafar
+Number of minutes taken to complete the review: 35 minutes
+
+Specific comments on code quality:
+The GameStateManager class shows good maintainability through its use of the State pattern and dependency injection. The dictionary-based approach for managing states makes it easy to add new game states without modifying existing code, which adheres to the Open/Closed Principle. The separation of concerns is evident - the manager handles state transitions while individual state classes handle their own logic.
+
+That said, there are maintainability concerns that should be addressed. The class is tightly coupled to the GameStateSignal enum, meaning any changes to available states require modifications in multiple places. A more flexible approach might involve registering states with string keys or using a factory pattern. The lack of error handling when switching to non-existent states could lead to runtime exceptions that are difficult to debug. Adding validation in the SwitchState method (checking if the requested state exists in the dictionary) would improve robustness. Additionally, there's no cleanup mechanism for disposing of previous states that might hold resources, which could lead to memory leaks over time. Implementing IDisposable and properly disposing of old states would enhance long-term maintainability. The current implementation serves its purpose well for the project's scope, but these improvements would make it more suitable for larger, production-level applications.
