@@ -43,6 +43,11 @@ public class LevelFileReader
         gameEnv.treasureChests.Clear();
         gameEnv.doorways.Clear();
         gameEnv.pushableBlocks.Clear();
+        // Clear any items from previous room so items don't persist across rooms
+        if (itemController != null)
+        {
+            itemController.ClearItems();
+        }
 
         // Load tiles from room definition
         foreach (var tileRow in roomDef.Tiles)
@@ -133,10 +138,14 @@ public class LevelFileReader
 
             foreach (var itemDef in roomDef.PickupItems)
             {
+                // Skip items that were already collected
+                if (itemDef.Acquired) continue;
+
                 float x = gridOffset.X + (itemDef.X * tileSize);
                 float y = gridOffset.Y + (itemDef.Y * tileSize);
                 Vector2 position = new Vector2(x, y);
-                itemController.SpawnItem(itemDef.Type, position);
+                // Spawn with room and grid info so collection can be persisted
+                itemController.SpawnItem(itemDef.Type, position, row, col, itemDef.X, itemDef.Y);
             }
         }
         return true;

@@ -61,5 +61,25 @@ public class PlayerItemCollisionHandler : ICollisionHandler
 
 
         pickup.HitboxActive = false;
+        // Mark the item as acquired in the room definition so it won't respawn
+        try
+        {
+            if (pickup.RoomRow >= 0 && pickup.RoomCol >= 0)
+            {
+                var room = RoomsRepository.GetRoom(pickup.RoomRow, pickup.RoomCol);
+                if (room != null && room.PickupItems != null)
+                {
+                    var def = room.PickupItems.Find(i => i.X == pickup.GridX && i.Y == pickup.GridY && i.Type == pickup.ItemType);
+                    if (def != null)
+                    {
+                        def.Acquired = true;
+                    }
+                }
+            }
+        }
+        catch (System.Exception)
+        {
+            // best-effort: do not crash if repository lookup fails
+        }
     }
 }

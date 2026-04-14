@@ -25,13 +25,13 @@ public class CompassSprite : BaseItem
 
     public override void SpriteDraw(Vector2 position)
     {
-        //int scale = 4;
+        int scale = 4;
 
         Rectangle destinationRectangle = new Rectangle(
             (int)position.X,
             (int)position.Y,
-            32,
-            32
+            16 * scale,
+            16 * scale
         );
         spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
     }
