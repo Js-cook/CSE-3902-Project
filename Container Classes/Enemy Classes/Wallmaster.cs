@@ -1,5 +1,6 @@
 ﻿using Enums;
 using Microsoft.Xna.Framework;
+using System;
 using static WallmasterManager;
 
 public class Wallmaster : IEnemy
@@ -24,6 +25,8 @@ public class Wallmaster : IEnemy
     public bool HitboxActive { get; set; }
     public int Health { get; set; }
     public bool isDead { get; set; }
+
+    public Action OnResetDungeon { get; set; }
 
     private WallmasterSpriteFactory _spriteFactory;
 
@@ -85,7 +88,7 @@ public class Wallmaster : IEnemy
         if (!IsCarryingPlayer && HitboxActive)
         {
             IsCarryingPlayer = true;
-
+            System.Diagnostics.Debug.WriteLine($"Hand grabbed player. Has Action: {this.OnResetDungeon != null}");
             // 1. Tell the Wallmaster to start moving back into the wall
             ChangeState(new RetreatingWallmasterState(this, _spriteFactory));
 

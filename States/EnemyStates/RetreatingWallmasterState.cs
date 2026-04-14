@@ -1,5 +1,6 @@
 ﻿using Enums;
 using Microsoft.Xna.Framework;
+using System;
 using static WallmasterManager;
 
 public class RetreatingWallmasterState : IEnemyState
@@ -7,6 +8,7 @@ public class RetreatingWallmasterState : IEnemyState
     private Wallmaster wallmaster;
     private WallmasterSpriteFactory spriteFactory;
     private Vector2 velocity;
+    private Action onCapture;
     private double timerMax = 1.5; // Matches the emerge timer to return to exact start point
     private double timer;
 
@@ -16,6 +18,11 @@ public class RetreatingWallmasterState : IEnemyState
         this.spriteFactory = spriteFactory;
         timer = 0;
         SetRetreatVelocity();
+
+        // 1. Capture the baton from the hand that owns this state
+        onCapture = wallmaster.OnResetDungeon;
+
+        System.Diagnostics.Debug.WriteLine($"Retreating State created. Has Action: {this.onCapture != null}");
     }
 
     public void ChangeDirection()
@@ -54,16 +61,15 @@ public class RetreatingWallmasterState : IEnemyState
 
         if (timer >= timerMax)
         {
-            // If it dragged the player into the wall, trigger your dungeon reset logic here
+            System.Diagnostics.Debug.WriteLine($"Timer Up! Carrying: {wallmaster.IsCarryingPlayer}, Action: {onCapture != null}");            // If it dragged the player into the wall, trigger your dungeon reset logic here
             if (wallmaster.IsCarryingPlayer)
             {
-                // TriggerPlayerTeleport();
+                onCapture.Invoke();
             }
 
             // Tell the WallmasterManager to put this hand back in the hidden pool
             wallmaster.HitboxActive = false;
-
-            // Reset the hand's state to idle/patrolling for the next time it gets spawned
+            wallmaster.IsCarryingPlayer = false;
             wallmaster.ChangeState(new HiddenWallmasterState(wallmaster));
         }
     }

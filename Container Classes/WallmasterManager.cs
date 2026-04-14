@@ -1,5 +1,6 @@
 ﻿using Enums;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
@@ -14,6 +15,9 @@ public class WallmasterManager : IEnemy
         West
     }
 
+    public Action OnResetDungeon { get; set; } // this is set by room manager to trigger reset dungeon when wallmaster drags player into wall
+
+    private Texture2D _debugTexture;
     public Vector2 position { get; set; } 
     public ISprite Sprite { get; set; }   
     public Rectangle Hitbox => Rectangle.Empty; 
@@ -21,7 +25,9 @@ public class WallmasterManager : IEnemy
     public int Health { get; set; } = 999;
     public bool isDead { get; set; } = false;
 
-   
+
+    private Random _rand = new Random();
+
     private Rectangle roomBounds;
     private Link player; 
 
@@ -41,6 +47,8 @@ public class WallmasterManager : IEnemy
 
         this.hiddenHands = new List<Wallmaster>();
         this.activeHands = new List<Wallmaster>();
+
+        
     }
 
  
@@ -94,12 +102,18 @@ public class WallmasterManager : IEnemy
 
                 if (proximityTimer >= SpawnDelay)
                 {
+
+
                     WallDirection chosenWall = DetermineSpawnWall(distNorth, distSouth, distEast, distWest, minDistance);
                     Vector2 spawnPosition = CalculateSpawnPosition(chosenWall, player.position);
 
                     // Grab a hand from the pool, spawn it, and move it to the active list
                     Wallmaster spawnedHand = hiddenHands[0];
+
+                    System.Diagnostics.Debug.WriteLine($"Manager spawning hand. Has Action: {this.OnResetDungeon != null}");
                     hiddenHands.RemoveAt(0);
+
+                    spawnedHand.OnResetDungeon = this.OnResetDungeon; // Pass the reset action to the hand
 
                     spawnedHand.SpawnAt(chosenWall, spawnPosition);
                     activeHands.Add(spawnedHand);
@@ -122,6 +136,8 @@ public class WallmasterManager : IEnemy
         }
     }
 
+  
+
     public void TakeDamage(int damage) { }
     public void ChangeState(IEnemyState newState) {  }
     public void OnWallCollision(Direction newDir) {  }
@@ -139,17 +155,32 @@ public class WallmasterManager : IEnemy
 
     private Vector2 CalculateSpawnPosition(WallDirection wall, Vector2 playerPos)
     {
-       
+
+        
+        int spread = 32;
+        float offset = _rand.Next(-spread, spread + 1);
+
+      
+        int handSize = 16;
+
         switch (wall)
         {
             case WallDirection.North:
-                return new Vector2(playerPos.X, roomBounds.Top);
+                float safeXNorth = MathHelper.Clamp(playerPos.X + offset, roomBounds.Left, roomBounds.Right - handSize);
+                return new Vector2(safeXNorth, roomBounds.Top);
+
             case WallDirection.South:
-                return new Vector2(playerPos.X, roomBounds.Bottom);
+                float safeXSouth = MathHelper.Clamp(playerPos.X + offset, roomBounds.Left, roomBounds.Right - handSize);
+                return new Vector2(safeXSouth, roomBounds.Bottom);
+
             case WallDirection.East:
-                return new Vector2(roomBounds.Right, playerPos.Y);
+                float safeYEast = MathHelper.Clamp(playerPos.Y + offset, roomBounds.Top, roomBounds.Bottom - handSize);
+                return new Vector2(roomBounds.Right, safeYEast);
+
             case WallDirection.West:
-                return new Vector2(roomBounds.Left, playerPos.Y);
+                float safeYWest = MathHelper.Clamp(playerPos.Y + offset, roomBounds.Top, roomBounds.Bottom - handSize);
+                return new Vector2(roomBounds.Left, safeYWest);
+
             default:
                 return Vector2.Zero;
         }

@@ -32,7 +32,7 @@ public class EnemyLoader
         enemyController.enemyArray.Clear();
     }
 
-    public void LoadEnemiesFromRoom(List<EnemyDefinition> enemies)
+    public void LoadEnemiesFromRoom(List<EnemyDefinition> enemies, Link player, RoomManager roomManager)
     {
         enemyController.enemyArray.Clear();
 
@@ -44,20 +44,42 @@ public class EnemyLoader
         const int wallOffset = 64;
         Vector2 gridOffset = new Vector2(wallOffset * 2, hudHeight + wallOffset * 2);
 
+        // Build the room boundary rectangle
+        Rectangle roomBounds = new Rectangle(
+            (int)gridOffset.X,
+            (int)gridOffset.Y,
+            12 * tileSize,
+            7 * tileSize
+        );
+
         foreach (var enemyDef in enemies)
         {
-
             if (enemyDef.Type == "WallmasterManager")
             {
-                // 1. Instantiate the Container
-                WallmasterManager manager = new WallmasterManager(_roomBounds);
+                // Create a local reference to the parameter you just passed in
+                // This ensures the lambda captures the ACTIVE instance, not the variable in Game1
+                RoomManager currentManager = roomManager;
+                Link currentPlayer = player;
 
-                // 2. Initialize the pool using the Count from the XML
-                manager.InitializeHands(enemyDef.Count, _spriteFactory);
+                WallmasterManager manager = new WallmasterManager(roomBounds, currentPlayer, enemyFactory);
 
-                // 3. Add manager to your room's update loop 
-                // (Assuming your manager implements IEnemy or an IUpdateable interface)
-                _activeEnemies.Add(manager);
+                // Use the LOCAL variables in the lambda
+                manager.OnResetDungeon = () =>
+                {
+                    if (currentManager != null && currentPlayer != null)
+                    {
+                        currentManager.ResetDungeon(currentPlayer);
+                    }
+                    else
+                    {
+                        // This will print to your Output window if something is still wrong
+                        System.Diagnostics.Debug.WriteLine("Wallmaster tried to reset, but Manager/Player was NULL!");
+                    }
+                };
+
+                manager.InitializeHands(enemyDef.count);
+                enemyController.AddEnemy(manager);
+                continue;
             }
 
             float x = gridOffset.X + (enemyDef.X * tileSize);

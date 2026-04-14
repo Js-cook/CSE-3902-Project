@@ -169,6 +169,7 @@
 			<Enemy type="Bat" x="1" y="3" />
 			<Enemy type="Bat" x="5" y="0" />
 			<Enemy type="Bat" x="3" y="5" />
+			<Enemy type="WallmasterManager" count="4" />
 		</Enemies>
 	</Room>
 	<Room row="3" col="2">
