@@ -4,58 +4,6 @@ using System.Xml;
 using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
-public class EnemyDefinition
-{
-    public string Type { get; set; }
-    public int X { get; set; }
-    public int Y { get; set; }
-    public int count { get; set; } // used for wallmaster manager
-
-    public EnemyDefinition(string type, int x, int y, int count = 1)
-    {
-        Type = type;
-        X = x;
-        Y = y;
-        this.count = count;
-    }
-}
-
-public class ItemDefinition
-{
-    public ItemType Type { get; set; }
-    public bool Acquired { get; set; } = false;
-    public int X { get; set; }
-    public int Y { get; set; }
-    public ItemDefinition(ItemType type, int x, int y)
-    {
-        Type = type;
-        X = x;
-        Y = y;
-    }
-}
-
-public class RoomDefinition
-{
-    public int Row { get; set; }
-    public int Col { get; set; }
-    public string[][] Tiles { get; set; }
-    public Dictionary<string, string> Doors { get; set; }
-    public List<EnemyDefinition> Enemies { get; set; }
-
-    public List<ItemDefinition> PickupItems { get; set; }
-
-    public RoomDefinition(int row, int col, string[][] tiles, Dictionary<string, string> doors, List<EnemyDefinition> enemies = null, List<ItemDefinition> items = null)
-    {
-        Row = row;
-        Col = col;
-        Tiles = tiles;
-        Doors = doors;
-        PickupItems = items ?? new List<ItemDefinition>();
-        Enemies = enemies ?? new List<EnemyDefinition>();
-    }
-}
-
-// compass in 3,3 map is in 2, 2
 
 public static class RoomsRepository
 {
