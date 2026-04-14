@@ -13,12 +13,16 @@ public class EnemyController
 {
 
     public List<IEnemy> enemyArray { get; set; } = new List<IEnemy>();
-    
+
     private Dictionary<string, SoundEffect> sfx;
     private AudioController audioController = new();
     public event Action AllEnemiesKilled;
     private ItemController itemController;
     private Random random;
+
+    // Freeze state for clock item
+    private bool isFrozen = false;
+    private float freezeTimer = 0f;
 
     public EnemyController(Dictionary<string, SoundEffect> sfx, ItemController itemController)
     {
@@ -38,6 +42,19 @@ public class EnemyController
 
     public void Update(GameTime gameTime)
     {
+        // Handle freeze timer
+        if (isFrozen)
+        {
+            freezeTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (freezeTimer <= 0)
+            {
+                isFrozen = false;
+                freezeTimer = 0f;
+            }
+            // Don't update enemies while frozen, but still draw them
+            return;
+        }
+
         bool removedDead = false;
         for (int i = enemyArray.Count - 1; i >= 0; i--)
         {
@@ -53,7 +70,7 @@ public class EnemyController
                     SpawnAqauamentusLoot(enemy.position);
                 }
                 SpawnRandomItem(enemy.position);
-                
+
             }
             else
             {
@@ -65,6 +82,12 @@ public class EnemyController
         {
             AllEnemiesKilled?.Invoke();
         }
+    }
+
+    public void FreezeEnemies(float durationMs)
+    {
+        isFrozen = true;
+        freezeTimer = durationMs;
     }
 
     public void Draw()
