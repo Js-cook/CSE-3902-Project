@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -9,13 +10,15 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
     private TileFactory tileFactory;
     private bool transitioning;
     private Dictionary<string, SoundEffect> sfx;
+    private Action<int> onTransition;
 
-    public PlayerDoorwayCollisionHandler(RoomManager roomManager, TileFactory tileFactory, Dictionary<string, SoundEffect> sfx = null)
+    public PlayerDoorwayCollisionHandler(RoomManager roomManager, TileFactory tileFactory, Dictionary<string, SoundEffect> sfx = null, Action<int> onTransition = null)
     {
         this.roomManager = roomManager;
         this.tileFactory = tileFactory;
         this.transitioning = false;
         this.sfx = sfx;
+        this.onTransition = onTransition;
     }
 
     public void HandleCollision(ICollidable obj1, ICollidable obj2, Rectangle intersection)
@@ -115,6 +118,12 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
 
         if (transitioning)
             return;
+
+        if (onTransition != null)
+        {
+            onTransition(doorway.Direction);
+            return;
+        }
 
         transitioning = true;
 
