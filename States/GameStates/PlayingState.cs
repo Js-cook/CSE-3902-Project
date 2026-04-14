@@ -89,6 +89,8 @@ public class PlayingState : IGameState
         messageFont = contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes");
 
         audioController = new AudioController();
+        backgroundMusic = contentLoader.Load<Song>("BackgroundMusic");
+
 
         player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx, playerInventory);
 
@@ -256,6 +258,11 @@ public class PlayingState : IGameState
         //    gameInstance.Exit();
         //}
 
+        if (keyState.IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))
+        {
+            Signal = GameStateSignal.TO_PAUSED;
+        }
+
 
         previousKeyboardState = keyState;
     }
@@ -346,8 +353,8 @@ public class PlayingState : IGameState
     public void ResetState()
     {
         Signal = GameStateSignal.NONE;
-
         
+
         enemyController.enemyArray.Clear();
         projectileController.projectiles.Clear();
         effectController.ClearEffects();

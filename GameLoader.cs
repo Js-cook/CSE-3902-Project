@@ -25,6 +25,7 @@ namespace _3902_Project
         private IGameState deathScreenState;
         private IGameState winScreenState;
         private IGameState inventoryState;
+        private IGameState pausedState;
 
         public GameLoader(GraphicsDevice GraphicsDevice, ContentManager Content, GraphicsDeviceManager _graphics, GameStateManager gameStateManager, SpriteBatch spriteBatch)
         {
@@ -55,6 +56,11 @@ namespace _3902_Project
             inventoryState = new InventoryState(((PlayingState)playingState).player.playerInventory, _spriteBatch);
             inventoryState.LoadContent(Content);
 
+            pausedState = new PausedState((PlayingState)playingState, _spriteBatch, Content.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"));
+            pausedState.LoadContent(Content);
+
+
+
             LoadGameStates();
         }
 
@@ -66,6 +72,7 @@ namespace _3902_Project
             gameStateManager.AddGameState("DeathScreen", deathScreenState);
             gameStateManager.AddGameState("WinScreen", winScreenState);
             gameStateManager.AddGameState("InventoryScreen", inventoryState);
+            gameStateManager.AddGameState("PauseScreen", pausedState);
             gameStateManager.SetCurrentState("StartScreen");
         }
     }
