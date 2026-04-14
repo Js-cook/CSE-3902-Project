@@ -46,6 +46,7 @@ public class PlayingState : IGameState
     private Environment environment;
     private LevelFileReader levelFileReader;
     private RoomManager roomManager;
+    private DiamondDoorManager diamondDoorManager;
 
     private ItemFactory itemFactory;
     private ItemController itemController;
@@ -58,7 +59,7 @@ public class PlayingState : IGameState
     public SpriteBatch _spriteBatch;
 
     private Dictionary<string, SoundEffect> sfx;
-    
+
     private GraphicsDeviceManager _graphics;
 
     private int projectileInputLimiter = 0;
@@ -116,11 +117,17 @@ public class PlayingState : IGameState
         //room manager
         tileFactory = new TileFactory(contentLoader.Load<Texture2D>("DungeonTileSprites"), playerTexture, enemyTexture, treasureChestTexture, _spriteBatch);
         environment = new Environment(tileFactory);
-        levelFileReader = new LevelFileReader(environment, enemyLoader, itemController);
+        levelFileReader = new LevelFileReader(environment, enemyLoader, itemController, player);
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
-        transitionManager = new RoomTransitionManager(_spriteBatch.GraphicsDevice, _spriteBatch);
+        // Diamond door manager - handles opening diamond doors based on triggers
+        diamondDoorManager = new DiamondDoorManager(environment, tileFactory, roomManager);
+
+        // Subscribe to events for diamond doors
+        enemyController.AllEnemiesKilled += diamondDoorManager.OnAllEnemiesKilled;
+        enemyController.BossDeath += diamondDoorManager.OnBossDeath;
+        SubscribeToBlockPushedEvents();
 
         //keyboardController = new KeyboardController(player, roomManager, enemyController, this, itemController);
 
@@ -128,6 +135,24 @@ public class PlayingState : IGameState
         collisionManager = new CollisionManager();
 
         CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController, TriggerRoomTransition);
+    }
+
+    private void SubscribeToBlockPushedEvents()
+    {
+        // Subscribe to all pushable blocks in the environment
+        foreach (var block in environment.pushableBlocks)
+        {
+            block.BlockPushed += diamondDoorManager.OnBlockPushed;
+        }
+    }
+
+    private void SubscribeToBlockPushedEvents()
+    {
+        // Subscribe to all pushable blocks in the environment
+        foreach (var block in environment.pushableBlocks)
+        {
+            block.BlockPushed += diamondDoorManager.OnBlockPushed;
+        }
     }
 
     public void ResolveKey(KeyboardState keyState)
@@ -300,7 +325,7 @@ public class PlayingState : IGameState
 
         // Only update player logic if no state transition signal is set otherwise,
         // it'll update with a null player sprite in case player is dead
-        if (Signal == GameStateSignal.NONE) 
+        if (Signal == GameStateSignal.NONE)
             player.Update(gameTime);
 
         environment.Update(gameTime);
@@ -319,7 +344,7 @@ public class PlayingState : IGameState
             ];
 
         collisionManager.Update(gameTime, collidables);
-        CheckForWinCondition(); 
+        CheckForWinCondition();
 
         if (player.health <= 0 && !playerDead)
         {
@@ -377,7 +402,7 @@ public class PlayingState : IGameState
             Signal = GameStateSignal.TO_WINSCREEN;
         }
 
-        
+
     }
     public void Draw()
     {
@@ -419,7 +444,7 @@ public class PlayingState : IGameState
     public void ResetState()
     {
         Signal = GameStateSignal.NONE;
-        
+
 
         enemyController.enemyArray.Clear();
         projectileController.projectiles.Clear();
@@ -427,11 +452,10 @@ public class PlayingState : IGameState
         itemController.itemArray.Clear();
 
         environment = new Environment(tileFactory);
-        levelFileReader = new LevelFileReader(environment, enemyLoader, itemController);
+        levelFileReader = new LevelFileReader(environment, enemyLoader, itemController, player);
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
-        if (transitionManager != null) transitionManager.Reset();
 
         playerDead = false;
         player.HitboxActive = true;

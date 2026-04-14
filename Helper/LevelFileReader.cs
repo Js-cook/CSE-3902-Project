@@ -12,22 +12,24 @@ public class LevelFileReader
 {
     private Environment gameEnv;
     private EnemyLoader enemyLoader;
-    private RoomManager roomManager;
+    private RoomManager _roomManager;
     private ItemController itemController;
+    private Link playerRef;
 
-    public LevelFileReader(Environment gameEnv, EnemyLoader enemyLoader, ItemController itemController = null)
+    public LevelFileReader(Environment gameEnv, EnemyLoader enemyLoader, ItemController itemController = null, Link playerRef = null)
     {
         this.gameEnv = gameEnv;
         this.enemyLoader = enemyLoader;
         this.itemController = itemController;
+        this.playerRef = playerRef;
     }
 
     public void SetRoomManager(RoomManager roomManager)
     {
-        this.roomManager = roomManager;
+        this._roomManager = roomManager;
     }
 
-    public bool LoadLevel(int row, int col, bool spawnEnemies = true)
+    public bool LoadLevel(int row, int col, RoomManager roomManager, bool spawnEnemies = true)
     {
         RoomDefinition roomDef = RoomsRepository.GetRoom(row, col);
 
@@ -122,7 +124,7 @@ public class LevelFileReader
         // Load enemies
         if (spawnEnemies)
         {
-            enemyLoader.LoadEnemiesFromRoom(roomDef.Enemies);
+            enemyLoader.LoadEnemiesFromRoom(roomDef.Enemies, playerRef, roomManager);
         }
         else
         {
