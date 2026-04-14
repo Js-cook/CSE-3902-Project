@@ -136,7 +136,7 @@ public class PlayingState : IGameState
         // Add additional collision handlers here as needed
         collisionManager = new CollisionManager();
 
-        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController, TriggerRoomTransition);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory,itemController, sfx, enemyController, TriggerRoomTransition);
     }
 
     private void SubscribeToBlockPushedEvents()
@@ -461,7 +461,7 @@ public class PlayingState : IGameState
 
 
         collisionManager = new CollisionManager();
-        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController, TriggerRoomTransition);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory,itemController, sfx, enemyController, TriggerRoomTransition);
 
 
         projectileInputLimiter = 0;
