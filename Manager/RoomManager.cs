@@ -20,6 +20,8 @@ public class RoomManager
 
     private readonly int startRow;
     private readonly int startCol;
+    private int previousSecretRoomRow = -1;
+    private int previousSecretRoomCol = -1;
 
     public RoomManager(LevelFileReader reader, int startRow, int startCol, EnemyController enemyController)
     {
@@ -44,10 +46,35 @@ public class RoomManager
     public void MoveLeft() { TryTransition(CurrentRow, CurrentCol - 1); }
     public void MoveRight() { TryTransition(CurrentRow, CurrentCol + 1); }
 
+    public void ToggleSecretRoom()
+    {
+        const int secretRoomRow = 99;
+        const int secretRoomCol = 99;
+
+        if (CurrentRow == secretRoomRow && CurrentCol == secretRoomCol)
+        {
+            // Already in secret room - go back to previous room
+            if (previousSecretRoomRow != -1 && previousSecretRoomCol != -1)
+            {
+                TryTransition(previousSecretRoomRow, previousSecretRoomCol);
+                previousSecretRoomRow = -1;
+                previousSecretRoomCol = -1;
+            }
+        }
+        else
+        {
+            // Not in secret room - save current room and go to secret room
+            previousSecretRoomRow = CurrentRow;
+            previousSecretRoomCol = CurrentCol;
+            TryTransition(secretRoomRow, secretRoomCol);
+        }
+    }
+
     private void TryTransition(int nextRow, int nextCol)
     {
         // Only update row/col if the load actually succeeds
         if (reader.LoadLevel(nextRow, nextCol, this, !IsRoomCleared(nextRow, nextCol)))
+
         {
             CurrentRow = nextRow;
             CurrentCol = nextCol;
