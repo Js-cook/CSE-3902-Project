@@ -34,8 +34,8 @@ public class LinkInventory
         rupees = 0;
         //items = 0;
         bombs = 3;
-        boomerangs = 1;
-        magicBoomerangs = 1;
+        boomerangs = 0;
+        magicBoomerangs = 0;
         arrows = 3;
         hasCompass = false;
         hasMap = false;
@@ -52,8 +52,8 @@ public class LinkInventory
         currentHearts = maxHearts * 2; // currentHearts refers to the number of heart halves
         rupees = 0;
         bombs = 3;
-        boomerangs = 1;
-        magicBoomerangs = 1;
+        boomerangs = 0;
+        magicBoomerangs = 0;
         arrows = 3;
         hasCompass = false;
         hasMap = false;

@@ -46,6 +46,45 @@ public class ItemController
         }
     }
 
+    // Overload to spawn an item with room/grid coordinates so we can persist pickups
+    public void SpawnItem(ItemType itemType, Vector2 position, int roomRow, int roomCol, int gridX, int gridY)
+    {
+        ISprite sprite = itemType switch
+        {
+            ItemType.Heart => itemFactory.CreateHeartSprite(),
+            ItemType.Rupee => itemFactory.CreateRupeeSprite(),
+            ItemType.Key => itemFactory.CreateKeySprite(),
+            ItemType.Bomb => itemFactory.CreateStaticBombSprite(),
+            ItemType.Arrow => itemFactory.CreateStaticArrowSprite(),
+            ItemType.HeartContainer => itemFactory.CreateHeartContainerSprite(),
+            ItemType.TriForcePiece => itemFactory.CreateTriForcePieceSprite(),
+            ItemType.Compass => itemFactory.CreateCompassSprite(),
+            ItemType.Map => itemFactory.CreateMapSprite(),
+            ItemType.Bow => itemFactory.CreateBowSprite(),
+            ItemType.WoodenBoomerang => itemFactory.CreateWoodenBoomerangSprite(),
+            ItemType.Fairy => itemFactory.CreateFairySprite(),
+            ItemType.Clock => itemFactory.CreateClockSprite(),
+            _ => null
+        };
+
+        if (sprite != null)
+        {
+            var item = new PickupItem(sprite, position, itemType)
+            {
+                RoomRow = roomRow,
+                RoomCol = roomCol,
+                GridX = gridX,
+                GridY = gridY
+            };
+            itemArray.Add(item);
+        }
+    }
+
+    public void ClearItems()
+    {
+        itemArray.Clear();
+    }
+
     public void AddItem(PickupItem item)
     {
         itemArray.Add(item);

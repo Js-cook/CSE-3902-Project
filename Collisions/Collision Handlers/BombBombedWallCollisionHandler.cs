@@ -35,7 +35,10 @@ public class BombBombedWallCollisionHandler : ICollisionHandler
         doorway.IsLocked = false;
         doorway.IsBombedWall = false;
 
-        // Change sprite to open door
+        // First show the bombed/cracked wall sprite briefly for visual effect
+        doorway.Sprite = tileFactory.CreateBombedWallSprite(doorway.Direction);
+
+        // Then immediately change to open door (or add a timer for delayed opening if desired)
         doorway.Sprite = tileFactory.CreateOpenDoorSprite(doorway.Direction);
 
         // Track the unlocked door globally so it stays open

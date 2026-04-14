@@ -10,6 +10,11 @@ public class PickupItem : ICollidable
     public ISprite Sprite { get; set; }
     public ItemType ItemType { get; set; }
     public bool HitboxActive { get; set; }
+    // Track which room/grid cell this item originated from for persistence
+    public int RoomRow { get; set; } = -1;
+    public int RoomCol { get; set; } = -1;
+    public int GridX { get; set; } = -1;
+    public int GridY { get; set; } = -1;
     private Random random;
     private float directionTimer = 1.5f;
     private Vector2 flyDirection;

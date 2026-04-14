@@ -101,7 +101,7 @@
 			<Enemy type="Gel" x="9" y="6" />
 		</Enemies>
 		<Items>
-			<Item type="Map" x="2" y="2" />
+			<Item type="Map" x="10" y="3" />
 		</Items>
 	</Room>
 	<Room row="2" col="1">
@@ -194,6 +194,9 @@
 			<Enemy type="Skeleton" x="4" y="3" />
 			<Enemy type="Skeleton" x="5" y="0" />
 		</Enemies>
+		<Items>
+			<Item type="Key" x="6" y="1" />
+		</Items>
 	</Room>
 	<Room row="4" col="2">
 		<Tiles>
@@ -238,6 +241,9 @@
 			<Enemy type="Bat" x="2" y="4" />
 			<Enemy type="Bat" x="5" y="2" />
 		</Enemies>
+		<Items>
+			<Item type="Key" x="8" y="6" />
+		</Items>
 	</Room>
 	<Room row="5" col="2">
 		<Tiles>
@@ -280,6 +286,9 @@
 			<Enemy type="Goriya" x="5" y="0" />
 			<Enemy type="Goriya" x="5" y="5" />
 		</Enemies>
+		<Items>
+			<Item type="WoodenBoomerang" x="6" y="1" />
+		</Items>
 	</Room>
 	<Room row="3" col="3">
 		<Tiles>
@@ -306,7 +315,7 @@
 			<Enemy type="Bat" x="3" y="5" />
 		</Enemies>
 		<Items>
-			<Item type="Compass" x="2" y="2" />
+			<Item type="Compass" x="10" y="3" />
 		</Items>
 	</Room>
 	<Room row="5" col="3">
@@ -394,5 +403,8 @@
 			<Bottom type="Wall" />
 			<Left type="OpenDoor" />
 		</Doors>
+		<Items>
+			<Item type="TriForcePiece" x="5" y="3" />
+		</Items>
 	</Room>
 </Game1>
