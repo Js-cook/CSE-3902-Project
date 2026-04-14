@@ -1,0 +1,3 @@
+The Rooms.cs class has inconsidstet naming ocnventions like count that don't match the other properties like Type and X. 
+Right now, the code for reading the XML file is very long and nested, which makes it hard to follow. Making it modular by breaking
+it into smallermethods or even classes would be easier to read and maintain as well. 
