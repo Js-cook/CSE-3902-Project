@@ -1,0 +1,14 @@
+﻿Author of the code review: Emeril Esquivel
+Date of the code review: 4/13/2026
+Sprint number: Sprint 4
+Name of the .cs file being reviewed: BombBombedWallCollisionHandler.cs
+Author of the .cs file being reviewed: Daniel Koba
+Number of minutes taken to complete the review: 25 minutes
+Specific comments on code quality:
+The code is easy to read overall. The logic flows clearly, and the early return statements make it simple 
+to follow what conditions must be met before the wall is destroyed. Variable names like bomb and doorway
+are clear and help readability.
+The main readability issue is that some names are not very descriptive. For example, sfx 
+could be renamed to something clearer like soundEffects. Also, using "BombDrop" for a wall-breaking 
+sound makes the code slightly confusing. Finally, grouping the doorway state changes into a helper 
+method would make the intent clearer and reduce repetition.
