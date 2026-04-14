@@ -121,6 +121,8 @@ public class PlayingState : IGameState
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
 
+        transitionManager = new RoomTransitionManager(_spriteBatch.GraphicsDevice, _spriteBatch);
+
         // Diamond door manager - handles opening diamond doors based on triggers
         diamondDoorManager = new DiamondDoorManager(environment, tileFactory, roomManager);
 
@@ -135,15 +137,6 @@ public class PlayingState : IGameState
         collisionManager = new CollisionManager();
 
         CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, sfx, enemyController, TriggerRoomTransition);
-    }
-
-    private void SubscribeToBlockPushedEvents()
-    {
-        // Subscribe to all pushable blocks in the environment
-        foreach (var block in environment.pushableBlocks)
-        {
-            block.BlockPushed += diamondDoorManager.OnBlockPushed;
-        }
     }
 
     private void SubscribeToBlockPushedEvents()
