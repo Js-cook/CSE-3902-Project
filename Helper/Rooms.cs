@@ -162,7 +162,7 @@ public static class RoomsRepository
         };
         var doors = new Dictionary<string, string> { { "Top", "Wall" }, { "Right", "Wall" }, { "Bottom", "Wall" }, { "Left", "Wall" } };
 
-        return new RoomDefinition(0, 1, tiles, doors);
+        return new RoomDefinition(99, 99, tiles, doors);
     }
 
     private static RoomDefinition CreateRoom0_1()
