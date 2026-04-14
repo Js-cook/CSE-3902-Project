@@ -156,14 +156,15 @@ public class HUD
         itemText.Draw();
 
 
-        if (playerInventory.hasCompass)
-        {
-            compassLocator.SpriteDraw(Vector2.Zero);
-        }
 
         if (!playerInventory.hasMap)
         {
             hudMapCover.SpriteDraw(new Vector2(hudPositioning.X + 300, hudPositioning.Y + 50));
+        }
+
+        if (playerInventory.hasCompass)
+        {
+            compassLocator.SpriteDraw(Vector2.Zero);
         }
 
         hudLocator.SpriteDraw(Vector2.Zero);
