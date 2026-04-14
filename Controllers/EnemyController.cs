@@ -17,6 +17,7 @@ public class EnemyController
     private Dictionary<string, SoundEffect> sfx;
     private AudioController audioController = new();
     public event Action AllEnemiesKilled;
+    public event Action BossDeath; // Triggered when Aquamentus dies
     private ItemController itemController;
     private Random random;
 
@@ -68,6 +69,7 @@ public class EnemyController
                 if (enemy is Aquamentus)
                 {
                     SpawnAqauamentusLoot(enemy.position);
+                    BossDeath?.Invoke(); // Trigger boss death event for diamond doors
                 }
                 SpawnRandomItem(enemy.position);
 
