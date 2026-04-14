@@ -49,6 +49,8 @@ public class LevelFileReader
         gameEnv.treasureChests.Clear();
         gameEnv.doorways.Clear();
         gameEnv.pushableBlocks.Clear();
+        gameEnv.IsSecretRoom = (row == 99 && col == 99);
+
         // Clear any items from previous room so items don't persist across rooms
         if (itemController != null)
         {
@@ -66,9 +68,9 @@ public class LevelFileReader
                 {
                     spriteRow[i] = gameEnv.tileMap["BlueFloor"];
                     // Add spike as a separate overlay
-                    Vector2 spikePosition = new Vector2(
-                        64 * 2 + (i * (32 * 2)),
-                        112 * 2 + 64 * 2 + ((gameEnv.tiles.Count) * (32 * 2)));
+                    float xPos = gameEnv.IsSecretRoom ? (i * (32 * 2)) : (64 * 2 + (i * (32 * 2)));
+                    float yPos = gameEnv.IsSecretRoom ? (112 * 2 + ((gameEnv.tiles.Count) * (32 * 2))) : (112 * 2 + 64 * 2 + ((gameEnv.tiles.Count) * (32 * 2)));
+                    Vector2 spikePosition = new Vector2(xPos, yPos);
                     gameEnv.AddSpike(spikePosition);
                 }
                 else if (key == "TreasureChest")
@@ -79,10 +81,9 @@ public class LevelFileReader
                     const int hudHeight = 112 * 2;
                     const int wallOffset = 64;
 
-                    Vector2 chestPosition = new Vector2(
-                        wallOffset * 2 + (i * tileSize),
-                        hudHeight + wallOffset * 2 + (gameEnv.tiles.Count * tileSize)
-                    );
+                    float xPos = gameEnv.IsSecretRoom ? (i * tileSize) : (wallOffset * 2 + (i * tileSize));
+                    float yPos = gameEnv.IsSecretRoom ? (hudHeight + (gameEnv.tiles.Count * tileSize)) : (hudHeight + wallOffset * 2 + (gameEnv.tiles.Count * tileSize));
+                    Vector2 chestPosition = new Vector2(xPos, yPos);
 
                     gameEnv.AddTreasureChest(chestPosition);
                 }
@@ -94,10 +95,9 @@ public class LevelFileReader
                     const int hudHeight = 112 * 2;
                     const int wallOffset = 64;
 
-                    Vector2 blockPosition = new Vector2(
-                        wallOffset * 2 + (i * tileSize),
-                        hudHeight + wallOffset * 2 + (gameEnv.tiles.Count * tileSize)
-                    );
+                    float xPos = gameEnv.IsSecretRoom ? (i * tileSize) : (wallOffset * 2 + (i * tileSize));
+                    float yPos = gameEnv.IsSecretRoom ? (hudHeight + (gameEnv.tiles.Count * tileSize)) : (hudHeight + wallOffset * 2 + (gameEnv.tiles.Count * tileSize));
+                    Vector2 blockPosition = new Vector2(xPos, yPos);
 
                     gameEnv.AddPushableBlock(blockPosition);
                 }
@@ -109,20 +109,23 @@ public class LevelFileReader
             gameEnv.tiles.Add(spriteRow);
         }
 
-        // Load doors from room definition
-        var directionMap = new Dictionary<string, int>
+        // Load doors from room definition (skip for secret room)
+        if (!gameEnv.IsSecretRoom)
         {
-            { "Top", 0 },
-            { "Right", 1 },
-            { "Bottom", 2 },
-            { "Left", 3 }
-        };
+            var directionMap = new Dictionary<string, int>
+            {
+                { "Top", 0 },
+                { "Right", 1 },
+                { "Bottom", 2 },
+                { "Left", 3 }
+            };
 
-        foreach (var doorEntry in roomDef.Doors)
-        {
-            int direction = directionMap[doorEntry.Key];
-            string type = doorEntry.Value;
-            gameEnv.AssignDoor(direction, type, roomManager, row, col);
+            foreach (var doorEntry in roomDef.Doors)
+            {
+                int direction = directionMap[doorEntry.Key];
+                string type = doorEntry.Value;
+                gameEnv.AssignDoor(direction, type, roomManager, row, col);
+            }
         }
 
         // Load enemies

@@ -2,13 +2,17 @@
 <Game1>
 	<Room row="99" col="99">
 		<Tiles>
-			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
-			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
-			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
-			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
-			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
-			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
-			<row>BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor,BlueFloor</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,BlackFloor,Ladder,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,Ladder,BlackFloor,BlackFloor,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,BlackFloor,Ladder,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,Ladder,BlackFloor,BlackFloor,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick</row>
 		</Tiles>
 		<Doors>
 			<Top type="Wall" />

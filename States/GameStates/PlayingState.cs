@@ -178,6 +178,7 @@ public class PlayingState : IGameState
         if (keyState.IsKeyDown(Keys.H) && roomSwitchLimiter == 0) { roomManager.MoveDown(); roomSwitchLimiter = 10; }
         if (keyState.IsKeyDown(Keys.G) && roomSwitchLimiter == 0) { roomManager.MoveLeft(); roomSwitchLimiter = 10; }
         if (keyState.IsKeyDown(Keys.J) && roomSwitchLimiter == 0) { roomManager.MoveRight(); roomSwitchLimiter = 10; }
+        if (keyState.IsKeyDown(Keys.N) && projectileInputLimiter == 0) { roomManager.ToggleSecretRoom(); projectileInputLimiter = 20; }
 
         if (keyState.IsKeyDown(Keys.Z) && projectileInputLimiter == 0)
         {
