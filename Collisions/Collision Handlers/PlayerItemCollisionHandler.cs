@@ -28,6 +28,9 @@ public class PlayerItemCollisionHandler : ICollisionHandler
             case ItemType.HeartContainer:
                 player.OnHeartContainerPickup();
                 break;
+            case ItemType.WoodenBoomerang:
+                player.playerInventory.boomerangs++;
+                break;
             case ItemType.Map:
                 player.playerInventory.hasMap = true;
                 break;
