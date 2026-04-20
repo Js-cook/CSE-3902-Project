@@ -73,7 +73,7 @@ public class EnemyController
 
                 if (enemy is Aquamentus)
                 {
-                    SpawnAqauamentusLoot(enemy.position);
+                  
                     BossDeath?.Invoke(); // Trigger boss death event for diamond doors
                 }
                 SpawnRandomItem(enemy.position);
@@ -163,11 +163,7 @@ public class EnemyController
         }
     }
 
-    private void SpawnAqauamentusLoot(Vector2 position)
-    {
-        itemController.SpawnItem(ItemType.HeartContainer, position); 
-        itemController.SpawnItem(ItemType.TriForcePiece, position + new Vector2(10, 0));
-    }
+    
 }
 
 
