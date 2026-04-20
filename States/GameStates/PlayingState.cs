@@ -362,10 +362,10 @@ public class PlayingState : IGameState
 
         pendingPlayerPosition = direction switch
         {
-            0 => new Vector2(player.position.X, 700),
-            1 => new Vector2(180, player.position.Y),
-            2 => new Vector2(player.position.X, 320),
-            3 => new Vector2(820, player.position.Y),
+            0 => new Vector2(player.position.X, 700),  // Went through top door -> spawn at bottom of new room
+            1 => new Vector2(180, player.position.Y),   // Went through right door -> spawn at left of new room
+            2 => new Vector2(player.position.X, 350),   // Went through bottom door -> spawn at top of new room (below top door)
+            3 => new Vector2(820, player.position.Y),   // Went through left door -> spawn at right of new room
             _ => player.position
         };
 
