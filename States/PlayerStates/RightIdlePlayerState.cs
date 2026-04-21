@@ -85,7 +85,7 @@ public class RightIdlePlayerState : AbstractIdlePlayer
         audioController.PlaySoundEffect(soundEffect["ArrowBoomerang"]);
         player.playerState = new RightUsingPlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateRightUsingPlayerSprite(player.position);
-        IProjectile boomerang = new Boomerang(player.position, Direction.RIGHT, player.projectileSpriteFactory);
+        IProjectile boomerang = new Boomerang(player.position, Direction.RIGHT, player.projectileSpriteFactory, player);
         projectileController.projectiles.Add(boomerang);
     }
     public override void FireMagicBoomerang()
@@ -93,7 +93,7 @@ public class RightIdlePlayerState : AbstractIdlePlayer
         audioController.PlaySoundEffect(soundEffect["ArrowBoomerang"]);
         player.playerState = new RightUsingPlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateRightUsingPlayerSprite(player.position);
-        IProjectile magicBoomerang = new MagicBoomerang(player.position, Direction.RIGHT, player.projectileSpriteFactory);
+        IProjectile magicBoomerang = new MagicBoomerang(player.position, Direction.RIGHT, player.projectileSpriteFactory, player);
         projectileController.projectiles.Add(magicBoomerang);
     }
     public override void FireFireball()

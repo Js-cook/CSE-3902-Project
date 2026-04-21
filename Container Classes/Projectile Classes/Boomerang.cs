@@ -7,7 +7,9 @@ public class Boomerang : IProjectile
     private Direction direction;
     private double startTime = 0.0;
     private double endTime = 0.75;
-    private int directionSign = 1;
+    private bool returning = false;
+
+    private Link player;
 
     public int DamageValue { get; } = 0;
     public bool Active { get; set; }
@@ -15,8 +17,6 @@ public class Boomerang : IProjectile
     private ISprite sprite;
 
     public bool isPlayerProjectile { get; set; } = true;
-
-
 
     public Rectangle Hitbox
     {
@@ -26,13 +26,12 @@ public class Boomerang : IProjectile
         }
     }
     public bool HitboxActive { get; set; } = true;
-    private ProjectileSpriteFactory spriteFactory;
 
-    public Boomerang(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory)
+    public Boomerang(Vector2 position, Direction direction, ProjectileSpriteFactory spriteFactory, Link player)
     {
         this.Position = position;
         this.direction = direction;
-        this.spriteFactory = spriteFactory;
+        this.player = player;
         sprite = spriteFactory.CreateBoomerangSprite(position);
         Active = true;
         HitboxActive = true;
@@ -47,26 +46,33 @@ public class Boomerang : IProjectile
         startTime += gametime.ElapsedGameTime.TotalSeconds;
 
         Vector2 positionNew = new Vector2(Position.X, Position.Y);
-        switch (direction)
+        if (!returning)
         {
-            case Direction.UP:
-                positionNew.Y -= (6 * directionSign);
-                break;
-            case Direction.DOWN:
-                positionNew.Y += (6 * directionSign);
-                break;
-            case Direction.LEFT:
-                positionNew.X -= (6 * directionSign);
-                break;
-            case Direction.RIGHT:
-                positionNew.X += (6 * directionSign);
-                break;
+            switch (direction)
+            {
+                case Direction.UP:
+                    positionNew.Y -= 6;
+                    break;
+                case Direction.DOWN:
+                    positionNew.Y += 6;
+                    break;
+                case Direction.LEFT:
+                    positionNew.X -= 6;
+                    break;
+                case Direction.RIGHT:
+                    positionNew.X += 6;
+                    break;
+            }
+        } else
+        {
+            positionNew.X = Position.X + (player.position.X - Position.X) * 0.05f;
+            positionNew.Y = Position.Y + (player.position.Y - Position.Y) * 0.05f;
         }
         Position = positionNew;
 
         if (startTime >= (endTime / 2))
         {
-            directionSign = -1;
+            returning = true;
         }
 
         if (startTime >= endTime)
