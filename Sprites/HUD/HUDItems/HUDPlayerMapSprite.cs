@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class HUDCursorSprite : ISprite
+public class HUDPlayerMapSprite : ISprite
 {
     private Texture2D texture;
     private SpriteBatch spriteBatch;
 
-    private Rectangle cursor = new Rectangle(519, 137, 16, 16);
+    private Rectangle tile = new Rectangle(618, 108, 8, 8);
 
-    public HUDCursorSprite(Texture2D texture, SpriteBatch spriteBatch)
+    public HUDPlayerMapSprite(Texture2D texture, SpriteBatch spriteBatch)
     {
         this.texture = texture;
         this.spriteBatch = spriteBatch;
@@ -25,14 +25,14 @@ public class HUDCursorSprite : ISprite
 
     public void SpriteDraw(Vector2 position)
     {
-        int scale = 3;
+        int scale = 4;
 
         Rectangle destinationRectangle = new Rectangle(
             (int)position.X,
             (int)position.Y,
-            cursor.Width * scale,
-            cursor.Height * scale
+            tile.Width * scale,
+            tile.Height * scale
         );
-        spriteBatch.Draw(texture, destinationRectangle, cursor, Color.White);
+        spriteBatch.Draw(texture, destinationRectangle, tile, Color.White);
     }
 }

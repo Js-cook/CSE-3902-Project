@@ -21,8 +21,6 @@ public class HUDSquareSprite : ISprite
 
     public void SpriteDraw(Vector2 position)
     {
-        //spriteBatch.Draw(texture, new Rectangle(0, 0, 1025, 224), Color.White);
-        //spriteBatch.Draw(texture, position, sourceRectangle, color);
         spriteBatch.Draw(texture, coverage, sourceRectangle, color);
     }
 

@@ -8,6 +8,7 @@ using System.Diagnostics;
 public static class RoomsRepository
 {
     private static Dictionary<(int, int), RoomDefinition> _rooms;
+    private static Dictionary<(int, int), RoomInfo> _roomInfos = new Dictionary<(int, int), RoomInfo>();
 
     static RoomsRepository()
     {
@@ -123,6 +124,10 @@ public static class RoomsRepository
 
                     var roomDef = new RoomDefinition(row, col, tiles, doors, enemies, items);
                     _rooms[(row, col)] = roomDef;
+
+                    // Create and store RoomInfo for quick access to door types
+                    var roomInfo = RoomInfo.CreateFromDoors(row, col, doors);
+                    _roomInfos[(row, col)] = roomInfo;
                 }
             }
         }
@@ -131,6 +136,11 @@ public static class RoomsRepository
     public static RoomDefinition GetRoom(int row, int col)
     {
         return _rooms.TryGetValue((row, col), out var room) ? room : null;
+    }
+
+    public static RoomInfo GetRoomInfo(int row, int col)
+    {
+        return _roomInfos.TryGetValue((row, col), out var info) ? info : null;
     }
 
 }

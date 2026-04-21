@@ -43,6 +43,13 @@ public class LevelFileReader
             return false;
         }
 
+        // Track this room as visited
+        if (playerRef != null && playerRef.playerInventory != null)
+        {
+            playerRef.playerInventory.VisitedRooms.Add((row, col));
+            playerRef.playerInventory.currentRoom = new Vector2(row, col);
+        }
+
         gameEnv.tiles.Clear();
         gameEnv.doorMap.Clear();
         gameEnv.spikeTiles.Clear();

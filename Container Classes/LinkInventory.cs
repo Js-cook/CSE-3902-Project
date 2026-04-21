@@ -25,6 +25,7 @@ public class LinkInventory
     public Weapon secondaryItem { get; set; }
 
     public Vector2 currentRoom;
+    public HashSet<(int row, int col)> VisitedRooms { get; set; }
 
     public LinkInventory()
     {
@@ -43,6 +44,7 @@ public class LinkInventory
         secondaryItem = Weapon.BOMB;
         hasTriForcePiece = false;
         currentRoom = new Vector2(5, 2);
+        VisitedRooms = new(){ (5, 2) };
     }
 
     public void ResetInventory()
@@ -60,6 +62,10 @@ public class LinkInventory
         primaryItem = Weapon.WOOD_SWORD;
         secondaryItem = Weapon.BOMB;
         hasTriForcePiece = false;
+        //VisitedRooms.Clear();
+
+        VisitedRooms.Clear();
+        VisitedRooms.Add((5, 2));
     }
 
     public int calculateNumberOfSecondaryItems()

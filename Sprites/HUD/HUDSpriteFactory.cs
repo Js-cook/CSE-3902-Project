@@ -65,4 +65,9 @@ public class HUDSpriteFactory
     {
         return new HUDSquareSprite(coverage, spriteBatch, texture, color);
     }
+
+    public InventoryMapTileSprite CreateInventoryMapTileSprite(Vector2 source)
+    {
+        return new InventoryMapTileSprite(spriteBatch, texture, source);
+    }
 }

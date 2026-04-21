@@ -9,7 +9,7 @@ public class InventoryScreenSprite : ISprite
     private SpriteBatch spriteBatch;
 
     private Rectangle topThird = new Rectangle(1,11, 255, 87);
-    private Rectangle middleThird = new Rectangle(1, 112, 255, 87);
+    private Rectangle middleThird = new Rectangle(258, 112, 255, 87);
     private Rectangle bottomThird = new Rectangle(258, 11, 255, 55);
 
     private HUDSpriteFactory spriteFactory;
@@ -23,6 +23,8 @@ public class InventoryScreenSprite : ISprite
     private ISprite hudMapCover;
     private ISprite hudLocator;
     private ISprite compassLocator;
+
+    private InventoryMapSprite inventoryMap;
 
     public InventoryScreenSprite(Texture2D texture, SpriteBatch spriteBatch, HUDSpriteFactory spriteFactory, LinkInventory playerInventory)
     {
@@ -70,36 +72,8 @@ public class InventoryScreenSprite : ISprite
 
         hudLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle((int)mapIndicators[((int)(playerInventory.currentRoom.X), (int)(playerInventory.currentRoom.Y))].X, (int)mapIndicators[((int)playerInventory.currentRoom.X, (int)playerInventory.currentRoom.Y)].Y, 10, 10), Color.LimeGreen);
         compassLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle(0 + 293, 618 + 70, 10, 10), Color.Red);
-    }
 
-    private ISprite determineItemSprite(Weapon weapon, Vector2 position)
-    {
-        ISprite selectedSprite = null;
-        switch (weapon)
-        {
-            case Weapon.WOOD_SWORD:
-                selectedSprite = spriteFactory.CreateHUDWoodSwordSprite(position);
-                break;
-            case Weapon.ARROW:
-                selectedSprite = spriteFactory.CreateHUDArrowSprite(position);
-                break;
-            case Weapon.SILVER_ARROW:
-                selectedSprite = spriteFactory.CreateHUDSilverArrowSprite(position);
-                break;
-            case Weapon.BOMB:
-                selectedSprite = spriteFactory.CreateHUDBombSprite(position);
-                break;
-            case Weapon.BOOMERANG:
-                selectedSprite = spriteFactory.CreateHUDBoomerangSprite(position);
-                break;
-            case Weapon.MAGIC_BOOMERANG:
-                selectedSprite = spriteFactory.CreateHUDMagicBoomerangSprite(position);
-                break;
-            case Weapon.NONE:
-                break;
-        }
-
-        return selectedSprite;
+        inventoryMap = new InventoryMapSprite(texture, spriteBatch, playerInventory, spriteFactory);
     }
 
     public void Update(GameTime gametime)
@@ -109,6 +83,8 @@ public class InventoryScreenSprite : ISprite
         itemText.Text = "" + playerInventory.calculateNumberOfSecondaryItems();
 
         hudLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle((int)mapIndicators[((int)(playerInventory.currentRoom.X), (int)(playerInventory.currentRoom.Y))].X, (int)mapIndicators[((int)playerInventory.currentRoom.X, (int)playerInventory.currentRoom.Y)].Y, 10, 10), Color.LimeGreen);
+
+        inventoryMap.Update(gametime);
     }
 
     public void SpriteDraw(Vector2 position)
@@ -120,7 +96,9 @@ public class InventoryScreenSprite : ISprite
         rupeeText.Draw();
         keyText.Draw();
         itemText.Draw();
-        
+
+        inventoryMap.SpriteDraw(Vector2.Zero);
+
         //secondaryItem.SpriteDraw(new Vector2(272, 170));
 
         int totalHearts = playerInventory.currentHearts;
