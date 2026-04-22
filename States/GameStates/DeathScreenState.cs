@@ -20,17 +20,11 @@ public class DeathScreenState : IGameState
     private double deathScreenTimerMax = 3; // Duration of death screen in seconds
     private double deathScreenTimer; // Timer to track how long the death screen has been displayed
 
-    private bool started = false;
-
-
     private GraphicsDevice graphicsDevice;
     private SpriteBatch spriteBatch;
     private Texture2D blankTexture;
     private SpriteFont winFont;
     private float fadeAlpha = 0f;
-
-
-
 
     public DeathScreenState(IGameState playingState)
     {

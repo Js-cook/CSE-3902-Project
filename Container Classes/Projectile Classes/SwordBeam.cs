@@ -18,7 +18,6 @@ public class SwordBeam : IProjectile
     public Vector2 Position { get; set; }
 
     private double startTime = 0.0;
-    private double endTime = 0.5;
     private ISprite sprite;
     private Direction direction;
 

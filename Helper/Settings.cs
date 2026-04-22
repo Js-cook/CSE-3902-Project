@@ -20,7 +20,7 @@ using System.Threading.Tasks;
     public float GoriyaKnockbackSpeed = 6f;
     public float GoriyaKnockbackDuration = 0.4f;
 
-    public float StartingPlayerHealth = 3f;
+    public float StartingPlayerHealth = 6f;
 
     public float PlayerStunnedTime = 1.5f;
 

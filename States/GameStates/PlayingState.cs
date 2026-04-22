@@ -19,8 +19,8 @@ public class PlayingState : IGameState
     private bool playerDead = false;
     private LinkInventory playerInventory;
     private Texture2D playerTexture;
-    private Texture2D enemyTexture;
-    private Texture2D treasureChestTexture;
+    //private Texture2D enemyTexture;
+    //private Texture2D treasureChestTexture;
     private PlayerSpriteFactory spriteFactory;
     private ProjectileSpriteFactory projectileSpriteFactory;
     private ProjectileController projectileController;

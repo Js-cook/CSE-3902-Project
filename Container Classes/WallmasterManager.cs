@@ -17,7 +17,6 @@ public class WallmasterManager : IEnemy
 
     public Action OnResetDungeon { get; set; } // this is set by room manager to trigger reset dungeon when wallmaster drags player into wall
 
-    private Texture2D _debugTexture;
     public Vector2 position { get; set; } 
     public ISprite Sprite { get; set; }   
     public Rectangle Hitbox => Rectangle.Empty; 
