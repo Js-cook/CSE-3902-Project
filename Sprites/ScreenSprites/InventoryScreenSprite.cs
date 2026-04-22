@@ -49,7 +49,6 @@ public class InventoryScreenSprite : ISprite
         itemText.Text = "" + playerInventory.calculateNumberOfSecondaryItems();
         itemText.TextColor = Color.White;
 
-        //secondaryItem = determineItemSprite(playerInventory.secondaryItem, new Vector2(550, 715));\
         hudMapCover = spriteFactory.CreateHUDSquareSprite(new Rectangle(63, 645 + 32, 275, 195), Color.Black);
 
         mapIndicators = new()
@@ -73,7 +72,14 @@ public class InventoryScreenSprite : ISprite
             {(1, 5), new Vector2(293, 618 + 105) },
         };
 
-        hudLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle((int)mapIndicators[((int)(playerInventory.currentRoom.X), (int)(playerInventory.currentRoom.Y))].X, (int)mapIndicators[((int)playerInventory.currentRoom.X, (int)playerInventory.currentRoom.Y)].Y, 10, 10), Color.LimeGreen);
+        try
+        {
+            hudLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle((int)mapIndicators[((int)(playerInventory.currentRoom.X), (int)(playerInventory.currentRoom.Y))].X, (int)mapIndicators[((int)playerInventory.currentRoom.X, (int)playerInventory.currentRoom.Y)].Y, 10, 10), Color.LimeGreen);
+        }
+        catch
+        {
+            hudLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle((int)mapIndicators[(0, 1)].X, (int)mapIndicators[(0, 1)].Y, 10, 10), Color.LimeGreen);
+        }
         compassLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle(0 + 293, 618 + 70, 10, 10), Color.Red);
 
         inventoryMap = new InventoryMapSprite(texture, spriteBatch, playerInventory, spriteFactory);
@@ -93,20 +99,8 @@ public class InventoryScreenSprite : ISprite
         inventoryMap.Update(gametime);
     }
 
-    public void SpriteDraw(Vector2 position)
+    private void RenderHearts()
     {
-        spriteBatch.Draw(texture, new Rectangle(0, 0, 1025, 309), topThird, Color.White);
-        spriteBatch.Draw(texture, new Rectangle(0, 309, 1025, 309), middleThird, Color.White);
-        spriteBatch.Draw(texture, new Rectangle(0, 618, 1025, 309), bottomThird, Color.White);
-
-        rupeeText.Draw();
-        keyText.Draw();
-        itemText.Draw();
-
-        inventoryMap.SpriteDraw(Vector2.Zero);
-
-        //secondaryItem.SpriteDraw(new Vector2(272, 170));
-
         int totalHearts = playerInventory.currentHearts;
         string type;
 
@@ -131,21 +125,37 @@ public class InventoryScreenSprite : ISprite
             ISprite heart = spriteFactory.CreateHUDHeart(type);
             heart.SpriteDraw(pos);
 
-            if (!playerInventory.hasMap)
-            {
-                hudMapCover.SpriteDraw(new Vector2(300, 618 + 50));
-            } else
-            {
-                mapSprite.SpriteDraw(new Vector2(190, 393));
-            }
-
-            if (playerInventory.hasCompass)
-            {
-                compassLocator.SpriteDraw(Vector2.Zero);
-                compassSprite.SpriteDraw(new Vector2(178, 535));
-            }
-
-            hudLocator.SpriteDraw(Vector2.Zero);
         }
+    }
+
+    public void SpriteDraw(Vector2 position)
+    {
+        spriteBatch.Draw(texture, new Rectangle(0, 0, 1025, 309), topThird, Color.White);
+        spriteBatch.Draw(texture, new Rectangle(0, 309, 1025, 309), middleThird, Color.White);
+        spriteBatch.Draw(texture, new Rectangle(0, 618, 1025, 309), bottomThird, Color.White);
+
+        rupeeText.Draw();
+        keyText.Draw();
+        itemText.Draw();
+
+        inventoryMap.SpriteDraw(Vector2.Zero);
+
+        RenderHearts();
+
+        if (!playerInventory.hasMap)
+        {
+            hudMapCover.SpriteDraw(new Vector2(300, 618 + 50));
+        } else
+        {
+            mapSprite.SpriteDraw(new Vector2(190, 393));
+        }
+
+        if (playerInventory.hasCompass)
+        {
+            compassLocator.SpriteDraw(Vector2.Zero);
+            compassSprite.SpriteDraw(new Vector2(178, 535));
+        }
+
+        hudLocator.SpriteDraw(Vector2.Zero);
     }
 }
