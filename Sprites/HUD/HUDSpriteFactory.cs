@@ -70,4 +70,15 @@ public class HUDSpriteFactory
     {
         return new InventoryMapTileSprite(spriteBatch, texture, source);
     }
+
+    public HUDCompassSprite CreateHUDCompassSprite()
+    {
+        return new HUDCompassSprite(texture, spriteBatch);
+    }
+
+    public HUDMapSprite CreateHUDMapSprite()
+    {
+        return new HUDMapSprite(texture, spriteBatch);
+    }
+
 }
