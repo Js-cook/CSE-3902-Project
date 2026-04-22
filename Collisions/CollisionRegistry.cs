@@ -16,6 +16,7 @@ public static class CollisionRegistry
         RegisterProjectileWallCollisions(collisionManager);
         RegisterFairyWallCollision(collisionManager);
         RegisterBombBombedWallCollisions(collisionManager, roomManager, tileFactory, sfx);
+        RegisterSpikeTileWallCollisions(collisionManager);
 
     }
 
@@ -34,6 +35,12 @@ public static class CollisionRegistry
                 collisionManager.RegisterHandler(eType, pType, new EnemyPlayerProjectileCollisionHandler());
             }
         }
+    }
+
+    private static void RegisterSpikeTileWallCollisions(CollisionManager collisionManager)
+    {
+        collisionManager.RegisterHandler(typeof(SpikeTile), typeof(Tile), new SpikeWallCollisionHandler());
+        collisionManager.RegisterHandler(typeof(SpikeTile), typeof(Doorway), new SpikeDoorwayCollisionHandler());
     }
 
     private static void RegisterProjectileWallCollisions(CollisionManager collisionManager)

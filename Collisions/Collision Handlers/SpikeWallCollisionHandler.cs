@@ -1,24 +1,27 @@
 ﻿using Microsoft.Xna.Framework;
 
-public class PlayerSpikeCollisionHandler : ICollisionHandler
+public class SpikeWallCollisionHandler : ICollisionHandler
 {
     public void HandleCollision(ICollidable obj1, ICollidable obj2, Rectangle intersection)
     {
-        Link player = obj1 as Link ?? obj2 as Link;
+        Tile tile = obj1 as Tile ?? obj2 as Tile;
         SpikeTile spike = obj1 as SpikeTile ?? obj2 as SpikeTile;
 
-        if (player == null || spike == null)
+        if (tile == null || spike == null)
             return;
 
         if (!spike.HitboxActive)
             return;
 
-        if (!player.Hurt)
-        {
-            player.TakeDamage(spike.DamageValue);
-        }
+        if (!tile.IsSolid)
+            return;
 
-        
+        spike.OnWallCollision();
+
+      
+
+
+
 
     }
 }

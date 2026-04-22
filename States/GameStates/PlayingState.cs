@@ -155,7 +155,7 @@ public class PlayingState : IGameState
         var enemyTexture = contentLoader.Load<Texture2D>("EnemySprites");
 
         tileFactory = new TileFactory(dungeonTileTexture, playerTexture, enemyTexture, treasureChestTexture, _spriteBatch);
-        environment = new Environment(tileFactory);
+        environment = new Environment(tileFactory, player);
         levelFileReader = new LevelFileReader(environment, enemyLoader, itemController, player);
     }
 
@@ -490,11 +490,11 @@ public class PlayingState : IGameState
         effectController.ClearEffects();
         itemController.itemArray.Clear();
 
-        environment = new Environment(tileFactory);
+        environment = new Environment(tileFactory, player);
         levelFileReader = new LevelFileReader(environment, enemyLoader, itemController, player);
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
-
+          
 
         playerDead = false;
         player.HitboxActive = true;
