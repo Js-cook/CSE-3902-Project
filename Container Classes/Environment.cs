@@ -185,10 +185,12 @@ public class Environment
 
         foreach (SpikeTile spike in spikeTiles)
         {
-           
             spike.Update(gameTime);
-
         }
+
+        treasureChests.RemoveAll(chest => chest.IsOpened); // Remove opened chests from the list before next update/draw loop
+
+
     }
 
     public void Draw()
