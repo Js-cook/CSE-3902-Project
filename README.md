@@ -51,6 +51,7 @@ Metrics calculated using the "Code Metrics" tool
 | 4/6  | 82                    | 2381                  | 2                    | 292            | 12035                | 2993                     |
 | 4/10 | 82                    | 2542                  | 2                    | 296            | 13137                | 3244                     |
 | 4/13 | 81                    | 3041	               | 2                    | 326            | 15918                | 4062                     |
+| 4/21 | 81                    | 3146                  | 2                    | 332            | 15927                | 4164                     |
 
 ### Areas for refactoring (methods and classes with the worst maintainability index)
 | Maintainability Index | Class | Method |
@@ -69,14 +70,20 @@ Metrics calculated using the "Code Metrics" tool
 ### Areas for refactoring post first major refactoring (strikethrough indicates no longer within list)
 | Maintainability Index | Class | Method |
 | --------------------- | ----- | ------ |
-| 28 -> 27 (as of 4/10) | PlayingState	| ResolveKey(KeyboardState) : void |
-| 35 | EnvironmentGetCollidableTiles() : List\<ICollidable\> |
-| 39 -> 42 (as of 4/10) | LevelFileReader | LoadLevel(string, int, int, bool) : bool |
-| 46 | PlayingState	| LoadContent(ContentManager) : void |
+| 28 -> 27 (as of 4/10) -> 25 (as of 4/21) | PlayingState	| ResolveKey(KeyboardState) : void |
+| 35 -> 30 (as of 4/21) | EnvironmentGetCollidableTiles() : List\<ICollidable\> |
+| 39 -> 42 (as of 4/10) -> 31 (as of 4/21) | LevelFileReader | LoadLevel(string, int, int, bool) : bool |
+| ~~46~~ | ~~PlayingState~~ (as of 4/21)	| ~~LoadContent(ContentManager) : void~~ |
 | ~~48~~ | ~~LevelFileReader~~ (as of 4/10) | |
 | ~~50~~ | ~~PlayingState~~ (as of 4/10) | ~~ResetState() : void~~ |
 | ~~52~~ | ~~EnemyLoader~~ (as of 4/10) | ~~LoadEnemiesFromRoom(XElement) : void~~ |
-| 50 | PlayerDoorwayCollisionHandler | HandleCollision(ICollidable, ICollidable, Rectangle) : void |
-| 52 | HUD | Draw() : void |
-| 53 | HUD | HUD(Rectangle, HUDSpriteFactory, HUDBackgroundSprite, LinkInventory) |
+| 50 -> 32 (as of 4/21) | PlayerDoorwayCollisionHandler | HandleCollision(ICollidable, ICollidable, Rectangle) : void |
+| 36 | RoomsRepository | RoomsRepository() |
+| ~~52~~ | ~~HUD~~ (as of 4/21) | ~~Draw() : void~~ |
+| ~~53~~ | ~~HUD~~ (as of 4/21) | ~~HUD(Rectangle, HUDSpriteFactory, HUDBackgroundSprite, LinkInventory)~~ |
+| 43 | PlayingState | LoadContent(ContentManager) : void |
+| 45 | Environment | AssignDoor(int, string, RoomManager, int, int) : void |
+| 47 | EnemyLoader | LoadEnemiesFromRoom(List\<EnemyDefinition\>, Link, RoomManager) : void |
+| 49 | PlayerWallCollisionHandler | HandleCollision(ICollidable, ICollidable, Rectangle) : void |
+| 50 | EnemyController | Update(GameTime) : void |
 | 54 | CollisionRegistry | RegisterPlayerCollisions(CollisionManager, RoomManager, TileFactory) : void |

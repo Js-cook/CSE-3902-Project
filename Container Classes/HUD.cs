@@ -125,24 +125,25 @@ public class HUD
             hudLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle((int)mapIndicators[(0, 1)].X, (int)mapIndicators[(0, 1)].Y, 10, 10), Color.LimeGreen);
         }
     }
-    public void Draw()
-    {
-        hudBackground.SpriteDraw(new Vector2(hudPositioning.X, hudPositioning.Y));
 
+    private void RenderHearts()
+    {
         int totalHearts = playerInventory.currentHearts;
         string type;
 
         for (int i = 0; i < playerInventory.maxHearts; i++)
         {
-            if(totalHearts == 1)
+            if (totalHearts == 1)
             {
                 type = "half";
                 totalHearts--;
-            } else if (totalHearts > 0)
+            }
+            else if (totalHearts > 0)
             {
                 type = "full";
                 totalHearts -= 2;
-            } else
+            }
+            else
             {
                 type = "empty";
             }
@@ -151,6 +152,13 @@ public class HUD
             ISprite heart = spriteFactory.CreateHUDHeart(type);
             heart.SpriteDraw(pos);
         }
+    }
+
+    public void Draw()
+    {
+        hudBackground.SpriteDraw(new Vector2(hudPositioning.X, hudPositioning.Y));
+        
+        RenderHearts();
 
         if (primaryItemSprite != null)
             primaryItemSprite.SpriteDraw(new Vector2(hudPositioning.X + 613, hudPositioning.Y + 100));
@@ -161,8 +169,6 @@ public class HUD
         rupeeText.Draw();
         keyText.Draw();
         itemText.Draw();
-
-
 
         if (!playerInventory.hasMap)
         {
