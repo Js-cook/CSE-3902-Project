@@ -81,65 +81,112 @@ public class PlayingState : IGameState
 
     public void LoadContent(ContentManager contentLoader)
     {
+        LoadPlayerResources(contentLoader);
+        LoadHUDResources(contentLoader);
+        LoadAudioResources(contentLoader);
+        LoadItemResources(contentLoader);
+        LoadEnemyResources(contentLoader);
+        LoadEffectResources(contentLoader);
+        LoadRoomManagementResources(contentLoader);
+        InitializeCollisionManagement();
+    }
+
+    private void LoadPlayerResources(ContentManager contentLoader)
+    {
         playerTexture = contentLoader.Load<Texture2D>("LinkSprites");
-        enemyTexture = contentLoader.Load<Texture2D>("EnemySprites");
-        treasureChestTexture = contentLoader.Load<Texture2D>("TreasureChestSprite");
         spriteFactory = new PlayerSpriteFactory(playerTexture, _spriteBatch);
         projectileSpriteFactory = new ProjectileSpriteFactory(playerTexture, _spriteBatch);
         projectileController = new ProjectileController(projectileSpriteFactory, sfx);
+        player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx, playerInventory);
+    }
 
-        hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch, contentLoader.Load<Texture2D>("HUD"));
-        textFactory = new HUDSpriteFactory(contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"), _spriteBatch, contentLoader.Load<Texture2D>("HUD"), playerTexture);
+    private void LoadHUDResources(ContentManager contentLoader)
+    {
+        var hudTexture = contentLoader.Load<Texture2D>("HUD");
+        var spriteFont = contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes");
+
+        hudBackgroundSprite = new HUDBackgroundSprite(Vector2.Zero, _spriteBatch, hudTexture);
+        textFactory = new HUDSpriteFactory(spriteFont, _spriteBatch, hudTexture, playerTexture);
         hud = new HUD(new Rectangle(0, 0, 1025, 244), textFactory, hudBackgroundSprite, playerInventory);
-        messageFont = contentLoader.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes");
+        messageFont = spriteFont;
+    }
 
+    private void LoadAudioResources(ContentManager contentLoader)
+    {
         audioController = new AudioController();
         backgroundMusic = contentLoader.Load<Song>("BackgroundMusic");
+    }
 
-
-        player = new Link(spriteFactory, projectileSpriteFactory, projectileController, sfx, playerInventory);
-
+    private void LoadItemResources(ContentManager contentLoader)
+    {
         itemFactory = new ItemFactory(contentLoader.Load<Texture2D>("ItemSprites"), _spriteBatch);
         itemController = new ItemController(itemFactory, sfx);
+    }
 
-        // EnemySpriteFactory, Enemy Actor Factory Enemy Controller, and EnemyLoader Initialization
+    private void LoadEnemyResources(ContentManager contentLoader)
+    {
         enemyMasterSpriteFactory.LoadContent(contentLoader, _spriteBatch);
         enemyFactory = new EnemyFactory(_graphics, enemyMasterSpriteFactory);
         enemyController = new EnemyController(sfx, itemController);
-        enemyLoader = new EnemyLoader(enemyFactory, enemyController); // Handles laoding enemies into the enemyCotnroller which then updates each of them
+        enemyLoader = new EnemyLoader(enemyFactory, enemyController);
+    }
 
-        // Effect Factory and Effect Controller Initialization
-        effectSpriteFactory = new EffectSpriteFactory(playerTexture, _spriteBatch); // Uses player texture spritesheet for the death cloud effect
+    private void LoadEffectResources(ContentManager contentLoader)
+    {
+        effectSpriteFactory = new EffectSpriteFactory(playerTexture, _spriteBatch);
         effectFactory = new EffectFactory(effectSpriteFactory);
         effectController = new EffectController(effectFactory);
+    }
 
+    private void LoadRoomManagementResources(ContentManager contentLoader)
+    {
+        // Initialize room management systems
+        InitializeEnvironmentAndTiles(contentLoader);
+        InitializeRoomManager();
+        InitializeTransitionManager();
+        InitializeDiamondDoorManager();
+        SubscribeToDiamondDoorEvents();
+    }
 
-        //room manager
-        tileFactory = new TileFactory(contentLoader.Load<Texture2D>("DungeonTileSprites"), playerTexture, enemyTexture, treasureChestTexture, _spriteBatch);
+    private void InitializeEnvironmentAndTiles(ContentManager contentLoader)
+    {
+        var dungeonTileTexture = contentLoader.Load<Texture2D>("DungeonTileSprites");
+        var treasureChestTexture = contentLoader.Load<Texture2D>("TreasureChestSprite");
+        var enemyTexture = contentLoader.Load<Texture2D>("EnemySprites");
+
+        tileFactory = new TileFactory(dungeonTileTexture, playerTexture, enemyTexture, treasureChestTexture, _spriteBatch);
         environment = new Environment(tileFactory);
         levelFileReader = new LevelFileReader(environment, enemyLoader, itemController, player);
+    }
+
+    private void InitializeRoomManager()
+    {
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
-
-        // Subscribe to room changes so we can re-subscribe to new pushable blocks
         roomManager.RoomChanged += SubscribeToBlockPushedEvents;
+    }
 
+    private void InitializeTransitionManager()
+    {
         transitionManager = new RoomTransitionManager(_spriteBatch.GraphicsDevice, _spriteBatch);
+    }
 
-        // Diamond door manager - handles opening diamond doors based on triggers
+    private void InitializeDiamondDoorManager()
+    {
         diamondDoorManager = new DiamondDoorManager(environment, tileFactory, roomManager);
+    }
 
-        // Subscribe to events for diamond doors
+    private void SubscribeToDiamondDoorEvents()
+    {
         enemyController.AllEnemiesKilled += diamondDoorManager.OnAllEnemiesKilled;
         enemyController.BossDeath += diamondDoorManager.OnBossDeath;
         SubscribeToBlockPushedEvents();
+    }
 
-        //keyboardController = new KeyboardController(player, roomManager, enemyController, this, itemController);
-
-        // Add additional collision handlers here as needed
+    private void InitializeCollisionManagement()
+    {
         collisionManager = new CollisionManager();
-
-        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory,itemController, sfx, enemyController, TriggerRoomTransition);
+        CollisionRegistry.Initialize(collisionManager, roomManager, tileFactory, itemController, sfx, enemyController, TriggerRoomTransition);
     }
 
     private void SubscribeToBlockPushedEvents()
@@ -289,11 +336,6 @@ public class PlayingState : IGameState
         {
             Signal = GameStateSignal.TO_INVENTORY;
         }
-
-        //if (keyState.IsKeyDown(Keys.Q))
-        //{
-        //    gameInstance.Exit();
-        //}
 
         if (keyState.IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))
         {

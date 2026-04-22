@@ -33,37 +33,8 @@ public class LevelFileReader
         return gameEnv;
     }
 
-    public bool LoadLevel(int row, int col, RoomManager roomManager, bool spawnEnemies = true)
+    private void LoadTiles(RoomDefinition roomDef)
     {
-        RoomDefinition roomDef = RoomsRepository.GetRoom(row, col);
-
-        if (roomDef == null)
-        {
-            Debug.WriteLine($"Room {row},{col} not found");
-            return false;
-        }
-
-        // Track this room as visited
-        if (playerRef != null && playerRef.playerInventory != null)
-        {
-            playerRef.playerInventory.VisitedRooms.Add((row, col));
-            playerRef.playerInventory.currentRoom = new Vector2(row, col);
-        }
-
-        gameEnv.tiles.Clear();
-        gameEnv.doorMap.Clear();
-        gameEnv.spikeTiles.Clear();
-        gameEnv.treasureChests.Clear();
-        gameEnv.doorways.Clear();
-        gameEnv.pushableBlocks.Clear();
-        gameEnv.IsSecretRoom = (row == 99 && col == 99);
-
-        // Clear any items from previous room so items don't persist across rooms
-        if (itemController != null)
-        {
-            itemController.ClearItems();
-        }
-
         // Load tiles from room definition
         foreach (var tileRow in roomDef.Tiles)
         {
@@ -115,7 +86,10 @@ public class LevelFileReader
             }
             gameEnv.tiles.Add(spriteRow);
         }
+    }
 
+    private void LoadDoors(RoomDefinition roomDef, RoomManager roomManager, int row, int col)
+    {
         // Load doors from room definition (skip for secret room)
         if (!gameEnv.IsSecretRoom)
         {
@@ -134,7 +108,10 @@ public class LevelFileReader
                 gameEnv.AssignDoor(direction, type, roomManager, row, col);
             }
         }
+    }
 
+    private void LoadEnemies(bool spawnEnemies, RoomDefinition roomDef, RoomManager roomManager)
+    {
         // Load enemies
         if (spawnEnemies)
         {
@@ -144,6 +121,10 @@ public class LevelFileReader
         {
             enemyLoader.ClearEnemies();
         }
+    }
+
+    private void LoadPickups(RoomDefinition roomDef, int row, int col)
+    {
         // Load pickup items (if any)
         if (roomDef.PickupItems != null && roomDef.PickupItems.Count > 0 && itemController != null)
         {
@@ -164,6 +145,47 @@ public class LevelFileReader
                 itemController.SpawnItem(itemDef.Type, position, row, col, itemDef.X, itemDef.Y);
             }
         }
+    }
+    
+    public bool LoadLevel(int row, int col, RoomManager roomManager, bool spawnEnemies = true)
+    {
+        RoomDefinition roomDef = RoomsRepository.GetRoom(row, col);
+
+        if (roomDef == null)
+        {
+            Debug.WriteLine($"Room {row},{col} not found");
+            return false;
+        }
+
+        // Track this room as visited
+        if (playerRef != null && playerRef.playerInventory != null)
+        {
+            playerRef.playerInventory.VisitedRooms.Add((row, col));
+            playerRef.playerInventory.currentRoom = new Vector2(row, col);
+        }
+
+        gameEnv.tiles.Clear();
+        gameEnv.doorMap.Clear();
+        gameEnv.spikeTiles.Clear();
+        gameEnv.treasureChests.Clear();
+        gameEnv.doorways.Clear();
+        gameEnv.pushableBlocks.Clear();
+        gameEnv.IsSecretRoom = (row == 99 && col == 99);
+
+        // Clear any items from previous room so items don't persist across rooms
+        if (itemController != null)
+        {
+            itemController.ClearItems();
+        }
+
+        LoadTiles(roomDef);
+
+        LoadDoors(roomDef, roomManager, row, col);
+
+        LoadEnemies(spawnEnemies, roomDef, roomManager);
+
+        LoadPickups(roomDef, row, col);
+
         return true;
     }
 }

@@ -71,7 +71,7 @@ Metrics calculated using the "Code Metrics" tool
 | Maintainability Index | Class | Method |
 | --------------------- | ----- | ------ |
 | 28 -> 27 (as of 4/10) -> 25 (as of 4/21) | PlayingState	| ResolveKey(KeyboardState) : void |
-| 35 -> 30 (as of 4/21) | EnvironmentGetCollidableTiles() : List\<ICollidable\> |
+| 35 -> 30 (as of 4/21) | Environment | GetCollidableTiles() : List\<ICollidable\> |
 | 39 -> 42 (as of 4/10) -> 31 (as of 4/21) | LevelFileReader | LoadLevel(string, int, int, bool) : bool |
 | ~~46~~ | ~~PlayingState~~ (as of 4/21)	| ~~LoadContent(ContentManager) : void~~ |
 | ~~48~~ | ~~LevelFileReader~~ (as of 4/10) | |
