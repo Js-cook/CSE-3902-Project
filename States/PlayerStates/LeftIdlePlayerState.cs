@@ -54,10 +54,11 @@ public class LeftIdlePlayerState : AbstractIdlePlayer
     {
         audioController.PlaySoundEffect(soundEffect["SwordSlash"]);
 
-        if(player.playerInventory.currentHearts == 2 * player.playerInventory.maxHearts)
+        if((player.playerInventory.currentHearts == 2 * player.playerInventory.maxHearts) && player.swordBeamReady)
         {
             IProjectile swordBeam = new SwordBeam(player.position, Direction.LEFT, player.projectileSpriteFactory);
             projectileController.projectiles.Add(swordBeam);
+            player.swordBeamReady = false;
         }
 
         player.playerState = new LeftAttackingPlayerState(player, spriteFactory, projectileController, soundEffect);

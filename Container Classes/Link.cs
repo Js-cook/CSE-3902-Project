@@ -53,19 +53,15 @@ public class Link : ICollidable
 
     public LinkInventory playerInventory { get; set; }
 
+    public bool swordBeamReady { get; set; } = true;
+    private int swordBeamCooldown = 35;
+
     // Message display
     private string currentMessage = "";
     private int messageTimer = 0;
     private const int MessageDuration = 120; // 2 seconds at 60 FPS
     private int messageCooldown = 0; // Prevent spam
     private const int MessageCooldownDuration = 180; // 3 seconds cooldown between messages
-
-    // Inventory/Stats
-    //public int CurrentHealth { get; set; }
-    //public int MaxHealth { get; set; }
-    //public int RupeeCount { get; set; }
-    //public int KeyCount { get; set; }
-    //public int BombCount { get; set; }
 
     public Link(PlayerSpriteFactory spriteFactory, ProjectileSpriteFactory projectileSpriteFactory, ProjectileController projectileController, Dictionary<string, SoundEffect> soundEffect, LinkInventory playerInventory)
     {
@@ -82,13 +78,6 @@ public class Link : ICollidable
         this.playerSpriteFactory = spriteFactory;
         this.projectileController = projectileController;
         this.soundEffect = soundEffect;
-
-        //Adds Stats to Link, starting with 3 hearts (6 health) and no rupees, keys, or bombs
-        //CurrentHealth = 6; 
-        //MaxHealth = 6;
-        //RupeeCount = 0;
-        //KeyCount = 0;
-        //BombCount = 0;
     }
 
     public void MoveUp() 
@@ -148,6 +137,16 @@ public class Link : ICollidable
         {
             messageCooldown--;
         }
+
+        if (!swordBeamReady)
+        {
+            swordBeamCooldown--;
+            if(swordBeamCooldown <= 0)
+            {
+                swordBeamReady = true;
+                swordBeamCooldown = 35;
+            }
+        }
     }
 
     public void Draw()
@@ -178,8 +177,6 @@ public class Link : ICollidable
         { Hurt = true;
             playerState = new StunnedPlayerState(this, playerSpriteFactory, projectileController, soundEffect, currDirection);
         }
-
-
     }
 
     public void OnHeartPickup()

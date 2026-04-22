@@ -52,10 +52,11 @@ public class UpIdlePlayerState : AbstractIdlePlayer
     {
         audioController.PlaySoundEffect(soundEffect["SwordSlash"]);
 
-        if(player.playerInventory.currentHearts == 2 * player.playerInventory.maxHearts)
+        if((player.playerInventory.currentHearts == 2 * player.playerInventory.maxHearts) && player.swordBeamReady)
         {
             IProjectile swordBeam = new SwordBeam(player.position, Direction.UP, player.projectileSpriteFactory);
             projectileController.projectiles.Add(swordBeam);
+            player.swordBeamReady = false;
         }
 
         player.playerState = new UpAttackingPlayerState(player, spriteFactory, projectileController, soundEffect);
