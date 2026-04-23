@@ -72,7 +72,13 @@ public static class RoomsRepository
                                                 doorReader.Name == "Left")
                                             {
                                                 string type = doorReader.GetAttribute("type");
-                                                doors[doorReader.Name] = type;
+                                                if (type.Contains("Diamond"))
+                                                {
+                                                    doors[doorReader.Name] = "DiamondLockedDoor";
+                                                } else
+                                                {
+                                                    doors[doorReader.Name] = type;
+                                                }
                                             }
                                         }
                                     }
