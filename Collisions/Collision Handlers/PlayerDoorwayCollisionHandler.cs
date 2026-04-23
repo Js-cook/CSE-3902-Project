@@ -37,6 +37,8 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
         // Handles Locked Doors - checks if the door is locked and if the player has a key to unlock it
         if (doorway.IsLocked)
         {
+            System.Diagnostics.Debug.WriteLine($"*** COLLISION: Player hit locked door at direction {doorway.Direction}, TriggerType={doorway.TriggerType}, HashCode={doorway.GetHashCode()}");
+
             // Handle bombed walls separately - they need bombs, not keys
             if (doorway.IsBombedWall)
             {

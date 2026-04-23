@@ -91,9 +91,18 @@ public class EnemyController
             }
         }
 
+        // Debug: Show enemy count after removals
+        if (removedDead)
+        {
+            System.Diagnostics.Debug.WriteLine($"*** ENEMY DIED - Remaining enemies: {enemyArray.Count}");
+        }
+
         if (removedDead && enemyArray.Count == 0)
         {
+            Console.WriteLine("=== ALL ENEMIES KILLED! FIRING EVENT ===");
+            System.Diagnostics.Debug.WriteLine("*** ALL ENEMIES KILLED - FIRING EVENT");
             AllEnemiesKilled?.Invoke();
+            Console.WriteLine($"=== AllEnemiesKilled event has {AllEnemiesKilled?.GetInvocationList().Length ?? 0} subscribers ===");
         }
     }
     public void FreezeEnemies(float durationMs)

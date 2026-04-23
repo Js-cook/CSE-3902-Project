@@ -162,15 +162,15 @@
 		</Tiles>
 		<Doors>
 			<Top type="KeyLockedDoor" />
-			<Right type="DiamondLockedDoor" />
+			<Right type="DiamondLockedDoor:AllEnemies" />
 			<Bottom type="Wall" />
 			<Left type="Wall" />
 		</Doors>
 		<Enemies>
 			<Enemy type="Bat" x="1" y="3" />
-			<Enemy type="Bat" x="5" y="9" />
+			<Enemy type="Bat" x="9" y="5" />
 			<Enemy type="Bat" x="5" y="2" />
-			<Enemy type="Bat" x="1" y="3" />
+			<Enemy type="Bat" x="7" y="3" />
 			<Enemy type="Bat" x="5" y="0" />
 			<Enemy type="Bat" x="3" y="5" />
 		</Enemies>

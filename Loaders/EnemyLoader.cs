@@ -37,7 +37,12 @@ public class EnemyLoader
         enemyController.enemyArray.Clear();
 
         if (enemies == null || enemies.Count == 0)
+        {
+            System.Diagnostics.Debug.WriteLine("*** ENEMY LOADER: No enemies to load");
             return;
+        }
+
+        System.Diagnostics.Debug.WriteLine($"*** ENEMY LOADER: Loading {enemies.Count} enemy definitions");
 
         const int tileSize = 32 * 2;
         const int hudHeight = 112 * 2;
@@ -94,5 +99,7 @@ public class EnemyLoader
                 enemyController.AddEnemy(enemy);
             }
         }
+
+        System.Diagnostics.Debug.WriteLine($"*** ENEMY LOADER: Loaded {enemyController.enemyArray.Count} enemies into controller");
     }
 }
