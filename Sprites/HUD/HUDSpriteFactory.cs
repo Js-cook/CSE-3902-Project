@@ -81,4 +81,13 @@ public class HUDSpriteFactory
         return new HUDMapSprite(texture, spriteBatch);
     }
 
+    public HUDRedRingSprite CreateHUDRedRingSprite()
+    {
+        return new HUDRedRingSprite(texture, spriteBatch);
+    }
+
+    public HUDPowerBraceletSprite CreateHUDPowerBraceletSprite()
+    {
+        return new HUDPowerBraceletSprite(texture, spriteBatch);
+    }
 }

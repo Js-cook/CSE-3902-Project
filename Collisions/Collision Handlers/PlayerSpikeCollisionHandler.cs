@@ -15,10 +15,9 @@ public class PlayerSpikeCollisionHandler : ICollisionHandler
 
         if (!player.Hurt)
         {
-            player.TakeDamage(spike.DamageValue);
+            int damageToTake = (int)spike.DamageValue;
+            _ = player.playerInventory.hasRedRing ? (damageToTake /= 2) : damageToTake;
+            player.TakeDamage(damageToTake);
         }
-
-        
-
     }
 }
