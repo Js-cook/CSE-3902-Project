@@ -44,6 +44,7 @@ public class TreasureChest : ICollidable
         }
 
         IsOpened = true;
+
         return GetRandomDrop();
     }
 

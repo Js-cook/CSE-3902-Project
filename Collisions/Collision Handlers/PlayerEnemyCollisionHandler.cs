@@ -14,12 +14,11 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
         if(DetermineSuccessfulPlayerAttack(player, enemy, intersection))
         {
             ApplyKnockback(enemy, -1 * GetKnockbackDirection(player, enemy, intersection));
-            enemy.TakeDamage(1); 
+            int enemyDamageToTake;
+            _ = player.playerInventory.hasPowerBracelet == true ? enemyDamageToTake = 1 : enemyDamageToTake = 2;
+            enemy.TakeDamage(enemyDamageToTake); 
             return; 
         }
-
-
-
 
         // Don't process collision if player is already hurt
         if (player.Hurt)
@@ -49,7 +48,9 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
         ApplyKnockback(player, knockbackDirection);
 
         // Damage the player
-        player.TakeDamage(1); // Each collision with any enemy causes 1 damage, adjust as needed
+        int damageToTake;
+        _ = player.playerInventory.hasRedRing == true ? damageToTake = 1 : damageToTake = 2;
+        player.TakeDamage(damageToTake); // Each collision with any enemy causes 1 damage, adjust as needed
     }
 
     private bool DetermineSuccessfulPlayerAttack(Link player, IEnemy enemy, Rectangle intersection)

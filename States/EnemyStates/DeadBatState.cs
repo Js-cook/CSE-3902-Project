@@ -6,9 +6,6 @@ public class DeadBatState : IEnemyState
 {
     private Bat bat;
     private BatSpriteFactory spriteFactory;
-
-    int timer = 0;
-    int timerMax = 5;
     public DeadBatState(Bat bat, BatSpriteFactory spriteFactory)
     {
         this.bat = bat;

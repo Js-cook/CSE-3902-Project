@@ -17,8 +17,6 @@ namespace _3902_Project
         private GraphicsDeviceManager _graphics;
         private ContentManager Content;
 
-        private KeyboardController keyboardController;
-
         private GameStateManager gameStateManager;
         private IGameState startScreenState;
         private IGameState playingState;

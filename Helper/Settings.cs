@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
     public class Settings
@@ -13,6 +14,9 @@ using System.Threading.Tasks;
     public float AquamentusSpeed = 1.5f;
     public float GelSpeed = 3f;
     public float PlayerSpeed = 2f;
+    public float SpikeTileDamageValue = 1f;
+    public float SpiketrapAttackSpeed = 5f;
+    public float SpiketrapReturnSpeed = 5f;
 
     public float AquamentusFireballSpeed = 4f;
     public float WinScreenTextSize = 16f;
@@ -20,7 +24,7 @@ using System.Threading.Tasks;
     public float GoriyaKnockbackSpeed = 6f;
     public float GoriyaKnockbackDuration = 0.4f;
 
-    public float StartingPlayerHealth = 3f;
+    public float StartingPlayerHealth = 6f;
 
     public float PlayerStunnedTime = 1.5f;
 

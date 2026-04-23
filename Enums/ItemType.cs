@@ -14,6 +14,8 @@ namespace Enums
         Bow,                // Equipment - allows arrow use
         WoodenBoomerang,    // Equipment item
         Fairy,              // Full heal
-        Clock               // Freezes enemies
+        Clock,               // Freezes enemies
+        RedRing,
+        PowerBracelet
     }
 }

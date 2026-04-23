@@ -18,6 +18,7 @@ public class HUDHeart : ISprite
     {
         this.texture = texture;
         this.spriteBatch = spriteBatch;
+        this.state = state;
         switch (state)
         {
             case "full":

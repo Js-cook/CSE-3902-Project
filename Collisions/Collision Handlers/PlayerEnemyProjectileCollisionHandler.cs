@@ -26,7 +26,9 @@ public class PlayerEnemyProjectileCollisionHandler : ICollisionHandler
         // If projectile is goriya boomerang, it should stun player
         if (projectile is not GoriyaBoomerang)
         {
-            player.TakeDamage(projectile.DamageValue);
+            int damageToTake = projectile.DamageValue;
+            _ = player.playerInventory.hasRedRing ? (damageToTake /= 2) : damageToTake;
+            player.TakeDamage(damageToTake);
         }
         else
         {

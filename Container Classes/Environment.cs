@@ -12,6 +12,7 @@ public class Environment
 {
     public List<ISprite[]> tiles { get; set; }
     public List<SpikeTile> spikeTiles { get; set; }
+    private Link Player;
     public List<TreasureChest> treasureChests { get; set; }
     public List<Doorway> doorways { get; set; }
     public List<PushableBlock> pushableBlocks { get; set; }
@@ -24,11 +25,12 @@ public class Environment
     private const int hudHeight = 112*2;
     private const int wallOffset = 64;
 
-    public Environment(TileFactory factory)
+    public Environment(TileFactory factory, Link player)
     {
         this.factory = factory;
         tiles = new List<ISprite[]>();
         spikeTiles = new List<SpikeTile>();
+        Player = player;
         treasureChests = new List<TreasureChest>();
         doorways = new List<Doorway>();
         pushableBlocks = new List<PushableBlock>();
@@ -149,7 +151,7 @@ public class Environment
     }
     public void AddSpike(Vector2 position)
     {
-        spikeTiles.Add(new SpikeTile(factory.CreateSpikeSprite(), position));
+        spikeTiles.Add(new SpikeTile(factory.CreateSpikeSprite(), position, Player));
     }
 
     public void AddTreasureChest(Vector2 position)
@@ -161,6 +163,7 @@ public class Environment
     {
         pushableBlocks.Add(new PushableBlock(factory.CreatePushSquareBlockSprite(), position, allowedDirections));
     }
+
     private bool IsOpenDoor(int direction)
     {
         return doorways.Exists(d => d.Direction == direction && !d.IsLocked);
@@ -179,6 +182,15 @@ public class Environment
             foreach (ISprite tile in tileRow) tile.Update(gameTime);
         }
         foreach (var door in doorMap.Values) door.Update(gameTime);
+
+        foreach (SpikeTile spike in spikeTiles)
+        {
+            spike.Update(gameTime);
+        }
+
+        treasureChests.RemoveAll(chest => chest.IsOpened); // Remove opened chests from the list before next update/draw loop
+
+
     }
 
     public void Draw()

@@ -7,8 +7,6 @@ public class DeadWallmasterState : IEnemyState
     private Wallmaster wallmaster;
     private WallmasterSpriteFactory spriteFactory;
 
-    int timer = 0;
-    int timerMax = 5;
     public DeadWallmasterState(Wallmaster wallmaster, WallmasterSpriteFactory spriteFactory)
     {
         this.wallmaster = wallmaster;

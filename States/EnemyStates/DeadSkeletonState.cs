@@ -7,8 +7,6 @@ public class DeadSkeletonState : IEnemyState
     private Skeleton skeleton;
     private SkeletonSpriteFactory spriteFactory;
 
-    int timer = 0;
-    int timerMax = 5;
     public DeadSkeletonState(Skeleton skeleton, SkeletonSpriteFactory spriteFactory)
     {
         this.skeleton = skeleton;

@@ -36,6 +36,8 @@ public class ItemController
             ItemType.WoodenBoomerang => itemFactory.CreateWoodenBoomerangSprite(),
             ItemType.Fairy => itemFactory.CreateFairySprite(),
             ItemType.Clock => itemFactory.CreateClockSprite(),
+            ItemType.RedRing => itemFactory.CreateRedRingSprite(),
+            ItemType.PowerBracelet => itemFactory.CreatePowerBraceletSprite(),
             _ => null
         };
 
@@ -64,6 +66,8 @@ public class ItemController
             ItemType.WoodenBoomerang => itemFactory.CreateWoodenBoomerangSprite(),
             ItemType.Fairy => itemFactory.CreateFairySprite(),
             ItemType.Clock => itemFactory.CreateClockSprite(),
+            ItemType.RedRing => itemFactory.CreateRedRingSprite(),
+            ItemType.PowerBracelet => itemFactory.CreatePowerBraceletSprite(),
             _ => null
         };
 

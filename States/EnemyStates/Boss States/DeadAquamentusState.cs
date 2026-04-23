@@ -7,8 +7,6 @@ public class DeadAquamentusState : IEnemyState
     private Aquamentus aquamentus;
     private AquamentusSpriteFactory spriteFactory;
 
-    int timer = 0;
-    int timerMax = 5;
     public DeadAquamentusState(Aquamentus aquamentus, AquamentusSpriteFactory spriteFactory)
     {
         this.aquamentus = aquamentus;

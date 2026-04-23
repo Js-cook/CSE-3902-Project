@@ -7,8 +7,6 @@ public class DeadGelState : IEnemyState
     private Gel gel;
     private GelSpriteFactory spriteFactory;
 
-    int timer = 0;
-    int timerMax = 5;
     public DeadGelState(Gel gel, GelSpriteFactory spriteFactory)
     {
         this.gel = gel;

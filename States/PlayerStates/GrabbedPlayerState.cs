@@ -9,7 +9,6 @@ using System.Collections.Generic;
 public class GrabbedPlayerState : AbstractGrabbedPlayerState
 {
     private Link player;
-    private PlayerSpriteFactory spriteFactory;
 
     private Wallmaster captor;
 
