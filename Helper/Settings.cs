@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 {
     public int scale = 4;
 
-    public float SkeletonSpeed = 3f;
+    public float SkeletonSpeed = 2f;
     public float GoriyaSpeed = 2f;
     public float BatSpeed = 4f;
     public float AquamentusSpeed = 1.5f;

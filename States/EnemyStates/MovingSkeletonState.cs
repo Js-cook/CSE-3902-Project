@@ -8,7 +8,7 @@ public class MovingSkeletonState : IEnemyState
     private Skeleton skeleton;
     private SkeletonSpriteFactory spriteFactory;
 
-    double timerMax = 2;
+    double timerMax = 1f;
     double timer;
 
     private Vector2 velocity;
@@ -61,7 +61,7 @@ public class MovingSkeletonState : IEnemyState
 
     public void Update(Microsoft.Xna.Framework.GameTime gameTime)
     {
-        skeleton.position += velocity;
+        skeleton.position += velocity * Settings.Instance.SkeletonSpeed;
         UpdateDirectionTimer(gameTime);
     }
     public void TakeDamage()
