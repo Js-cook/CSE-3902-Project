@@ -373,7 +373,7 @@ public class PlayingState : IGameState
                 player.position = pendingPlayerPosition;
                 player.playerInventory.currentRoom = new Vector2(roomManager.CurrentRow, roomManager.CurrentCol);
             }
-            hud.Update(gameTime);
+            //hud.Update(gameTime);
             return;
         }
 
@@ -416,7 +416,7 @@ public class PlayingState : IGameState
 
         effectController.Update(gameTime);
 
-        hud.Update(gameTime);
+       // hud.Update(gameTime);
     }
 
     public void TriggerRoomTransition(int direction)
@@ -474,7 +474,7 @@ public class PlayingState : IGameState
         }
 
         environment.Draw();
-        hud.Draw();
+       // hud.Draw();
 
         if (Signal == GameStateSignal.NONE)
             player.Draw();
@@ -515,7 +515,7 @@ public class PlayingState : IGameState
 
         environment = new Environment(tileFactory, player);
         levelFileReader = new LevelFileReader(environment, enemyLoader, itemController, player);
-        roomManager = new RoomManager(levelFileReader, 1, 2, enemyController);
+        roomManager = new RoomManager(levelFileReader, 1, 0, enemyController);
         levelFileReader.SetRoomManager(roomManager);
         roomManager.RoomChanged += SubscribeToBlockPushedEvents;
 
