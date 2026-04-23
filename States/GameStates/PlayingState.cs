@@ -160,7 +160,7 @@ public class PlayingState : IGameState
 
     private void InitializeRoomManager()
     {
-        roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
+        roomManager = new RoomManager(levelFileReader, 1, 0, enemyController);
         levelFileReader.SetRoomManager(roomManager);
         roomManager.RoomChanged += SubscribeToBlockPushedEvents;
     }

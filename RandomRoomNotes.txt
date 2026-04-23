@@ -45,9 +45,8 @@ Random Generated Constraints:
 the templates is more than the max rooms that can be made in the dungeon.
 	- Details for randomly selecting a template:
 		- The templates will be stored in a dictionary with (key, value) being 
-		(Template, Times chosen), and then the file generating the room will take the list, and randomly picks two rooms r1 and r2
-		if Times Chosen r1 and r2 less than or equal to 2. 
-
+		(Template, Times chosen), and then the file generating the room will take the list, and radnomly picks a template t to 
+		fill room r if t is hcosen less than 3 times. 
 - Each room, except for the starting room will get a randomly generated index (x, y) generated on the basis of:
 	- Each room shall be connected to each other undiagonally, 
 	so first is to generate a set of indices in the range of (0, 0) to (5,5)

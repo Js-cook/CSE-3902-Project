@@ -1,13 +1,15 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using Controllers;
-using Microsoft.Xna.Framework.Media;
+﻿using Controllers;
+using Enums;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using Enums;
 
 namespace _3902_Project
 {
@@ -40,6 +42,29 @@ namespace _3902_Project
 
         protected override void Initialize()
         {
+
+            // 1. Setup paths. 
+            // AppDomain.CurrentDomain.BaseDirectory gets the folder where your .exe is running (usually bin/Debug/net6.0/)
+            string sourcePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", "RoomData.xml");
+            string outputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", "PlayableDungeon2.xml");
+
+            // 2. Instantiate your new orchestrator
+            DungeonGenerator generator = new DungeonGenerator();
+
+            Debug.WriteLine("Starting Dungeon 2 Generation...");
+
+            // 3. Fire it off!
+            try
+            {
+                generator.Generate(sourcePath, outputPath);
+                Debug.WriteLine("Dungeon generated successfully! Check your Content folder.");
+            }
+            catch (System.Exception ex)
+            {
+                Debug.WriteLine($"Generator failed: {ex.Message}");
+            }
+
+
             base.Initialize();
         }
 

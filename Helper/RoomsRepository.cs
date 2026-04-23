@@ -14,7 +14,7 @@ public static class RoomsRepository
     {
         _rooms = new Dictionary<(int, int), RoomDefinition>();
 
-        string filePath = Path.Combine("Content", "RoomData.xml");
+        string filePath = Path.Combine("Content", "PlayableDungeon2.xml");
 
         Debug.WriteLine(filePath);
 
