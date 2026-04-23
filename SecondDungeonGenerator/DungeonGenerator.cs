@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 public class DungeonGenerator
 {
@@ -45,5 +47,41 @@ public class DungeonGenerator
 
         // 5. Save the final result
         _xmlExporter.Export(dungeonRooms, outputXmlPath);
+
+        Debug.WriteLine("\n================ DUNGEON MAP ================");
+
+        // 1. Print the 6x6 visual grid
+        for (int r = 0; r < 6; r++)
+        {
+            string rowString = "";
+            for (int c = 0; c < 6; c++)
+            {
+                // Check if a room exists at this coordinate
+                var room = dungeonRooms.FirstOrDefault(node => node.Row == r && node.Col == c);
+
+                if (room != null)
+                {
+                    if (r == 1 && c == 0) rowString += "[S] "; // Starting Room
+                    else rowString += "[R] "; // Normal Room
+                }
+                else
+                {
+                    rowString += "[ ] "; // Empty Space
+                }
+            }
+            Debug.WriteLine(rowString);
+        }
+
+        Debug.WriteLine("\n============= ROOM DOOR DATA =============");
+
+        // 2. Print the exact door data to verify connections
+        foreach (var room in dungeonRooms.OrderBy(n => n.Row).ThenBy(n => n.Col))
+        {
+            Debug.WriteLine($"Room ({room.Row}, {room.Col}) | Doors -> Top: {room.TopDoor,-4} | Bottom: {room.BottomDoor,-4} | Left: {room.LeftDoor,-4} | Right: {room.RightDoor,-4}");
+        }
+
+        Debug.WriteLine("=============================================\n");
+
+
     }
 }

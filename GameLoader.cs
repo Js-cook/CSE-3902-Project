@@ -50,7 +50,7 @@ namespace _3902_Project
 
             winScreenState = new WinScreenState(playingState);
             winScreenState.LoadContent(Content);
-            // questionable syntax
+            //questionable syntax
             inventoryState = new InventoryState(((PlayingState)playingState).player.playerInventory, _spriteBatch);
             inventoryState.LoadContent(Content);
 

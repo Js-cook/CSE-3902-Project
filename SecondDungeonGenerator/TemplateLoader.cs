@@ -18,7 +18,7 @@ public class TemplateLoader
                              int col = (int?)r.Attribute("col") ?? -1; // Gets the col attribute of the room tag
 
                              return
-                                    col > 0;
+                                    col > 0 && col != 99;
                          }) // Filters the rooms whose "col" attribute is more than 0
                          .Take(templateLimit) // Limits the results to the template limit
                          .Select(r => r.Element("Tiles")) // Goes from the room tags to the tiles tags in the individual rooms

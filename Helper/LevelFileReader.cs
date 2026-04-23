@@ -83,6 +83,12 @@ public class LevelFileReader
                 {
                     spriteRow[i] = gameEnv.tileMap[key];
                 }
+                else
+                {
+                    // Fallback for unknown tiles - use BlueFloor as default
+                    System.Diagnostics.Debug.WriteLine($"WARNING: Unknown tile type '{key}', using BlueFloor as fallback");
+                    spriteRow[i] = gameEnv.tileMap["BlueFloor"];
+                }
             }
             gameEnv.tiles.Add(spriteRow);
         }

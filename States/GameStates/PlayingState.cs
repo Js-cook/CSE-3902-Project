@@ -515,7 +515,7 @@ public class PlayingState : IGameState
 
         environment = new Environment(tileFactory, player);
         levelFileReader = new LevelFileReader(environment, enemyLoader, itemController, player);
-        roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
+        roomManager = new RoomManager(levelFileReader, 1, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
         roomManager.RoomChanged += SubscribeToBlockPushedEvents;
 
