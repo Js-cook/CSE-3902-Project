@@ -82,4 +82,9 @@ public class ItemFactory
     {
         return new RedRingSprite(itemTexture, spriteBatch);
     }
+
+    public ISprite CreatePowerBraceletSprite()
+    {
+        return new PowerBraceletSprite(itemTexture, spriteBatch);
+    }
 }

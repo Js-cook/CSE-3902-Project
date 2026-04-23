@@ -14,7 +14,9 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
         if(DetermineSuccessfulPlayerAttack(player, enemy, intersection))
         {
             ApplyKnockback(enemy, -1 * GetKnockbackDirection(player, enemy, intersection));
-            enemy.TakeDamage(1); 
+            int enemyDamageToTake;
+            _ = player.playerInventory.hasPowerBracelet == true ? enemyDamageToTake = 1 : enemyDamageToTake = 2;
+            enemy.TakeDamage(enemyDamageToTake); 
             return; 
         }
 

@@ -15,6 +15,7 @@ public class LinkInventory
     public int arrows { get; set; }
     public int silverArrows { get; set; }
     public bool hasRedRing { get; set; }
+    public bool hasPowerBracelet { get; set; }
     public bool hasCompass { get; set; }
     public bool hasMap { get; set; }
 
@@ -44,6 +45,7 @@ public class LinkInventory
         currentRoom = new Vector2(5, 2);
         VisitedRooms = new(){ (5, 2) };
         hasRedRing = false;
+        hasPowerBracelet = false;
     }
 
     public void ResetInventory()
@@ -62,6 +64,7 @@ public class LinkInventory
         secondaryItem = Weapon.BOMB;
         hasTriForcePiece = false;
         hasRedRing = false;
+        hasPowerBracelet = false;
 
         VisitedRooms.Clear();
         VisitedRooms.Add((5, 2));

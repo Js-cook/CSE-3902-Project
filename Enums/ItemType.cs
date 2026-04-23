@@ -15,6 +15,7 @@ namespace Enums
         WoodenBoomerang,    // Equipment item
         Fairy,              // Full heal
         Clock,               // Freezes enemies
-        RedRing
+        RedRing,
+        PowerBracelet
     }
 }

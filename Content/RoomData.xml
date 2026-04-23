@@ -268,7 +268,8 @@
 		<Enemies>
 		</Enemies>
 		<Items>
-			<Item type="RedRing" x="5" y="5" /> 
+			<Item type="RedRing" x="5" y="5" />
+			<Item type="PowerBracelet" x="5" y="3" />
 		</Items>
 	</Room>
 	<Room row="2" col="3">

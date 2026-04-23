@@ -61,6 +61,9 @@ public class PlayerItemCollisionHandler : ICollisionHandler
             case ItemType.RedRing:
                 player.playerInventory.hasRedRing = true;
                 break;
+            case ItemType.PowerBracelet:
+                player.playerInventory.hasPowerBracelet = true;
+                break;
             default:
                 break;
         }
