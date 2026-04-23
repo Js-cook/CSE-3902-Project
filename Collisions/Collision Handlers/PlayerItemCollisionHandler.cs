@@ -58,6 +58,9 @@ public class PlayerItemCollisionHandler : ICollisionHandler
                 player.playerInventory.hasTriForcePiece = true;
                 pickup.Position = player.position + new Vector2(0, -16); // Position the TriForce piece above the player
                 break;
+            case ItemType.RedRing:
+                player.playerInventory.hasRedRing = true;
+                break;
             default:
                 break;
         }

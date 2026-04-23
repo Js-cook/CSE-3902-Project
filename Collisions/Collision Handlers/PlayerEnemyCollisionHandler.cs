@@ -18,9 +18,6 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
             return; 
         }
 
-
-
-
         // Don't process collision if player is already hurt
         if (player.Hurt)
             return;
@@ -49,7 +46,9 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
         ApplyKnockback(player, knockbackDirection);
 
         // Damage the player
-        player.TakeDamage(1); // Each collision with any enemy causes 1 damage, adjust as needed
+        int damageToTake;
+        _ = player.playerInventory.hasRedRing == true ? damageToTake = 1 : damageToTake = 2;
+        player.TakeDamage(damageToTake); // Each collision with any enemy causes 1 damage, adjust as needed
     }
 
     private bool DetermineSuccessfulPlayerAttack(Link player, IEnemy enemy, Rectangle intersection)

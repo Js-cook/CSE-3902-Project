@@ -77,4 +77,9 @@ public class ItemFactory
     {
         return new ClockSprite(itemTexture, spriteBatch);
     }
+
+    public ISprite CreateRedRingSprite()
+    {
+        return new RedRingSprite(itemTexture, spriteBatch);
+    }
 }

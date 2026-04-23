@@ -9,14 +9,12 @@ public class LinkInventory
     public int maxHearts { get; set; }
     public int currentHearts { get; set; }
     public int rupees { get; set; }
-    
-    //public int items { get; set; }
     public int bombs { get; set; }
     public int boomerangs { get; set; }
     public int magicBoomerangs { get; set; }
     public int arrows { get; set; }
     public int silverArrows { get; set; }
-
+    public bool hasRedRing { get; set; }
     public bool hasCompass { get; set; }
     public bool hasMap { get; set; }
 
@@ -45,6 +43,7 @@ public class LinkInventory
         hasTriForcePiece = false;
         currentRoom = new Vector2(5, 2);
         VisitedRooms = new(){ (5, 2) };
+        hasRedRing = false;
     }
 
     public void ResetInventory()
@@ -62,7 +61,7 @@ public class LinkInventory
         primaryItem = Weapon.WOOD_SWORD;
         secondaryItem = Weapon.BOMB;
         hasTriForcePiece = false;
-        //VisitedRooms.Clear();
+        hasRedRing = false;
 
         VisitedRooms.Clear();
         VisitedRooms.Add((5, 2));
