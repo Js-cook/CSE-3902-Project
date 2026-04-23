@@ -11,7 +11,6 @@ using Microsoft.Xna.Framework.Media;
 using Sprites;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 public class PlayingState : IGameState
 {
@@ -183,6 +182,24 @@ public class PlayingState : IGameState
         SubscribeToBlockPushedEvents();
     }
 
+    private void UnsubscribeFromDiamondDoorEvents()
+    {
+        if (diamondDoorManager != null)
+        {
+            enemyController.AllEnemiesKilled -= diamondDoorManager.OnAllEnemiesKilled;
+            enemyController.BossDeath -= diamondDoorManager.OnBossDeath;
+            UnsubscribeFromBlockPushedEvents();
+        }
+    }
+
+    private void UnsubscribeFromBlockPushedEvents()
+    {
+        foreach (var block in environment.pushableBlocks)
+        {
+            block.BlockPushed -= diamondDoorManager.OnBlockPushed;
+        }
+    }
+
     private void InitializeCollisionManagement()
     {
         collisionManager = new CollisionManager();
@@ -191,11 +208,11 @@ public class PlayingState : IGameState
 
     private void SubscribeToBlockPushedEvents()
     {
-        // Subscribe to all pushable blocks in the environment
         foreach (var block in environment.pushableBlocks)
         {
             block.BlockPushed += diamondDoorManager.OnBlockPushed;
         }
+        diamondDoorManager.CheckClearedRoom();
     }
 
     public void ResolveKey(KeyboardState keyState)
@@ -379,6 +396,10 @@ public class PlayingState : IGameState
                 .. projectileController.projectiles,
                 .. enemyController.GetAllEnemyProjectiles(), // Enemy projectiles (Goriya boomerang, Aquamentus fireballs)
                 .. environment.GetCollidableTiles(), //Added collidable tiles from environment since environment is not a collidable class, dk
+                .. environment.doorways, // Add doorways for collision detection
+                .. environment.spikeTiles, // Spike tiles
+                .. environment.treasureChests, // Treasure chests
+                .. environment.pushableBlocks, // Pushable blocks
                 .. itemController.itemArray, // Pickup items
             ];
 
@@ -484,6 +505,8 @@ public class PlayingState : IGameState
     {
         Signal = GameStateSignal.NONE;
 
+        // Unsubscribe from old diamond door events before clearing
+        UnsubscribeFromDiamondDoorEvents();
 
         enemyController.enemyArray.Clear();
         projectileController.projectiles.Clear();
@@ -494,7 +517,11 @@ public class PlayingState : IGameState
         levelFileReader = new LevelFileReader(environment, enemyLoader, itemController, player);
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
+        roomManager.RoomChanged += SubscribeToBlockPushedEvents;
 
+        // Re-initialize diamond door manager with new environment and room manager
+        InitializeDiamondDoorManager();
+        SubscribeToDiamondDoorEvents();
 
         playerDead = false;
         player.HitboxActive = true;

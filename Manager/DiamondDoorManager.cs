@@ -1,4 +1,5 @@
 using Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -49,6 +50,20 @@ public class DiamondDoorManager
         OpenDiamondDoorsByTrigger(DoorTriggerType.AllEnemies);
     }
 
+    /// <summary>
+    /// Check if the current room was already cleared (no enemies spawn) and open AllEnemies doors if so.
+    /// Should be called when entering a room.
+    /// </summary>
+    public void CheckClearedRoom()
+    {
+        bool roomCleared = roomManager.IsRoomCleared(roomManager.CurrentRow, roomManager.CurrentCol);
+
+        if (roomCleared)
+        {
+            OpenDiamondDoorsByTrigger(DoorTriggerType.AllEnemies);
+        }
+    }
+
     public void OnBossDeath()
     {
         OpenDiamondDoorsByTrigger(DoorTriggerType.Boss);
@@ -61,7 +76,6 @@ public class DiamondDoorManager
 
     private void OpenDiamondDoorsByTrigger(DoorTriggerType triggerType)
     {
-        // Find all diamond doors with matching trigger type
         var doorsToOpen = environment.doorways
             .Where(d => d.IsLocked && d.TriggerType == triggerType)
             .ToList();
@@ -74,13 +88,11 @@ public class DiamondDoorManager
 
     private void OpenDiamondDoor(Doorway door)
     {
-        // Unlock the door
+        if (!door.IsLocked)
+            return;
+
         door.IsLocked = false;
-
-        // Change sprite to open door
         door.Sprite = tileFactory.CreateOpenDoorSprite(door.Direction);
-
-        // Track globally so it stays open
         roomManager.UnlockDoor(door.Direction);
     }
 }

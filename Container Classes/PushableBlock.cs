@@ -55,7 +55,10 @@ public class PushableBlock : ICollidable
         HasBeenPushed = true;
 
         // Trigger the event when block is pushed
+        Console.WriteLine("=== BLOCK PUSHED! FIRING EVENT ===");
+        System.Diagnostics.Debug.WriteLine("*** BLOCK PUSHED - FIRING EVENT");
         BlockPushed?.Invoke();
+        Console.WriteLine($"=== BlockPushed event has {BlockPushed?.GetInvocationList().Length ?? 0} subscribers ===");
 
         return true;
     }
