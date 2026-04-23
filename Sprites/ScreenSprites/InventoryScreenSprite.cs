@@ -28,6 +28,7 @@ public class InventoryScreenSprite : ISprite
 
     private ISprite compassSprite;
     private ISprite mapSprite;
+    private ISprite redRingSprite;
 
     public InventoryScreenSprite(Texture2D texture, SpriteBatch spriteBatch, HUDSpriteFactory spriteFactory, LinkInventory playerInventory)
     {
@@ -86,6 +87,7 @@ public class InventoryScreenSprite : ISprite
 
         compassSprite = spriteFactory.CreateHUDCompassSprite();
         mapSprite = spriteFactory.CreateHUDMapSprite();
+        redRingSprite = spriteFactory.CreateHUDRedRingSprite();
     }
 
     public void Update(GameTime gametime)
@@ -154,6 +156,11 @@ public class InventoryScreenSprite : ISprite
         {
             compassLocator.SpriteDraw(Vector2.Zero);
             compassSprite.SpriteDraw(new Vector2(178, 535));
+        }
+
+        if (playerInventory.hasRedRing)
+        {
+            redRingSprite.SpriteDraw(new Vector2(520, 90));
         }
 
         hudLocator.SpriteDraw(Vector2.Zero);

@@ -267,6 +267,9 @@
 		</Doors>
 		<Enemies>
 		</Enemies>
+		<Items>
+			<Item type="RedRing" x="5" y="5" /> 
+		</Items>
 	</Room>
 	<Room row="2" col="3">
 		<Tiles>
