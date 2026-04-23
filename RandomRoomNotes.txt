@@ -1,0 +1,93 @@
+Randomly Generated Rooms:
+
+Current structure of the XML file is as follows:
+
+
+ 	<Room row="#" col="#">
+		<Tiles>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,Ladder,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,BlackFloor,Ladder,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,Ladder,BlackFloor,BlackFloor,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,BlackFloor,Ladder,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,Ladder,BlackFloor,BlackFloor,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick</row>
+			<row>WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick,WhiteBrick</row>
+		</Tiles>
+		<Doors>
+			<Top type="Wall" />
+			<Right type="Wall" />
+			<Bottom type="Wall" />
+			<Left type="Wall" />
+		</Doors>
+</Room>
+
+
+
+First is, you gotta figure out what rooms can the new dungeon level be started with. The easiest way to do this 
+is to start it at the triforce room. Once you get the triforce piece, the win screen shwos two options: 
+1) Back to Main Menu; 
+2) Keep Playing or some heroic message about braving another dungeon
+
+Then, to actually generate a hwole new dungeon layout. 
+Prereq. constraints: 
+- The whole dungeon layout will be a 6x6 2D array with 1 to 36 rooms having the indices (0, 0) to (5, 5) if applicable.
+- The starting room will be located at (1, 0)
+- The starting room wil be the only way back to dungeon 1
+- every room should be connected to at least one other room un-diagonally to ensure access
+- each room's xml layotu data (not inclduing enemies and items) will be a template from the room sin dungeon 1
+
+Random Generated Constraints:
+- One room will select from the 16 templates available. Each template may only be used 3 times so the max rooms that can be made from
+the templates is more than the max rooms that can be made in the dungeon.
+	- Details for randomly selecting a template:
+		- The templates will be stored in a dictionary with (key, value) being 
+		(Template, Times chosen), and then the file generating the room will take the list, and randomly picks two rooms r1 and r2
+		if Times Chosen r1 and r2 less than or equal to 2. 
+
+- Each room, except for the starting room will get a randomly generated index (x, y) generated on the basis of:
+	- Each room shall be connected to each other undiagonally, 
+	so first is to generate a set of indices in the range of (0, 0) to (5,5)
+	that have the index (1,0) already included, that will form a connected graph where each node or room can be visited. 
+
+- Then go through each index generated with rth row and sth column and figure out--depending on 
+if the index (r + 1 or r - 1, s) or (r, s + 1 or s - 1) exists (one has to exist since they need to be connected)-- where
+to put a door (normal doors only). 
+
+Rules for putting doors:
+Four possibilties for a room at rth row and sth column:
+- (r + 1, s) --> Bottom Door for room r if not already there, and top door for room (r+1, s) if not already there
+- (r - 1, s) --> Top Door for room r if not already there, and bottom door for room (r - 1, s) if not already there
+- (r, s + 1) --> Right Door for room r if not already there, and left door for room (r, s + 1) if not already there
+- (r, s - 1) --> Left Door for room r if not already there, and right door for room (r, s - 1) if not already there
+
+
+Flow: 
+- First, you got the starting door at index (1, 0)
+- Then, you draw a connected, undirected graph connected to (1, 0) [use AI to figure out a generative algorithm
+as such] as well that is in the range of indices (0, 0) to (5, 5)
+- Then, you fill those graph nodes with rooms using the randomly pciked out templates
+- Then, you add the doors to those rooms using the door rules above
+- YOU ARE DONE FILLING IN THE DOORS
+
+- All that is left is enemies, items, and functionalities such as maps, compass, and bosses, but no need to worry about that right now
+
+
+
+
+Todo:
+	- FOR NOW, make a door from the triforce area for testing purposes only
+
+	Them, random dungeon generation:
+	- Objective is to generate an XML file called Dunegon2RoomData, with the exact same format as the RoomData.xml already in there.
+
+	Todos: 
+	- Dungeon2RoomLayoutGenerator.cs: Goal is to generate an undirected, connected graph of N rooms for 5 <= N <= 36
+		- You initilize a 2d array of size 6x6, with indices (0,0) and (6, 6)
+		- 
+
+
+
