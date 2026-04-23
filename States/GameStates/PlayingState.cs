@@ -494,6 +494,7 @@ public class PlayingState : IGameState
         levelFileReader = new LevelFileReader(environment, enemyLoader, itemController, player);
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
+        RoomsRepository.ResetAllItemAcquiredFlags();
           
 
         playerDead = false;

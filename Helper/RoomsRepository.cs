@@ -143,4 +143,17 @@ public static class RoomsRepository
         return _roomInfos.TryGetValue((row, col), out var info) ? info : null;
     }
 
+    public static void ResetAllItemAcquiredFlags()
+    {
+        foreach (var room in _rooms.Values)
+        {
+            if (room.PickupItems != null)
+            {
+                foreach (var item in room.PickupItems)
+                {
+                    item.Acquired = false;
+                }
+            }
+        }
+    }
 }
