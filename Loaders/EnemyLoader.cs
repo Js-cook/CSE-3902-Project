@@ -22,8 +22,8 @@ public class EnemyLoader
             { "Skeleton", enemyFactory.CreateSkeleton },
             { "Bat", enemyFactory.CreateBat },
             { "OldMan", enemyFactory.CreateOldMan },
-            { "WallmasterManager", enemyFactory.CreateWallmaster}
-
+            { "WallmasterManager", enemyFactory.CreateWallmaster},
+            { "Dodongo", enemyFactory.CreateDodongo }
 
         };
     }

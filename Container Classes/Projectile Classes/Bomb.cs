@@ -17,6 +17,7 @@ public class Bomb : IProjectile
 
     public bool HitboxActive { get; set; }
     public int DamageValue { get; set; } = 4; public bool Active { get; set; }
+    public bool WasConsumedByDodongo { get; set; } = false; 
     private double startTime = 0.0;
     private double endTime = 0.75;
 
@@ -48,7 +49,7 @@ public class Bomb : IProjectile
         this.spriteFactory = spriteFactory;
         this.sprite = spriteFactory.CreateBombSprite(position);
         Active = true;
-        
+
     }
     public void Draw()
     {
@@ -69,6 +70,12 @@ public class Bomb : IProjectile
         // do nothing, bomb should not interact with anything
     }
 
+    public void OnDodongoConsumption()
+    {
+        WasConsumedByDodongo = true;
+        Active = false;
+    }
+
     private void DamageWindow(GameTime gameTime)
     {
         HitboxActive = true; // Bomb can deal damage during the damage window
@@ -77,7 +84,7 @@ public class Bomb : IProjectile
         {
             HitboxActive = false; // Bomb can no longer deal damage after the damage window has passed
             Active = false; // Bomb should be removed from the game after the damage window has passed
-            
+
         }
     }
 }

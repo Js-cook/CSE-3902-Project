@@ -61,6 +61,11 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
 
         Vector2 direction = playerCenter - enemyCenter;
 
+        if(enemy is Dodongo)
+        {
+            return false;
+        }
+
         if(Math.Abs(direction.X) < Math.Abs(direction.Y))
         {
             // vertical collision

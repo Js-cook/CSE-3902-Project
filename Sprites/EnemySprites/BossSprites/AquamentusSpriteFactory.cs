@@ -25,18 +25,4 @@ public class AquamentusSpriteFactory
     {
         return new MovingAquamentusSprite(aquamentusTexture, position, spriteBatch);
     }
-
-    
-
 }
-
-
-
-
-
-
-
-
-
-
-

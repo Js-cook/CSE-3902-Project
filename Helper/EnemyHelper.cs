@@ -36,7 +36,34 @@ public static class EnemyHelper {
             velocity.Y *= -1;
         }
     
-}
+    }
+
+    public static bool CheckBounds(Vector2 position, GraphicsDeviceManager _graphics)
+    {
+        bool ret = false;
+        if (position.X < 0)
+        {
+
+            ret = true;
+        }
+        else if (position.X > _graphics.GraphicsDevice.Viewport.Width) // Assuming the game width is 800
+        {
+
+            ret = true;
+        }
+        if (position.Y < 0)
+        {
+
+            ret = true;
+        }
+        else if (position.Y > _graphics.GraphicsDevice.Viewport.Height) // Assuming the game height is 600
+        {
+
+            ret = true;
+        }
+
+        return ret;
+    }
 
     public static Direction GetDirection(Vector2 velocity)
     {
