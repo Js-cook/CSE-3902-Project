@@ -19,7 +19,7 @@ public class MagicBoomerang : IProjectile
     private Link player;
     private Direction direction;
     private double startTime = 0.0;
-    private double endTime = 1.5;
+    private double endTime = 2.5;
     private bool returning = false;
     public bool Active { get; set; }
 

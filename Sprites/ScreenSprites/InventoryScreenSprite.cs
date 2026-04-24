@@ -72,6 +72,7 @@ public class InventoryScreenSprite : ISprite
             {(1, 4), new Vector2(251, 618 + 105) },
             {(2, 4), new Vector2(251, 618 + 140) },
             {(1, 5), new Vector2(293, 618 + 105) },
+            {(99, 99), new Vector2(125, 618 + 65) }
         };
 
         try
