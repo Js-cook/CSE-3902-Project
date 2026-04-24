@@ -6,7 +6,7 @@ public class Boomerang : IProjectile
     public Vector2 Position { get; set; }
     private Direction direction;
     private double startTime = 0.0;
-    private double endTime = 0.75;
+    private double endTime = 1.5;
     private bool returning = false;
 
     private Link player;

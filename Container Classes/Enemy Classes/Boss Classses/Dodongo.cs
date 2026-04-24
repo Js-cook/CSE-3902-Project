@@ -31,10 +31,10 @@ public class Dodongo : IEnemy
                     return new Rectangle((int)position.X, (int)position.Y + 48, 64, 32);
                     break;
                 case Direction.LEFT:
-                    return new Rectangle((int)position.X, (int)position.Y, 32, 64);
+                    return new Rectangle((int)position.X, (int)position.Y, 48, 64);
                     break;
                 case Direction.RIGHT:
-                    return new Rectangle((int)position.X + 96, (int)position.Y, 32, 64);
+                    return new Rectangle((int)position.X + 96, (int)position.Y, 48, 64);
                     break;
                 default:
                     return new Rectangle((int)position.X, (int)position.Y, 32, 32);
