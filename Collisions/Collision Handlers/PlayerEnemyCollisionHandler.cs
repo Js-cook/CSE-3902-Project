@@ -41,6 +41,12 @@ public class PlayerEnemyCollisionHandler : ICollisionHandler
             return;
         }
 
+        // 4. SPECIAL CASE: OldMan NPC, No damage or collision
+        if (enemy is OldMan)
+        {
+            return;
+        }
+
         // Determine knockback direction based on collision side
         Vector2 knockbackDirection = GetKnockbackDirection(player, enemy, intersection);
 

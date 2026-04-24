@@ -64,6 +64,9 @@ public class PlayerItemCollisionHandler : ICollisionHandler
             case ItemType.PowerBracelet:
                 player.playerInventory.hasPowerBracelet = true;
                 break;
+            case ItemType.Bow:
+                player.playerInventory.hasBow = true;
+                break;
             default:
                 break;
         }

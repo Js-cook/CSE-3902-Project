@@ -18,6 +18,7 @@ public class LinkInventory
     public bool hasPowerBracelet { get; set; }
     public bool hasCompass { get; set; }
     public bool hasMap { get; set; }
+    public bool hasBow { get; set; }
 
     public bool hasTriForcePiece { get; set; }
     public Weapon primaryItem { get; set; }
@@ -46,6 +47,7 @@ public class LinkInventory
         VisitedRooms = new(){ (5, 2) };
         hasRedRing = false;
         hasPowerBracelet = false;
+        hasBow = false;
     }
 
     public void ResetInventory()
@@ -65,6 +67,7 @@ public class LinkInventory
         hasTriForcePiece = false;
         hasRedRing = false;
         hasPowerBracelet = false;
+        hasBow = false;
 
         VisitedRooms.Clear();
         VisitedRooms.Add((5, 2));

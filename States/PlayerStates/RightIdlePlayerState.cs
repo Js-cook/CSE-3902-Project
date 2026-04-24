@@ -65,6 +65,8 @@ public class RightIdlePlayerState : AbstractIdlePlayer
 
     public override void FireSilverArrow()
     {
+        if (!player.playerInventory.hasBow) return;
+
         audioController.PlaySoundEffect(soundEffect["ArrowBoomerang"]);
         player.playerState = new RightUsingPlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateRightUsingPlayerSprite(player.position);
@@ -74,6 +76,8 @@ public class RightIdlePlayerState : AbstractIdlePlayer
 
     public override void FireArrow()
     {
+        if (!player.playerInventory.hasBow) return;
+
         audioController.PlaySoundEffect(soundEffect["ArrowBoomerang"]);
         player.playerState = new RightUsingPlayerState(player, spriteFactory, projectileController, soundEffect);
         player.Sprite = spriteFactory.CreateRightUsingPlayerSprite(player.position);

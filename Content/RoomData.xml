@@ -20,6 +20,15 @@
 			<Bottom type="Wall" />
 			<Left type="Wall" />
 		</Doors>
+		<Enemies>
+			<Enemy type="Bat" x="1" y="3" />
+			<Enemy type="Bat" x="1" y="3" />
+			<Enemy type="Bat" x="1" y="3" />
+			<Enemy type="Bat" x="1" y="3" />
+		</Enemies>
+		<Items>
+			<Item type="Bow" x="7" y="2" />
+		</Items>
 	</Room>
 	<Room row="0" col="1">
 		<Tiles>
@@ -132,13 +141,13 @@
 	</Room>
 	<Room row="2" col="0">
 		<Tiles>
-			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
-			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
-			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
-			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
-			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
-			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
-			<row>BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap,BlueGap</row>
+			<row>BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor</row>
+			<row>BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor</row>
+			<row>BlackFloor,BlackFloor,OldManFlame,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,OldManFlame,BlackFloor,BlackFloor</row>
+			<row>BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor</row>
+			<row>BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor</row>
+			<row>BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor</row>
+			<row>BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor,BlackFloor</row>
 		</Tiles>
 		<Doors>
 			<Top type="Wall" />
@@ -147,7 +156,7 @@
 			<Left type="Wall" />
 		</Doors>
 		<Enemies>
-			<Enemy type="OldMan" x="5" y="3" />
+			<Enemy type="OldMan" x="5.5" y="2" />
 		</Enemies>
 	</Room>
 	<Room row="3" col="1">
@@ -403,7 +412,7 @@
 			<Left type="OpenDoor" />
 		</Doors>
 		<Items>
-			<Item type="TriForcePiece" x="5" y="3" />
+			<Item type="TriForcePiece" x="5.5" y="3" />
 		</Items>
 	</Room>
 </Game1>

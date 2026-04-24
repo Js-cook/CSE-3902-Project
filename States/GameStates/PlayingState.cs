@@ -152,8 +152,9 @@ public class PlayingState : IGameState
         var dungeonTileTexture = contentLoader.Load<Texture2D>("DungeonTileSprites");
         var treasureChestTexture = contentLoader.Load<Texture2D>("TreasureChestSprite");
         var enemyTexture = contentLoader.Load<Texture2D>("EnemySprites");
+        var npcTexture = contentLoader.Load<Texture2D>("NPCSprites");
 
-        tileFactory = new TileFactory(dungeonTileTexture, playerTexture, enemyTexture, treasureChestTexture, _spriteBatch);
+        tileFactory = new TileFactory(dungeonTileTexture, playerTexture, enemyTexture, treasureChestTexture, npcTexture, _spriteBatch);
         environment = new Environment(tileFactory, player);
         levelFileReader = new LevelFileReader(environment, enemyLoader, itemController, player);
     }
@@ -498,6 +499,38 @@ public class PlayingState : IGameState
 
             // Draw text
             _spriteBatch.DrawString(messageFont, message, position, Color.White);
+        }
+
+        // Draw persistent room text for specific rooms
+        if (roomManager.CurrentRow == 2 && roomManager.CurrentCol == 0)
+        {
+            string[] lines = { "Eastmost Penninsula", "is the secret." };
+            int maxTextWidth = 640;
+            float maxLineWidth = 0;
+
+            foreach (string line in lines)
+            {
+                Vector2 lineSize = messageFont.MeasureString(line);
+                if (lineSize.X > maxLineWidth)
+                    maxLineWidth = lineSize.X;
+            }
+
+            float textScale = Math.Min(maxTextWidth / maxLineWidth, 2.0f);
+
+            float startY = (320+64);
+            float lineHeight = messageFont.MeasureString("A").Y * textScale;
+            float currentY = startY;
+
+            foreach (string line in lines)
+            {
+                Vector2 lineSize = messageFont.MeasureString(line);
+                Vector2 scaledLineSize = lineSize * textScale;
+                Vector2 position = new Vector2(512 - scaledLineSize.X / 2, currentY);
+
+                _spriteBatch.DrawString(messageFont, line, position, Color.White, 0f, Vector2.Zero, textScale, SpriteEffects.None, 0f);
+
+                currentY += lineHeight;
+            }
         }
     }
 

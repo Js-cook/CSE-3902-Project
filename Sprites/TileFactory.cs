@@ -11,13 +11,15 @@ public class TileFactory
     private Texture2D linkTexture;
     private Texture2D enemyTexture;
     private Texture2D treasureChestTexture;
+    private Texture2D npcTexture;
     private SpriteBatch spriteBatch;
-    public TileFactory(Texture2D tileTexture, Texture2D linkTexture,Texture2D enemyTexture, Texture2D treasureChestTexture, SpriteBatch spriteBatch)
+    public TileFactory(Texture2D tileTexture, Texture2D linkTexture,Texture2D enemyTexture, Texture2D treasureChestTexture, Texture2D npcTexture, SpriteBatch spriteBatch)
     {
         this.tileTexture = tileTexture;
         this.linkTexture = linkTexture;
         this.enemyTexture = enemyTexture;
         this.treasureChestTexture = treasureChestTexture;
+        this.npcTexture = npcTexture;
         this.spriteBatch = spriteBatch;
     }
 
@@ -112,5 +114,10 @@ public class TileFactory
     { 
         return new OpenDoorSprite(tileTexture, spriteBatch, direction); 
     }
-   
+
+    public ISprite CreateOldManFlameSprite()
+    {
+        return new OldManFlameSprite(npcTexture, tileTexture, spriteBatch);
+    }
+
 }

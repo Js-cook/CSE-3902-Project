@@ -91,8 +91,8 @@ public static class RoomsRepository
                                 string type = roomReader.GetAttribute("type");
 
                                 // Default to 0 if parsing fails
-                                int.TryParse(roomReader.GetAttribute("x"), out int x);
-                                int.TryParse(roomReader.GetAttribute("y"), out int y);
+                                float.TryParse(roomReader.GetAttribute("x"), out float x);
+                                float.TryParse(roomReader.GetAttribute("y"), out float y);
 
                                 // Default count to 1 if not specified or parsing fails
                                 int count = 1;
@@ -114,8 +114,8 @@ public static class RoomsRepository
                                         if (itemReader.NodeType == XmlNodeType.Element && itemReader.Name == "Item")
                                         {
                                             string typeStr = itemReader.GetAttribute("type");
-                                            int x = int.Parse(itemReader.GetAttribute("x"));
-                                            int y = int.Parse(itemReader.GetAttribute("y"));
+                                            float x = float.Parse(itemReader.GetAttribute("x"));
+                                            float y = float.Parse(itemReader.GetAttribute("y"));
 
                                             if (Enum.TryParse(typeStr, out ItemType type))
                                             {

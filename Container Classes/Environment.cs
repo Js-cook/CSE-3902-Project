@@ -50,7 +50,8 @@ public class Environment
             { "BlueSand", factory.CreateBlueSandSprite() },
             { "RoomExterior", factory.CreateRoomExteriorSprite() },
             { "LeftStatue", factory.CreateLeftStatueSprite()  },
-            { "RightStatue", factory.CreateRightStatueSprite()  }
+            { "RightStatue", factory.CreateRightStatueSprite()  },
+            { "OldManFlame", factory.CreateOldManFlameSprite() }
         };
     }
 

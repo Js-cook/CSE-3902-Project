@@ -8,11 +8,11 @@ public class ItemDefinition
 {
     public ItemType Type { get; set; }
     public bool Acquired { get; set; } = false;
-    public int X { get; set; }
-    public int Y { get; set; }
-    public ItemDefinition(ItemType type, int x, int y)
+    public float X { get; set; }
+    public float Y { get; set; }
+    public ItemDefinition(ItemType type, float x, float y)
     {
-        Type = type;
+    Type = type;
         X = x;
         Y = y;
     }

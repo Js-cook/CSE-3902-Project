@@ -49,7 +49,7 @@ public class ItemController
     }
 
     // Overload to spawn an item with room/grid coordinates so we can persist pickups
-    public void SpawnItem(ItemType itemType, Vector2 position, int roomRow, int roomCol, int gridX, int gridY)
+    public void SpawnItem(ItemType itemType, Vector2 position, int roomRow, int roomCol, float gridX, float gridY)
     {
         ISprite sprite = itemType switch
         {

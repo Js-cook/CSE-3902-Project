@@ -13,8 +13,8 @@ public class PickupItem : ICollidable
     // Track which room/grid cell this item originated from for persistence
     public int RoomRow { get; set; } = -1;
     public int RoomCol { get; set; } = -1;
-    public int GridX { get; set; } = -1;
-    public int GridY { get; set; } = -1;
+    public float GridX { get; set; } = -1;
+    public float GridY { get; set; } = -1;
     private Random random;
     private float directionTimer = 1.5f;
     private Vector2 flyDirection;
