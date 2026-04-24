@@ -16,6 +16,7 @@ public static class CollisionRegistry
         RegisterProjectileWallCollisions(collisionManager);
         RegisterFairyWallCollision(collisionManager);
         RegisterBombBombedWallCollisions(collisionManager, roomManager, tileFactory, sfx);
+        RegisterBombDodongoCollisions(collisionManager);
         RegisterSpikeTileWallCollisions(collisionManager);
 
     }
@@ -89,6 +90,7 @@ public static class CollisionRegistry
         collisionManager.RegisterHandler(typeof(Link), typeof(Wallmaster), playerEnemyHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(Spiketrap), playerEnemyHandler);
         collisionManager.RegisterHandler(typeof(Link), typeof(Aquamentus), playerEnemyHandler);
+        collisionManager.RegisterHandler(typeof(Link), typeof(Dodongo), playerEnemyHandler);
 
         // Register Player vs Enemy Projectiles
         collisionManager.RegisterHandler(typeof(Link), typeof(GoriyaBoomerang), playerProjectileHandler);
@@ -123,7 +125,9 @@ public static class CollisionRegistry
         collisionManager.RegisterHandler(typeof(Bomb), typeof(Doorway), bombWallHandler);
     }
 
-
-
-
+    private static void RegisterBombDodongoCollisions(CollisionManager collisionManager)
+    {
+        BombDodongoCollisionHandler bombDodongoHandler = new BombDodongoCollisionHandler();
+        collisionManager.RegisterHandler(typeof(Bomb), typeof(Dodongo), bombDodongoHandler);
+    }
 }

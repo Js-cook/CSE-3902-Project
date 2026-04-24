@@ -244,6 +244,7 @@
 			<Enemy type="Bat" x="1" y="3" />
 			<Enemy type="Bat" x="2" y="4" />
 			<Enemy type="Bat" x="5" y="2" />
+			<Enemy type="Dodongo" x="3" y="3" />
 		</Enemies>
 		<Items>
 			<Item type="Key" x="8" y="6" />
@@ -265,8 +266,6 @@
 			<Bottom type="OpenDoor" />
 			<Left type="OpenDoor" />
 		</Doors>
-		<Enemies>
-		</Enemies>
 		<Items>
 			<Item type="RedRing" x="5" y="5" />
 			<Item type="PowerBracelet" x="5" y="3" />

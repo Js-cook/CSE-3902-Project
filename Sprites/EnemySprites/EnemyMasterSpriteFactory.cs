@@ -18,6 +18,8 @@ public class EnemyMasterSpriteFactory
     public AquamentusSpriteFactory aquamentusSpriteFactory { get; private set; }
     public OldManSpriteFactory oldManSpriteFactory { get; private set; }
 
+    public DodongoSpriteFactory dodongoSpriteFactory { get; private set; }
+
     public EnemyProjectileSpriteFactory enemyProjectileSpriteFactory { get; private set; }
 
     public BossProjectileSpriteFactory bossProjectileSpriteFactory { get; private set; }
@@ -49,12 +51,6 @@ public class EnemyMasterSpriteFactory
         bossProjectileSpriteFactory = new BossProjectileSpriteFactory(bossTexture, _spriteBatch);
         enemyProjectileSpriteFactory = new EnemyProjectileSpriteFactory(enemyTexture, _spriteBatch);
         oldManSpriteFactory = new OldManSpriteFactory(npcTexture, _spriteBatch);
-        
-
-
-
-
+        dodongoSpriteFactory = new DodongoSpriteFactory(bossTexture, _spriteBatch);
     }
-
-  
 }
