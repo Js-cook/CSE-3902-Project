@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using Sprites;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class PlayingState : IGameState
 {
@@ -66,6 +67,7 @@ public class PlayingState : IGameState
     private int itemSwitchLimiter = 0;
 
     public DungeonLevel DungeonLevel {  get; set; }
+    private LevelStateManager levelStateManager;
 
     public GameStateSignal Signal { get; set; }
 
@@ -79,6 +81,7 @@ public class PlayingState : IGameState
         _graphics = graphics;
         Signal = GameStateSignal.NONE;
         DungeonLevel = DungeonLevel.Level1;
+        levelStateManager = new LevelStateManager(DungeonLevel.Level1);
     }
 
     public void LoadContent(ContentManager contentLoader)
@@ -163,7 +166,7 @@ public class PlayingState : IGameState
 
     private void InitializeRoomManager()
     {
-        roomManager = new RoomManager(levelFileReader, 1, 0, enemyController);
+        roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
         roomManager.RoomChanged += SubscribeToBlockPushedEvents;
     }
@@ -468,6 +471,25 @@ public class PlayingState : IGameState
 
 
     }
+
+    public void SwitchToDungeon(DungeonLevel level)
+    {
+        if (DungeonLevel == level)
+        {
+            Debug.WriteLine($"[PlayingState] Already in dungeon level {level}");
+            return;
+        }
+
+        Debug.WriteLine($"[PlayingState] Switching to dungeon level {level}");
+        DungeonLevel = level;
+        levelStateManager.CurrentLevel = level;
+    }
+
+    public RoomManager GetRoomManager()
+    {
+        return roomManager;
+    }
+
     public void Draw()
     {
         if (transitionManager != null && transitionManager.IsTransitioning)
@@ -519,7 +541,7 @@ public class PlayingState : IGameState
 
         environment = new Environment(tileFactory, player);
         levelFileReader = new LevelFileReader(environment, enemyLoader, itemController, player);
-        roomManager = new RoomManager(levelFileReader, 1, 0, enemyController);
+        roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
         roomManager.RoomChanged += SubscribeToBlockPushedEvents;
 
@@ -546,5 +568,29 @@ public class PlayingState : IGameState
         projectileInputLimiter = 0;
         roomSwitchLimiter = 0;
         itemSwitchLimiter = 0;
+    }
+
+    // Unlock and update a door in the currently loaded room (call from WinScreenState)
+    public void UnlockCurrentRoomDoor(int direction)
+    {
+        // Find doorway in the environment for current room
+        var door = environment.doorways.Find(d => d.Direction == direction);
+        if (door == null)
+        {
+            System.Diagnostics.Debug.WriteLine($"[PlayingState] No doorway found for direction {direction} in current room ({roomManager.CurrentRow},{roomManager.CurrentCol})");
+            return;
+        }
+
+        // Mirror BombBombedWallCollisionHandler pattern:
+        door.IsLocked = false;
+        door.IsBombedWall = false;
+
+        // Use open door sprite so player can pass through; use bombed sprite if you want cracked visual
+        door.Sprite = tileFactory.CreateOpenDoorSprite(direction);
+
+        // Persist unlocked state in RoomManager so it stays across reloads/transitions
+        roomManager.UnlockDoor(direction);
+
+        System.Diagnostics.Debug.WriteLine($"[PlayingState] Unlocked door dir={direction} in room ({roomManager.CurrentRow},{roomManager.CurrentCol})");
     }
 }

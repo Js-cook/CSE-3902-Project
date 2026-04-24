@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using System.IO;
 using Microsoft.Xna.Framework;
+using Enums;
+using System.Diagnostics;
 
 public class RoomManager
 {
@@ -19,7 +21,6 @@ public class RoomManager
 
     public int CurrentRow { get; private set; }
     public int CurrentCol { get; private set; }
-
 
     private readonly int startRow;
     private readonly int startCol;
@@ -75,9 +76,61 @@ public class RoomManager
 
     private void TryTransition(int nextRow, int nextCol)
     {
-        // Only update row/col if the load actually succeeds
-        if (reader.LoadLevel(nextRow, nextCol, this, !IsRoomCleared(nextRow, nextCol)))
+        // Check for Level 1 to Level 2 transition at triforce room (1,5)
+        if (CurrentRow == 1 && CurrentCol == 5 && nextCol == 6)
+        {
+            Debug.WriteLine("[RoomManager] Triforce room exit detected! Switching to Level 2 room (1,0)...");
+            
+            // Switch to Level 2
+            RoomsRepository.SetActiveLevel(DungeonLevel.Level2);
+            
+            // Load Level 2's starting room (1,0)
+            bool loadSuccess = reader.LoadLevel(1, 0, this, !IsRoomCleared(1, 0));
+            
+            if (loadSuccess)
+            {
+                CurrentRow = 1;
+                CurrentCol = 0;
+                RoomChanged?.Invoke();
+                Debug.WriteLine("[RoomManager] Successfully transitioned to Level 2 room (1,0)!");
+                return;
+            }
+            else
+            {
+                Debug.WriteLine("[RoomManager] ERROR: Could not load Level 2 room (1,0)!");
+                return;
+            }
+        }
 
+        if (CurrentRow == 1 && CurrentCol == 0 && nextCol == -1)
+        {
+            Debug.WriteLine("[RoomManager] Level 2 exit detected! Switching back to Level 1 room (1,5)...");
+
+            // Switch back to Level 1
+            RoomsRepository.SetActiveLevel(DungeonLevel.Level1);
+
+            // Load Level 1's Triforce room (1,5)
+            bool loadSuccess = reader.LoadLevel(1, 5, this, !IsRoomCleared(1, 5));
+
+            if (loadSuccess)
+            {
+                CurrentRow = 1;
+                CurrentCol = 5;
+                RoomChanged?.Invoke();
+                Debug.WriteLine("[RoomManager] Successfully transitioned back to Level 1 room (1,5)!");
+                return;
+            }
+            else
+            {
+                Debug.WriteLine("[RoomManager] ERROR: Could not load Level 1 room (1,5)!");
+                return;
+            }
+        }
+
+        // Try to load the room normally
+        bool success = reader.LoadLevel(nextRow, nextCol, this, !IsRoomCleared(nextRow, nextCol));
+
+        if (success)
         {
             CurrentRow = nextRow;
             CurrentCol = nextCol;
@@ -107,7 +160,7 @@ public class RoomManager
 
         // Unlock the door from the adjacent room's perspective
         // Direction mapping: 0=Top, 1=Right, 2=Bottom, 3=Left
-        // Opposite directions: 0<->2 (Top<->Bottom), 1<->3 (Right<->Left)
+        // Opposite directions: 0<->2 (Top<->Bottom), 1<->3 (Right<->Left)  
         int adjacentRow = CurrentRow;
         int adjacentCol = CurrentCol;
         int oppositeDirection = direction;
@@ -140,7 +193,6 @@ public class RoomManager
     {
         return unlockedDoors.Contains((row, col, direction));
     }
-
 
     public void ResetDungeon(Link player)
     {

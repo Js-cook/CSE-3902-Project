@@ -398,7 +398,7 @@
 		</Tiles>
 		<Doors>
 			<Top type="Wall" />
-			<Right type="Wall" />
+			<Right type="BombedWall" />
 			<Bottom type="Wall" />
 			<Left type="OpenDoor" />
 		</Doors>

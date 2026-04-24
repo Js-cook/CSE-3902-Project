@@ -7,16 +7,35 @@ using System.Diagnostics;
 
 public static class RoomsRepository
 {
-    private static Dictionary<(int, int), RoomDefinition> _rooms;
-    private static Dictionary<(int, int), RoomInfo> _roomInfos = new Dictionary<(int, int), RoomInfo>();
+    private static Dictionary<(int, int), RoomDefinition> _roomsLevel1;
+    private static Dictionary<(int, int), RoomDefinition> _roomsLevel2;
+    private static Dictionary<(int, int), RoomDefinition> _activeRooms;
+    
+    private static Dictionary<(int, int), RoomInfo> _roomInfosLevel1;
+    private static Dictionary<(int, int), RoomInfo> _roomInfosLevel2;
+    private static Dictionary<(int, int), RoomInfo> _activeRoomInfos;
+
+    private static DungeonLevel _currentLevel = DungeonLevel.Level1;
 
     static RoomsRepository()
     {
-        _rooms = new Dictionary<(int, int), RoomDefinition>();
+        _roomsLevel1 = new Dictionary<(int, int), RoomDefinition>();
+        _roomsLevel2 = new Dictionary<(int, int), RoomDefinition>();
+        _roomInfosLevel1 = new Dictionary<(int, int), RoomInfo>();
+        _roomInfosLevel2 = new Dictionary<(int, int), RoomInfo>();
 
-        string filePath = Path.Combine("Content", "PlayableDungeon2.xml");
+        // Load both dungeons at startup
+        LoadDungeonFromFile("Content/RoomData.xml", _roomsLevel1, _roomInfosLevel1);
+        LoadDungeonFromFile("Content/PlayableDungeon2.xml", _roomsLevel2, _roomInfosLevel2);
 
-        Debug.WriteLine(filePath);
+        // Set initial active level to Level 1
+        _activeRooms = _roomsLevel1;
+        _activeRoomInfos = _roomInfosLevel1;
+    }
+
+    private static void LoadDungeonFromFile(string filePath, Dictionary<(int, int), RoomDefinition> roomsDict, Dictionary<(int, int), RoomInfo> roomInfosDict)
+    {
+        Debug.WriteLine($"[RoomsRepository] Loading dungeon from: {filePath}");
 
         using (XmlReader reader = XmlReader.Create(filePath))
         {
@@ -75,7 +94,8 @@ public static class RoomsRepository
                                                 if (type.Contains("Diamond"))
                                                 {
                                                     doors[doorReader.Name] = "DiamondLockedDoor";
-                                                } else
+                                                }
+                                                else
                                                 {
                                                     doors[doorReader.Name] = type;
                                                 }
@@ -129,29 +149,56 @@ public static class RoomsRepository
                     }
 
                     var roomDef = new RoomDefinition(row, col, tiles, doors, enemies, items);
-                    _rooms[(row, col)] = roomDef;
+                    roomsDict[(row, col)] = roomDef;
 
                     // Create and store RoomInfo for quick access to door types
                     var roomInfo = RoomInfo.CreateFromDoors(row, col, doors);
-                    _roomInfos[(row, col)] = roomInfo;
+                    roomInfosDict[(row, col)] = roomInfo;
                 }
             }
         }
+
+        Debug.WriteLine($"[RoomsRepository] Loaded {roomsDict.Count} rooms from {filePath}");
     }
+
+    public static void SetActiveLevel(DungeonLevel level)
+    {
+        Debug.WriteLine($"[RoomsRepository] Setting active level to {level}");
+        _currentLevel = level;
+
+        if (level == DungeonLevel.Level1)
+        {
+            _activeRooms = _roomsLevel1;
+            _activeRoomInfos = _roomInfosLevel1;
+        }
+        else if (level == DungeonLevel.Level2)
+        {
+            _activeRooms = _roomsLevel2;
+            _activeRoomInfos = _roomInfosLevel2;
+        }
+    }
+
+    public static DungeonLevel GetCurrentLevel() => _currentLevel;
 
     public static RoomDefinition GetRoom(int row, int col)
     {
-        return _rooms.TryGetValue((row, col), out var room) ? room : null;
+        return _activeRooms.TryGetValue((row, col), out var room) ? room : null;
     }
 
     public static RoomInfo GetRoomInfo(int row, int col)
     {
-        return _roomInfos.TryGetValue((row, col), out var info) ? info : null;
+        return _activeRoomInfos.TryGetValue((row, col), out var info) ? info : null;
     }
 
     public static void ResetAllItemAcquiredFlags()
     {
-        foreach (var room in _rooms.Values)
+        ResetItemAcquiredFlagsForLevel(_roomsLevel1);
+        ResetItemAcquiredFlagsForLevel(_roomsLevel2);
+    }
+
+    private static void ResetItemAcquiredFlagsForLevel(Dictionary<(int, int), RoomDefinition> roomsDict)
+    {
+        foreach (var room in roomsDict.Values)
         {
             if (room.PickupItems != null)
             {
