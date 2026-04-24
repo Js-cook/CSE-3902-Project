@@ -65,6 +65,8 @@ public class PlayingState : IGameState
     private int roomSwitchLimiter = 0;
     private int itemSwitchLimiter = 0;
 
+    public DungeonLevel DungeonLevel {  get; set; }
+
     public GameStateSignal Signal { get; set; }
 
     private KeyboardState previousKeyboardState;
@@ -76,6 +78,7 @@ public class PlayingState : IGameState
         this.sfx = sfx;
         _graphics = graphics;
         Signal = GameStateSignal.NONE;
+        DungeonLevel = DungeonLevel.Level1;
     }
 
     public void LoadContent(ContentManager contentLoader)
@@ -404,6 +407,7 @@ public class PlayingState : IGameState
             ];
 
         collisionManager.Update(gameTime, collidables);
+       
         CheckForWinCondition();
 
         if (player.health <= 0 && !playerDead)

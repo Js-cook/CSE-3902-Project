@@ -90,3 +90,14 @@ Todo:
 
 
 
+Todo to wire up win logic with opening up the second dungeon:
+- I have an enum that signals if playing state is in level1 or level2. Once the
+player wins, the enum is still level1. Once in the win screen state, it should ask the player to either continue or go back to main menu, 
+- Go back to main menu just has the normal flow right now
+- Keep playing will resume the play state like how the pause screen state goes back to playing state. and then, the bombed door on the right of the triforce room
+will open up. 
+	- Regarding the playing state, the enum will now be level2, and that will dictate what dungeon is being currently drawn. 
+	- There should be a level state manager that keeps checking the DungeonLevel enum, and that dictates what draws the current dungeon. 
+		- Things needed to draw the current dungeon is essentially the Room
+
+
