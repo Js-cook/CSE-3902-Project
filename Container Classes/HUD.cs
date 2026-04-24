@@ -72,6 +72,7 @@ public class HUD
             {(1, 4), new Vector2(hudPositioning.X + 251, hudPositioning.Y + 70) },
             {(2, 4), new Vector2(hudPositioning.X + 251, hudPositioning.Y + 95) },
             {(1, 5), new Vector2(hudPositioning.X + 293, hudPositioning.Y + 70) },
+            {(99, 99), new Vector2(hudPositioning.X + 125, hudPositioning.Y + 45) }
         };
 
         hudLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle((int)mapIndicators[((int)(playerInventory.currentRoom.X), (int)(playerInventory.currentRoom.Y))].X, (int)mapIndicators[((int)playerInventory.currentRoom.X, (int)playerInventory.currentRoom.Y)].Y, 10, 10), Color.LimeGreen);
