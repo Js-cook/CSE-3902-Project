@@ -40,6 +40,7 @@ public class InventoryState : IGameState
     private ISprite selectedSecondaryItem;
 
     private ISprite[] secondaryItems;
+    private int[] secondaryItemCounts;
 
     private int buttonCooldown = 0;
 
@@ -69,32 +70,44 @@ public class InventoryState : IGameState
         secondaryItems[6] = null;
         secondaryItems[7] = null;
 
+        secondaryItemCounts = [ playerInventory.arrows, playerInventory.silverArrows, playerInventory.bombs, playerInventory.boomerangs, playerInventory.magicBoomerangs ];
+
     }
     private void UpdateSecondaryItem()
     {
         switch(cursorLocationItemMap[new Vector2(cursorXPositions[currentX], cursorYPositions[currentY])])
         {
             case Weapon.ARROW:
+                if (secondaryItemCounts[0] == 0)
+                    goto default;
                 selectedSecondaryItem = textFactory.CreateHUDArrowSprite(new Vector2(272, 170));
                 playerInventory.secondaryItem = Weapon.ARROW;
                 break;
             case Weapon.SILVER_ARROW:
+                if (secondaryItemCounts[1] == 0)
+                    goto default;
                 selectedSecondaryItem = textFactory.CreateHUDSilverArrowSprite(new Vector2(272, 170));
                 playerInventory.secondaryItem = Weapon.SILVER_ARROW;
                 break;
             case Weapon.BOMB:
+                if (secondaryItemCounts[2] == 0)
+                    goto default;
                 selectedSecondaryItem = textFactory.CreateHUDBombSprite(new Vector2(272, 170));
                 playerInventory.secondaryItem = Weapon.BOMB;
                 break;
             case Weapon.BOOMERANG:
+                if (secondaryItemCounts[3] == 0)
+                    goto default;
                 selectedSecondaryItem = textFactory.CreateHUDBoomerangSprite(new Vector2(272, 170));
                 playerInventory.secondaryItem = Weapon.BOOMERANG;
                 break;
             case Weapon.MAGIC_BOOMERANG:
+                if (secondaryItemCounts[4] == 0)
+                    goto default;
                 selectedSecondaryItem = textFactory.CreateHUDMagicBoomerangSprite(new Vector2(272, 170));
                 playerInventory.secondaryItem = Weapon.MAGIC_BOOMERANG;
                 break;
-            case Weapon.NONE:
+            default:
                 selectedSecondaryItem = null;
                 playerInventory.secondaryItem = Weapon.NONE;
                 break;
@@ -150,6 +163,7 @@ public class InventoryState : IGameState
             buttonCooldown--;
         }
         inventoryScreenSprite.Update(gameTime);
+        secondaryItemCounts = [playerInventory.arrows, playerInventory.silverArrows, playerInventory.bombs, playerInventory.boomerangs, playerInventory.magicBoomerangs];
     }
     public void Draw()
     {
@@ -157,9 +171,10 @@ public class InventoryState : IGameState
         inventoryScreenSprite.SpriteDraw(Vector2.Zero);
         int x = 0;
         int y = 0;
+        int c = 0;
         foreach(ISprite sprite in secondaryItems)
         {
-            if(sprite != null)
+            if(sprite != null && secondaryItemCounts[c] > 0)
             {
                 sprite.SpriteDraw(new Vector2(cursorXPositions[x] + 5, cursorYPositions[y] - 10));
             }
@@ -171,6 +186,7 @@ public class InventoryState : IGameState
             {
                 x++;
             }
+            c++;
         }
         cursorSprite.SpriteDraw(new Vector2(cursorXPositions[currentX], cursorYPositions[currentY]));
         selectedSecondaryItem?.SpriteDraw(new Vector2(272, 170));
