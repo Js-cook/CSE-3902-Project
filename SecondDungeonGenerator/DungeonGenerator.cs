@@ -10,6 +10,7 @@ public class DungeonGenerator
     private readonly RoomTemplateAssigner _templateAssigner;
     private readonly DoorCalculator _doorCalculator;
     private readonly DungeonXMLExporter _xmlExporter;
+    private readonly EnemiesModifier _enemiesModifier;
     private readonly Random _random;
 
     public DungeonGenerator()
@@ -20,6 +21,7 @@ public class DungeonGenerator
         _templateAssigner = new RoomTemplateAssigner(maxTemplateUses: 3);
         _doorCalculator = new DoorCalculator();
         _xmlExporter = new DungeonXMLExporter();
+        _enemiesModifier = new EnemiesModifier();
         _random = new Random();
     }
 
@@ -42,6 +44,9 @@ public class DungeonGenerator
         // Run through the pipeline
         _templateAssigner.Assign(dungeonRooms, templates);
         _doorCalculator.AssignDoors(dungeonRooms, occupiedCells);
+
+        //Modify the enemies
+        _enemiesModifier.ModifyEnemyTypes(dungeonRooms);
 
 
       

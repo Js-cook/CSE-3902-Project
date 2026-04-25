@@ -34,8 +34,8 @@ public class PlayingState : IGameState
     private EffectFactory effectFactory;
     private EffectController effectController;
 
-    private AudioController audioController;
-    private Song backgroundMusic;
+    public AudioController audioController;
+    public Song backgroundMusic;
 
     private HUDBackgroundSprite hudBackgroundSprite;
     private HUD hud;
@@ -549,7 +549,7 @@ public class PlayingState : IGameState
     public void ResetState()
     {
         Signal = GameStateSignal.NONE;
-        RoomsRepository.SetActiveLevel(DungeonLevel.Level1);
+        RoomsRepository.ResetGame();
 
 
         // Unsubscribe from old diamond door events before clearing
@@ -591,6 +591,7 @@ public class PlayingState : IGameState
         projectileInputLimiter = 0;
         roomSwitchLimiter = 0;
         itemSwitchLimiter = 0;
+
 
 
     }

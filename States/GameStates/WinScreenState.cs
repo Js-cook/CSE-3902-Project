@@ -97,6 +97,7 @@ public class WinScreenState : IGameState
         // Put the player into a playable state
         pState.player.playerState = new RightIdlePlayerState(pState.player, pState.player.playerSpriteFactory, pState.player.projectileController, pState.player.soundEffect);
 
+        pState.audioController.PlaySong(pState.backgroundMusic);
         // Go back to playing state
         Signal = GameStateSignal.TO_SAVED_PLAYING;
     }

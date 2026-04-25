@@ -80,13 +80,12 @@ public class RoomManager
         if (CurrentRow == 1 && CurrentCol == 5 && nextCol == 6)
         {
             Debug.WriteLine("[RoomManager] Triforce room exit detected! Switching to Level 2 room (1,0)...");
-            
             // Switch to Level 2
             RoomsRepository.SetActiveLevel(DungeonLevel.Level2);
-            
             // Load Level 2's starting room (1,0)
             bool loadSuccess = reader.LoadLevel(1, 0, this, !IsRoomCleared(1, 0));
-            
+
+
             if (loadSuccess)
             {
                 CurrentRow = 1;

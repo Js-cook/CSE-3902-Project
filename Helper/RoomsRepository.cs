@@ -202,4 +202,10 @@ public static class RoomsRepository
             }
         }
     }
+
+    public static void ResetGame()
+    {
+        SetActiveLevel(DungeonLevel.Level1);
+        ResetAllItemAcquiredFlags();
+    }
 }
