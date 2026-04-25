@@ -18,7 +18,7 @@ public static class CollisionRegistry
         RegisterBombBombedWallCollisions(collisionManager, roomManager, tileFactory, sfx);
         RegisterBombDodongoCollisions(collisionManager);
         RegisterSpikeTileWallCollisions(collisionManager);
-
+        RegisterBoomerangItemCollisions(collisionManager, enemyController);
     }
 
     private static void RegisterEnemyPlayerProjectileCollisions(CollisionManager collisionManager)
@@ -129,5 +129,11 @@ public static class CollisionRegistry
     {
         BombDodongoCollisionHandler bombDodongoHandler = new BombDodongoCollisionHandler();
         collisionManager.RegisterHandler(typeof(Bomb), typeof(Dodongo), bombDodongoHandler);
+    }
+
+    private static void RegisterBoomerangItemCollisions(CollisionManager collisionManager, EnemyController enemyController)
+    {
+        BoomerangItemCollisionHandler boomerangItemHandler = new BoomerangItemCollisionHandler(enemyController);
+        collisionManager.RegisterHandler(typeof(Boomerang), typeof(PickupItem), boomerangItemHandler);
     }
 }

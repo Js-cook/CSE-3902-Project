@@ -9,7 +9,7 @@ public class Boomerang : IProjectile
     private double endTime = 1.5;
     private bool returning = false;
 
-    private Link player;
+    public Link player { get; }
 
     public int DamageValue { get; } = 0;
     public bool Active { get; set; }
