@@ -196,6 +196,7 @@ public class PlayingState : IGameState
         InitializeLevel1WinCondition();
 
         // TODO - Initialize Level 2 Win Condition
+        InitializeLevel2WinCondition();
     }
 
     private void InitializeLevel1WinCondition()
@@ -207,6 +208,20 @@ public class PlayingState : IGameState
         }
         catch (Exception ex) { 
         
+            Debug.WriteLine("Could not intitialize level 1 win condition. Exception: " + ex.Message);
+        }
+    }
+
+    private void InitializeLevel2WinCondition()
+    {
+        // When triforce acquired, call HandleLevel1Win
+        try
+        {
+            enemyController.DodongoDeath += HandleLevel2Win;
+        }
+        catch (Exception ex)
+        {
+
             Debug.WriteLine("Could not intitialize level 1 win condition. Exception: " + ex.Message);
         }
     }
@@ -489,6 +504,15 @@ public class PlayingState : IGameState
             Signal = GameStateSignal.TO_WINSCREEN;
         }
 
+    }
+
+    private void HandleLevel2Win()
+    {
+        if (player.playerState is not WinPlayerState)
+        {
+            player.playerState = new WinPlayerState(player, spriteFactory, projectileController, sfx, itemController);
+            Signal = GameStateSignal.TO_WINSCREEN;
+        }
     }
 
     public void SwitchToDungeon(DungeonLevel level)

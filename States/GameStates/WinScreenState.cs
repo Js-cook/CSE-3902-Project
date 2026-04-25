@@ -51,41 +51,43 @@ public class WinScreenState : IGameState
 
     public void ResolveKey(KeyboardState keyState)
     {
-        if (!animationComplete)
-        {
+      
+            if (!animationComplete)
+            {
+                previousKeyState = keyState;
+                return;
+            }
+
+            // Left/Right to switch options
+            if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && previousKeyState.IsKeyUp(Keys.Up) && previousKeyState.IsKeyUp(Keys.W))
+            {
+                selectedOption = 0;
+            }
+
+            if ((keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S)) && previousKeyState.IsKeyUp(Keys.Down) && previousKeyState.IsKeyUp(Keys.S))
+            {
+                selectedOption = 1;
+            }
+
+            // Enter/Z to confirm
+            if ((keyState.IsKeyDown(Keys.Enter) || keyState.IsKeyDown(Keys.Z)) && (previousKeyState.IsKeyUp(Keys.Enter) && previousKeyState.IsKeyUp(Keys.Z)))
+            {
+                if (selectedOption == 0)
+                {
+                    // Continue Playing - unlock the door, stay in level 1
+                    Debug.WriteLine("[WinScreenState] Player chose to continue playing!");
+                    ContinuePlaying();
+                }
+                else if (selectedOption == 1)
+                {
+                    // Main Menu
+                    Debug.WriteLine("[WinScreenState] Player chose to go to main menu!");
+                    Signal = GameStateSignal.TO_STARTSCREEN;
+                }
+            }
+
             previousKeyState = keyState;
-            return;
-        }
-
-        // Left/Right to switch options
-        if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && previousKeyState.IsKeyUp(Keys.Up) && previousKeyState.IsKeyUp(Keys.W))
-        {
-            selectedOption = 0;
-        }
-
-        if ((keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S)) && previousKeyState.IsKeyUp(Keys.Down) && previousKeyState.IsKeyUp(Keys.S))
-        {
-            selectedOption = 1;
-        }
-
-        // Enter/Z to confirm
-        if ((keyState.IsKeyDown(Keys.Enter) || keyState.IsKeyDown(Keys.Z)) && (previousKeyState.IsKeyUp(Keys.Enter) && previousKeyState.IsKeyUp(Keys.Z)))
-        {
-            if (selectedOption == 0)
-            {
-                // Continue Playing - unlock the door, stay in level 1
-                Debug.WriteLine("[WinScreenState] Player chose to continue playing!");
-                ContinuePlaying();
-            }
-            else if (selectedOption == 1)
-            {
-                // Main Menu
-                Debug.WriteLine("[WinScreenState] Player chose to go to main menu!");
-                Signal = GameStateSignal.TO_STARTSCREEN;
-            }
-        }
-
-        previousKeyState = keyState;
+        
     }
 
     private void ContinuePlaying()
@@ -104,6 +106,36 @@ public class WinScreenState : IGameState
 
     public void Update(GameTime gameTime)
     {
+
+        if (RoomsRepository.GetCurrentLevel() == DungeonLevel.Level1)
+        {
+            Level1WinUpdate(gameTime);
+        }
+        else if (RoomsRepository.GetCurrentLevel() == DungeonLevel.Level2)
+        {
+            Level2WinUpdate(gameTime);
+        }
+
+        this.playingState.Update(gameTime);
+    }
+
+    public void Draw()
+    {
+        this.playingState.Draw();
+
+        
+        if (RoomsRepository.GetCurrentLevel() == DungeonLevel.Level1)
+        {
+            DrawLevel1Win();
+        }
+        else if (RoomsRepository.GetCurrentLevel() == DungeonLevel.Level2)
+        {
+            DrawLevel2Win();
+        }
+    }
+
+    private void Level1WinUpdate(GameTime gameTime)
+    {
         // Wait for death/win animation to finish
         if (((WinPlayerState)((PlayingState)playingState).player.playerState).animationDone && !animationComplete)
         {
@@ -121,17 +153,43 @@ public class WinScreenState : IGameState
             // Make sure alpha does not go over 1.0, or below 0.0
             fadeAlpha = MathHelper.Clamp(fadeAlpha, 0f, 1f);
         }
-
-        this.playingState.Update(gameTime);
     }
 
-    public void Draw()
+    private void Level2WinUpdate(GameTime gameTime)
     {
-        // Draw whatever playingstate needs to draw
-        this.playingState.Draw();
+        // Wait for death/win animation to finish
+        if (((WinPlayerState)((PlayingState)playingState).player.playerState).animationDone && !animationComplete)
+        {
+            animationComplete = true;
+        }
 
+        if (animationComplete)
+        {
+            winScreenTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+
+            // Calculate the alpha based on the timer. 
+            // As timer goes from 3.0 down to 0, alpha goes from 0.0 up to 1.0.
+            fadeAlpha = 1f - (float)(winScreenTimer / winScreenTimerMax);
+
+            // Make sure alpha does not go over 1.0, or below 0.0
+            fadeAlpha = MathHelper.Clamp(fadeAlpha, 0f, 1f);
+
+            // Main Menu
+            Debug.WriteLine("[Level2WinUpdate] Going back to main menu!");
+
+            if (winScreenTimer < 0f)
+            {
+                Signal = GameStateSignal.TO_STARTSCREEN;
+            }
+
+
+        }
+    }
+
+
+    private void DrawLevel1Win()
+    {
         Rectangle screenRectangle = new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
-
         spriteBatch.Draw(blankTexture, screenRectangle, Color.Black * fadeAlpha);
 
         if (fadeAlpha > 0f)
@@ -170,6 +228,29 @@ public class WinScreenState : IGameState
                 spriteBatch.DrawString(winFont, continueText, continuePos, continueColor);
                 spriteBatch.DrawString(winFont, menuText, menuPos, menuColor);
             }
+        }
+    }
+
+    private void DrawLevel2Win()
+    {
+        Rectangle screenRectangle = new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
+
+        // Assuming you still want the black fade background for consistency
+        spriteBatch.Draw(blankTexture, screenRectangle, Color.Black * fadeAlpha);
+
+        if (fadeAlpha > 0f)
+        {
+            string text = "Game Won: Triforce Piece Acquired and Dodongo Killed\n\nReturning to Main Menu";
+
+            Vector2 textSize = winFont.MeasureString(text);
+
+            // Centered perfectly on the screen since there are no menu options below it
+            Vector2 textPosition = new Vector2(
+                (graphicsDevice.Viewport.Width - textSize.X) / 2,
+                (graphicsDevice.Viewport.Height - textSize.Y) / 2
+            );
+
+            spriteBatch.DrawString(winFont, text, textPosition, Color.White);
         }
     }
 

@@ -18,6 +18,7 @@ public class EnemyController
     private AudioController audioController = new();
     public event Action AllEnemiesKilled;
     public event Action BossDeath; // Triggered when Aquamentus dies
+    public event Action DodongoDeath;
     private ItemController itemController;
     private Random random;
 
@@ -75,6 +76,11 @@ public class EnemyController
                 {
                   
                     BossDeath?.Invoke(); // Trigger boss death event for diamond doors
+                }
+
+                if (enemy is Dodongo)
+                {
+                    DodongoDeath?.Invoke();
                 }
                 SpawnRandomItem(enemy.position);
             }
