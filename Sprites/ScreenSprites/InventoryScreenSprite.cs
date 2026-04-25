@@ -15,16 +15,14 @@ public class InventoryScreenSprite : ISprite
     private HUDSpriteFactory spriteFactory;
     private LinkInventory playerInventory;
 
-    private HUDText rupeeText { get; set; }
-    private HUDText keyText { get; set; }
-    private HUDText itemText { get; set; }
-
     private Dictionary<(int, int), Vector2> mapIndicators;
     private ISprite hudMapCover;
     private ISprite hudLocator;
     private ISprite compassLocator;
 
     private InventoryMapSprite inventoryMap;
+
+    private InventoryInformationSprite inventoryInformationSprite;
 
     private ISprite compassSprite;
     private ISprite mapSprite;
@@ -39,17 +37,7 @@ public class InventoryScreenSprite : ISprite
         this.spriteFactory = spriteFactory;
         this.playerInventory = playerInventory;
 
-        rupeeText = spriteFactory.CreateHUDText(new Vector2(390, 715));
-        rupeeText.Text = "" + playerInventory.rupees;
-        rupeeText.TextColor = Color.White;
-
-        keyText = spriteFactory.CreateHUDText(new Vector2(390, 800));
-        keyText.Text = "" + playerInventory.keys;
-        keyText.TextColor = Color.White;
-
-        itemText = spriteFactory.CreateHUDText(new Vector2(390, 855));
-        itemText.Text = "" + playerInventory.calculateNumberOfSecondaryItems();
-        itemText.TextColor = Color.White;
+        inventoryInformationSprite = new InventoryInformationSprite(texture, spriteBatch, spriteFactory, playerInventory);
 
         hudMapCover = spriteFactory.CreateHUDSquareSprite(new Rectangle(63, 645 + 32, 275, 195), Color.Black);
 
@@ -95,42 +83,11 @@ public class InventoryScreenSprite : ISprite
 
     public void Update(GameTime gametime)
     {
-        rupeeText.Text = "" + playerInventory.rupees;
-        keyText.Text = "" + playerInventory.keys;
-        itemText.Text = "" + playerInventory.calculateNumberOfSecondaryItems();
+        inventoryInformationSprite.Update(gametime);
 
         hudLocator = spriteFactory.CreateHUDSquareSprite(new Rectangle((int)mapIndicators[((int)(playerInventory.currentRoom.X), (int)(playerInventory.currentRoom.Y))].X, (int)mapIndicators[((int)playerInventory.currentRoom.X, (int)playerInventory.currentRoom.Y)].Y, 10, 10), Color.LimeGreen);
 
         inventoryMap.Update(gametime);
-    }
-
-    private void RenderHearts()
-    {
-        int totalHearts = playerInventory.currentHearts;
-        string type;
-
-        for (int i = 0; i < playerInventory.maxHearts; i++)
-        {
-            if (totalHearts == 1)
-            {
-                type = "half";
-                totalHearts--;
-            }
-            else if (totalHearts > 0)
-            {
-                type = "full";
-                totalHearts -= 2;
-            }
-            else
-            {
-                type = "empty";
-            }
-
-            Vector2 pos = new Vector2(740 + (i % 8) * 30, 760 + (i / 8) * 30);
-            ISprite heart = spriteFactory.CreateHUDHeart(type);
-            heart.SpriteDraw(pos);
-
-        }
     }
 
     public void SpriteDraw(Vector2 position)
@@ -139,13 +96,9 @@ public class InventoryScreenSprite : ISprite
         spriteBatch.Draw(texture, new Rectangle(0, 309, 1025, 309), middleThird, Color.White);
         spriteBatch.Draw(texture, new Rectangle(0, 618, 1025, 309), bottomThird, Color.White);
 
-        rupeeText.Draw();
-        keyText.Draw();
-        itemText.Draw();
+        inventoryInformationSprite.SpriteDraw(Vector2.Zero);
 
         inventoryMap.SpriteDraw(Vector2.Zero);
-
-        RenderHearts();
 
         if (!playerInventory.hasMap)
         {
