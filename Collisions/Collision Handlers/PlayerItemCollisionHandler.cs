@@ -70,6 +70,7 @@ public class PlayerItemCollisionHandler : ICollisionHandler
 
 
         pickup.HitboxActive = false;
+
         // Mark the item as acquired in the room definition so it won't respawn
         try
         {

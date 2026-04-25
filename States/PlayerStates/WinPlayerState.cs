@@ -13,6 +13,8 @@ public class WinPlayerState : AbstractWinPlayer
 
     private ProjectileController projectileController; 
     private AudioController audioController;
+    private ItemController itemController;
+    PickupItem cosmeticTriforcePiece;
 
     private float animationTimerMax = 1f;
     private float animationTimer = 0f;
@@ -28,9 +30,8 @@ public class WinPlayerState : AbstractWinPlayer
         audioController = new AudioController();
         audioController.StopSong();
         audioController.PlaySoundEffect(soundEffect["WinSoundEffect"]);
-        itemController.SpawnItem(ItemType.TriForcePiece, player.position + new Vector2(-8, -55)); // Spawn the Triforce piece slightly above Link's position
-
-
+        this.itemController = itemController;
+        cosmeticTriforcePiece = this.itemController.SpawnVictoryTriforcePiece(player.position + new Vector2(-8, -55)); // Spawn the Triforce piece slightly above Link's position
     }
 
 
@@ -41,6 +42,7 @@ public class WinPlayerState : AbstractWinPlayer
         {
             animationDone = true;
             animationTimer = 0f;
+            itemController.DespawnVictoryTriforcePiece(cosmeticTriforcePiece);
         }
     }
 }

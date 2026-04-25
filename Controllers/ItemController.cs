@@ -1,9 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Enums;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using Enums;
 
 public class ItemController
 {     
@@ -84,6 +84,46 @@ public class ItemController
         }
     }
 
+
+    public PickupItem CreateAndSpawnItem(ItemType itemType, Vector2 position)
+    {
+        ISprite sprite = itemType switch
+        {
+            ItemType.Heart => itemFactory.CreateHeartSprite(),
+            ItemType.Rupee => itemFactory.CreateRupeeSprite(),
+            ItemType.Key => itemFactory.CreateKeySprite(),
+            ItemType.Bomb => itemFactory.CreateStaticBombSprite(),
+            ItemType.Arrow => itemFactory.CreateStaticArrowSprite(),
+            ItemType.HeartContainer => itemFactory.CreateHeartContainerSprite(),
+            ItemType.TriForcePiece => itemFactory.CreateTriForcePieceSprite(),
+            ItemType.Compass => itemFactory.CreateCompassSprite(),
+            ItemType.Map => itemFactory.CreateMapSprite(),
+            ItemType.Bow => itemFactory.CreateBowSprite(),
+            ItemType.WoodenBoomerang => itemFactory.CreateWoodenBoomerangSprite(),
+            ItemType.Fairy => itemFactory.CreateFairySprite(),
+            ItemType.Clock => itemFactory.CreateClockSprite(),
+            ItemType.RedRing => itemFactory.CreateRedRingSprite(),
+            ItemType.PowerBracelet => itemFactory.CreatePowerBraceletSprite(),
+            _ => null
+        };
+
+        PickupItem itemToReturn = null;
+
+        if (sprite != null)
+        {
+            var item = new PickupItem(sprite, position, itemType);
+            itemArray.Add(item);
+            itemToReturn = item;
+        }
+
+        return itemToReturn;
+      
+
+       
+    }
+
+
+
     public void ClearItems()
     {
         itemArray.Clear();
@@ -120,6 +160,17 @@ public class ItemController
         {
             item.Draw();
         }
+    }
+
+    public PickupItem SpawnVictoryTriforcePiece(Vector2 position)
+    {
+        PickupItem TriforcePiece = CreateAndSpawnItem(ItemType.TriForcePiece, position); // Spawn the Triforce piece slightly above Link's position
+        return TriforcePiece;
+    }
+
+    public void DespawnVictoryTriforcePiece(PickupItem itemToRemove)
+    {
+        itemArray.Remove(itemToRemove);
     }
 
     public List<PickupItem> GetAllItems()

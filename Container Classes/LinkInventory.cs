@@ -121,7 +121,7 @@ public class LinkInventory
         {
             hasTriForcePiece = true;
 
-            // Invoke the action. The '?' safely checks if anyone is listening first.
+            
             OnTriforceAcquired?.Invoke();
         }
     }

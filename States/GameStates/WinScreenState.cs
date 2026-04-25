@@ -94,11 +94,10 @@ public class WinScreenState : IGameState
 
         Debug.WriteLine("[WinScreenState] Unlocking exit door in triforce room (1,5)...");
 
-        // Clear the win condition so the player can move normally
-        pState.player.playerInventory.hasTriForcePiece = false;
+        // Put the player into a playable state
         pState.player.playerState = new RightIdlePlayerState(pState.player, pState.player.playerSpriteFactory, pState.player.projectileController, pState.player.soundEffect);
 
-        // Resume playing
+        // Go back to playing state
         Signal = GameStateSignal.TO_SAVED_PLAYING;
     }
 

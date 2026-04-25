@@ -21,6 +21,8 @@ namespace Sprites
 
         private Rectangle sourceRectangle1 = new Rectangle(1, 11, 16, 16);
         private Rectangle sourceRectangle2 = new Rectangle(230, 11, 16, 16);
+        private Rectangle TriForcePiece1 = new Rectangle(249, 11, 10, 10);
+        private Rectangle TriForcePiece2 = new Rectangle(249, 27, 10, 10);
 
         public WinPlayerSprite(Texture2D texture, Vector2 position, SpriteBatch spriteBatch)
         {

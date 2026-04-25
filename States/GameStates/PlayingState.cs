@@ -151,6 +151,7 @@ public class PlayingState : IGameState
         InitializeTransitionManager();
         InitializeDiamondDoorManager();
         SubscribeToDiamondDoorEvents();
+        IntitializeWinConditions();
     }
 
     private void InitializeEnvironmentAndTiles(ContentManager contentLoader)
@@ -189,6 +190,27 @@ public class PlayingState : IGameState
         player.playerInventory.OnTriforceAcquired += diamondDoorManager.OnTriForcePieceAcquired;
     }
 
+    private void IntitializeWinConditions()
+    {
+        // Initialize Level 1 Win Condition
+        InitializeLevel1WinCondition();
+
+        // TODO - Initialize Level 2 Win Condition
+    }
+
+    private void InitializeLevel1WinCondition()
+    {
+        // When triforce acquired, call HandleLevel1Win
+        try
+        {
+            player.playerInventory.OnTriforceAcquired += HandleLevel1Win;
+        }
+        catch (Exception ex) { 
+        
+            Debug.WriteLine("Could not intitialize level 1 win condition. Exception: " + ex.Message);
+        }
+    }
+
     private void UnsubscribeFromDiamondDoorEvents()
     {
         if (diamondDoorManager != null)
@@ -221,6 +243,8 @@ public class PlayingState : IGameState
         }
         diamondDoorManager.CheckClearedRoom();
     }
+
+
 
     public void ResolveKey(KeyboardState keyState)
     {
@@ -412,8 +436,6 @@ public class PlayingState : IGameState
 
         collisionManager.Update(gameTime, collidables);
        
-        CheckForWinCondition();
-
         if (player.health <= 0 && !playerDead)
         {
             playerDead = true;
@@ -459,17 +481,13 @@ public class PlayingState : IGameState
         itemController.Draw();
     }
 
-    private void CheckForWinCondition()
+    private void HandleLevel1Win()
     {
-        if (player.playerState is WinPlayerState)
-            return;
-
-        if (player.playerInventory.hasTriForcePiece)
+        if (player.playerState is not WinPlayerState)
         {
             player.playerState = new WinPlayerState(player, spriteFactory, projectileController, sfx, itemController);
             Signal = GameStateSignal.TO_WINSCREEN;
         }
-
 
     }
 
