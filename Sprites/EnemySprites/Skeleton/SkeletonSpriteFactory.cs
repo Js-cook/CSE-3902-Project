@@ -26,6 +26,10 @@ public class SkeletonSpriteFactory
         return new MovingSkeletonSprite(skeletonTexture, position, spriteBatch);
     }
 
+    public ISprite CreateDamagedSkeletonSprite(Vector2 position)
+    {
+        return new DamagedSkeletonSprite(skeletonTexture, position, spriteBatch);
+    }
 }
 
 

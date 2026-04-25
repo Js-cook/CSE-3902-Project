@@ -34,10 +34,6 @@ public class Goriya : IEnemy
     private GoriyaSpriteFactory spriteFactory;
     private GraphicsDeviceManager graphicsDevice;
 
-
-
-
-
     public Goriya(GoriyaSpriteFactory spriteFactory, GraphicsDeviceManager _graphics, EnemyProjectileSpriteFactory enemyProjectileSpriteFactory, Vector2 startPosition)
     {
         this.spriteFactory = spriteFactory;
@@ -49,8 +45,6 @@ public class Goriya : IEnemy
         // Give Goriya a boomerang to throw
         goriyaBoomerang = new GoriyaBoomerang(this.position, Direction.LEFT, enemyProjectileSpriteFactory);
         HitboxActive = false;
-
-
     }
 
     public void Update(GameTime gametime)
@@ -59,9 +53,6 @@ public class Goriya : IEnemy
         Sprite.Update(gametime);
         if (goriyaBoomerang.Active)
             goriyaBoomerang.Update(gametime);
-
-
-
     }
 
     public void Draw()
@@ -69,8 +60,6 @@ public class Goriya : IEnemy
         Sprite.SpriteDraw(position);
         if (goriyaBoomerang.Active)
             goriyaBoomerang.Draw();
-       
-
     }
 
     public void TakeDamage(int damage)
@@ -78,7 +67,6 @@ public class Goriya : IEnemy
         if ((goriyaState is DamagedGoriyaState) || (goriyaState is KnockedBackGoriyaState))
         {
             return; // If already in damaged or knockback state, ignore additional damage
-
         }
 
         else

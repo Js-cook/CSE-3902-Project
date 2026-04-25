@@ -19,11 +19,9 @@ public class MovingSkeletonState : IEnemyState
         this.skeleton = skeleton;
         spriteFactory = skeletonSpriteFactory;
         timer = 0;
-
+        skeleton.Sprite = spriteFactory.CreateMovingSkeletonSprite(skeleton.position);
         velocity = new Vector2(1, 0) * Settings.Instance.SkeletonSpeed;
         randInt = new Random();
-       
-
     }
 
     public void ChangeDirection()
@@ -69,6 +67,9 @@ public class MovingSkeletonState : IEnemyState
         if (skeleton.Health <= 0)
         {
             skeleton.skeletonState = new DeadSkeletonState(skeleton, spriteFactory);
+        } else
+        {
+            skeleton.ChangeState(new DamagedSkeletonState(skeleton, spriteFactory));
         }
     }
 
