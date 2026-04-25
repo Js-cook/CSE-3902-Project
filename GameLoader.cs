@@ -51,8 +51,8 @@ namespace _3902_Project
             winScreenState = new WinScreenState(playingState);
             winScreenState.LoadContent(Content);
             ////questionable syntax
-            //inventoryState = new InventoryState(((PlayingState)playingState).player.playerInventory, _spriteBatch);
-            //inventoryState.LoadContent(Content);
+            inventoryState = new InventoryState(((PlayingState)playingState).player.playerInventory, _spriteBatch);
+            inventoryState.LoadContent(Content);
 
             pausedState = new PausedState((PlayingState)playingState, _spriteBatch, Content.Load<SpriteFont>("Fonts/the-legend-of-zelda-nes"));
             pausedState.LoadContent(Content);

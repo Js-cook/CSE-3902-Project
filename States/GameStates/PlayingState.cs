@@ -419,7 +419,7 @@ public class PlayingState : IGameState
                 player.position = pendingPlayerPosition;
                 player.playerInventory.currentRoom = new Vector2(roomManager.CurrentRow, roomManager.CurrentCol);
             }
-            //hud.Update(gameTime);
+            hud.Update(gameTime);
             return;
         }
 
@@ -543,7 +543,7 @@ public class PlayingState : IGameState
         }
 
         environment.Draw();
-       // hud.Draw();
+       hud.Draw();
 
         if (Signal == GameStateSignal.NONE)
             player.Draw();
