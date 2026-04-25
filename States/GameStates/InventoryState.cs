@@ -165,29 +165,36 @@ public class InventoryState : IGameState
         inventoryScreenSprite.Update(gameTime);
         secondaryItemCounts = [playerInventory.arrows, playerInventory.silverArrows, playerInventory.bombs, playerInventory.boomerangs, playerInventory.magicBoomerangs];
     }
-    public void Draw()
+
+    private void DrawSecondaryItems()
     {
-        // Draw inventory UI here
-        inventoryScreenSprite.SpriteDraw(Vector2.Zero);
         int x = 0;
         int y = 0;
         int c = 0;
-        foreach(ISprite sprite in secondaryItems)
+        foreach (ISprite sprite in secondaryItems)
         {
-            if(sprite != null && secondaryItemCounts[c] > 0)
+            if (sprite != null && secondaryItemCounts[c] > 0)
             {
                 sprite.SpriteDraw(new Vector2(cursorXPositions[x] + 5, cursorYPositions[y] - 10));
             }
-            if(x == 3)
+            if (x == 3)
             {
                 x = 0;
                 y++;
-            } else
+            }
+            else
             {
                 x++;
             }
             c++;
         }
+    }
+
+    public void Draw()
+    {
+        // Draw inventory UI here
+        inventoryScreenSprite.SpriteDraw(Vector2.Zero);
+        DrawSecondaryItems();
         cursorSprite.SpriteDraw(new Vector2(cursorXPositions[currentX], cursorYPositions[currentY]));
         selectedSecondaryItem?.SpriteDraw(new Vector2(272, 170));
     }
