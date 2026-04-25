@@ -52,6 +52,7 @@ Metrics calculated using the "Code Metrics" tool
 | 4/10 | 82                    | 2542                  | 2                    | 296            | 13137                | 3244                     |
 | 4/13 | 81                    | 3041	               | 2                    | 326            | 15918                | 4062                     |
 | 4/21 | 81                    | 3146                  | 2                    | 332            | 15927                | 4164                     |
+| 4/25 | 81                    | 3411                  | 2                    | 354            | 17157                | 4483                     |
 
 ### Areas for refactoring (methods and classes with the worst maintainability index)
 | Maintainability Index | Class | Method |
@@ -87,3 +88,17 @@ Metrics calculated using the "Code Metrics" tool
 | 49 | PlayerWallCollisionHandler | HandleCollision(ICollidable, ICollidable, Rectangle) : void |
 | 50 | EnemyController | Update(GameTime) : void |
 | 54 | CollisionRegistry | RegisterPlayerCollisions(CollisionManager, RoomManager, TileFactory) : void |
+
+### Areas for refactoring post second round of refactoring
+| Maintainability Index | Class | Method |
+| --------------------- | ----- | ------ |
+| 25 | PlayingState	| ResolveKey(KeyboardState) : void |
+| 30 | Environment | GetCollidableTiles() : List\<ICollidable\> |
+| 32 | PlayerDoorwayCollisionHandler | HandleCollision(ICollidable, ICollidable, Rectangle) : void |
+| 36 | RoomsRepository | RoomsRepository() |
+| 43 | LevelFileReader | LoadTiles(RoomDefinition) : void |
+| 45 | Environment | AssignDoor(int, string, RoomManager, int, int) : void |
+| 46 | EnemyLoader | LoadEnemiesFromRoom(List\<EnemyDefinition\>, Link, RoomManager) : void |
+| 47 | EnemyController | Update(GameTime) : void |
+| 48 | PlayingState | ResetState() : void |
+| 49 | BoomerangItemCollisionHandler | HandleCollision(ICollidable, ICollidable, Rectangle) : void |
