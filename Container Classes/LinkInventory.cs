@@ -111,4 +111,19 @@ public class LinkInventory
         }
     }
 
+    
+    public event Action OnTriforceAcquired;
+
+   
+    public void CollectTriforce()
+    {
+        if (!hasTriForcePiece)
+        {
+            hasTriForcePiece = true;
+
+            // Invoke the action. The '?' safely checks if anyone is listening first.
+            OnTriforceAcquired?.Invoke();
+        }
+    }
+
 }

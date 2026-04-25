@@ -76,6 +76,7 @@ public class Environment
                 "AllEnemies" => DoorTriggerType.AllEnemies,
                 "BlockPushed" => DoorTriggerType.BlockPushed,
                 "Boss" => DoorTriggerType.Boss,
+                "TriForcePieceAcquired" => DoorTriggerType.TriForcePieceAcquired,
                 _ => DoorTriggerType.None
             };
 

@@ -19,6 +19,10 @@ using System.Linq;
 /// 
 /// 3. OPENS WHEN BOSS (AQUAMENTUS) IS KILLED:
 ///    { "Bottom", "DiamondLockedDoor:Boss" }
+///    
+/// 4. OPENS WHEN TRIFORCE PIECE IS ACQUIRED::
+///     {"Right", "DiamondLockedDoor:TriForce
+/// 
 /// 
 /// EXAMPLE ROOM DEFINITION:
 /// ------------------------
@@ -72,6 +76,11 @@ public class DiamondDoorManager
     public void OnBlockPushed()
     {
         OpenDiamondDoorsByTrigger(DoorTriggerType.BlockPushed);
+    }
+
+    public void OnTriForcePieceAcquired()
+    {
+        OpenDiamondDoorsByTrigger(DoorTriggerType.TriForcePieceAcquired);
     }
 
     private void OpenDiamondDoorsByTrigger(DoorTriggerType triggerType)

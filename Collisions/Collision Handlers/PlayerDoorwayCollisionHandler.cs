@@ -91,6 +91,7 @@ public class PlayerDoorwayCollisionHandler : ICollisionHandler
                     DoorTriggerType.AllEnemies => "DIAMOND DOOR: Defeat all enemies!",
                     DoorTriggerType.BlockPushed => "DIAMOND DOOR: Push the block!",
                     DoorTriggerType.Boss => "DIAMOND DOOR: Defeat the boss!",
+                    DoorTriggerType.TriForcePieceAcquired => "DIAMOND DOOR: Acquire the triforce piece",
                     _ => "This door is locked!"
                 };
                 player.ShowMessage(message);

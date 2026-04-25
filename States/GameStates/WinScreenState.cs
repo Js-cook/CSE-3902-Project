@@ -58,12 +58,12 @@ public class WinScreenState : IGameState
         }
 
         // Left/Right to switch options
-        if ((keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A)) && previousKeyState.IsKeyUp(Keys.Left) && previousKeyState.IsKeyUp(Keys.A))
+        if ((keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W)) && previousKeyState.IsKeyUp(Keys.Up) && previousKeyState.IsKeyUp(Keys.W))
         {
             selectedOption = 0;
         }
 
-        if ((keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D)) && previousKeyState.IsKeyUp(Keys.Right) && previousKeyState.IsKeyUp(Keys.D))
+        if ((keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S)) && previousKeyState.IsKeyUp(Keys.Down) && previousKeyState.IsKeyUp(Keys.S))
         {
             selectedOption = 1;
         }
@@ -97,9 +97,6 @@ public class WinScreenState : IGameState
         // Clear the win condition so the player can move normally
         pState.player.playerInventory.hasTriForcePiece = false;
         pState.player.playerState = new RightIdlePlayerState(pState.player, pState.player.playerSpriteFactory, pState.player.projectileController, pState.player.soundEffect);
-
-        // Unlock and show the right door (direction = 1) using the PlayingState helper
-        pState.UnlockCurrentRoomDoor(1);
 
         // Resume playing
         Signal = GameStateSignal.TO_SAVED_PLAYING;

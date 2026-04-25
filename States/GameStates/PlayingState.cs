@@ -186,6 +186,7 @@ public class PlayingState : IGameState
         enemyController.AllEnemiesKilled += diamondDoorManager.OnAllEnemiesKilled;
         enemyController.BossDeath += diamondDoorManager.OnBossDeath;
         SubscribeToBlockPushedEvents();
+        player.playerInventory.OnTriforceAcquired += diamondDoorManager.OnTriForcePieceAcquired;
     }
 
     private void UnsubscribeFromDiamondDoorEvents()
@@ -570,27 +571,5 @@ public class PlayingState : IGameState
         itemSwitchLimiter = 0;
     }
 
-    // Unlock and update a door in the currently loaded room (call from WinScreenState)
-    public void UnlockCurrentRoomDoor(int direction)
-    {
-        // Find doorway in the environment for current room
-        var door = environment.doorways.Find(d => d.Direction == direction);
-        if (door == null)
-        {
-            System.Diagnostics.Debug.WriteLine($"[PlayingState] No doorway found for direction {direction} in current room ({roomManager.CurrentRow},{roomManager.CurrentCol})");
-            return;
-        }
-
-        // Mirror BombBombedWallCollisionHandler pattern:
-        door.IsLocked = false;
-        door.IsBombedWall = false;
-
-        // Use open door sprite so player can pass through; use bombed sprite if you want cracked visual
-        door.Sprite = tileFactory.CreateOpenDoorSprite(direction);
-
-        // Persist unlocked state in RoomManager so it stays across reloads/transitions
-        roomManager.UnlockDoor(direction);
-
-        System.Diagnostics.Debug.WriteLine($"[PlayingState] Unlocked door dir={direction} in room ({roomManager.CurrentRow},{roomManager.CurrentCol})");
-    }
+    
 }
