@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 public class TemplateLoader
 {
-    public List<XElement> LoadTemplates(string sourceXmlPath, int templateLimit = 16)
+    public List<(XElement Tiles, XElement Enemies)> LoadTemplates(string sourceXmlPath, int templateLimit = 16)
     {
         XDocument sourceDoc = XDocument.Load(sourceXmlPath);
 
@@ -21,8 +21,11 @@ public class TemplateLoader
                                     col > 0 && col != 99;
                          }) // Filters the rooms whose "col" attribute is more than 0
                          .Take(templateLimit) // Limits the results to the template limit
-                         .Select(r => r.Element("Tiles")) // Goes from the room tags to the tiles tags in the individual rooms
-                         .Where(t => t != null) // Filters out any rooms wihtout Tiles tags --> Safety check against NullRefExcpetion
+                         .Select(r => (
+                         Tiles: r.Element("Tiles"),
+                         Enemies: r.Element("Enemies")
+                         )) // Goes from the room tags to the tiles tags in the individual rooms
+                         .Where(t => t.Tiles != null) // Filters out any rooms wihtout Tiles tags --> Safety check against NullRefExcpetion
                          .ToList(); // Executes the query and saves the collection of Tiles into a usable list
 
         if (templates.Count == 0)

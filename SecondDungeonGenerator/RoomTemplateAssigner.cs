@@ -13,7 +13,7 @@ public class RoomTemplateAssigner
         _random = new Random();
     }
 
-    public void Assign(List<RoomNode> rooms, List<XElement> templates)
+    public void Assign(List<RoomNode> rooms, List<(XElement Tiles, XElement Enemies)> templates)
     {
         int[] templateUsage = new int[templates.Count];
 
@@ -28,7 +28,9 @@ public class RoomTemplateAssigner
             templateUsage[templateIndex]++;
 
             // Deep clone so multiple rooms don't share the same reference in memory
-            room.TilesData = new XElement(templates[templateIndex]);
+            room.TilesData = new XElement(templates[templateIndex].Tiles);
+            if (templates[templateIndex].Enemies != null)
+                room.EnemiesData = new XElement(templates[templateIndex].Enemies);
         }
     }
 }

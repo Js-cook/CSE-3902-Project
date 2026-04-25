@@ -43,6 +43,7 @@ public class DungeonGenerator
         _templateAssigner.Assign(dungeonRooms, templates);
         _doorCalculator.AssignDoors(dungeonRooms, occupiedCells);
 
+
       
 
         // 5. Save the final result

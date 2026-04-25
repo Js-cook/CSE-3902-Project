@@ -549,6 +549,8 @@ public class PlayingState : IGameState
     public void ResetState()
     {
         Signal = GameStateSignal.NONE;
+        RoomsRepository.SetActiveLevel(DungeonLevel.Level1);
+
 
         // Unsubscribe from old diamond door events before clearing
         UnsubscribeFromDiamondDoorEvents();
@@ -558,11 +560,13 @@ public class PlayingState : IGameState
         effectController.ClearEffects();
         itemController.itemArray.Clear();
 
+        
         environment = new Environment(tileFactory, player);
         levelFileReader = new LevelFileReader(environment, enemyLoader, itemController, player);
         roomManager = new RoomManager(levelFileReader, 5, 2, enemyController);
         levelFileReader.SetRoomManager(roomManager);
         roomManager.RoomChanged += SubscribeToBlockPushedEvents;
+
 
         // Re-initialize diamond door manager with new environment and room manager
         InitializeDiamondDoorManager();
@@ -587,7 +591,9 @@ public class PlayingState : IGameState
         projectileInputLimiter = 0;
         roomSwitchLimiter = 0;
         itemSwitchLimiter = 0;
+
+
     }
 
-    
+
 }

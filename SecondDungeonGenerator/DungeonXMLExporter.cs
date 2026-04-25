@@ -18,8 +18,8 @@ public class DungeonXMLExporter
                     new XElement("Right", new XAttribute("type", room.RightDoor)),
                     new XElement("Bottom", new XAttribute("type", room.BottomDoor)),
                     new XElement("Left", new XAttribute("type", room.LeftDoor))
-                )
-                //TODO: Add new XElement for Enemies and Items
+                ),
+                room.EnemiesData
             );
 
             root.Add(roomXml);
